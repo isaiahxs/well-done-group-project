@@ -13,9 +13,12 @@ class StoryImage(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     story_id = db.Column(db.Integer, db.ForeignKey('stories.id'), nullable=False)
-    url = db.Column(db.String(255))
-    position = db.Column(db.Integer)
-    altTag = db.Column(db.String)
+    url = db.Column(db.String(255), nullable=False)
+    position = db.Column(db.Integer, nullable=False)
+    altTag = db.Column(db.String, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+
 
     def to_dict(self):
         return {
