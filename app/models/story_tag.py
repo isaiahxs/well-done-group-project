@@ -24,3 +24,4 @@ class StoryTag(db.Model):
             'story_id': self.story_id,
             'tag_id': self.tag_id
         }
+   
