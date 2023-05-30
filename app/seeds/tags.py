@@ -16,15 +16,22 @@ def seed_tags():
     #     'psychology', 'economics', 'philosophy', 'culture', 'fashion',
     #     'personal_development', 'architecture', 'film', 'biology', 'sociology'
     # ]
+    tags = [
+        'sports', 'programming', 'dataScience', 'technology', 
+        'selfImprovement', 'writing', 'relationships', 'machineLearning',
+        'productivity', 'webDevelopment', 'javaScript', 'python', 
+        'softwareDevelopment', 'health', 'lifestyle', 'travel', 'education',
+        'business', 'science', 'history', 'music', 'books', 'entertainment',
+        'politics', 'design', 'art', 'photography', 'cooking', 'environment',
+        'psychology', 'economics', 'philosophy', 'culture', 'fashion',
+        'personalDevelopment', 'architecture', 'film', 'biology', 'sociology'
+    ]
 
-    # for tag in tags:
-    #     db.session.add(Tag(tag=tag))
+    for tag in tags:
+        db.session.add(Tag(tag=tag))
 
-    # db.session.commit()
+    db.session.commit()
 
-    demo = Tag(tag='Demo')
-    
-    db.session.add(demo)
 
 
 # Uses a raw SQL query to TRUNCATE or DELETE the tags table. SQLAlchemy doesn't
@@ -40,7 +47,4 @@ def undo_tags():
         db.session.execute(text("DELETE FROM tags"))
         
     db.session.commit()
-
-
-    
 
