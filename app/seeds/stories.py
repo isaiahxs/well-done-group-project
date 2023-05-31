@@ -4,7 +4,7 @@ from sqlalchemy.sql import text
 
 
 def seed_stories():
-    Story.query.delete() 
+    Story.query.delete()
 
     story1 = Story(
         author_id=1,
@@ -134,12 +134,12 @@ def seed_stories():
         Web accessibility should always be a priority for front-end developers. This summer, continue to focus on building inclusive websites that can be accessed and used by all users, regardless of their abilities. Follow best practices, such as using proper semantic markup, providing alternative text for images, and ensuring keyboard navigability.
 
         Component-Based Architecture:
-        Component-based architecture, popularized by frameworks like React and Vue.js, continues to dominate front-end development. By breaking down user interfaces into reusable and independent components, developers can improve maintainability, scalability, and code organization. Embrace component-based development to build flexible and modular front-end systems.
+        Component-based architecture, popularized by frameworks like React and Vue.js, continues to dominate front-end development. By breaking down author interfaces into reusable and independent components, developers can improve maintainability, scalability, and code organization. Embrace component-based development to build flexible and modular front-end systems.
 
         Static Site Generators (SSGs):
         Static Site Generators have gained attention due to their simplicity, security, and performance benefits. SSGs allow developers to generate static HTML files during the build process, eliminating the need for server-side processing. This approach improves site speed, enhances security, and simplifies hosting. Consider using SSGs for projects with straightforward content requirements.
 
-        As summer arrives, front-end developers have exciting opportunities to leverage the latest trends and technologies to create exceptional user experiences. Embrace the power of Progressive Web Apps, responsive design, micro frontends, and low-code development. Explore motion design, voice interfaces, dark mode, and prioritize web accessibility. Adopt component-based architecture and consider using static site generators for streamlined development. By staying informed and implementing these front-end development trends, you'll ensure that your projects remain innovative and relevant in the dynamic digital landscape.
+        As summer arrives, front-end developers have exciting opportunities to leverage the latest trends and technologies to create exceptional author experiences. Embrace the power of Progressive Web Apps, responsive design, micro frontends, and low-code development. Explore motion design, voice interfaces, dark mode, and prioritize web accessibility. Adopt component-based architecture and consider using static site generators for streamlined development. By staying informed and implementing these front-end development trends, you'll ensure that your projects remain innovative and relevant in the dynamic digital landscape.
         """,
         )
     story5 = Story(
