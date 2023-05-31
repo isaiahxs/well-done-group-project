@@ -3,12 +3,14 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from datetime import datetime
 from sqlalchemy import Column, DateTime, func
+from .user import User
+from .story import Story
 
 class Comment(db.Model):
     __tablename__ = 'comments'
 
     if environment == "production":
-        __tablename__ = {'schema': SCHEMA}
+        __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)

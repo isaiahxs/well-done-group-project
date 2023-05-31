@@ -1,8 +1,10 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
+from .user import User
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from datetime import datetime
 from sqlalchemy import Column, DateTime, func
+
 
 class Story(db.Model):
     __tablename__ = 'stories'
@@ -28,3 +30,5 @@ class Story(db.Model):
             'created_at': self.created_at,
             'updated_at': self.updated_at
         }
+
+        

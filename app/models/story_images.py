@@ -5,6 +5,7 @@ from datetime import datetime
 from sqlalchemy import Column, DateTime, func
 
 
+
 class StoryImage(db.Model):
     __tablename__ = 'storyImages'
 
