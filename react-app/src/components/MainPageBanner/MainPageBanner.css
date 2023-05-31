@@ -1,0 +1,140 @@
+.main-page-banner-container{
+  position: relative;
+  border-bottom: black solid 1px;
+  background-color: #fec016;
+  top: 65px;
+  width: 100%;
+  left: 0%;
+}
+
+
+
+
+@media screen and (max-width: 549px) {
+  .main-page-banner-container{
+    height: 445px;
+  }
+}
+@media screen and (min-width: 550px) {
+  .main-page-banner-container{
+    height: 458px;
+  }
+}
+@media screen and (min-width: 600px) {
+  .main-page-banner-container{
+    height: 465px;
+  }
+}
+
+/* Hide Mmm effects on small screen */
+@media screen and (max-width: 750px) {
+  .mmm-container-container {
+    display: none;
+  }
+}
+
+
+
+.stay-curious{
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+  left: 0%;
+  top: 90px;
+}
+
+.discover-stories{
+  font-family: sans-serif;
+  font-weight: 400;
+  position: relative;
+  width: 90%;
+  height: 70px;
+  top: 130px;
+}
+
+.start-reading{
+  position: relative;
+  border-radius: 20px;
+  background-color: black;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 40px;
+  left: 0%;
+  top: 155px;
+}
+
+
+.stay-curious,
+.discover-stories,
+.start-reading{
+  left: 5%;
+}
+
+
+.mmm-container-container {
+  display: block;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+@media screen and (max-width: 549px) {
+
+  .stay-curious{
+    font-size: 60px;
+  }
+  .discover-stories{
+    font-size: 25px;
+
+  }
+  .start-reading{
+    font-size: 20px;
+  }
+}
+
+@media screen and (min-width: 550px) {
+  .stay-curious{
+    font-size: 80px;
+  }
+  .discover-stories{
+    font-size: 25px;
+    width: 400px;
+    top: 110px;
+
+
+  }
+  .start-reading{
+    font-size: 20px;
+    top: 125;
+  }
+}
+
+@media screen and (min-width: 850px) {
+  .stay-curious{
+    font-size: 100px;
+  }
+  .discover-stories{
+    font-size: 25px;
+    width: 400px;
+    top: 105px;
+
+  }
+  .start-reading{
+    font-size: 20px;
+    top: 130px;
+
+  }
+}
+
+

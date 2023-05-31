@@ -8,6 +8,8 @@ import configureStore from "./store";
 import * as sessionActions from "./store/session";
 import App from "./App";
 
+import { WindowProvider } from './context/WindowContext';
+
 import "./index.css";
 
 const store = configureStore();
@@ -25,8 +27,10 @@ function Root() {
 		<ModalProvider>
 			<Provider store={store}>
 				<BrowserRouter>
-					<App />
-					<Modal />
+					<WindowProvider> 
+						<App />
+						<Modal />
+					</WindowProvider> 
 				</BrowserRouter>
 			</Provider>
 		</ModalProvider>

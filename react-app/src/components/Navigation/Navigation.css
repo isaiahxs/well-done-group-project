@@ -1,7 +1,105 @@
-.profile-dropdown {
-  position: absolute;
+.nav-bar {
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  top: 0px;
+  left: 0px;
+  height: 75px;
+  width: 100%;
+  z-index: 1000000;
+  border-bottom: black solid 1px ;
+  transition: all .75s;
 }
 
-.hidden {
-  display: none;
+.nav-white{
+  background-color: #ffffff;
+
+}
+
+.nav-red{
+  background-color: #f24d2d;
+
+}
+
+.nav-yellow{
+  background-color: #fec016;
+}
+
+.button-black{
+ background-color: rgb(4, 4, 4);
+}
+
+.button-green{
+  background-color: #198917;
+}
+
+.button-green:hover{
+  background-color: #147113;
+  
+}
+
+.get-started{
+  transition: all .75s;
+  border-radius: 20px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+  width: 108px;
+  height: 37px;
+}
+
+
+
+.logo{
+  font-size: 32px;
+  color: rgb(0, 0, 0);
+  display: flex;
+  height: fit-content;
+  position: absolute;
+  top: 20px;
+  left: 5%;
+}
+
+.get-started:hover,
+.logo:hover{
+  cursor: pointer;
+}
+
+.navigation-buttons{
+  position: absolute;
+  right: 5%;
+  width: 730px;
+  height: 40px;
+  border: black solid 1px;
+  justify-content: space-between;
+  font-size: 15px;
+}
+
+.nav-button:hover{
+  cursor: pointer;
+}
+
+
+@media screen and (min-width: 710px) {
+  .logo{
+    left: 7%;
+  }
+
+}
+
+
+@media screen and (max-width: 710px) {
+  .nav-button {
+    visibility: hidden;
+  }
+
+}
+
+@media screen and (min-width: 1200px) {
+  .nav-buttons {
+    right: 10%;
+
+  }
 }
