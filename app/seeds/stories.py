@@ -4,8 +4,10 @@ from sqlalchemy.sql import text
 
 
 def seed_stories():
+    Story.query.delete() 
+
     story1 = Story(
-        user_id=1,
+        author_id=1,
         title="A Love Letter to Gen Z",
         content="""
         Once upon a time, in a vibrant town nestled between mountains and rivers, there lived a wise storyteller named Evelyn. Evelyn had seen many generations come and go, but it was the arrival of Gen Z that truly captivated her spirit. Their uniqueness, creativity, and fearlessness were qualities she found awe-inspiring.
@@ -34,7 +36,7 @@ def seed_stories():
         """
         )
     story2 = Story(
-        user_id=2,
+        author_id=2,
         title="Happiness, a myth?",
         content="""
         Once upon a time, in the realm of human existence, the concept of happiness had become a subject of contemplation and debate. Some wondered if true happiness was merely an illusion, a myth perpetuated by societal expectations and cultural narratives.
@@ -63,7 +65,7 @@ def seed_stories():
         """
         )
     story3 = Story(
-        user_id=3,
+        author_id=3,
         title="My Top GitHub Repos To Make You a Better Developer. Guaranteed",
         content="""
         GitHub, the world's leading platform for developers, hosts an extensive array of repositories brimming with valuable resources, code snippets, and projects. By exploring these repositories, you can enhance your programming prowess, gain new insights, and become a better developer. In this article, we present ten handpicked GitHub repositories that are guaranteed to enrich your development journey.
@@ -102,7 +104,7 @@ def seed_stories():
         """,
         )
     story4 = Story(
-        user_id=4,
+        author_id=4,
         title="Front-end Development Trends to Follow This Summer",
         content="""
         Front-end development continues to evolve rapidly, with new technologies and trends emerging regularly. Staying up to date with the latest front-end development trends is crucial for developers to deliver cutting-edge user experiences and maintain their competitive edge. As summer approaches, let's explore some of the top front-end development trends that are expected to make an impact in the coming months.
@@ -141,7 +143,7 @@ def seed_stories():
         """,
         )
     story5 = Story(
-        user_id=5,
+        author_id=5,
         title="My interview experience at Apple",
         content="""
         Embarking on the interview process at a prestigious company like Apple can be both exhilarating and nerve-wracking. As a backend developer with limited skills, I recently had the opportunity to interview with Apple, and it turned out to be a humbling experience. In this article, I'll share my candid account of the interview, highlighting the challenges I faced, the lessons I learned, and the personal growth that resulted from this remarkable journey.
@@ -174,10 +176,9 @@ def seed_stories():
                 """,
         )
     story6 = Story(
-        user_id=1,
+        author_id=1,
         title="You Can’t Always Get Closure from People You Want It From",
         content="""
-        Title: You Can't Always Get Closure from People You Want It From
 
         Introduction:
         In life, we often seek closure—a sense of resolution or understanding—to find peace and move forward. However, it's essential to recognize that closure may not always come from the people we desire it from. In this self-help article, we'll explore the concept of closure, why we crave it, and how to find inner peace even when external closure is elusive.
@@ -211,7 +212,7 @@ def seed_stories():
         """,
     )
     story7 = Story(
-        user_id=2,
+        author_id=2,
         title="Stop Trying To Do - Start Doing",
         content="""
         Once upon a time in a bustling city, there lived a young dreamer named Alex. Alex had big aspirations and a relentless drive to achieve greatness. Every day, Alex would read motivational quotes, attend seminars, and listen to empowering speeches, hoping to find the key to success.
@@ -242,7 +243,7 @@ def seed_stories():
         """
         )
     story8 = Story(
-        user_id=3,
+        author_id=3,
         title="How to Become a Good Backend Engineer (Fundamentals)",
         content="""
         Backend engineering is a crucial aspect of modern software development. Behind the scenes, backend engineers build the foundation that powers robust applications and ensures seamless data management. If you aspire to become a skilled backend engineer, it's essential to grasp the fundamentals that form the backbone of this field. In this article, we'll explore key steps to help you embark on your journey toward becoming a competent backend engineer.
@@ -282,7 +283,7 @@ def seed_stories():
         """,
         )
     story9 = Story(
-        user_id=4,
+        author_id=4,
         title="Dear designers, it is not enough to just do UX design",
         content="""
         In the world of design, User Experience (UX) has gained significant recognition for its ability to shape digital products and create meaningful interactions. While UX design is undoubtedly important, it is crucial for designers to understand that it is not enough to solely focus on UX. In this article, we'll explore the broader scope of design and why it is essential for designers to expand their skill set beyond UX.
@@ -316,7 +317,7 @@ def seed_stories():
                 """,
         )
     story10 = Story(
-        user_id=5,
+        author_id=5,
         title="My interview experience at Facebook",
         content="""
         Entering the realm of tech giants like Facebook, I carried an air of arrogance, convinced that my skills were far superior to those required by the likes of FANG (Facebook, Amazon, Netflix, Google) companies. Little did I know that my interview experience at Facebook would expose the true extent of my misguided arrogance, leading me down a path of self-reflection and unveiling the consequences of overestimating one's abilities.
@@ -341,7 +342,7 @@ def seed_stories():
         """,
         )
     story11 = Story(
-        user_id=1,
+        author_id=1,
         title="It’s ok to cut people out of your life",
         content="""
         In life, we form connections with numerous individuals, some of whom enrich our lives while others may bring negativity or toxicity. Recognizing when it's necessary to cut people out of our lives can be a difficult decision, but it is an essential step toward prioritizing our personal well-being. In this article, we will explore the concept of letting go and why it's okay to cut ties with individuals who no longer contribute positively to our lives.
@@ -366,7 +367,7 @@ def seed_stories():
         """,
     )
     story12 = Story(
-        user_id=2,
+        author_id=2,
         title="The slowly life-draining implications of living the victim life",
         content="""
         Living the victim life is a mindset that can have detrimental effects on our overall well-being and personal growth. It is a perspective rooted in constantly viewing oneself as a victim of circumstances, attributing all setbacks and challenges to external factors, and relinquishing personal responsibility. While it may provide temporary comfort, the implications of living as a perpetual victim can slowly drain the joy and vitality from our lives. In this article, we will explore the consequences of adopting a victim mentality and provide insights on how to break free from its grip.
@@ -403,7 +404,7 @@ def seed_stories():
                 """
         )
     story13 = Story(
-        user_id=3,
+        author_id=3,
         title="Modern Android Development",
         content="""
         Modern Android development has revolutionized the way developers create robust and user-centric applications. It encompasses advancements in architecture patterns, user interface design, testing methodologies, and tools. This condensed version highlights the key aspects of modern Android development.
@@ -428,7 +429,7 @@ Modern Android development empowers developers to create high-quality and user-c
         """,
         )
     story14 = Story(
-        user_id=4,
+        author_id=4,
         title="Front end schmunt end",
         content="""
         Front-end development is often dismissed as merely "schmunt end" compared to its back-end counterpart. However, this perspective undermines the critical role front-end developers play in creating immersive user experiences and driving the success of digital products. In this article, we will delve into the power and importance of front-end development, debunking the notion that it is a secondary discipline.
@@ -449,7 +450,7 @@ Modern Android development empowers developers to create high-quality and user-c
         """,
         )
     story15 = Story(
-        user_id=5,
+        author_id=5,
         title="How I Prepared Coding Interviews and Got Amazon Offer",
         content="""
         Securing a job offer from a tech giant like Amazon requires diligent preparation, especially when it comes to coding interviews. In this article, I will share my personal experience and the strategies I employed to prepare effectively, which ultimately led to a successful outcome and a coveted offer from Amazon.
@@ -470,7 +471,7 @@ Modern Android development empowers developers to create high-quality and user-c
         """,
         )
     story16 = Story(
-        user_id=1,
+        author_id=1,
         title="The Only Thing That is Constant is Change",
         content="""
         We're Embracing Life's Bittersweet Symphony
@@ -490,7 +491,7 @@ Modern Android development empowers developers to create high-quality and user-c
         """,
     )
     story17 = Story(
-        user_id=2,
+        author_id=2,
         title="The Ending of a Narcissistic Relationship?",
         content="""
         Navigating the ending of a narcissistic relationship is a complex and emotionally challenging journey. In this article, we explore the dynamics of narcissistic relationships, the impact they have on individuals, and the steps towards healing, self-discovery, and reclaiming one's authentic self.
@@ -511,7 +512,7 @@ Modern Android development empowers developers to create high-quality and user-c
         """
         )
     story18 = Story(
-        user_id=3,
+        author_id=3,
         title="Ultimate Roadmap To Become Full Stack Developer",
         content="""
         If you have an insatiable desire to pursue a career in full stack development, brace yourself. Here's a road map:
@@ -538,7 +539,7 @@ Modern Android development empowers developers to create high-quality and user-c
         """,
         )
     story19 = Story(
-        user_id=4,
+        author_id=4,
         title="Clean UI Guide: White Space Design Tips",
         content="""
         In the world of user interface (UI) design, white space, also known as negative space, plays a pivotal role in creating a clean and visually pleasing aesthetic. In this article, we delve into the art of white space design and provide essential tips to help you leverage its power in creating elegant and user-friendly interfaces.
@@ -566,7 +567,7 @@ Modern Android development empowers developers to create high-quality and user-c
         """,
         )
     story20 = Story(
-        user_id=5,
+        author_id=5,
         title="Be an Engineer, not a Frameworker",
         content="""
         In the ever-evolving landscape of software development, frameworks often take center stage, capturing the attention of aspiring engineers. However, it is crucial to remember that being a skilled engineer goes beyond mere framework expertise. In this article, we delve into the importance of focusing on core engineering skills rather than becoming a mere "frameworker."
@@ -595,7 +596,7 @@ Modern Android development empowers developers to create high-quality and user-c
         """,
         )
     story21 = Story(
-        user_id=1,
+        author_id=1,
         title="4 Secrets of Emotionally Stable People",
         content="""
         Emotional stability is a quality that many aspire to possess, especially in the face of life's challenges. Emotionally stable individuals possess a remarkable ability to navigate difficult situations with composure and grace. In this short article, we uncover four secrets that contribute to the emotional stability of individuals, enabling them to cultivate inner resilience.
@@ -617,7 +618,7 @@ Modern Android development empowers developers to create high-quality and user-c
         """,
         )
     story22 = Story(
-        user_id=2,
+        author_id=2,
         title="You Can Live Unashamed?",
         content="""
         Living unashamedly is a concept that seems almost out of reach for many of us. It's hard to imagine a life free from the weight of society's expectations and the constant self-doubt that plagues our every step. In this article, we delve into the idea of living unashamed, reflecting on the seemingly elusive nature of true happiness and self-acceptance.
@@ -640,7 +641,7 @@ Modern Android development empowers developers to create high-quality and user-c
         """
         )
     story23 = Story(
-        user_id=3,
+        author_id=3,
         title="How I Optimized An API Endpoint To Make It 10x Faster",
         content="""
         In the world of software development, optimizing performance is an ongoing pursuit. One of my recent endeavors involved optimizing an API endpoint to achieve a mind-boggling 10x speed improvement. In this article, I'll share my journey, the challenges I faced, and the strategies I employed to turn a sluggish endpoint into a blazing-fast powerhouse.
@@ -667,7 +668,7 @@ Modern Android development empowers developers to create high-quality and user-c
         """,
         )
     story24 = Story(
-        user_id=4,
+        author_id=4,
         title="Junior Software Engineer to Senior Software Engineer in 7 months",
         content="""
         The journey from a junior software engineer to a senior software engineer is often perceived as a lengthy process requiring years of experience. However, with dedication, passion, and a strategic approach, it is possible to expedite this progression. In this article, we explore how I successfully navigated the career ladder, transitioning from a junior software engineer to a senior software engineer in a mere 7 months.
@@ -697,9 +698,9 @@ Modern Android development empowers developers to create high-quality and user-c
         """,
         )
     story25 = Story(
-        user_id=5,
+        author_id=5,
         title="Interview Question — Prove that a pen is a pencil.",
-        content="""
+        content='''
         Interviews can sometimes throw unexpected curveballs, testing our ability to think on our feet and approach problems creatively. One such intriguing interview question is: "Prove that a pen is a pencil." While it may initially appear perplexing, this question challenges us to think beyond the obvious and explore the essence of these everyday objects. In this article, we dive into the depths of this enigma, unraveling the ways to approach and answer this thought-provoking question.
 
         Embrace the Power of Perception:
@@ -718,7 +719,7 @@ Modern Android development empowers developers to create high-quality and user-c
         An alternative perspective is to explore metaphorical interpretations of the question. Metaphorically speaking, a pen can be seen as a pencil when considering the notion of fluidity in writing styles. A writer's ability to adapt their writing technique, akin to the versatility of a pencil, can turn a pen into a pencil metaphorically.
 
         While the question, "Prove that a pen is a pencil," may seem perplexing at first glance, it provides an opportunity for creative thinking and exploring the shared characteristics between these writing instruments. By emphasizing their common purpose, functionality, components, adaptability, and even metaphorical interpretations, we can demonstrate the interconnectedness of pens and pencils. Remember, interview questions like this are not about finding a single correct answer but rather showcasing your ability to think critically, approach problems from different angles, and present logical arguments. So, embrace the challenge, think outside the box, and let your innovative spirit shine during interviews and beyond.
-        """,
+        ''',
         )
 
 
