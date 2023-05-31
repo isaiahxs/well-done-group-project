@@ -4,6 +4,8 @@ from sqlalchemy.sql import text
 
 
 def seed_stories():
+    Story.query.delete() 
+
     story1 = Story(
         author_id=1,
         title="A Love Letter to Gen Z",
@@ -177,7 +179,6 @@ def seed_stories():
         author_id=1,
         title="You Can’t Always Get Closure from People You Want It From",
         content="""
-        Title: You Can't Always Get Closure from People You Want It From
 
         Introduction:
         In life, we often seek closure—a sense of resolution or understanding—to find peace and move forward. However, it's essential to recognize that closure may not always come from the people we desire it from. In this self-help article, we'll explore the concept of closure, why we crave it, and how to find inner peace even when external closure is elusive.
@@ -699,7 +700,7 @@ Modern Android development empowers developers to create high-quality and user-c
     story25 = Story(
         author_id=5,
         title="Interview Question — Prove that a pen is a pencil.",
-        content="""
+        content='''
         Interviews can sometimes throw unexpected curveballs, testing our ability to think on our feet and approach problems creatively. One such intriguing interview question is: "Prove that a pen is a pencil." While it may initially appear perplexing, this question challenges us to think beyond the obvious and explore the essence of these everyday objects. In this article, we dive into the depths of this enigma, unraveling the ways to approach and answer this thought-provoking question.
 
         Embrace the Power of Perception:
@@ -718,7 +719,7 @@ Modern Android development empowers developers to create high-quality and user-c
         An alternative perspective is to explore metaphorical interpretations of the question. Metaphorically speaking, a pen can be seen as a pencil when considering the notion of fluidity in writing styles. A writer's ability to adapt their writing technique, akin to the versatility of a pencil, can turn a pen into a pencil metaphorically.
 
         While the question, "Prove that a pen is a pencil," may seem perplexing at first glance, it provides an opportunity for creative thinking and exploring the shared characteristics between these writing instruments. By emphasizing their common purpose, functionality, components, adaptability, and even metaphorical interpretations, we can demonstrate the interconnectedness of pens and pencils. Remember, interview questions like this are not about finding a single correct answer but rather showcasing your ability to think critically, approach problems from different angles, and present logical arguments. So, embrace the challenge, think outside the box, and let your innovative spirit shine during interviews and beyond.
-        """,
+        ''',
         )
 
 

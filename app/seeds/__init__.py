@@ -30,8 +30,8 @@ def seed():
     seed_comments()
     seed_followers()
     seed_claps()
-    seed_story_images()
-    seed_story_tags()
+    # seed_story_images()
+    # seed_story_tags()
 
     # Add other seed functions here
 
@@ -45,8 +45,8 @@ def undo():
     undo_comments()
     undo_followers()
     undo_claps()
-    undo_story_images()
-    undo_story_tags()
+    # undo_story_images()
+    # undo_story_tags()
 
     
     
