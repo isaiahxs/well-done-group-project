@@ -6,6 +6,11 @@
   align-items: center;
 }
 
+.align-left {
+  text-align: left;
+  justify-content: left;
+}
+
 
 html, body {
   height: 100%;
@@ -13,3 +18,23 @@ html, body {
   margin: 0;
   padding: 0;
 }
+
+
+body {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+
+.header-text {
+  font-family: serif;
+}
+
+.memo-text {
+  font-family: sans-serif;
+}
+
+
+
+
+

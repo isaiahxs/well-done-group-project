@@ -4,6 +4,9 @@
   background-color: #fec016;
   width: 100%;
   left: 0%;
+  margin-top: 55px;
+  overflow: hidden;
+
 }
 
 
@@ -11,17 +14,17 @@
 
 @media screen and (max-width: 549px) {
   .main-page-banner-container{
-    height: 435px;
+    height: 455px;
   }
 }
 @media screen and (min-width: 550px) {
   .main-page-banner-container{
-    height: 448px;
+    height: 468px;
   }
 }
 @media screen and (min-width: 600px) {
   .main-page-banner-container{
-    height: 455px;
+    height: 465px;
   }
 }
 
@@ -40,21 +43,24 @@
   height: fit-content;
   left: 0%;
   top: 90px;
+  letter-spacing: -4px;
+  font-weight: 300;
+
 }
 
 .discover-stories{
-  font-family: sans-serif;
-  font-weight: 400;
+  font-weight: 300;
   position: relative;
   width: 90%;
   height: 70px;
   top: 130px;
+
 }
 
 .start-reading{
   position: relative;
   border-radius: 20px;
-  background-color: black;
+  background-color: rgba(0, 0, 0, 0.858);
   color: white;
   display: flex;
   justify-content: center;
@@ -63,7 +69,15 @@
   height: 40px;
   left: 0%;
   top: 155px;
+  z-index: 1;
 }
+
+.start-reading:hover{
+  cursor: pointer;
+  background-color: black;
+
+}
+
 
 
 .stay-curious,

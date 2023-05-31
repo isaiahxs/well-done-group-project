@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
 import MainPageBanner from '../MainPageBanner';
-// import TrendingBanner from '../TrendingBanner';
+import TrendingBanner from '../TrendingBanner';
 // import MainPageContent from '../MainPageContent';
 import './HomePage.css'
 
@@ -15,11 +15,8 @@ const HomePage = () => {
     <div>
       <div className='nav-color-div'></div>
       <MainPageBanner/>
-      <MainPageBanner/>
-      <MainPageBanner/>
-
-      {/* <TrendingBanner/>
-      <MainPageContent /> */}
+      <TrendingBanner/>
+      {/* <MainPageContent /> */}
 
     </div>
 

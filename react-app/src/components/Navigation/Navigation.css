@@ -6,7 +6,7 @@
   left: 0px;
   height: 75px;
   width: 100%;
-  z-index: 1;
+  z-index: 100000000;
   border-bottom: black solid 1px ;
   transition: all .75s;
   background-color: #fec016;
@@ -76,13 +76,15 @@
   position: absolute;
   align-items: center;
   right: 5%;
-  width: 430px;
+  width: 410px;
   height: 40px;
-  border: black solid 1px;
   justify-content: space-between;
-  font-size: 15px;
+  font-size: 14px;
+  font-weight: 300;
+
 }
 
+.nav-button2:hover
 .nav-button:hover{
   cursor: pointer;
 }

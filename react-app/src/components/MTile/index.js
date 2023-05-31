@@ -29,7 +29,7 @@ const MTile = () => {
 
 
   return (
-    <div className={`m-tile ${isVisible && canBeVis ? 'visible' : 'hidden'}`}>
+    <div className={`m-tile memo-text ${isVisible && canBeVis ? 'visible' : 'hidden'}`}>
       M
     </div>
   );

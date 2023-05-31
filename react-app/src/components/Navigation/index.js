@@ -82,11 +82,11 @@ function Navigation(){
 
         <div className='logo' onClick={handleLogoClick}>SHMEDIUM</div>
 
-        <div className='nav-buttons'>
+        <div className='nav-buttons memo-text'>
           <div className='nav-button' onClick={handleStoryClick}>Our Story</div>
           <div className='nav-button' onClick={handleLogoClick}>Demo User</div>
           <div className='nav-button' onClick={handleWriteClick}>Write</div>
-          <div className='sign-in-nav-button nav-button' onClick={handleLogoClick}>Sign In</div>
+          <div className='sign-in-nav-button nav-button2' onClick={handleLogoClick}>Sign In</div>
           <div className={`get-started button ${buttonStyle}`}>Get started</div>
         </div>
 

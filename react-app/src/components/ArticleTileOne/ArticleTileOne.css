@@ -1,0 +1,20 @@
+.article-tile-style1{
+
+    border: black solid 1px;
+
+
+    background-color: #fff;
+    cursor: pointer;
+    height: 100%;
+    width: 99%;
+    left: 0%;
+    position: relative;
+
+  
+  }
+  
+  .article-tile-style1:hover {
+    box-shadow: rgba(255, 255, 255, 0.1) 0px 3px 6px, rgba(0, 0, 0, 0.1) 0px 3px 6px;
+  
+}
+
