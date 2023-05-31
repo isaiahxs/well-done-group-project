@@ -14,8 +14,8 @@ class Follower(db.Model):
     follower_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
     author_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
 
-    follower = db.relationship('User', back_populates='following', foreign_keys=[follower_id])
-    author = db.relationship('User', back_populates='followers', foreign_keys=[author_id])
+    follower_user = db.relationship('User', back_populates='following', foreign_keys=[follower_id])
+    author_user = db.relationship('User', back_populates='followers', foreign_keys=[author_id])
 
     def to_dict(self):
         return {

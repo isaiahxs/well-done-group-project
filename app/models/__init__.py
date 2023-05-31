@@ -3,4 +3,7 @@ from .user import User
 from .tag import Tag
 from .story import Story
 from .comment import Comment
-from .story_images import Comment
+from .story_image import StoryImage
+from .follower import Follower
+from .clap import Clap
+from .story_tag import StoryTag

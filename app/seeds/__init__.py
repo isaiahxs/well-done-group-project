@@ -3,6 +3,10 @@ from .users import seed_users, undo_users
 from .tags import seed_tags, undo_tags
 from .comments import seed_comments, undo_comments
 from .stories import seed_stories, undo_stories
+from .followers import seed_followers, undo_followers
+from .claps import seed_claps, undo_claps
+from .story_images import seed_story_images, undo_story_images
+from .story_tags import seed_story_tags, undo_story_tags
 
 from app.models.db import db, environment, SCHEMA
 
@@ -24,6 +28,11 @@ def seed():
     seed_tags()
     seed_stories()
     seed_comments()
+    seed_followers()
+    seed_claps()
+    seed_story_images()
+    seed_story_tags()
+
     # Add other seed functions here
 
 
@@ -34,5 +43,13 @@ def undo():
     undo_tags()
     undo_stories()
     undo_comments()
+    undo_followers()
+    undo_claps()
+    undo_story_images()
+    undo_story_tags()
+
+    
+    
+
 
     # Add other undo functions here

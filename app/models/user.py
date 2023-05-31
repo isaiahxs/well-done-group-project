@@ -21,6 +21,9 @@ class User(db.Model, UserMixin):
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     hashed_password = db.Column(db.String(255), nullable=False)
 
+    following = db.relationship('Follower', back_populates='follower_user', foreign_keys='Follower.follower_id')
+    followers = db.relationship('Follower', back_populates='author_user', foreign_keys='Follower.author_id')
+
     @property
     def password(self):
         return self.hashed_password
