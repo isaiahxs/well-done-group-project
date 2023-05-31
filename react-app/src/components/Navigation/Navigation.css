@@ -84,7 +84,7 @@
 
 }
 
-.nav-button2:hover
+.nav-button2:hover,
 .nav-button:hover{
   cursor: pointer;
 }
@@ -100,6 +100,12 @@
 
 @media screen and (max-width: 710px) {
   .nav-button {
+    visibility: hidden;
+  }
+}
+
+@media screen and (max-width: 570px) {
+  .nav-button2 {
     visibility: hidden;
   }
 
