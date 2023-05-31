@@ -721,3 +721,15 @@ Modern Android development empowers developers to create high-quality and user-c
         While the question, "Prove that a pen is a pencil," may seem perplexing at first glance, it provides an opportunity for creative thinking and exploring the shared characteristics between these writing instruments. By emphasizing their common purpose, functionality, components, adaptability, and even metaphorical interpretations, we can demonstrate the interconnectedness of pens and pencils. Remember, interview questions like this are not about finding a single correct answer but rather showcasing your ability to think critically, approach problems from different angles, and present logical arguments. So, embrace the challenge, think outside the box, and let your innovative spirit shine during interviews and beyond.
         """,
         )
+
+
+    story_list = [
+        story1, story2, story3, story4, story5, story6, story7, story8, story9, story10,
+        story11, story12, story13, story14, story15, story16, story17, story18, story19, story20,
+        story21, story22, story23, story24, story25
+    ]
+
+    for story_item in story_list:
+        db.session.add(story_item)
+
+    db.session.commit()
