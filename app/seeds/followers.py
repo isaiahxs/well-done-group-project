@@ -23,3 +23,5 @@ def undo_followers():
         db.session.execute(text("DELETE FROM followers"))
         
     db.session.commit()
+
+
