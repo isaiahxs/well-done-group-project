@@ -3,6 +3,8 @@ from sqlalchemy.sql import text
 
 
 def seed_comments():
+    Comment.query.delete()
+
     comment1 = Comment(user_id=3, content='Love this story!', story_id=1)
     comment2 = Comment(user_id=4, content='Good golly, I have not seen writing like this in ages', story_id=1)
     comment3 = Comment(user_id=5, content='Nice', story_id=1)
@@ -77,5 +79,5 @@ def undo_comments():
         db.session.execute(f"TRUNCATE table {SCHEMA}.comments RESTART IDENTITY CASCADE;")
     else:
         db.session.execute(text("DELETE FROM comments"))
-        
+
     db.session.commit()

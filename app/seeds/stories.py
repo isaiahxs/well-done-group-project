@@ -4,6 +4,8 @@ from sqlalchemy.sql import text
 
 
 def seed_stories():
+    Story.query.delete()
+
     story1 = Story(
         author_id=1,
         title="A Love Letter to Gen Z",

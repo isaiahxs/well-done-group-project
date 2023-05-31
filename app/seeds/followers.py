@@ -3,10 +3,10 @@ from sqlalchemy.sql import text
 
 
 def seed_followers():
-    Follower.query.delete() 
+    Follower.query.delete()
 
     follower1 = Follower(author_id=3,follower_id=3)
-   
+
     follower_list = [
         follower1
     ]
@@ -21,5 +21,5 @@ def undo_followers():
         db.session.execute(f"TRUNCATE table {SCHEMA}.followers RESTART IDENTITY CASCADE;")
     else:
         db.session.execute(text("DELETE FROM followers"))
-        
+
     db.session.commit()
