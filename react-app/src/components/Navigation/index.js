@@ -35,12 +35,14 @@ function Navigation(){
     console.log('scrollin');
 
       const colors = colorScheme.current; 
+
+      console.log(colors[3]);
       
-      if(scrollPosition <= 400){
+      if(scrollPosition <= 370){
         setNavColor(colors[0])
         setButtonStyle(colors[2])
       }
-      if(scrollPosition > 400){
+      if(scrollPosition > 370){
         setNavColor(colors[1])
         setButtonStyle(colors[3])
       }
@@ -63,6 +65,7 @@ function Navigation(){
   const handleLogoClick = () => {
     history.push('/');
     colorScheme.current = colorSchemes['/'];
+    window.scrollTo({top:0, behavior:'smooth'});
   };
 
   const handleStoryClick = () => {

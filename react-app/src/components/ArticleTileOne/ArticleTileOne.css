@@ -1,20 +1,73 @@
-.article-tile-style1{
-
-    border: black solid 1px;
-
-
-    background-color: #fff;
-    cursor: pointer;
-    height: 100%;
-    width: 99%;
-    left: 0%;
-    position: relative;
-
-  
-  }
-  
-  .article-tile-style1:hover {
-    box-shadow: rgba(255, 255, 255, 0.1) 0px 3px 6px, rgba(0, 0, 0, 0.1) 0px 3px 6px;
-  
+.article-tile-style1 {
+  border: black solid 1px;
+  background-color: #fff;
+  cursor: pointer;
+  height: 100%;
+  width: 99%;
+  left: 0%;
+  position: relative;
+  display: flex;
 }
 
+.article-tile-style1:hover {
+  box-shadow: rgba(255, 255, 255, 0.1) 0px 3px 6px,
+    rgba(0, 0, 0, 0.1) 0px 3px 6px;
+}
+
+.style1-number{
+  width: 50px;
+  font-size: 35px;
+  color: #e6e6e6;
+  position: relative;
+  top: -5px;
+}
+
+.style1-content{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.style1-author-container{
+  border: black solid 1px;
+  width: 120px;
+  min-width: fit-content;
+  height: 30px;
+  justify-content: space-between;
+}
+
+.style1-profile-pic{
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: black solid 1px;
+  overflow: hidden;
+}
+
+
+.style1-author-name{
+  font-size: 14px;
+}
+
+.style1-article-title-container{
+  margin-top: 10px;
+  height: 30px;
+  width: 80%;
+}
+
+.style1-article-title{
+  font-weight: bold;
+}
+
+.style1-date-read-time-container{
+  width: fit-content;
+  align-items: center;
+  color: #757575;
+  font-size: 13px;
+  margin-top: 10px;
+
+}
+
+.style1.fa-circle{
+  transform: scale(.15);
+}

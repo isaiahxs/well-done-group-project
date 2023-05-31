@@ -10,7 +10,21 @@
   border-bottom: black solid 1px ;
   transition: all .75s;
   background-color: #fec016;
+} 
+
+.get-started{
+  transition: all .75s;
+  border-radius: 20px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  width: 108px;
+  height: 37px;
+  background-color: rgb(4, 4, 4);
 }
+
 
 .nav-white{
   background-color: #ffffff;
@@ -39,19 +53,7 @@
   
 }
 
-.get-started{
-  transition: all .75s;
-  border-radius: 20px;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 15px;
-  width: 108px;
-  height: 37px;
-  background-color: rgb(4, 4, 4);
 
-}
 
 
 
@@ -79,7 +81,7 @@
   width: 410px;
   height: 40px;
   justify-content: space-between;
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 300;
 
 }
@@ -94,7 +96,6 @@
   .logo{
     left: 7%;
   }
-
 }
 
 
@@ -110,6 +111,14 @@
   }
 
 }
+
+@media screen and (max-width: 545px) {
+  .nav-button2 {
+    visibility: hidden;
+  }
+}
+
+
 
 @media screen and (min-width: 1200px) {
   .nav-buttons {

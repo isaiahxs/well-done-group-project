@@ -6,6 +6,13 @@
   align-items: center;
 }
 
+.flexbetween{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
 .align-left {
   text-align: left;
   justify-content: left;

@@ -5,23 +5,25 @@
   max-width: 1400px;
   left: 50%;
   transform: translate(-50%,0);
+  padding: 5px;
 }
 
 .main-page-trending-tile-container {
   height: fit-content;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: minmax(145px, auto);
-  grid-gap: 15px;
-  padding: 5px;
+  grid-auto-rows: minmax(100px, auto);
+  grid-gap: 20px;
+  padding: 6px;
   transition: all 0.3s ease;
-
 }
+
+
 
 @media screen and (max-width: 1000px) {
     .main-page-trending-tile-container {
     grid-template-columns: repeat(2, 1fr);
-    grid-auto-rows: minmax(135px, auto);
+    grid-auto-rows: minmax(100px, auto);
 
   }
 }
@@ -42,6 +44,7 @@
   display: flex;
   width: 180px;
   left: 3px;
+  top: -5px;
   align-items: center;
   justify-content: space-between;
 }
