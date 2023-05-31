@@ -3,13 +3,18 @@ import React, { useEffect, useRef, useContext, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Route, Router, Switch, NavLink } from 'react-router-dom';
-
 import './Navigation.css';
+import { WindowContext } from '../../context/WindowContext';
 
 function Navigation(){
   const history = useHistory()
   const dispatch = useDispatch();
   const location = useLocation();
+
+  const {scrollPosition, windowSize} = useContext(WindowContext)
+  console.log(scrollPosition);
+  console.log(windowSize);
+
 
   const colorSchemes = {
     '/': ['nav-yellow', 'nav-white', 'button-black', 'button-green'],
@@ -25,30 +30,22 @@ function Navigation(){
 
   
   useEffect(() => {
+    console.log(scrollPosition);
 
     console.log('scrollin');
-
-    const handleScroll = () => {
-    console.log('scrollin');
-    console.log(window.scrollY);
 
       const colors = colorScheme.current; 
-      if(window.scrollY <= 400){
+      
+      if(scrollPosition <= 400){
         setNavColor(colors[0])
         setButtonStyle(colors[2])
       }
-      if(window.scrollY > 400){
+      if(scrollPosition > 400){
         setNavColor(colors[1])
         setButtonStyle(colors[3])
       }
-    };
-    
-    window.addEventListener('scroll', handleScroll); 
 
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    }
-  }, []);
+  }, [scrollPosition]);
 
 
 
@@ -85,7 +82,7 @@ function Navigation(){
 
         <div className='logo' onClick={handleLogoClick}>SHMEDIUM</div>
 
-        <div className='navigation-buttons flexcenter'>
+        <div className='nav-buttons'>
           <div className='nav-button' onClick={handleStoryClick}>Our Story</div>
           <div className='nav-button' onClick={handleLogoClick}>Demo User</div>
           <div className='nav-button' onClick={handleWriteClick}>Write</div>

@@ -2,7 +2,6 @@
   position: relative;
   border-bottom: black solid 1px;
   background-color: #fec016;
-  top: 65px;
   width: 100%;
   left: 0%;
 }
@@ -12,17 +11,17 @@
 
 @media screen and (max-width: 549px) {
   .main-page-banner-container{
-    height: 445px;
+    height: 435px;
   }
 }
 @media screen and (min-width: 550px) {
   .main-page-banner-container{
-    height: 458px;
+    height: 448px;
   }
 }
 @media screen and (min-width: 600px) {
   .main-page-banner-container{
-    height: 465px;
+    height: 455px;
   }
 }
 

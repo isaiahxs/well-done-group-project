@@ -9,12 +9,13 @@ import Navigation from "./components/Navigation";
 import HomePage from './components/HomePage';
 
 
-// import Navigation from './components/Navigation';
 
 
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(true);
+
+  
   useEffect(() => {
     dispatch(authenticate()).then(() => setIsLoaded(true));
   }, [dispatch]);

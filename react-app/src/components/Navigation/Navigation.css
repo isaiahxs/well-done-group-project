@@ -6,9 +6,10 @@
   left: 0px;
   height: 75px;
   width: 100%;
-  z-index: 1000000;
+  z-index: 1;
   border-bottom: black solid 1px ;
   transition: all .75s;
+  background-color: #fec016;
 }
 
 .nav-white{
@@ -48,6 +49,8 @@
   font-size: 15px;
   width: 108px;
   height: 37px;
+  background-color: rgb(4, 4, 4);
+
 }
 
 
@@ -60,6 +63,7 @@
   position: absolute;
   top: 20px;
   left: 5%;
+  z-index: 1;
 }
 
 .get-started:hover,
@@ -67,10 +71,12 @@
   cursor: pointer;
 }
 
-.navigation-buttons{
+.nav-buttons{
+  display: flex;
   position: absolute;
+  align-items: center;
   right: 5%;
-  width: 730px;
+  width: 430px;
   height: 40px;
   border: black solid 1px;
   justify-content: space-between;
