@@ -1,7 +1,8 @@
 from flask import Blueprint, jsonify, session, render_template, request, redirect
 from flask_login import login_required, current_user
-from app.models import db, Story, Tag
+from app.models import db, Story, Tag, StoryImage, StoryTag
 from app.forms import StoryForm
+from app.forms import StoryImageForm
 story_routes = Blueprint('stories', __name__)
 
 
@@ -100,3 +101,39 @@ def update_story(id):
 
     if form.errors:
       return "Bad Data"  
+
+
+@story_routes.route('/<int:id>/image', methods=['POST'])
+def create_story_image(id):
+    """
+    Creates a new story image
+    """
+
+    form = StoryImageForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if not form.validate_on_submit(): 
+
+      print(form.errors)
+
+    if form.validate_on_submit():
+      data = form.data
+      story = Story.query.get(id)
+
+      if story is None:
+          return {"error": "Story not found"}, 404
+      if current_user.id != story.author_id:
+          return {"error": "You do not have permission to edit this story"}, 403
+
+
+      new_story_image = StoryImage(
+          story_id=story.id,
+          url=data['url'],
+          position=data['position'],
+          altTag=data['altTag']
+      )
+      db.session.add(new_story_image)
+      db.session.commit()
+      return new_story_image.to_dict()
+
+    if form.errors:
+      return "Bad Data"
