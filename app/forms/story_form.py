@@ -10,3 +10,4 @@ class StoryForm(FlaskForm):
     author_id = IntegerField('author_id', validators=[DataRequired()])
     title = StringField('title', validators=[DataRequired()])
     content = TextAreaField('content', validators=[DataRequired()])
+
