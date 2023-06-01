@@ -137,3 +137,54 @@ def create_story_image(id):
 
     if form.errors:
       return "Bad Data"
+
+
+
+@story_routes.route('/create', methods=['POST'])
+def create_story_with_images():
+    """
+    Creates a new story with included images
+    """
+     # Create Story
+    form = StoryForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if not form.validate_on_submit(): 
+        print(form.errors)
+
+    if form.validate_on_submit():
+        data = form.data
+        new_story = Story(
+            author_id=data['author_id'],
+            title=data['title'],
+            content=data['content']
+        )
+        db.session.add(new_story)
+        db.session.commit()
+
+        story_id = new_story.id
+
+        # If story - add images
+        incoming_data = request.get_json()
+        image_data_list = incoming_data.get('images', [])
+
+        for image_data in image_data_list:
+
+            print(image_data)
+
+            new_story_image = StoryImage(
+                story_id=story_id,
+                url=image_data['url'],
+                position=image_data['position'],
+                altTag=image_data['altTag']
+            )
+            db.session.add(new_story_image)
+            db.session.commit()
+        else:
+            print('errors')        
+
+
+        return new_story.to_dict()
+
+    return "Bad Data"
+
+
