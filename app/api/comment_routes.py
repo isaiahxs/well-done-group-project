@@ -14,10 +14,8 @@ def get_comment(id):
     Get comment by Id
     """
     comment = Comment.query.get(id)
-
     if comment is None:
         return {"error": "Comment not found"}, 404
-
     return comment.to_dict()
 
 
@@ -25,7 +23,7 @@ def get_comment(id):
 @comment_routes.route('/<int:id>', methods=['PUT'])
 def update_comment(id):
     """
-    Update a story comment
+    Update a comment by id
     """
     form = CommentForm()
     form['csrf_token'].data = request.cookies['csrf_token']
@@ -48,11 +46,13 @@ def update_comment(id):
 @login_required
 def delete_comment(id):
     """
-    Deletes a story by id
+    Deletes a comment by id
     """
     comment = Comment.query.get(id)
     if comment is None:
         return {"error": "Comment not found"}, 404
+    if current_user.id != comment.user_id:
+        return {"error": "You do not have permission to delete this comment"}, 403
 
     db.session.delete(comment)
     db.session.commit()
