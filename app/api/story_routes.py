@@ -1,8 +1,9 @@
 from flask import Blueprint, jsonify, session, render_template, request, redirect
 from flask_login import login_required, current_user
-from app.models import db, Story, Tag, StoryImage, StoryTag
+from app.models import db, Story, Tag, StoryImage, StoryTag, Comment
 from app.forms import StoryForm
 from app.forms import StoryImageForm
+from app.forms import CommentForm
 story_routes = Blueprint('stories', __name__)
 
 
@@ -164,6 +165,12 @@ def create_story_with_images():
         story_id = new_story.id
 
         # If story - add images
+        print('--------')
+        print('--------')
+        print(request.get_json())
+        print('--------')
+        print('--------')
+
         incoming_data = request.get_json()
         image_data_list = incoming_data.get('images', [])
 
@@ -186,5 +193,39 @@ def create_story_with_images():
         return new_story.to_dict()
 
     return "Bad Data"
+
+
+
+@story_routes.route('/<int:id>/comment', methods=['POST'])
+def create_comment(id):
+    """
+    Creates a new story comment
+    """
+
+    form = CommentForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if not form.validate_on_submit(): 
+
+      print(form.errors)
+
+    if form.validate_on_submit():
+      data = form.data
+      story = Story.query.get(id)
+
+      if story is None:
+          return {"error": "Story not found"}, 404
+
+      new_comment = Comment(
+          user_id=data['user_id'],
+          story_id=data['story_id'],
+          content=data['content'],
+
+      )
+      db.session.add(new_comment)
+      db.session.commit()
+      return new_comment.to_dict()
+
+    if form.errors:
+      return "Bad Data"
 
 
