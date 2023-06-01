@@ -20,7 +20,7 @@ class StoryImage(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-
+    story = db.relationship('Story', back_populates='images')
 
     def to_dict(self):
         return {

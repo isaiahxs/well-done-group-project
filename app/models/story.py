@@ -23,6 +23,7 @@ class Story(db.Model):
     author = db.relationship('User', backref='stories')
     claps = db.relationship('Clap', back_populates='story', cascade="all, delete-orphan")
     tags = db.relationship('StoryTag', back_populates='story')
+    images = db.relationship('StoryImage', back_populates='story')
 
 
     def to_dict(self):
@@ -33,7 +34,8 @@ class Story(db.Model):
             'content': self.content,
             'created_at': self.created_at,
             'updated_at': self.updated_at,
-            'tags': [tag.tag.to_dict() for tag in self.tags]
+            'tags': [tag.tag.to_dict() for tag in self.tags],
+            'images': [image.to_dict() for image in self.images]
         }
 
         
