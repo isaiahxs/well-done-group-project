@@ -23,8 +23,7 @@ class User(db.Model, UserMixin):
 
     following = db.relationship('Follower', back_populates='follower_user', foreign_keys='Follower.follower_id')
     followers = db.relationship('Follower', back_populates='author_user', foreign_keys='Follower.author_id')
-    stories = db.relationship('Story', backref='author', cascade="all, delete-orphan")
-    claps = db.relationship('Claps', backref='author', cascade="all, delete-orphan")
+    # claps = db.relationship('Clap', backref='clapper_user', cascade="all, delete-orphan")
 
 
 

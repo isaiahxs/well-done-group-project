@@ -21,6 +21,8 @@ def story(id):
     Query for a story by id and returns that story in a dictionary
     """
     story = Story.query.get(id)
+    if story is None:
+        return {"error": "Story not found"}, 404
     return story.to_dict()
 
 
@@ -37,8 +39,8 @@ def delete_story(id):
 
     db.session.delete(story)
     db.session.commit()
-
     return {"message": "Story deleted successfully"}
+
 
 
 

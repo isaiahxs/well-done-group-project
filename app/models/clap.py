@@ -18,7 +18,7 @@ class Clap(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     user = db.relationship('User', backref='claps')
-    story = db.relationship('Story', backref='claps')
+    story = db.relationship('Story')
 
     def to_dict(self):
         return {
