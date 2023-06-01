@@ -22,8 +22,8 @@ class Story(db.Model):
 
     author = db.relationship('User', backref='stories')
     claps = db.relationship('Clap', back_populates='story', cascade="all, delete-orphan")
-    tags = db.relationship('StoryTag', back_populates='story')
-    images = db.relationship('StoryImage', back_populates='story')
+    tags = db.relationship('StoryTag', back_populates='story', cascade="all, delete-orphan")
+    images = db.relationship('StoryImage', back_populates='story', cascade="all, delete-orphan")
 
 
     def to_dict(self):
