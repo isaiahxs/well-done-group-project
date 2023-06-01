@@ -43,13 +43,18 @@ def delete_story(id):
 
 
 @story_routes.route('/', methods=['POST'])
-@login_required
 def create_story():
     """
     Creates a new story
     """
 
     form = StoryForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if not form.validate_on_submit(): 
+      print('------')
+      print(form.errors)
+      print('------')
+
     if form.validate_on_submit():
       data = form.data
       new_story = Story(
