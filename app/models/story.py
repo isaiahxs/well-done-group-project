@@ -1,6 +1,7 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from .user import User
 from .story_tag import StoryTag
+# from .comment import Comment
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from datetime import datetime
@@ -24,6 +25,7 @@ class Story(db.Model):
     claps = db.relationship('Clap', back_populates='story', cascade="all, delete-orphan")
     tags = db.relationship('StoryTag', back_populates='story', cascade="all, delete-orphan")
     images = db.relationship('StoryImage', back_populates='story', cascade="all, delete-orphan")
+    comments = db.relationship('Comment', back_populates='story', cascade="all, delete-orphan")
 
 
     def to_dict(self):
@@ -35,7 +37,8 @@ class Story(db.Model):
             'created_at': self.created_at,
             'updated_at': self.updated_at,
             'tags': [tag.tag.to_dict() for tag in self.tags],
-            'images': [image.to_dict() for image in self.images]
+            'images': [image.to_dict() for image in self.images],
+            'comments': [comment.to_dict() for comment in self.comments]
         }
 
         

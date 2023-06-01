@@ -19,8 +19,8 @@ class Comment(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
-    user = db.relationship('User', backref='comments')
-    story = db.relationship('Story', backref='comments')
+    user = db.relationship('User', back_populates='comments')
+    story = db.relationship('Story', back_populates='comments')
 
     def to_dict(self):
         return {

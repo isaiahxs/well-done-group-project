@@ -22,15 +22,11 @@ def get_comment(id):
 
 
 
-
-
-
 @comment_routes.route('/<int:id>', methods=['PUT'])
 def update_comment(id):
     """
     Update a story comment
     """
-
     form = CommentForm()
     form['csrf_token'].data = request.cookies['csrf_token']
 
