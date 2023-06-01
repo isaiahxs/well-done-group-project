@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, session, render_template, request, redirect
-from flask_login import login_required
+from flask_login import login_required, current_user
 from app.models import db, Story
 from app.forms import StoryForm
 story_routes = Blueprint('stories', __name__)
@@ -51,9 +51,8 @@ def create_story():
     form = StoryForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if not form.validate_on_submit(): 
-      print('------')
+
       print(form.errors)
-      print('------')
 
     if form.validate_on_submit():
       data = form.data
@@ -70,4 +69,30 @@ def create_story():
     if form.errors:
       return "Bad Data"
 
- 
+
+
+@story_routes.route('/<int:id>', methods=['PUT'])
+@login_required
+def update_story(id):
+    """
+    Updates an existing story
+    """
+    form = StoryForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+      data = form.data
+      story = Story.query.get(id)
+
+      if story is None:
+          return {"error": "Story not found"}, 404
+      if current_user.id != story.author_id:
+          return {"error": "You do not have permission to edit this story"}, 403
+
+      story.author_id = data['author_id']
+      story.title = data['title']
+      story.content = data['content']
+      db.session.commit()
+      return story.to_dict()
+
+    if form.errors:
+      return "Bad Data"  
