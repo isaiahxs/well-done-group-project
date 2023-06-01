@@ -48,7 +48,8 @@ def create_story():
     """
     Creates a new story
     """
-    form = StoryForm
+
+    form = StoryForm()
     if form.validate_on_submit():
       data = form.data
       new_story = Story(
