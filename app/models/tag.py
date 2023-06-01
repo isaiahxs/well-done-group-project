@@ -13,6 +13,7 @@ class Tag(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     tag = db.Column(db.String, nullable=False)
 
+
     def to_dict(self):
         return {
             'id': self.id,

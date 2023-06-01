@@ -1,5 +1,6 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
 from .user import User
+from .story_tag import StoryTag
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from datetime import datetime
@@ -21,6 +22,8 @@ class Story(db.Model):
 
     author = db.relationship('User', backref='stories')
     claps = db.relationship('Clap', back_populates='story', cascade="all, delete-orphan")
+    tags = db.relationship('StoryTag', back_populates='story')
+
 
     def to_dict(self):
         return {
@@ -29,7 +32,8 @@ class Story(db.Model):
             'title': self.title,
             'content': self.content,
             'created_at': self.created_at,
-            'updated_at': self.updated_at
+            'updated_at': self.updated_at,
+            'tags': [tag.tag.to_dict() for tag in self.tags]
         }
 
         

@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, session, render_template, request, redirect
 from flask_login import login_required, current_user
-from app.models import db, Story
+from app.models import db, Story, Tag
 from app.forms import StoryForm
 story_routes = Blueprint('stories', __name__)
 
@@ -23,7 +23,9 @@ def story(id):
     story = Story.query.get(id)
     if story is None:
         return {"error": "Story not found"}, 404
-    return story.to_dict()
+
+    story_dict = story.to_dict()
+    return story_dict
 
 
 
