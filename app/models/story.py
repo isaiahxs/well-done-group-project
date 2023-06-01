@@ -20,6 +20,7 @@ class Story(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     author = db.relationship('User', backref='stories')
+    claps = db.relationship('Clap', back_populates='story', cascade="all, delete-orphan")
 
     def to_dict(self):
         return {
