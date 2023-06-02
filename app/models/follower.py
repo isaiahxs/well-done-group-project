@@ -19,7 +19,12 @@ class Follower(db.Model):
 
     def to_dict(self):
         return {
-            'id': self.id,
-            'follower_id': self.follower_id,
-            'author_id': self.author_id
+            "id": self.id,
+            "followerId": self.follower_id,
+            "authorId": self.author_id
         }
+
+    # def follow(self, follower_id, author_id):
+    #     new_follower = Follower(follower_id=follower_id, author_id=author_id)
+    #     db.session.add(new_follower)
+    #     db.session.commit()
