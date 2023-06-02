@@ -21,6 +21,7 @@ def get_comment(id):
 
 
 @comment_routes.route('/<int:id>', methods=['PUT'])
+@login_required
 def update_comment(id):
     """
     Update a comment by id

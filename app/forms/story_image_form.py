@@ -7,7 +7,6 @@ from app.models import StoryImage
 
 
 class StoryImageForm(FlaskForm):
-    # story_id = IntegerField('story_id', validators=[DataRequired()])
     url = StringField('url', validators=[DataRequired()])
     position = IntegerField('position', validators=[DataRequired()])
     altTag = StringField('altTag', validators=[DataRequired()])

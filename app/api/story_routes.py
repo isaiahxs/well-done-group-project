@@ -40,6 +40,8 @@ def delete_story(id):
     story = Story.query.get(id)
     if story is None:
         return {"error": "Story not found"}, 404
+    if current_user.id != story.author_id:
+        return {"error": "You do not have permission to edit this story"}, 403
 
     db.session.delete(story)
     db.session.commit()
@@ -49,6 +51,7 @@ def delete_story(id):
 
 
 @story_routes.route('/', methods=['POST'])
+@login_required
 def create_story():
     """
     Creates a new story
@@ -63,7 +66,7 @@ def create_story():
     if form.validate_on_submit():
       data = form.data
       new_story = Story(
-          author_id=data['author_id'],
+          author_id=current_user.id,
           title=data['title'],
           content=data['content']
       )
@@ -94,7 +97,7 @@ def update_story(id):
       if current_user.id != story.author_id:
           return {"error": "You do not have permission to edit this story"}, 403
 
-      story.author_id = data['author_id']
+      story.author_id = current_user.id
       story.title = data['title']
       story.content = data['content']
       db.session.commit()
@@ -142,6 +145,7 @@ def create_story_image(id):
 
 
 @story_routes.route('/create', methods=['POST'])
+@login_required
 def create_story_with_images():
     """
     Creates a new story with included images
@@ -155,7 +159,7 @@ def create_story_with_images():
     if form.validate_on_submit():
         data = form.data
         new_story = Story(
-            author_id=data['author_id'],
+            author_id=current_user.id,
             title=data['title'],
             content=data['content']
         )
@@ -164,12 +168,6 @@ def create_story_with_images():
 
         story_id = new_story.id
 
-        # If story - add images
-        print('--------')
-        print('--------')
-        print(request.get_json())
-        print('--------')
-        print('--------')
 
         incoming_data = request.get_json()
         image_data_list = incoming_data.get('images', [])
@@ -197,6 +195,7 @@ def create_story_with_images():
 
 
 @story_routes.route('/<int:id>/comment', methods=['POST'])
+@login_required
 def create_comment(id):
     """
     Creates a new story comment
@@ -212,12 +211,16 @@ def create_comment(id):
       data = form.data
       story = Story.query.get(id)
 
+      for comment in story.comments:
+        if comment.user_id == current_user.id:
+            return{"error": "User has already commented on this story."}, 403
+
       if story is None:
           return {"error": "Story not found"}, 404
 
       new_comment = Comment(
-          user_id=data['user_id'],
-          story_id=data['story_id'],
+          user_id=current_user.id,
+          story_id=id,
           content=data['content'],
 
       )
