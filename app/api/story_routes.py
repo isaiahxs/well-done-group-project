@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, session, render_template, request, redirect
 from flask_login import login_required, current_user
-from app.models import db, Story, Tag, StoryImage, StoryTag, Comment, User
+from app.models import db, Story, Tag, StoryImage, StoryTag, Comment, User,Clap
 from app.forms import StoryForm
 from app.forms import StoryImageForm
 from app.forms import CommentForm
@@ -17,6 +17,23 @@ def stories():
 
     stories = Story.query.all()
     return {'stories': [story.to_dict() for story in stories]}
+
+
+
+@story_routes.route('/curr')
+@login_required
+def curr_user_stories():
+    """
+    Query for current user's stories and returns them in a list of story dictionaries
+    """
+    stories = Story.query.filter_by(author_id=current_user.id).all()
+    if stories is None:
+        return {"error": "No stories found"}, 404
+    return {'stories': [story.to_dict() for story in stories]}
+
+
+
+
 
 
 @story_routes.route('/<int:id>')
@@ -262,3 +279,57 @@ def feed():
 
     return jsonify({'feed': feed_data}), 200
 
+
+
+
+@story_routes.route('/<int:id>/clap', methods=['POST'])
+@login_required
+def create_clap(id):
+    """
+    Creates a new clap on a story
+    """
+
+    story = Story.query.get(id)
+    if story is None:
+        return {"error": "Story not found"}, 404
+    if story.author_id == current_user.id:
+        return {"error": "Cannot clap own story"}, 400
+            
+
+    new_clap = Clap(
+        user_id=current_user.id,
+        story_id=id,
+    )
+
+    db.session.add(new_clap)
+    db.session.commit()
+
+    return {
+      "message": "clap clap",
+      "totalClaps": len(story.claps),
+    }
+
+@story_routes.route('/<int:id>/clap', methods=['DELETE'])
+@login_required
+def remove_clap(id):
+    """
+    Removes a clap on a story
+    """
+
+    story = Story.query.get(id)
+    if story is None:
+        return {"error": "Story not found"}, 404
+    if story.author_id == current_user.id:
+        return {"error": "Cannot remove clap from own story"}, 400
+
+    clap_to_remove = Clap.query.filter_by(user_id=current_user.id, story_id=id).first()
+    if clap_to_remove is None:
+        return {"message": "No claps found"}, 400
+
+    db.session.delete(clap_to_remove)
+    db.session.commit()
+
+    return {
+        "message": "clap removed",
+        "totalClaps": len(story.claps),
+    }
