@@ -1,10 +1,12 @@
 from flask import Blueprint, jsonify, session, render_template, request, redirect
 from flask_login import login_required, current_user
-from app.models import db, Story, Tag, StoryImage, StoryTag, Comment
+from app.models import db, Story, Tag, StoryImage, StoryTag, Comment, User
 from app.forms import StoryForm
 from app.forms import StoryImageForm
 from app.forms import CommentForm
 story_routes = Blueprint('stories', __name__)
+
+
 
 
 @story_routes.route('/')
@@ -45,7 +47,7 @@ def delete_story(id):
 
     db.session.delete(story)
     db.session.commit()
-    return {"message": "Story deleted successfully"}
+    return {"message": "Story deleted successfully"}, 201
 
 
 
@@ -137,7 +139,8 @@ def create_story_image(id):
       )
       db.session.add(new_story_image)
       db.session.commit()
-      return new_story_image.to_dict()
+      # return new_story_image.to_dict()
+      return jsonify({**new_story_image.to_dict(), 'message': 'Story image successfully created'}), 201
 
     if form.errors:
       return "Bad Data"
@@ -231,4 +234,31 @@ def create_comment(id):
     if form.errors:
       return "Bad Data"
 
+
+
+@story_routes.route('/feed')
+@login_required
+def feed():
+    """
+    GET - FEED OF STORIES FOR CURR USER
+    """
+
+    following_list = [author.author_id for author in current_user.following]
+
+    stories = Story.query.filter(Story.author_id.in_(following_list)).all()
+
+    feed_data = []
+    for story in stories:
+        feed_data.append({
+            'story_id': story.id,
+            'title': story.title,
+            'content': story.content,
+            'author': {
+                'author_id': story.author.id,
+                'author_name': story.author.first_name
+            }
+        })
+    print(len(feed_data))
+
+    return jsonify({'feed': feed_data}), 200
 

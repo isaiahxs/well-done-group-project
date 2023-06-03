@@ -30,3 +30,4 @@ class StoryImage(db.Model):
             'position': self.position,
             'altTag': self.altTag
         }
+        
