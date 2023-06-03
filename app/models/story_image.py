@@ -25,7 +25,7 @@ class StoryImage(db.Model):
     def to_dict(self):
         return {
             'id': self.id,
-            'story_id': self.story_id,
+            'storyId': self.story_id,
             'url': self.url,
             'position': self.position,
             'altTag': self.alt_tag

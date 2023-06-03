@@ -40,11 +40,11 @@ class User(db.Model, UserMixin):
     def to_dict(self):
         return {
             'id': self.id,
-            'first_name': self.first_name,
-            'last_name': self.last_name,
+            'firstName': self.first_name,
+            'lastName': self.last_name,
             'username': self.username,
             'email': self.email,
-            'profile_image': self.profile_image,
-            'created_at': self.created_at,
-            'updated_at': self.updated_at
+            'profileImage': self.profile_image,
+            'createdAt': self.created_at,
+            'updatedAt': self.updated_at
         }

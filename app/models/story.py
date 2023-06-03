@@ -31,11 +31,11 @@ class Story(db.Model):
     def to_dict(self):
         return {
             'id': self.id,
-            'author_id': self.author_id,
+            'authorId': self.author_id,
             'title': self.title,
             'content': self.content,
-            'created_at': self.created_at,
-            'updated_at': self.updated_at,
+            'createdAt': self.created_at,
+            'updatedAt': self.updated_at,
             'tags': [tag.tag.to_dict() for tag in self.tags],
             'images': [image.to_dict() for image in self.images],
             'comments': [comment.to_dict() for comment in self.comments]

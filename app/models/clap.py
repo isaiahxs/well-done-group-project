@@ -23,8 +23,8 @@ class Clap(db.Model):
     def to_dict(self):
         return {
             'id': self.id,
-            'user_id': self.user_id,
-            'story_id': self.story_id,
-            'created_at': self.created_at,
-            'updated_at': self.updated_at
+            'userId': self.user_id,
+            'storyId': self.story_id,
+            'createdAt': self.created_at,
+            'updatedAt': self.updated_at
         }

@@ -20,6 +20,6 @@ class Follower(db.Model):
     def to_dict(self):
         return {
             'id': self.id,
-            'follower_id': self.follower_id,
-            'author_id': self.author_id
+            'followerId': self.follower_id,
+            'authorId': self.author_id
         }
