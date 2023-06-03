@@ -45,7 +45,7 @@ def upgrade():
     sa.Column('story_id', sa.Integer(), nullable=False),
     sa.Column('url', sa.String(length=255), nullable=False),
     sa.Column('position', sa.Integer(), nullable=False),
-    sa.Column('altTag', sa.String(), nullable=False),
+    sa.Column('alt_tag', sa.String(), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=True),
     sa.Column('updated_at', sa.DateTime(), nullable=True),
     sa.ForeignKeyConstraint(['story_id'], ['stories.id'], ),

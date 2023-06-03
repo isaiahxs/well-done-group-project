@@ -9,5 +9,5 @@ from app.models import StoryImage
 class StoryImageForm(FlaskForm):
     url = StringField('url', validators=[DataRequired()])
     position = IntegerField('position', validators=[DataRequired()])
-    altTag = StringField('altTag', validators=[DataRequired()])
+    alt_tag = StringField('alt_tag', validators=[DataRequired()])
 

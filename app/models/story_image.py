@@ -16,7 +16,7 @@ class StoryImage(db.Model):
     story_id = db.Column(db.Integer, db.ForeignKey('stories.id'), nullable=False)
     url = db.Column(db.String(255), nullable=False)
     position = db.Column(db.Integer, nullable=False)
-    altTag = db.Column(db.String, nullable=False)
+    alt_tag = db.Column(db.String, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
@@ -28,6 +28,6 @@ class StoryImage(db.Model):
             'story_id': self.story_id,
             'url': self.url,
             'position': self.position,
-            'altTag': self.altTag
+            'altTag': self.alt_tag
         }
         

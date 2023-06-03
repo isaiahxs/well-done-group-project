@@ -135,7 +135,7 @@ def create_story_image(id):
           story_id=story.id,
           url=data['url'],
           position=data['position'],
-          altTag=data['altTag']
+          alt_tag=data['alt_tag']
       )
       db.session.add(new_story_image)
       db.session.commit()
@@ -183,7 +183,7 @@ def create_story_with_images():
                 story_id=story_id,
                 url=image_data['url'],
                 position=image_data['position'],
-                altTag=image_data['altTag']
+                alt_tag=image_data['alt_tag']
             )
             db.session.add(new_story_image)
             db.session.commit()
