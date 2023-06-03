@@ -13,7 +13,6 @@
 } 
 
 .get-started{
-  transition: all .75s;
   border-radius: 20px;
   color: white;
   display: flex;
@@ -21,6 +20,7 @@
   align-items: center;
   font-size: 14px;
   width: 108px;
+  min-width: 108px;
   height: 37px;
   background-color: rgb(4, 4, 4);
 }
@@ -56,15 +56,34 @@
 
 
 
+.nav-buttons{
+  display: flex;
+  position: absolute;
+  align-items: center;
+  left: 50%;
+  width: 90%;
+  max-width: 1200px;
+  height: 40px;
+  justify-content: space-between;
+  font-size: 13.5px;
+  font-weight: 300;
+  transform: translate(-50%,0);
+}
+
+.nav-link-buttons{
+  justify-content: space-between;
+
+  display: flex;
+  align-items: center;
+  width: 410px;
+}
 
 .logo{
   font-size: 32px;
   color: rgb(0, 0, 0);
   display: flex;
   height: fit-content;
-  position: absolute;
-  top: 20px;
-  left: 5%;
+  position: relative;
   z-index: 1;
 }
 
@@ -73,18 +92,6 @@
   cursor: pointer;
 }
 
-.nav-buttons{
-  display: flex;
-  position: absolute;
-  align-items: center;
-  right: 5%;
-  width: 410px;
-  height: 40px;
-  justify-content: space-between;
-  font-size: 13.5px;
-  font-weight: 300;
-
-}
 
 .nav-button2:hover,
 .nav-button:hover{
@@ -92,11 +99,7 @@
 }
 
 
-@media screen and (min-width: 710px) {
-  .logo{
-    left: 7%;
-  }
-}
+
 
 
 @media screen and (max-width: 710px) {

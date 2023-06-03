@@ -7,6 +7,7 @@ import LoginFormPage from "./components/LoginFormPage";
 import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import HomePage from './components/HomePage';
+import OurStoryPage from './components/OurStoryPage';
 
 
 
@@ -28,6 +29,10 @@ function App() {
 
           <Route path="/" exact>
             <HomePage/>
+          </Route>
+
+          <Route path="/about" exact>
+            <OurStoryPage/>
           </Route>
 
           <Route path="/login" >

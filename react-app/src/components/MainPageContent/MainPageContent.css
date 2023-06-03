@@ -175,6 +175,8 @@
   width: 100%;
   background-color: black;
   height: 150px;
+  position: relative;
+  left: 0%;
 }
 
 .see-more-topics:hover{
