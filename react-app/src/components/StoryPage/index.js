@@ -1,15 +1,29 @@
 import React, { useEffect, useContext } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { useHistory, useLocation, useParams } from 'react-router-dom';
 import './StoryPage.css';
-// import mobileViewPhoto from '../../public/creator-find-points-iphones.png';
-// import playStoreBtn from '../../public/PlayStore_2x.png';
-// import appleStoreBtn from '../../public/AppleStore_2x.png';
-// import supportWriters from '../../public/svgexport-5.svg';
-// import readUnlimited from '../../public/svgexport-6.svg';
 import { WindowContext } from '../../context/WindowContext';
 
 const StoryPage = () => {
+
+  const { id } = useParams()
+  const stories = useSelector(state => state.story.stories);
+  const story = stories.find(story => story.id === Number(id));
+
   const history = useHistory();
+
+  useEffect(() => {
+    // Fetch the current story based on the ID from the URL or Redux store
+    // You can dispatch an action or make an API call to fetch the story data
+    // and update the Redux store accordingly
+  }, [])
+
+//map over 
+//use params to get the id from the url
+//const story = story.find(story => story.id === id)
+
+//page will take in a prop of the story and selector to get the info out of the state
+//key into the id that matches
 
   const {scrollPosition, windowSize} = useContext(WindowContext)
   console.log(scrollPosition);
@@ -29,131 +43,50 @@ const StoryPage = () => {
   };
 
   return (
-
-
     <>
-    
-    {/*  DIV 1 stylings */}
-      {isMobileView && (
-        <div className="writepage">
-      <div className="writepage-mobile-container1 align-left">
-          <div className="writepage-container1-header small-text spaced">
-            START A BLOG FOR FREE
+    <div className="story-page">
+      {story && (
+        <>
+          <h4 className='member-only'>Member-only story</h4>
+
+          <h1 className="story-title">{story.title}</h1>
+
+          <div className='author-section'>
+            <div className='author-image'>insert author's image here</div>
+            <div className="story-author">{story.authorInfo.firstName} {story.authorInfo.lastName}</div>
+            <a className='follow'>Follow</a>
+            {/* here we can come up with a way to randomize the duration length and use the date created to know how long it has been */}
+            <p>X min read · X days ago</p>
           </div>
-            <div className="writepage-container1-header2 header-text align-left">
-              Publish, grow, and earn, all in one place.
-            </div>
-            <div className="writepage-container1-header3 quote-text">
-              If you have a story to tell, knowledge to share, or a perspective
-              to offer — welcome home. Sign up for free so your writing can
-              thrive in a network supported by millions of readers — not ads.
+
+          <div className='alt-options'>
+            <button>listen</button>
+            <button>share</button>
+            <button>... More</button>
           </div>
-          <div className="writepage-container1-button-container flexcenter align-left">
 
-            <div className="writepage-started-button flexcenter quote-text">Start writing</div>
+          {/* splice the content, character number, separate content into two diff divs, where the gap is, insert image */}
 
-          </div>
-        </div>
-
-
-    {/*  DIV 2 stylings */}
-
-      <div className="writepage-mobile-container2">
-          <div className="writepage-container2-header header-text align-left">
-            Join a network
-            of curious
-            minds.
-        </div>
-          
-      </div>   
-
-
-
-    {/*  DIV 3 stylings */}
-
-    <div className="writepage-mobile-container3">
-        <div className='author-tile'>AUTHOR TILE</div>
-        <div className='author-tile'>AUTHOR TILE</div>
-        <div className='author-tile'>AUTHOR TILE</div>
-        <div className='author-tile'>AUTHOR TILE</div>
-        <div className='author-tile'>AUTHOR TILE</div>
-        <div className='author-tile'>AUTHOR TILE</div>
-
-          
-    </div>   
-
-
-
-    {/*  DIV 4 stylings */}
-
-    <div className="writepage-mobile-container4">
-        <div className="writepage-container4-header header-text align-left">
-          <div>Create</div>
-          <div>your space.</div>  
-        </div>
-
-        <div className="writepage-container4-header2 quote-text align-left">
-          Tell your story your way — with different ways to write, style, and brand your work.
-        </div>
-
-        <div className="writepage-started-button flexcenter quote-text">Start writing</div>
-
-          
-    </div>   
-
-
-        </div>        
+          <div className="story-content">{story.content}</div>
+          {story.images.map(image => (
+            <img
+              key={image.id}
+              src={image.url}
+              alt={image.altText}
+              className="story-image"
+            />
+          ))}
+        </>
       )}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    {!isMobileView && (
-      <div className="writepage">
-
-          <div className="writepage-banner-container">
-            <div className="writepage-banner-section">
-              <div className="writepage-banner-header-small">
-                START A BLOG FOR FREE
-              </div>
-              <div className="writepage-banner-header-container">
-                <div className="header-text">
-                  Publish, grow, and earn, all in one placeeeeeeee.
-                </div>
-              </div>
-              <div className="writepage-banner-content">
-                <div className="quote-text">
-                  If you have a story to tell, knowledge to share, or a perspective
-                  to offer — welcome home. Sign up for free so your writing can
-                  thrive in a network supported by millions of readers — not ads.
-                </div>
-              </div>
-
-              <div className="writepage-started-button flexcenter">Get started</div>
-            </div>
-
-            <div className="writepage-expand-section-right">
-              <div className="writepage-box-container">Spinning box</div>
-            </div>
-          </div>
-          </div>
-
-      )}
-
-</>
-
-  );
+      {!story && <div className="loading-message">Loading...</div>}
+      {/* <h1>hi</h1>
+      <h1>hi</h1>
+      <h1>hi</h1>
+      <h1>hi</h1>
+      <h1>hi</h1>
+      <h1>hi</h1> */}
+    </div>
+    </>
+  )  
 };
 export default StoryPage;

@@ -1,162 +1,45 @@
-.writepage {
-  width: 100%;
+/* margin-top 75 px so that everything is under the nav bar and not being covered*/
+
+.story-page {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 70px;
 }
 
-/* MOBILE STYLINGS */
-
-/* .header-text {
-  width: fit-content;
-  text-align: center;
-  line-height: 1;
-  font-size: 60px;
-} */
-
-.small-text{
-  font-size: 10px;
-  font-family: Arial, sans-serif;
-  color: white;
+.story-title {
+  font-size: 30px;
+  font-weight: bold;
+  margin-top: 75px;
+  margin-bottom: 0px;
+  /* text-align: center; */
+  color: black;
 }
 
-/* .quote-text {
-  font-family: Arial, sans-serif;
+.story-author {
   font-size: 20px;
   font-weight: lighter;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  /* text-align: center; */
+  color: black;
 }
 
-.align-left {
-  text-align: left;
-  justify-content: left;
-} */
-
-.spaced{
-  letter-spacing: 5px; 
+.follow {
+  color: #479275
 }
 
-/*  DIV 1 stylings */
-
-.writepage-mobile-container1 {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  padding-top: 90px;
-  text-align: left;
-  background-color: #f24d2d;
-  
-  
-}
-
-.writepage-container1-header {
-  margin-top: 50px;
-  margin-left: 30px;
-  
-}
-
-.writepage-container1-header2{
-  font-size: 60px;
-  margin-top: 15px;
-}
-
-.writepage-container1-header3{
+.story-content {
   font-size: 20px;
-  margin-top: 40px;
-  margin-left: 30px;
-  width: 90%;
+  font-weight: lighter;
+  margin-top: 0px;
+  margin-bottom: 0px;
+  /* text-align: center; */
+  color: black;
 }
 
-.writepage-container1-button-container{
-  margin-top: 22px;
-  margin-left: 30px;
-  margin-bottom: 30px;
-}
-
-
-.writepage-started-button {
-  cursor: pointer;
-  padding: 9px;
-  font-size: 22px;
-  margin-top: 10px;
-  background-color: #ffffff;
-  border: #ffffff 1px solid;
-  color: #000000;
-  border-radius: 20px;
-  width: 170px;
-  transition: all .5s;
-}
-
-.writepage-started-button:hover {
-  background-color: #f24d2d;
-  color: #ffffff;
-  transition: all .5s;
-
-}
-
-
-
-/*  DIV 2 stylings */
-
-
-.writepage-mobile-container2 {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  text-align: left;
-  background-color: #000000;
-}
-
-.writepage-container2-header{
-  color: white;
-  font-size: 13vw;
-  margin-top: 25px;
-  margin-bottom: 40px;
-}
-
-
-
-/*  DIV 3 stylings */
-
-.writepage-mobile-container3 {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  text-align: left;
-  background-color: #000000;
-}
-
-.author-tile{
-  width: 90%;
-  height: 70px;
-  position: relative;
-  left: 5%;
-  border-top: white solid 1px;
-  border-bottom: white solid 1px;
-  color: white;
-}
-
-.author-tile:last-child{
-  margin-bottom: 30px;
-}
-
-
-
-
-/*  DIV 4 stylings */
-
-.writepage-mobile-container4 {
-  display: flex;
-  flex-direction: column;
-  text-align: left;
-  background-color: #ffd1b8;
-  min-height: 500px;
-}
-
-.writepage-container4-header{
-  font-size: 12vw;
-  width: 60%;
-}
-
-.writepage-container4-header2{
-  font-size: 22px ;
-  width: 60%;
-  margin-left: 30px;
-  margin-top: 30px;
+.loading-message {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 20px;
+  color: #777;
 }
