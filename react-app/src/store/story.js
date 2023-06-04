@@ -1,18 +1,18 @@
 // constants
-const GET_ARTICLES = "article/GET_ARTICLES";
+const GET_STORIES = "story/GET_STORIES";
 
-const getArticlesAction = (articles) => ({
-	type: GET_ARTICLES,
-	payload: articles,
+const getStoriesAction = (stories) => ({
+	type: GET_STORIES,
+	payload: stories,
 });
 
 
 
-const initialState = { articles: [] };
+const initialState = { stories: [] };
 
 
-export const getArticles = () => async (dispatch) => {
-	const response = await fetch("/api/articles/all", {
+export const getStories = () => async (dispatch) => {
+	const response = await fetch("/api/stories/all", {
 		method: "GET",
 		headers: {
 			"Content-Type": "application/json",
@@ -21,7 +21,7 @@ export const getArticles = () => async (dispatch) => {
 
 	if (response.ok) {
 		const data = await response.json();
-		dispatch(getArticlesAction(data));
+		dispatch(getStoriesAction(data));
 		return null;
 	} else if (response.status < 500) {
 		const data = await response.json();
@@ -36,8 +36,8 @@ export const getArticles = () => async (dispatch) => {
 
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
-		case GET_ARTICLES:
-			return { articles: action.payload };
+		case GET_STORIES:
+			return { stories: action.payload };
 		default:
 			return state;
 	}

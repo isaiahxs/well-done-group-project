@@ -1,24 +1,24 @@
 import React from 'react'
 import { useSelector } from 'react-redux';
 import './TrendingBanner.css'
-import ArticleTileOne from '../ArticleTileOne'
+import StoryTileOne from '../StoryTileOne'
 import stonks from '../../public/svgexport-3.svg';
 
 const TrendingBanner = () => {
 
-  const articles = useSelector(state=>  state.article.articles)
+  const stories = useSelector( state =>  state.story.stories)
 
-  console.log(articles.length);
+  console.log(stories.length);
 
-  if(articles.length < 6){
+  if(!stories || stories.length < 6){
     console.log('yes?');
-    for(let i = 0; i < 7 - articles.length; i++){
+    for(let i = 0; i < 7 - stories.length; i++){
       console.log('here?');
-    articles.push({num:i, profileImage: 'profile-image.jpg', firstName: 'Nick', lastName: 'Wignall', title: 'Business Model Generation & Playing to Win', date: 'May 29', readTime: 8}) 
+    stories.push({num:i, profileImage: 'profile-image.jpg', firstName: 'Nick', lastName: 'Wignall', title: 'Business Model Generation & Playing to Win', date: 'May 29', readTime: 8}) 
   }
 }
 
-console.log(articles.length);
+
 
   return (
     <div className='main-page-trending-banner-container'>
@@ -34,8 +34,8 @@ console.log(articles.length);
 
 
       <div className='main-page-trending-tile-container'>
-        {articles.length === 6 && articles.map((article,i)=>(
-          <ArticleTileOne key={i} article={article}/>
+        {stories.length === 6 && stories.map((story,i)=>(
+          <StoryTileOne key={i} story={story}/>
         ))}
       </div>
     </div>

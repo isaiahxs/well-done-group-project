@@ -4,12 +4,12 @@
 
 /* MOBILE STYLINGS */
 
-.header-text {
+/* .header-text {
   width: fit-content;
   text-align: center;
   line-height: 1;
   font-size: 60px;
-}
+} */
 
 .small-text{
   font-size: 10px;
@@ -17,7 +17,7 @@
   color: white;
 }
 
-.quote-text {
+/* .quote-text {
   font-family: Arial, sans-serif;
   font-size: 20px;
   font-weight: lighter;
@@ -26,7 +26,7 @@
 .align-left {
   text-align: left;
   justify-content: left;
-}
+} */
 
 .spaced{
   letter-spacing: 5px; 
@@ -41,20 +41,23 @@
   padding-top: 90px;
   text-align: left;
   background-color: #f24d2d;
-
+  
+  
 }
 
 .writepage-container1-header {
   margin-top: 50px;
   margin-left: 30px;
-
+  
 }
 
 .writepage-container1-header2{
+  font-size: 60px;
   margin-top: 15px;
 }
 
 .writepage-container1-header3{
+  font-size: 20px;
   margin-top: 40px;
   margin-left: 30px;
   width: 90%;

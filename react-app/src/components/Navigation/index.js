@@ -71,7 +71,6 @@ function Navigation(){
   
     if(!user){
       if(location.pathname === '/write' || location.pathname === '/about'){
-        buttonStylings
         setButtonStylings('show')
       } else {
         setButtonStylings('')
