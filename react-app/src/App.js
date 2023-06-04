@@ -9,6 +9,7 @@ import Navigation from "./components/Navigation";
 import HomePage from './components/HomePage';
 import OurStoryPage from './components/OurStoryPage';
 import WritePage from './components/WritePage';
+import StoryPage from './components/StoryPage';
 
 import * as storyActions from './store/story';
 
@@ -52,12 +53,18 @@ function App() {
             <WritePage/>
           </Route>
 
+          <Route path="/story/:id" exact>
+            <StoryPage/>
+          </Route>
+
           <Route path="/login" >
             <LoginFormPage />
           </Route>
+
           <Route path="/signup">
             <SignupFormPage />
           </Route>
+
         </Switch>
       )}
     </>

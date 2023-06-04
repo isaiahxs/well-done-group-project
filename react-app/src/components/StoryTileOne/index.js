@@ -1,18 +1,22 @@
-import React from 'react'
+import React, { useEffect, useContext } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import './StoryTileOne.css'
 
 const StoryTileOne = ({story, index}) => {
 
+  const history = useHistory()
 
   console.log(story);
 
 console.log(story.authorInfo.firstName);
+console.log(story.id);
 
+const handleNav = () =>{}
 
 
 
   return (
-    <div className='story-tile-style1'>
+    <div className='story-tile-style1' onClick={()=>history.push(`/story/${story.id}`)}>
       <div className='style1-number memo-text'>0{index+1}</div>
 
 
