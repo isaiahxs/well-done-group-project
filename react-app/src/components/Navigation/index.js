@@ -1,8 +1,7 @@
 // frontend/src/components/Navigation/index.js
 import React, { useEffect, useRef, useContext, useState } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation, NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { Route, Router, Switch, NavLink } from 'react-router-dom';
 import './Navigation.css';
 import { WindowContext } from '../../context/WindowContext';
 
@@ -109,7 +108,7 @@ function Navigation(){
       <nav className={`nav-bar flexcenter ${navColor}`}>
 
 
-        <div className='nav-buttons memo-text'>
+        <div className={`nav-buttons memo-text ${buttonStylings}`}>
           <div className='logo' onClick={handleLogoClick}>SHMEDIUM</div>
           <div className={`nav-link-buttons ${buttonStylings}`}>
             <div className={`nav-button ${buttonStylings}`} onClick={handleStoryClick}>Our Story</div>

@@ -8,7 +8,7 @@ import { authenticate } from "./store/session";
 import Navigation from "./components/Navigation";
 import HomePage from './components/HomePage';
 import OurStoryPage from './components/OurStoryPage';
-
+import WritePage from './components/WritePage';
 
 
 function App() {
@@ -38,6 +38,10 @@ function App() {
 
           <Route path="/about" exact>
             <OurStoryPage/>
+          </Route>
+
+          <Route path="/write" exact>
+            <WritePage/>
           </Route>
 
           <Route path="/login" >

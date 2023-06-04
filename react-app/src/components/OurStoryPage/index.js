@@ -23,6 +23,11 @@ const handleLogoClick = () => {
   history.push('/');
 };
 
+const navToWrite = () => {
+  history.push('/write');
+};
+
+
   return (
     <div className="ourstorypage">
 
@@ -148,7 +153,7 @@ const handleLogoClick = () => {
           earn money for your work.
         </div>
 
-        <div className="ourstorypage-create-content-button memo-text flexcenter">
+        <div className="ourstorypage-create-content-button memo-text flexcenter" onClick={navToWrite}>
           Write on Medium
         </div>
       </div>
@@ -311,7 +316,7 @@ const handleLogoClick = () => {
               Read, write, and expand your world.
             </div>
           </div>
-          <div className="ourstorypage-started-button flexcenter">
+          <div className="ourstorypage-started-button flexcenter"  onClick={navToWrite}>
             Get started
           </div>
         </div>

@@ -22,10 +22,11 @@ export const WindowProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-
+ 
     console.log('resizing');
     console.log(scrollPosition);
 
+    
     const handleScroll = () => {
       setScrollPosition(window.scrollY);
     }
