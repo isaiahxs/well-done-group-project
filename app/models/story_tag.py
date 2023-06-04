@@ -21,6 +21,6 @@ class StoryTag(db.Model):
     def to_dict(self):
         return {
             'id': self.id,
-            'story_id': self.story_id,
-            'tag_id': self.tag_id
+            'storyId': self.story_id,
+            'tagId': self.tag_id
         }

@@ -45,7 +45,7 @@ def login():
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
-@auth_routes.route('/logout')
+@auth_routes.route('/logout', methods=['DELETE'])
 def logout():
     """
     Logs a user out
@@ -65,7 +65,10 @@ def sign_up():
         user = User(
             username=form.data['username'],
             email=form.data['email'],
-            password=form.data['password']
+            password=form.data['password'],
+            first_name=form.data['first_name'],
+            last_name=form.data['last_name'],
+            profile_image=form.data['profile_image']
         )
         db.session.add(user)
         db.session.commit()

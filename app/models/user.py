@@ -21,6 +21,11 @@ class User(db.Model, UserMixin):
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
     hashed_password = db.Column(db.String(255), nullable=False)
 
+    following = db.relationship('Follower', back_populates='follower_user', foreign_keys='Follower.follower_id')
+    followers = db.relationship('Follower', back_populates='author_user', foreign_keys='Follower.author_id')
+    comments = db.relationship('Comment', back_populates='user', cascade='all, delete-orphan')
+
+
     @property
     def password(self):
         return self.hashed_password
@@ -35,11 +40,11 @@ class User(db.Model, UserMixin):
     def to_dict(self):
         return {
             'id': self.id,
-            'first_name': self.first_name,
-            'last_name': self.last_name,
+            'firstName': self.first_name,
+            'lastName': self.last_name,
             'username': self.username,
             'email': self.email,
-            'profile_image': self.profile_image,
-            'created_at': self.created_at,
-            'updated_at': self.updated_at
+            'profileImage': self.profile_image,
+            'createdAt': self.created_at,
+            'updatedAt': self.updated_at
         }
