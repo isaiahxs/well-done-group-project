@@ -13,7 +13,6 @@ const initialState = { stories: [] };
 
 export const getStories = () => async (dispatch) => {
 
-
 	const response = await fetch("/api/stories", {
 
 		method: "GET",
