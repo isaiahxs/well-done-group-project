@@ -1,0 +1,13 @@
+.m-tile{
+  padding: 4px;
+  font-size: 22px;
+  font-weight: 340;
+}
+
+.visible{
+  visibility: visible;
+}
+
+.hidden{
+  visibility: hidden;
+}

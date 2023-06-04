@@ -1,0 +1,11 @@
+.mmm-slider{
+  position: relative;
+  top: -10px;
+  height: 25px;
+  padding: 5px;
+  display: flex;
+  justify-content: flex-end;
+  left: 0%;
+  
+}
+
