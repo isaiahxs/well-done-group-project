@@ -46,5 +46,8 @@ class User(db.Model, UserMixin):
             'email': self.email,
             'profileImage': self.profile_image,
             'createdAt': self.created_at,
-            'updatedAt': self.updated_at
+            'updatedAt': self.updated_at,
+            'followers': [follower.to_dict() for follower in self.followers],
+            'numFollowers': len(self.followers)
+
         }
