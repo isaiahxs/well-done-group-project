@@ -1,11 +1,11 @@
 import React, { useEffect, useContext } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
 import './StoryPage.css';
-import mobileViewPhoto from '../../public/creator-find-points-iphones.png';
-import playStoreBtn from '../../public/PlayStore_2x.png';
-import appleStoreBtn from '../../public/AppleStore_2x.png';
-import supportWriters from '../../public/svgexport-5.svg';
-import readUnlimited from '../../public/svgexport-6.svg';
+// import mobileViewPhoto from '../../public/creator-find-points-iphones.png';
+// import playStoreBtn from '../../public/PlayStore_2x.png';
+// import appleStoreBtn from '../../public/AppleStore_2x.png';
+// import supportWriters from '../../public/svgexport-5.svg';
+// import readUnlimited from '../../public/svgexport-6.svg';
 import { WindowContext } from '../../context/WindowContext';
 
 const StoryPage = () => {
