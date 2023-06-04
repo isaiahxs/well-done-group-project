@@ -12,29 +12,30 @@ const TrendingBanner = () => {
 
   const dispatch = useDispatch();
   const [loaded, isLoaded] = useState(false);
+  const [trendingStories, setTrendingStories] = useState([])
 
   console.log(stories.length);
 
-  if(!stories || stories.length < 6){
-    console.log('yes?');
-    for(let i = 0; i < 7 - stories.length; i++){
-      console.log('here?');
-    stories.push({num:i, profileImage: 'profile-image.jpg', firstName: 'Nick', lastName: 'Wignall', title: 'Business Model Generation & Playing to Win', date: 'May 29', readTime: 8}) 
-  }
-}
+
 
 
 useEffect(() => {
-	console.log('we in here!');
-
   isLoaded(false);
-
   dispatch(storyActions.getStories())
   .then(() => {
     isLoaded(true);
   })
 
 }, []);
+
+useEffect(() => {
+  if(stories){
+    setTrendingStories(stories.slice(0,6))
+  }
+
+}, [stories]);
+
+
 
 
   return (
@@ -51,8 +52,8 @@ useEffect(() => {
 
 
       <div className='main-page-trending-tile-container'>
-        {stories.length === 6 && stories.map((story,i)=>(
-          <StoryTileOne key={i} story={story}/>
+        {trendingStories.map((story,i)=>(
+          <StoryTileOne key={i} index={i} story={story}/>
         ))}
       </div>
     </div>

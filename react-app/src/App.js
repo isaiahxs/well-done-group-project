@@ -10,6 +10,8 @@ import HomePage from './components/HomePage';
 import OurStoryPage from './components/OurStoryPage';
 import WritePage from './components/WritePage';
 
+import * as storyActions from './store/story';
+
 
 function App() {
   const dispatch = useDispatch();
@@ -17,8 +19,14 @@ function App() {
   
   
   useEffect(() => {
-    dispatch(authenticate()).then(() => setIsLoaded(true));
+    dispatch(authenticate()).then(() => {
+      dispatch(storyActions.initialLoad()).then(() => {
+        setIsLoaded(true)
+      });
+    });
   }, [dispatch]);
+
+  
   
   
     const state = useSelector(state=>state)

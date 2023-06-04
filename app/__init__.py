@@ -4,7 +4,7 @@ from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
 from flask_login import LoginManager
-from .models import db, User
+from .models import db, User, Story, Follower, Clap, Comment, StoryImage, Tag, StoryTag
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
 from .api.story_routes import story_routes
@@ -78,6 +78,18 @@ def api_help():
                     app.view_functions[rule.endpoint].__doc__ ]
                     for rule in app.url_map.iter_rules() if rule.endpoint != 'static' }
     return route_list
+
+
+
+@app.route("/api/init")
+def initial_load():
+    """
+    Eager Load data upon initialization 
+    """
+    stories = Story.query.all()
+    return {'stories': [story.to_dict() for story in stories]}
+
+
 
 
 @app.route('/', defaults={'path': ''})

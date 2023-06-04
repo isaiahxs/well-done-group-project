@@ -99,7 +99,9 @@ function Navigation(){
     colorScheme.current = colorSchemes['/write'];
   };
 
-  console.log(buttonStylings);
+  const handleLoginClick = () => {
+    history.push('/login');
+  };
 
 
   return (
@@ -113,7 +115,7 @@ function Navigation(){
             <div className={`nav-button ${buttonStylings}`} onClick={handleStoryClick}>Our Story</div>
             <div className={`nav-button ${buttonStylings}`} onClick={handleLogoClick}>Demo User</div>
             <div className={`nav-button ${buttonStylings}`} onClick={handleWriteClick}>Write</div>
-            <div className={`sign-in-nav-button nav-button2 ${buttonStylings}`} onClick={handleLogoClick}>Sign In</div>
+            <div className={`sign-in-nav-button nav-button2 ${buttonStylings}`} onClick={handleLoginClick}>Sign In</div>
             <div className={`get-started button ${buttonStyle}`}>Get started</div>
           </div>
         </div>

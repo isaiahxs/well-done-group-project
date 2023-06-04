@@ -32,6 +32,7 @@ class Story(db.Model):
         return {
             'id': self.id,
             'authorId': self.author_id,
+            'authorInfo': self.author.to_dict(),
             'title': self.title,
             'content': self.content,
             'createdAt': self.created_at,
