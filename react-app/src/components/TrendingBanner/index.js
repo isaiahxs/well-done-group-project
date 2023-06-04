@@ -1,15 +1,26 @@
+<<<<<<< HEAD
 import { React, useState, useEffect, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import './TrendingBanner.css'
 import StoryTileOne from '../StoryTileOne'
 import stonks from '../../public/svgexport-3.svg';
 import * as storyActions from '../../store/story';
+=======
+import React from 'react'
+import { useSelector } from 'react-redux';
+import './TrendingBanner.css'
+import StoryTileOne from '../StoryTileOne'
+import stonks from '../../public/svgexport-3.svg';
+>>>>>>> e4e179324cba937fcaf8ab8614c78a73546b02af
 
 const TrendingBanner = () => {
 
   const stories = useSelector( state =>  state.story.stories)
+<<<<<<< HEAD
   const dispatch = useDispatch();
   const [loaded, isLoaded] = useState(false);
+=======
+>>>>>>> e4e179324cba937fcaf8ab8614c78a73546b02af
 
   console.log(stories.length);
 
@@ -21,6 +32,7 @@ const TrendingBanner = () => {
   }
 }
 
+<<<<<<< HEAD
 useEffect(() => {
 	console.log('we in here!');
 
@@ -32,6 +44,8 @@ useEffect(() => {
   })
 
 }, []);
+=======
+>>>>>>> e4e179324cba937fcaf8ab8614c78a73546b02af
 
 
   return (

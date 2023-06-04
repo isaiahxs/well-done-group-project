@@ -13,7 +13,9 @@ const initialState = { stories: [] };
 
 export const getStories = () => async (dispatch) => {
 
+
 	const response = await fetch("/api/stories", {
+
 		method: "GET",
 		headers: {
 			"Content-Type": "application/json",
@@ -22,15 +24,17 @@ export const getStories = () => async (dispatch) => {
 
 	if (response.ok) {
 		const data = await response.json();
+
 		console.log(data);
+
 		dispatch(getStoriesAction(data));
 		return null;
 	} else if (response.status < 500) {
 		const data = await response.json();
 		if (data.errors) {
+
 			console.log('errors');
 			console.log(data.errors);
-			
 
 			return data.errors;
 		}
