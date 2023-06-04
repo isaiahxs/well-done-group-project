@@ -11,6 +11,12 @@ story_routes = Blueprint('stories', __name__)
 
 @story_routes.route('/')
 def stories():
+
+    print('we in here')
+    print('we in here')
+    print('we in here')
+    print('we in here')
+    print('we in here')
     """
     Query for all stories and returns them in a list of story dictionaries
     """

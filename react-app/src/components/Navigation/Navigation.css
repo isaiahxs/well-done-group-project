@@ -1,7 +1,151 @@
-.profile-dropdown {
-  position: absolute;
+.nav-bar {
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  top: 0px;
+  left: 0px;
+  height: 75px;
+  width: 100%;
+  z-index: 100000000;
+  border-bottom: black solid 1px ;
+  transition: all .75s;
+  background-color: #fec016;
+} 
+
+.get-started{
+  border-radius: 20px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  width: 108px;
+  min-width: 108px;
+  height: 37px;
+  background-color: rgb(4, 4, 4);
 }
 
-.hidden {
-  display: none;
+
+.nav-white{
+  background-color: #ffffff;
+
+}
+
+.nav-red{
+  background-color: #f24d2d;
+
+}
+
+.nav-yellow{
+  background-color: #fec016;
+}
+
+.button-black{
+ background-color: rgb(4, 4, 4);
+}
+
+.button-green{
+  background-color: #198917;
+}
+
+.button-green:hover{
+  background-color: #147113;
+  
+}
+
+
+
+
+.nav-buttons{
+  display: flex;
+  position: absolute;
+  align-items: center;
+  left: 50%;
+  width: 90%;
+  max-width: 1200px;
+  height: 40px;
+  justify-content: space-between;
+  font-size: 13.5px;
+  font-weight: 300;
+  transform: translate(-50%,0);
+}
+
+.nav-link-buttons{
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+  width: 410px;
+}
+
+
+.logo{
+  font-size: 32px;
+  color: rgb(0, 0, 0);
+  display: flex;
+  height: fit-content;
+  position: relative;
+  z-index: 1;
+}
+
+.get-started:hover,
+.logo:hover{
+  cursor: pointer;
+}
+
+
+.nav-button2:hover,
+.nav-button:hover{
+  cursor: pointer;
+}
+
+
+
+
+
+@media screen and (max-width: 710px) {
+  .nav-button {
+    visibility: hidden;
+  }
+  .show{
+    visibility: visible;
+  }
+}
+
+@media screen and (max-width: 570px) {
+  .nav-button2 {
+    visibility: hidden;
+  }
+  .nav-button2,
+  .nav-button {
+    position: relative;
+    display: flex;
+    text-align: center;
+    width: 20px;
+    left: 5px;
+  }
+
+  .nav-buttons.show{
+
+    width: 100%;
+  }
+
+}
+
+@media screen and (max-width: 545px) {
+  .nav-button2 {
+    visibility: hidden;
+  }
+  .nav-button2.show{
+    visibility: visible;
+  }
+
+}
+
+
+
+@media screen and (min-width: 1200px) {
+  .nav-buttons {
+    right: 10%;
+
+  }
 }
