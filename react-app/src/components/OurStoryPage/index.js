@@ -6,6 +6,9 @@ import playStoreBtn from '../../public/PlayStore_2x.png';
 import appleStoreBtn from '../../public/AppleStore_2x.png';
 import supportWriters from '../../public/svgexport-5.svg';
 import readUnlimited from '../../public/svgexport-6.svg';
+import mediumLogoCircles from '../../public/medium-logo-circles.jpeg';
+import spinningCube from '../../public/spinning-cube.png';
+import spinningSphere from '../../public/spinning-sphere.png';
 
 const OurStoryPage = () => {
 
@@ -58,10 +61,11 @@ const handleLogoClick = () => {
         </div>
         <div className="ourstorypage-story-section flexcenter">
           <div className="ourstorypage-story-image flexcenter">
-            <div className="inner-div">
-              <img></img>imagee
-            </div>
-            
+            <img
+              src={spinningSphere}
+              alt="Spinning sphere of words"
+              className="ourstorypage-spinning-cube"
+            />
           </div>
         </div>
       </div>
@@ -88,7 +92,6 @@ const handleLogoClick = () => {
       <div className="ourstorypage-creators-container">
         <div className="ourstorypage-creator-tile">Creators tile</div>
         <div className="ourstorypage-creator-tile">Creators tile</div>
-        <div className="ourstorypage-creator-tile">Creators tile</div>
       </div>
 
       {/* DIV 5 Stylings */}
@@ -102,7 +105,21 @@ const handleLogoClick = () => {
 
         <div className="ourstorypage-100-million-section right">
           <div className="ourstorypage-quote-image-container">
-            <div className="ourstorypage-quote-image">IMG</div>
+            <div className="ourstorypage-quote-image">
+              
+
+
+
+
+            
+            <img
+              src={mediumLogoCircles}
+              alt="Medium circle logo"
+              className="ourstorypage-medium-logo-circle"
+            />
+
+
+            </div>
           </div>
           <div className="ourstorypage-quote-container">
             <div className="ourstorypage-quote-quote  memo-text">
@@ -275,7 +292,18 @@ const handleLogoClick = () => {
 
       <div className="ourstorypage-expand-container">
         <div className="ourstorypage-expand-section-left flexcenter">
-          <div className="ourstorypage-box-container">Spinning box</div>
+          <div className="ourstorypage-box-container flexcenter">
+            
+
+            <img
+              src={spinningCube}
+              alt="Spinning cube of words"
+              className="ourstorypage-spinning-cube"
+            />
+
+
+
+          </div>
         </div>
         <div className="ourstorypage-expand-section">
           <div className="ourstorypage-expand-header">
