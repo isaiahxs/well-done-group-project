@@ -72,11 +72,11 @@
 
 .nav-link-buttons{
   justify-content: space-between;
-
   display: flex;
   align-items: center;
   width: 410px;
 }
+
 
 .logo{
   font-size: 32px;
@@ -106,11 +106,19 @@
   .nav-button {
     visibility: hidden;
   }
+  .show{
+    visibility: visible;
+  }
 }
 
 @media screen and (max-width: 570px) {
   .nav-button2 {
     visibility: hidden;
+  }
+  .nav-button2,
+  .nav-button {
+    display: flex;
+    text-align: center;
   }
 
 }
@@ -119,6 +127,10 @@
   .nav-button2 {
     visibility: hidden;
   }
+  .show{
+    visibility: visible;
+  }
+
 }
 
 

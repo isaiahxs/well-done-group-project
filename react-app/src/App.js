@@ -11,15 +11,20 @@ import OurStoryPage from './components/OurStoryPage';
 
 
 
-
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(true);
-
+  
   
   useEffect(() => {
     dispatch(authenticate()).then(() => setIsLoaded(true));
   }, [dispatch]);
+  
+  
+    const state = useSelector(state=>state)
+
+
+  console.log(state);
 
   return (
     <>

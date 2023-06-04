@@ -10,6 +10,16 @@ function Navigation(){
   const history = useHistory()
   const dispatch = useDispatch();
   const location = useLocation();
+  const [buttonStylings, setButtonStylings] = useState('')
+  
+  
+  const state = useSelector(state=>state)
+  const user = useSelector(state=>state.session.user)
+
+  console.log(state);
+  console.log(user);
+
+  
 
   const {scrollPosition, windowSize} = useContext(WindowContext)
   console.log(scrollPosition);
@@ -57,6 +67,19 @@ function Navigation(){
     colorScheme.current = newColorScheme;
     setNavColor(newColorScheme[0]);
     setButtonStyle(newColorScheme[2]);
+
+
+  
+    if(!user){
+      if(location.pathname === '/write' || location.pathname === '/about'){
+        buttonStylings
+        setButtonStylings('show')
+      } else {
+        setButtonStylings('')
+      }
+    }
+
+
   },[location.pathname]);
 
 
@@ -78,6 +101,8 @@ function Navigation(){
     colorScheme.current = colorSchemes['/write'];
   };
 
+  console.log(buttonStylings);
+
 
   return (
     <>
@@ -86,11 +111,11 @@ function Navigation(){
 
         <div className='nav-buttons memo-text'>
           <div className='logo' onClick={handleLogoClick}>SHMEDIUM</div>
-          <div className='nav-link-buttons'>
-            <div className='nav-button' onClick={handleStoryClick}>Our Story</div>
-            <div className='nav-button' onClick={handleLogoClick}>Demo User</div>
-            <div className='nav-button' onClick={handleWriteClick}>Write</div>
-            <div className='sign-in-nav-button nav-button2' onClick={handleLogoClick}>Sign In</div>
+          <div className={`nav-link-buttons ${buttonStylings}`}>
+            <div className={`nav-button ${buttonStylings}`} onClick={handleStoryClick}>Our Story</div>
+            <div className={`nav-button ${buttonStylings}`} onClick={handleLogoClick}>Demo User</div>
+            <div className={`nav-button ${buttonStylings}`} onClick={handleWriteClick}>Write</div>
+            <div className={`sign-in-nav-button nav-button2 ${buttonStylings}`} onClick={handleLogoClick}>Sign In</div>
             <div className={`get-started button ${buttonStyle}`}>Get started</div>
           </div>
         </div>
