@@ -58,7 +58,7 @@ function App() {
           }
         >
           {modal === 'login' && <LoginModal />}
-          {modal === 'signup' && <SignupModal />}
+          {/* {modal === 'signup' && <SignupModal />} */}
         </div>
       )}
 

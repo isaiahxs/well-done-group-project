@@ -70,6 +70,8 @@ const StoryPage = () => {
   //     )
   // ))
 
+  //splice paragraph where they decide where to put picture
+
   //randomizing time and date
   // const [readTime, setReadTime] = useState(4)
   // useEffect(()=>{
@@ -78,6 +80,10 @@ const StoryPage = () => {
   //   }
   //   setReadTime(Math.floor(Math.random() * (20) + 4))
   // },[story])
+
+  //when user goes to insert image, take character length up until that point
+  // content.splice(0, 20)
+  //save their position from last picture
 
   const renderStoryContent = (content) => {
     const paragraphs = content.split('\n');
