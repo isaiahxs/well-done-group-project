@@ -10,14 +10,18 @@ import HomePage from './components/HomePage';
 import OurStoryPage from './components/OurStoryPage';
 import WritePage from './components/WritePage';
 import StoryPage from './components/StoryPage';
-
+import LoginModal from './components/LoginModal';
 import * as storyActions from './store/story';
+import LoginFormModal from './components/LoginFormModal';
+import { ModalContext } from './context/ModalContext';
 
 
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(true);
   const state = useSelector(state=>state)
+  const user = useSelector(state=>state.session.user)
+  const { modal, openModal, closeModal, setUpdateObj } = useContext(ModalContext);
 
   console.log(state);
   
@@ -32,9 +36,34 @@ function App() {
 
   }, [dispatch]);
 
+  console.log(modal);
+
 
   return (
     <>
+
+
+        {/* <div className={ modal === 'profileMenu'? 'modal-container-transparent': 'modal-container' }>
+          {modal === 'login' && <LoginModal />}
+          {modal === 'signup' && <SignupModal />}
+        </div> */}
+
+
+        {((modal === 'login' || modal === 'signup')) && (
+        <div
+          className={
+            modal === 'profileMenu'
+              ? 'modal-container-transparent'
+              : 'modal-container'
+          }
+        >
+          {modal === 'login' && <LoginModal />}
+          {modal === 'signup' && <SignupModal />}
+        </div>
+      )}
+
+
+
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
@@ -59,9 +88,9 @@ function App() {
             <StoryPage/>
           </Route>
 
-          <Route path="/login" >
-            <LoginFormPage />
-          </Route>
+          {/* <Route path="/login" >
+            <LoginFormModal />
+          </Route> */}
 
           <Route path="/signup">
             <SignupFormPage />

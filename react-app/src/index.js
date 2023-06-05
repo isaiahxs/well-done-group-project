@@ -3,12 +3,13 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 
-import { ModalProvider, Modal } from "./context/Modal";
+// import { ModalProvider, Modal } from "./context/Modal";
 import configureStore from "./store";
 import * as sessionActions from "./store/session";
 import App from "./App";
 
 import { WindowProvider } from './context/WindowContext';
+import { ModalProvider } from './context/ModalContext';
 
 import "./index.css";
 
@@ -29,7 +30,6 @@ function Root() {
 				<BrowserRouter>
 					<WindowProvider> 
 						<App />
-						<Modal />
 					</WindowProvider> 
 				</BrowserRouter>
 			</Provider>

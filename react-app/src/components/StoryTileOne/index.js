@@ -6,11 +6,11 @@ import { WindowContext } from '../../context/WindowContext';
 const StoryTileOne = ({ story, index }) => {
   const history = useHistory();
   const [date, setDate] = useState('Dec 25, 2560')
-  const [readTime, setReadTime] = useState(4)
   const {windowSize} = useContext(WindowContext)
+  const [readTime, setReadTime] = useState(4)
   const isMobileView = windowSize <= 900;
-
-
+  
+  
   useEffect(()=>{
     if(story){
       setDate(story?.createdAt.slice(0,16))

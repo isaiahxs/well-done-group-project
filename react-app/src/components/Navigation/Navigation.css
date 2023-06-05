@@ -6,7 +6,7 @@
   left: 0px;
   height: 75px;
   width: 100%;
-  z-index: 100000000;
+  z-index: 10;
   border-bottom: black solid 1px ;
   transition: all .75s;
   background-color: #fec016;
@@ -57,6 +57,7 @@
 
 
 .nav-buttons{
+  user-select: none;
   display: flex;
   position: absolute;
   align-items: center;
