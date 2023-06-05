@@ -2,7 +2,7 @@ import { React, useState, useEffect, useContext } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import './TrendingBanner.css';
 import StoryTileOne from '../StoryTileOne';
-import StoryTileSkeleton from '../StoryTileOneSkeleton';
+import StoryTileOneSkeleton from '../StoryTileOneSkeleton';
 import stonks from '../../public/svgexport-3.svg';
 import * as storyActions from '../../store/story';
 
@@ -52,12 +52,12 @@ const TrendingBanner = () => {
 
       {!loaded && (
         <div className="main-page-trending-tile-container">
-          <StoryTileSkeleton />
-          <StoryTileSkeleton />
-          <StoryTileSkeleton />
-          <StoryTileSkeleton />
-          <StoryTileSkeleton />
-          <StoryTileSkeleton />
+          <StoryTileOneSkeleton />
+          <StoryTileOneSkeleton />
+          <StoryTileOneSkeleton />
+          <StoryTileOneSkeleton />
+          <StoryTileOneSkeleton />
+          <StoryTileOneSkeleton />
         </div>
       )}
 
