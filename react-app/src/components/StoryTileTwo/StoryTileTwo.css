@@ -13,8 +13,14 @@
   margin-top: 35px;
 }
 
+.story-tile-style2:last-child {
+  margin-bottom: 35px;
+}
+
 .style2-content{
   height: 70px;
+  margin-left: 20px;
+
   display: flex;
   flex-direction: column;
 }
