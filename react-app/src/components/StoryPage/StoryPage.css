@@ -1,5 +1,13 @@
 /* margin-top 75 px so that everything is under the nav bar and not being covered*/
 
+.member-only {
+  color: #757575;
+  font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: lighter;
+  margin-top: 30px;
+  font-size: 14px; 
+}
+
 .story-page {
   max-width: 800px;
   margin: 0 auto;
@@ -9,23 +17,50 @@
 .story-title {
   font-size: 30px;
   font-weight: bold;
-  margin-top: 75px;
-  margin-bottom: 0px;
-  /* text-align: center; */
-  color: black;
+  color: #292929;
+  font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .story-author {
-  font-size: 20px;
+  font-size: 16px;
   font-weight: lighter;
   margin-top: 0px;
   margin-bottom: 0px;
   /* text-align: center; */
-  color: black;
+  color: #292929;
+  font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .follow {
-  color: #479275
+  color: #479275;
+  font-size: 16px;
+  font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.time {
+  color: #757575;
+  font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: lighter;
+  font-size: 14px; 
+}
+
+.alt-options{
+  font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.alt-options button {
+  display: inline-block;
+  padding: 8px 15px;
+  font-size: 16px;
+  text-align: center;
+  color: #757575;
+  background-color: white;
+  border: 1px solid #757575;
+  border-radius: 20px;
+  cursor: pointer;
+  margin-right: 5px;
+  margin-bottom: 20px;
+  margin-top: 10px;
 }
 
 .story-content {
@@ -34,8 +69,22 @@
   margin-top: 0px;
   margin-bottom: 0px;
   /* text-align: center; */
-  color: black;
+  color: #292929;
+  line-height: 28px;
+  font-family: source-serif-pro, Georgia, Cambria, "Times New Roman", Times, serif;
 }
+
+.story-image {
+  display: flex;
+  margin: 0 auto;
+  max-width: 70%;
+  height: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 70%;
+}
+
+
 
 .loading-message {
   font-size: 20px;

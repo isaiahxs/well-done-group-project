@@ -56,12 +56,12 @@ const StoryPage = () => {
             <div className="story-author">{story.authorInfo.firstName} {story.authorInfo.lastName}</div>
             <a className='follow'>Follow</a>
             {/* here we can come up with a way to randomize the duration length and use the date created to know how long it has been */}
-            <p>X min read · X days ago</p>
+            <p className='time'>X min read · X days ago</p>
           </div>
 
           <div className='alt-options'>
-            <button>listen</button>
-            <button>share</button>
+            <button>Listen</button>
+            <button>Share</button>
             <button>... More</button>
           </div>
 
@@ -72,7 +72,7 @@ const StoryPage = () => {
             <img
               key={image.id}
               src={image.url}
-              alt={image.altText}
+              alt={image.altTag}
               className="story-image"
             />
           ))}
