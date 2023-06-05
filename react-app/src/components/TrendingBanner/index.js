@@ -8,17 +8,27 @@ import * as storyActions from '../../store/story';
 
 const TrendingBanner = () => {
   const stories = useSelector((state) => state.story.stories);
+  const loaded = useSelector((state) => state.story.loaded);
 
   const dispatch = useDispatch();
-  const [loaded, isLoaded] = useState(false);
+  // const [loaded, isLoaded] = useState(false);
   const [trendingStories, setTrendingStories] = useState([]);
 
-  useEffect(() => {
-    isLoaded(false);
-    dispatch(storyActions.getStories()).then(() => {
-      isLoaded(true);
-    });
-  }, [dispatch]);
+  // useEffect(() => {
+  //   isLoaded(false);
+  //   dispatch(storyActions.getStories()).then(() => {
+  //     isLoaded(true);
+  //   });
+  // }, [dispatch]);
+
+
+  // useEffect(() => {
+  //   isLoaded(false);
+  //   setTimeout(() => {
+  //     isLoaded(true);
+    
+  //   }, 1000);
+  // }, []);
 
   useEffect(() => {
     if (stories) {

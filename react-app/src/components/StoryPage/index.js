@@ -12,12 +12,7 @@ const StoryPage = () => {
   const history = useHistory();
 
   const {scrollPosition, windowSize} = useContext(WindowContext)
-  console.log(scrollPosition);
-  console.log(windowSize);
-
   const isMobileView = windowSize <= 765;
-
-
 
 
   useEffect(() => {

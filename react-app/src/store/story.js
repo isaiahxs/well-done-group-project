@@ -15,25 +15,9 @@ const initialLoadAction = (data) => ({
 
 
 
-const initialState = { stories: [], tags: [] };
+const initialState = { stories: [], tags: [], loaded: false };
 
 export const initialLoad = () => async (dispatch) => {
-	console.log('=-=-=-=---=');
-	console.log('=-=-=-=---=');
-	console.log('=-=-=-=---=');
-	console.log('=-=-=-=---=');
-	console.log('=-=-=-=---=');
-
-	console.log('here');
-	console.log('here');
-	console.log('here');
-	console.log('here');
-	console.log('here');
-	console.log('=-=-=-=---=');
-	console.log('=-=-=-=---=');
-	console.log('=-=-=-=---=');
-	console.log('=-=-=-=---=');
-
 	// const response = await fetch("/api/story", {
 	const response = await fetch("/api/story/initialize", {
 		method: "GET",
@@ -95,6 +79,8 @@ export default function reducer(state = initialState, action) {
 			return {stories: action.payload.stories };
 		case INITIAL_LOAD:
 			console.log(action.payload);
+			return {stories: action.payload.stories, tags: action.payload.tags, loaded: true };
+
 			return {...newState};
 			
 		default:

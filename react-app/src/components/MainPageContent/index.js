@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import {useHistory} from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux';
+
 import './MainPageContent.css';
 import { WindowContext } from '../../context/WindowContext';
 
@@ -12,7 +14,9 @@ const MainPageContent = () => {
   const isMobileView = windowSize <= 900;
   const [isExtended, setIsExtended] = useState(false);
   const history = useHistory()
+  const tags = useSelector(state=> state.story)
 
+  console.log(tags);
 
   const handleLogoClick = () => {
     history.push('/');
@@ -35,7 +39,10 @@ const MainPageContent = () => {
               Discover more of what matters to you
             </div>
 
-            <div className="main-page-tag">Sports</div>
+            {/* {tags && tags.map(tag=>{
+              <div className="main-page-tag">tag.tag</div>
+            })} */}
+
             <div className="main-page-tag">Programming</div>
             <div className="main-page-tag">Data Science</div>
             <div className="main-page-tag">Technology</div>
