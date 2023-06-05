@@ -20,12 +20,11 @@ const initialLoadAction = (data) => ({
 // 	currentStory: data.currentStory, //this is the current story
 // }
 
-const initialState = { stories: [], tags: [] };
+const initialState = { stories: [], tags: [], loaded: false };
 
 export const initialLoad = () => async (dispatch) => {
-
 	// const response = await fetch("/api/story", {
-	const response = await fetch("/api/init/", {
+	const response = await fetch("/api/story/initialize", {
 		method: "GET",
 		headers: {
 			"Content-Type": "application/json",
@@ -36,12 +35,13 @@ export const initialLoad = () => async (dispatch) => {
 		const data = await response.json();
 
 		console.log(data);
-
+ 
 		dispatch(initialLoadAction(data));
 		return null;
 	} else if (response.status < 500) {
 		const data = await response.json();
 		if (data.errors) {
+
 			return data.errors;
 		}
 	} else {
@@ -84,6 +84,8 @@ export default function reducer(state = initialState, action) {
 			return {stories: action.payload.stories };
 		case INITIAL_LOAD:
 			console.log(action.payload);
+			return {stories: action.payload.stories, tags: action.payload.tags, loaded: true };
+
 			return {...newState};
 			
 		default:

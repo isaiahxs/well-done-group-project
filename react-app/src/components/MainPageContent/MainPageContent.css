@@ -1,11 +1,11 @@
 .main-page-content {
   border-top: solid rgba(0, 0, 0, 0.154) 1px;
   position: relative;
-  top: 125px;
   width: 100%;
   max-width: 1200px;
   left: 50%;
-  transform: translate(-50%, 0%);
+  margin-top: 40px;
+  transform: translate(-50%, 0);
   height: fit-content;
 }
 
@@ -54,12 +54,7 @@
   height: 900px;
 }
 
-.main-page-tags {
-  height: 300px;
-  padding: 5px;
-  overflow: hidden;
-  transition: height 0.5s ease;
-}
+
 
 
 
@@ -81,6 +76,8 @@
   height: 300px;
   padding: 5px;
   transition: height 0.5s ease;
+  overflow: scroll;
+
 }
 
 .divider-line{
@@ -90,35 +87,56 @@
   position: relative;
   top: 45px;
 }
+
+
 .see-more-topics{
   top: 5px;
   left: 5%;
   position: relative;
   color: #198917;
   width: fit-content;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 300;
+}
+
+.see-more-topics.small{
+  top: 25px;
 }
 
 
 .main-page-tags-extended {
-  height: 500px;
+  height: 550px;
+  transition: height 0.5s ease;
+  overflow: scroll;
+}
+
+
+.main-page-tags {
+  height: 300px;
+  padding: 6px;
+  overflow: hidden;
   transition: height 0.5s ease;
 }
 
 .main-page-tag {
   border-radius: 15px;
   white-space: nowrap;
-  padding: 7px;
+  padding: 8px;
+  padding-left: 15px;
+  padding-right: 15px;
   box-sizing: border-box;
   display: inline-block;
   margin: 5px;
   background-color: #f2f2f2;
   transition: all 0.2s;
-
+  font-size: 15px;
+  font-weight: 300;
 }
+
 .main-page-tag:hover {
   cursor: pointer;
   background-color: #e6e6e6;
-
 }
 
 .main-page-footer-item {
@@ -143,16 +161,7 @@
   top: 20px;
   left: 5%;
 }
-.main-page-content {
-  border-top: solid rgba(0, 0, 0, 0.154) 1px;
-  position: relative;
-  top: 125px;
-  width: 100%;
-  max-width: 1200px;
-  left: 50%;
-  transform: translate(-50%, 0%);
-  height: fit-content;
-}
+
 
 .main-page-content-header {
   height: 70px;
@@ -168,8 +177,18 @@
   align-items: center;
   justify-content: center;
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 500;
+  margin-top: 30px;
+  transition: all .5s;
 }
+
+.main-page-tag-header.extended {
+  margin-top: 0px;
+  transition: all .5s;
+
+}
+
+
 
 .main-page-small-view-footer{
   width: 100%;
@@ -179,18 +198,15 @@
   left: 0%;
 }
 
-.see-more-topics:hover{
-  cursor: pointer;
 
-}
 
 .main-page-small-view-tag-header {
   width: 100%;
   height: 30px;
   display: flex;
   align-items: flex-start;
-  font-size: 17px;
-  font-weight: 600;
+  font-size: 15px;
+  font-weight: 500;
 }
 
 .footer-logo{

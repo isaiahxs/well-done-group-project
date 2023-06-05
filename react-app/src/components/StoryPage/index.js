@@ -26,9 +26,6 @@ const StoryPage = () => {
 //key into the id that matches
 
   const {scrollPosition, windowSize} = useContext(WindowContext)
-  console.log(scrollPosition);
-  console.log(windowSize);
-
   const isMobileView = windowSize <= 765;
 
   useEffect(() => {

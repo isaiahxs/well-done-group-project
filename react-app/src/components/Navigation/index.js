@@ -4,8 +4,11 @@ import { useHistory, useLocation, NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import './Navigation.css';
 import { WindowContext } from '../../context/WindowContext';
+import { ModalContext } from '../../context/ModalContext';
 
 function Navigation(){
+  const { modal, openModal, closeModal, updateObj, setUpdateObj } = useContext(ModalContext);
+
   const history = useHistory()
   const dispatch = useDispatch();
   const location = useLocation();
@@ -15,15 +18,10 @@ function Navigation(){
   const state = useSelector(state=>state)
   const user = useSelector(state=>state.session.user)
 
-  console.log(state);
-  console.log(user);
 
-  
 
   const {scrollPosition, windowSize} = useContext(WindowContext)
-  console.log(scrollPosition);
-  console.log(windowSize);
-
+  
 
   const colorSchemes = {
     '/': ['nav-yellow', 'nav-white', 'button-black', 'button-green'],
@@ -39,14 +37,8 @@ function Navigation(){
 
   
   useEffect(() => {
-    console.log(scrollPosition);
-
-    console.log('scrollin');
-
+   
       const colors = colorScheme.current; 
-
-      console.log(colors[3]);
-      
       if(scrollPosition <= 370){
         setNavColor(colors[0])
         setButtonStyle(colors[2])
@@ -100,8 +92,10 @@ function Navigation(){
   };
 
   const handleLoginClick = () => {
-    history.push('/login');
+    console.log('click');
+      openModal('login');
   };
+ 
 
 
   return (
@@ -115,7 +109,7 @@ function Navigation(){
             <div className={`nav-button ${buttonStylings}`} onClick={handleStoryClick}>Our Story</div>
             <div className={`nav-button ${buttonStylings}`} onClick={handleLogoClick}>Demo User</div>
             <div className={`nav-button ${buttonStylings}`} onClick={handleWriteClick}>Write</div>
-            <div className={`sign-in-nav-button nav-button2 ${buttonStylings}`} onClick={handleLoginClick}>Sign In</div>
+            <div className={`sign-in-nav-button nav-button2 ${buttonStylings}`} onClick={()=>handleLoginClick()}>Sign In</div>
             <div className={`get-started button ${buttonStyle}`}>Get started</div>
           </div>
         </div>

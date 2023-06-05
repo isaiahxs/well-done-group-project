@@ -18,6 +18,22 @@ def stories():
     return {'stories': [story.to_dict() for story in stories]}
 
 
+
+@story_routes.route('/initialize')
+def initial_load():
+    """
+    Eager Load data upon initialization 
+    """
+    stories = Story.query.all()
+    tags = Tag.query.all()
+    return {
+        'stories': [story.to_dict() for story in stories],
+        'tags': [tag.tag for tag in tags],
+    }
+
+
+
+
 @story_routes.route('/curr')
 @login_required
 def curr_user_stories():

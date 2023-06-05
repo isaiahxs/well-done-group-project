@@ -1,20 +1,26 @@
 import React, { useState, useEffect, useContext } from 'react';
 import {useHistory} from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux';
+
 import './MainPageContent.css';
 import { WindowContext } from '../../context/WindowContext';
+
+import StoryTileTwo from '../StoryTileTwo';
 
 
 const MainPageContent = () => {
 
   const {windowSize} = useContext(WindowContext)
 
-  console.log(windowSize);
 
   const isMobileView = windowSize <= 900;
   const [isExtended, setIsExtended] = useState(false);
   const history = useHistory()
+  const tags = useSelector(state=> state.story.tags)
+  const stories = useSelector(state=> state.story.stories)
 
-  console.log(windowSize);
+
+
 
   const handleLogoClick = () => {
     history.push('/');
@@ -33,26 +39,16 @@ const MainPageContent = () => {
                 : 'main-page-small-view-tags'
             }
           >
-            <div className="main-page-small-view-tag-header">
+            <div className="main-page-small-view-tag-header memo-text">
               Discover more of what matters to you
             </div>
 
-            <div className="main-page-tag">Sports</div>
-            <div className="main-page-tag">Programming</div>
-            <div className="main-page-tag">Data Science</div>
-            <div className="main-page-tag">Technology</div>
-            <div className="main-page-tag">Self Improvememt</div>
-            <div className="main-page-tag">Writing</div>
-            <div className="main-page-tag">Relationships</div>
-            <div className="main-page-tag">Machine Learning</div>
-            <div className="main-page-tag">Productivity</div>
-            <div className="main-page-tag">Web Development</div>
-            <div className="main-page-tag">JavaScript</div>
-            <div className="main-page-tag">Python</div>
-            <div className="main-page-tag">Software Development</div>
+            {tags && tags.map(tag=>{
+              return <div className="main-page-tag memo-text">{tag}</div>
+            })}
           </div>
           <div
-            className="see-more-topics"
+            className="see-more-topics small memo-text"
             onClick={() => setIsExtended(!isExtended)}
           >
             {isExtended ? 'See less topics' : 'See more topics'}
@@ -61,9 +57,10 @@ const MainPageContent = () => {
           <div className="divider-line"></div>
 
           <div className="main-page-small-feed">
-            <div className="main-page-feed-article">Article</div>
-            <div className="main-page-feed-article">Article</div>
-            <div className="main-page-feed-article">Article</div>
+              {stories && stories.map(story=>{
+                  return <StoryTileTwo className="main-page-feed-article" story={story}/>
+              })}
+
           </div>
 
           <div className="main-page-small-view-footer">
@@ -80,23 +77,15 @@ const MainPageContent = () => {
         <div className="wide-view">
           <div className="main-page-content-header"></div>
 
-          <div className="main-page-wide-feed">
-            <div className="main-page-feed-article">DDArticle</div>
-            <div className="main-page-feed-article">Article</div>
-            <div className="main-page-feed-article">Article</div>
-            <div className="main-page-feed-article">Article</div>
-            <div className="main-page-feed-article">Article</div>
-            <div className="main-page-feed-article">Article</div>
-            <div className="main-page-feed-article">Article</div>
-            <div className="main-page-feed-article">Article</div>
-            <div className="main-page-feed-article">Article</div>
-            <div className="main-page-feed-article">Article</div>
-            <div className="main-page-feed-article">Article</div>
-            <div className="main-page-feed-article">Article</div>
-          </div>
+            <div className="main-page-wide-feed">
+                {stories && stories.map(story=>{
+                  return <StoryTileTwo className="main-page-feed-article" story={story}/>
+                })}
+            </div>
+
 
           <div className="main-page-footer-tags-container">
-            <div className="main-page-tag-header">
+            <div className={`main-page-tag-header  memo-text ${isExtended ? 'extended' : ''}`}>
               Discover more of what matters to you
             </div>
 
@@ -105,19 +94,12 @@ const MainPageContent = () => {
                 isExtended ? 'main-page-tags-extended' : 'main-page-tags'
               }
             >
-              <div className="main-page-tag">Sports</div>
-              <div className="main-page-tag">Programming</div>
-              <div className="main-page-tag">Data Science</div>
-              <div className="main-page-tag">Technology</div>
-              <div className="main-page-tag">Self Improvememt</div>
-              <div className="main-page-tag">Writing</div>
-              <div className="main-page-tag">Relationships</div>
-              <div className="main-page-tag">Machine Learning</div>
-              <div className="main-page-tag">Productivity</div>
-              <div className="main-page-tag">Web Development</div>
-              <div className="main-page-tag">JavaScript</div>
-              <div className="main-page-tag">Python</div>
-              <div className="main-page-tag">Software Development</div>
+              {tags && tags.map(tag=>{
+                return <div className="main-page-tag memo-text">{tag}</div>
+              })}
+
+
+
             </div>
             <div
               className="see-more-topics"

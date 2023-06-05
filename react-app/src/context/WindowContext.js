@@ -8,7 +8,6 @@ export const WindowProvider = ({ children }) => {
   
   useEffect(() => {
 
-    console.log('resizing');
 
     const handleResize = () => {
       setWindowSize(window.innerWidth);
@@ -23,9 +22,6 @@ export const WindowProvider = ({ children }) => {
 
   useEffect(() => {
  
-    console.log('resizing');
-    console.log(scrollPosition);
-
     
     const handleScroll = () => {
       setScrollPosition(window.scrollY);
