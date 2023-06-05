@@ -31,9 +31,6 @@ const StoryPage = () => {
 
   const isMobileView = windowSize <= 765;
 
-
-
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -41,6 +38,28 @@ const StoryPage = () => {
   const handleLogoClick = () => {
     history.push('/');
   };
+
+  const insertImagesInContent = (content) => {
+    const image1 = story.images[0];
+    const image2 = story.images[1];
+    const contentArray = content.split('\n'); //split the content by new lines
+
+    //insert the first image at the halfway point
+    const halfwayIndex = Math.floor(contentArray.length / 2);
+    contentArray.splice(
+      halfwayIndex,
+      0,
+      `<img src="${image1.url}" alt="${image1.altTag}" class="story-image">`
+    );
+
+    //insert the second image at the end
+    contentArray.push(
+      `<img src="${image2.url}" alt="${image2.altTag}" class="story-image">`
+    );
+
+    //join the content array back into a string
+    return contentArray.join('\n');
+  }
 
   return (
     <>
@@ -67,7 +86,7 @@ const StoryPage = () => {
 
           {/* splice the content, character number, separate content into two diff divs, where the gap is, insert image */}
 
-          <div className="story-content">{story.content}</div>
+          {/* <div className="story-content">{story.content}</div>
           {story.images.map(image => (
             <img
               key={image.id}
@@ -75,7 +94,9 @@ const StoryPage = () => {
               alt={image.altTag}
               className="story-image"
             />
-          ))}
+          ))} */}
+          <div className="story-content" dangerouslySetInnerHTML={{ __html: insertImagesInContent(story.content) }}>
+          </div>
         </>
       )}
       {!story && <div className="loading-message">Loading...</div>}
