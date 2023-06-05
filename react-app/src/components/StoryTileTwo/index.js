@@ -1,0 +1,60 @@
+import React, { useEffect, useContext, useState } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
+import './StoryTileTwo.css';
+import mediumLogoCircles from '../../public/medium-logo-circles.jpeg';
+import { WindowContext } from '../../context/WindowContext';
+
+const StoryTileTwo = ({ story, index }) => {
+  const history = useHistory();
+  const [date, setDate] = useState('Dec 25, 2560')
+  const [readTime, setReadTime] = useState(4)
+  const {windowSize} = useContext(WindowContext)
+
+
+  useEffect(()=>{
+    if(story){
+      setDate(story?.createdAt.slice(0,16))
+    }
+    setReadTime(Math.floor(Math.random() * (20) + 4))
+  },[story])
+
+
+
+
+  return (
+    <div className="story-tile-style2">
+      <div className="style2-content">
+        <div className="style2-author-container">
+          <div className="style2-profile-image">
+            <img
+              // src={story?.authorInfo.profileImage}
+              src={mediumLogoCircles}
+              alt="author profile picture"
+            ></img>
+          </div>
+          <div 
+          className="style2-author-name memo-text"
+          onClick={() => history.push(`/author/${story.id}`)}>
+            {story?.authorInfo.firstName} {story?.authorInfo.lastName}
+          </div>
+        </div>
+        <div className="style2-story-title-container">
+          <div className=" style2-story-title memo-text" onClick={() => history.push(`/story/${story.id}`)}>{story?.title}</div>
+        </div>
+
+        <div className="style2-date-read-time-container flexbetween memo-text">
+          <div className="style2-date-content">{date}</div>
+          <i className="style2 fa-solid fa-circle"></i>
+          <div className="style2-date-read-time-content">
+            {/* {story?.readTime} min read */}
+            {readTime} min read
+          </div>
+        </div>
+      </div>
+      <div className='style2-story-image'></div>
+    </div>
+  );
+};
+export default StoryTileTwo;
+
+

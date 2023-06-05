@@ -1,35 +1,33 @@
-.story-tile-style1 {
+.story-tile-style2 {
   background-color: #fff;
-  height: 100%;
+  height: fit-content;
   width: 99%;
   left: 0%;
   position: relative;
   display: flex;
+  border: black solid 1px;
+  justify-content: space-between;
+}
+.story-tile-style2:first-child {
+  margin-top: 40px;
+
 }
 
-
-.style1-number{
-  width: 50px;
-  font-size: 35px;
-  color: #e6e6e6;
-  position: relative;
-  top: -5px;
-}
-
-.style1-content{
+.style2-content{
   height: 100%;
   display: flex;
   flex-direction: column;
+  border: black solid 1px;
 }
 
-.style1-author-container{
+.style2-author-container{
   display: flex;
   align-items: center;
   width: 240px;
   height: 30px;
 }
 
-.style1-profile-image{
+.style2-profile-image{
   width: 20px;
   height: 20px;
   border-radius: 50%;
@@ -37,7 +35,7 @@
   overflow: hidden;
 }
 
-.style1-profile-image img {
+.style2-profile-image img {
   object-fit: cover;
   position: relative;
   width: 100%;
@@ -45,7 +43,7 @@
   max-height: 300px;
 }
 
-.style1-author-name{
+.style2-author-name{
   font-size: 14px;
   /* width: 100%; */
   position: relative;
@@ -53,19 +51,19 @@
 }
 
 
-.style1-story-title:hover,
-.style1-author-name:hover{
+.style2-story-title:hover,
+.style2-author-name:hover{
   cursor: pointer;
 }
 
-.style1-story-title-container{
-  margin-top: 5px;
+.style2-story-title-container{
+  margin-top: 10px;
   height: 30px;
-  height: fit-content;
   width: 100%;
   max-width: 280px;
   word-break:keep-all;
   text-overflow: ellipsis;
+
 }
 
 /* display: block; */
@@ -74,26 +72,51 @@
 
 
 
-.style1-story-title{
+.style2-story-title{
   font-weight: bold;
 }
 
-.style1-date-read-time-container{
+.style2-date-read-time-container{
   width: fit-content;
   align-items: center;
   color: #757575;
   font-size: 13px;
-  margin-top: 10px;
+
   position: relative;
 }
 
 
 @media screen and (min-width: 749px) {
-  .style1-date-read-time-container{
-    margin-top: 10px;
+  .style2-date-read-time-container{
+    margin-top: 30px;
   }
 }
 
-.style1.fa-circle{
+.style2.fa-circle{
   transform: scale(.15);
 }
+
+
+
+.style2-story-image{
+  height: 95px;
+  width: 150px;
+  border: green solid 1px;
+  background-color: aquamarine;
+  right: 0px;
+}
+
+
+@media screen and (min-width: 700px) {
+  .style2-story-image{
+    height: 130px;
+    width: 200px;
+    border: green solid 1px;
+    background-color: rgb(206, 142, 46);
+    right: 0px;
+  }
+}
+
+
+
+

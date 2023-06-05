@@ -1,29 +1,36 @@
-import React from 'react'
-import './MmmComponent.css'
-import MmmSlider from '../MmmSlider'
+import React, { useContext } from 'react';
+
+import './MmmComponent.css';
+import MmmSlider from '../MmmSlider';
+import { WindowContext } from '../../context/WindowContext';
 
 const MmmComponent = () => {
+  const { windowSize } = useContext(WindowContext);
+  const isMobileView = windowSize <= 750;
+
   return (
-    <div className='mmm-container'>
+    <>
+      {!isMobileView && (
+        <div className="mmm-container">
+          <MmmSlider length={0} />
+          <MmmSlider length={15} />
+          <MmmSlider length={23} />
+          <MmmSlider length={25} />
+          <MmmSlider length={18} />
+          <MmmSlider length={14} />
+          <MmmSlider length={16} />
+          <MmmSlider length={10} />
+          <MmmSlider length={18} />
+          <MmmSlider length={22} />
+          <MmmSlider length={10} />
+          <MmmSlider length={18} />
+          <MmmSlider length={12} />
+          <MmmSlider length={15} />
+        </div>
+      )}
 
-      <MmmSlider length={0}/>
-      <MmmSlider length={15}/>
-      <MmmSlider length={23}/>
-      <MmmSlider length={25}/>
-      <MmmSlider length={18}/>
-      <MmmSlider length={14}/>
-      <MmmSlider length={16}/>
-      <MmmSlider length={10}/>
-      <MmmSlider length={18}/>
-      <MmmSlider length={22}/>
-      <MmmSlider length={10}/>
-      <MmmSlider length={18}/>
-      <MmmSlider length={12}/>
-      <MmmSlider length={15}/>
-
-
-
-    </div>
-  )
-}
-export default MmmComponent
+      {isMobileView && <div className="mmm-container"></div>}
+    </>
+  );
+};
+export default MmmComponent;

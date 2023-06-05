@@ -5,6 +5,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import './MainPageContent.css';
 import { WindowContext } from '../../context/WindowContext';
 
+import StoryTileTwo from '../StoryTileTwo';
+
 
 const MainPageContent = () => {
 
@@ -15,12 +17,9 @@ const MainPageContent = () => {
   const [isExtended, setIsExtended] = useState(false);
   const history = useHistory()
   const tags = useSelector(state=> state.story.tags)
+  const stories = useSelector(state=> state.story.stories)
 
-  console.log(tags);
 
-  if(tags){
-    tags.map(tag=>{console.log(tag);})
-  }
 
 
   const handleLogoClick = () => {
@@ -58,9 +57,10 @@ const MainPageContent = () => {
           <div className="divider-line"></div>
 
           <div className="main-page-small-feed">
-            <div className="main-page-feed-article">Article</div>
-            <div className="main-page-feed-article">Article</div>
-            <div className="main-page-feed-article">Article</div>
+              {stories && stories.map(story=>{
+                  return <StoryTileTwo className="main-page-feed-article" story={story}/>
+              })}
+
           </div>
 
           <div className="main-page-small-view-footer">
@@ -77,8 +77,13 @@ const MainPageContent = () => {
         <div className="wide-view">
           <div className="main-page-content-header"></div>
 
-          <div className="main-page-wide-feed">
-            <div className="main-page-feed-article">DDArticle</div>
+            <div className="main-page-wide-feed">
+                {stories && stories.map(story=>{
+                  return <StoryTileTwo className="main-page-feed-article" story={story}/>
+                })}
+            </div>
+
+            {/* <div>Article</div>
             <div className="main-page-feed-article">Article</div>
             <div className="main-page-feed-article">Article</div>
             <div className="main-page-feed-article">Article</div>
@@ -88,9 +93,7 @@ const MainPageContent = () => {
             <div className="main-page-feed-article">Article</div>
             <div className="main-page-feed-article">Article</div>
             <div className="main-page-feed-article">Article</div>
-            <div className="main-page-feed-article">Article</div>
-            <div className="main-page-feed-article">Article</div>
-          </div>
+            <div className="main-page-feed-article">Article</div> */}
 
           <div className="main-page-footer-tags-container">
             <div className="main-page-tag-header">
@@ -107,7 +110,7 @@ const MainPageContent = () => {
               })}
 
 
-              
+
             </div>
             <div
               className="see-more-topics"
