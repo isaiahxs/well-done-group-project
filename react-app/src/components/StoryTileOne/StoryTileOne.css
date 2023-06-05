@@ -84,7 +84,14 @@
   color: #757575;
   font-size: 13px;
   margin-top: 10px;
+  position: relative;
+}
 
+
+@media screen and (min-width: 749px) {
+  .style1-date-read-time-container{
+    margin-top: 30px;
+  }
 }
 
 .style1.fa-circle{
