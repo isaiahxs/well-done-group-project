@@ -61,6 +61,14 @@ const StoryPage = () => {
     return contentArray.join('\n');
   }
 
+  const renderStoryContent = (content) => {
+    const paragraphs = content.split('\n');
+
+    return paragraphs.map((paragraph, i) => (
+      <p key={i}>{paragraph}</p>
+    ))
+  }
+
   return (
     <>
     <div className="story-page">
@@ -96,16 +104,11 @@ const StoryPage = () => {
             />
           ))} */}
           <div className="story-content" dangerouslySetInnerHTML={{ __html: insertImagesInContent(story.content) }}>
+            {/* {renderStoryContent(story.content)} */}
           </div>
         </>
       )}
       {!story && <div className="loading-message">Loading...</div>}
-      {/* <h1>hi</h1>
-      <h1>hi</h1>
-      <h1>hi</h1>
-      <h1>hi</h1>
-      <h1>hi</h1>
-      <h1>hi</h1> */}
     </div>
     </>
   )  
