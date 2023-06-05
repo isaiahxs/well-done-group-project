@@ -5,19 +5,18 @@
   left: 0%;
   position: relative;
   display: flex;
-  border: black solid 1px;
   justify-content: space-between;
+  margin-top: 20px;
 }
-.story-tile-style2:first-child {
-  margin-top: 40px;
 
+.story-tile-style2:first-child {
+  margin-top: 35px;
 }
 
 .style2-content{
-  height: 100%;
+  height: 70px;
   display: flex;
   flex-direction: column;
-  border: black solid 1px;
 }
 
 .style2-author-container{
@@ -31,9 +30,9 @@
   width: 20px;
   height: 20px;
   border-radius: 50%;
-  border: black solid 1px;
   overflow: hidden;
 }
+
 
 .style2-profile-image img {
   object-fit: cover;
@@ -45,7 +44,6 @@
 
 .style2-author-name{
   font-size: 14px;
-  /* width: 100%; */
   position: relative;
   margin-left: 10px;
 }
@@ -57,31 +55,22 @@
 }
 
 .style2-story-title-container{
-  margin-top: 10px;
-  height: 30px;
-  width: 100%;
-  max-width: 280px;
+  margin-top: 5px;
+  height: 50px;
+  width: 300px;
   word-break:keep-all;
   text-overflow: ellipsis;
-
-}
-
-/* display: block; */
-
-
-
-
-
-.style2-story-title{
   font-weight: bold;
 }
+
+
 
 .style2-date-read-time-container{
   width: fit-content;
   align-items: center;
   color: #757575;
   font-size: 13px;
-
+  margin-top: 5px;
   position: relative;
 }
 
@@ -98,23 +87,77 @@
 
 
 
+
+
 .style2-story-image{
-  height: 95px;
+  height: 105px;
   width: 150px;
-  border: green solid 1px;
   background-color: aquamarine;
   right: 0px;
+  overflow: hidden;
 }
 
 
+.style2-story-image img {
+  object-fit: cover;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-height: 300px;
+}
+
+
+
+
+
+
+/* stylings for larger tile size */
 @media screen and (min-width: 700px) {
   .style2-story-image{
-    height: 130px;
+    height: 150px;
     width: 200px;
-    border: green solid 1px;
     background-color: rgb(206, 142, 46);
     right: 0px;
   }
+
+  .story-tile-style2 {
+    margin-top: 30px;
+  }
+
+  .style2-content {
+    margin-left: 30px;
+    height: 130px;
+  }
+
+
+  .style2-story-title-container{
+    height: fit-content;
+  }
+
+
+
+  .style2-story-title{
+    font-size: larger;
+  }
+  
+  
+  .style2-date-read-time-container{
+    margin-top: 5px;
+  }
+
+  .style2-header-container{
+    width: 400px;
+  }
+
+  .style2-header-content{
+    margin-top: 3px;
+    color: #757575;
+
+  }
+
+
+
+
 }
 
 

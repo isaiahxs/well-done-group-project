@@ -9,16 +9,22 @@ const StoryTileTwo = ({ story, index }) => {
   const [date, setDate] = useState('Dec 25, 2560')
   const [readTime, setReadTime] = useState(4)
   const {windowSize} = useContext(WindowContext)
+  const [thumbnail, setThumbnail] = useState('')
 
 
   useEffect(()=>{
     if(story){
-      setDate(story?.createdAt.slice(0,16))
+      let month = story?.createdAt.slice(8,11)
+      let day = story?.createdAt.slice(5,7)
+      setDate(`${month} ${day}`)
     }
     setReadTime(Math.floor(Math.random() * (20) + 4))
+    setThumbnail(story.images[0])
+
+
   },[story])
 
-
+console.log(story);
 
 
   return (
@@ -42,6 +48,10 @@ const StoryTileTwo = ({ story, index }) => {
           <div className=" style2-story-title memo-text" onClick={() => history.push(`/story/${story.id}`)}>{story?.title}</div>
         </div>
 
+        {windowSize > 699 && (<div className="style2-header-container flexbetween memo-text">
+          <div className="style2-header-content">The story's header goes here</div>
+        </div>)}
+
         <div className="style2-date-read-time-container flexbetween memo-text">
           <div className="style2-date-content">{date}</div>
           <i className="style2 fa-solid fa-circle"></i>
@@ -51,7 +61,12 @@ const StoryTileTwo = ({ story, index }) => {
           </div>
         </div>
       </div>
-      <div className='style2-story-image'></div>
+      <div className='style2-story-image'>
+        <img
+          src={thumbnail.url}
+          alt={thumbnail.altTag}
+        ></img>
+      </div>
     </div>
   );
 };

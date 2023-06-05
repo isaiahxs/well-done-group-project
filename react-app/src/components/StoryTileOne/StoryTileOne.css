@@ -7,6 +7,10 @@
   display: flex;
 }
 
+.story-tile-style1:last-child {
+  margin-bottom: 15px;
+}
+
 
 .style1-number{
   width: 50px;

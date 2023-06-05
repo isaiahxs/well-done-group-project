@@ -39,16 +39,16 @@ const MainPageContent = () => {
                 : 'main-page-small-view-tags'
             }
           >
-            <div className="main-page-small-view-tag-header">
+            <div className="main-page-small-view-tag-header memo-text">
               Discover more of what matters to you
             </div>
 
             {tags && tags.map(tag=>{
-              return <div className="main-page-tag">{tag}</div>
+              return <div className="main-page-tag memo-text">{tag}</div>
             })}
           </div>
           <div
-            className="see-more-topics"
+            className="see-more-topics small memo-text"
             onClick={() => setIsExtended(!isExtended)}
           >
             {isExtended ? 'See less topics' : 'See more topics'}
@@ -83,20 +83,9 @@ const MainPageContent = () => {
                 })}
             </div>
 
-            {/* <div>Article</div>
-            <div className="main-page-feed-article">Article</div>
-            <div className="main-page-feed-article">Article</div>
-            <div className="main-page-feed-article">Article</div>
-            <div className="main-page-feed-article">Article</div>
-            <div className="main-page-feed-article">Article</div>
-            <div className="main-page-feed-article">Article</div>
-            <div className="main-page-feed-article">Article</div>
-            <div className="main-page-feed-article">Article</div>
-            <div className="main-page-feed-article">Article</div>
-            <div className="main-page-feed-article">Article</div> */}
 
           <div className="main-page-footer-tags-container">
-            <div className="main-page-tag-header">
+            <div className={`main-page-tag-header  memo-text ${isExtended ? 'extended' : ''}`}>
               Discover more of what matters to you
             </div>
 
@@ -106,7 +95,7 @@ const MainPageContent = () => {
               }
             >
               {tags && tags.map(tag=>{
-                return <div className="main-page-tag">{tag}</div>
+                return <div className="main-page-tag memo-text">{tag}</div>
               })}
 
 
