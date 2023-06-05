@@ -14,9 +14,14 @@ const MainPageContent = () => {
   const isMobileView = windowSize <= 900;
   const [isExtended, setIsExtended] = useState(false);
   const history = useHistory()
-  const tags = useSelector(state=> state.story)
+  const tags = useSelector(state=> state.story.tags)
 
   console.log(tags);
+
+  if(tags){
+    tags.map(tag=>{console.log(tag);})
+  }
+
 
   const handleLogoClick = () => {
     history.push('/');
@@ -39,22 +44,9 @@ const MainPageContent = () => {
               Discover more of what matters to you
             </div>
 
-            {/* {tags && tags.map(tag=>{
-              <div className="main-page-tag">tag.tag</div>
-            })} */}
-
-            <div className="main-page-tag">Programming</div>
-            <div className="main-page-tag">Data Science</div>
-            <div className="main-page-tag">Technology</div>
-            <div className="main-page-tag">Self Improvememt</div>
-            <div className="main-page-tag">Writing</div>
-            <div className="main-page-tag">Relationships</div>
-            <div className="main-page-tag">Machine Learning</div>
-            <div className="main-page-tag">Productivity</div>
-            <div className="main-page-tag">Web Development</div>
-            <div className="main-page-tag">JavaScript</div>
-            <div className="main-page-tag">Python</div>
-            <div className="main-page-tag">Software Development</div>
+            {tags && tags.map(tag=>{
+              return <div className="main-page-tag">{tag}</div>
+            })}
           </div>
           <div
             className="see-more-topics"
@@ -110,19 +102,12 @@ const MainPageContent = () => {
                 isExtended ? 'main-page-tags-extended' : 'main-page-tags'
               }
             >
-              <div className="main-page-tag">Sports</div>
-              <div className="main-page-tag">Programming</div>
-              <div className="main-page-tag">Data Science</div>
-              <div className="main-page-tag">Technology</div>
-              <div className="main-page-tag">Self Improvememt</div>
-              <div className="main-page-tag">Writing</div>
-              <div className="main-page-tag">Relationships</div>
-              <div className="main-page-tag">Machine Learning</div>
-              <div className="main-page-tag">Productivity</div>
-              <div className="main-page-tag">Web Development</div>
-              <div className="main-page-tag">JavaScript</div>
-              <div className="main-page-tag">Python</div>
-              <div className="main-page-tag">Software Development</div>
+              {tags && tags.map(tag=>{
+                return <div className="main-page-tag">{tag}</div>
+              })}
+
+
+              
             </div>
             <div
               className="see-more-topics"
