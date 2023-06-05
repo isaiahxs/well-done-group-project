@@ -61,6 +61,27 @@ const StoryPage = () => {
     return contentArray.join('\n');
   }
 
+  // will iterate over spot images that story has and store that number as amount of splits and split content by that. take image sources and put them in the middle of the content
+
+  //map over storyImages?
+  // let tempArray = []
+  // storyImages.map(image => (
+  //   tempArray.push(
+  //     {content: content.slice(0, image.position),
+  //       image: image.url,
+  //     }
+  //     )
+  // ))
+
+  //randomizing time and date
+  // const [readTime, setReadTime] = useState(4)
+  // useEffect(()=>{
+  //   if(story){
+  //     setDate(story?.createdAt.slice(0,16))
+  //   }
+  //   setReadTime(Math.floor(Math.random() * (20) + 4))
+  // },[story])
+
   const renderStoryContent = (content) => {
     const paragraphs = content.split('\n');
 
