@@ -1,22 +1,12 @@
 .story-tile-style1 {
-  border: black solid 1px;
   background-color: #fff;
-  cursor: pointer;
   height: 100%;
   width: 99%;
   left: 0%;
   position: relative;
   display: flex;
 }
-.story-tile-style1:hover {
-  cursor: pointer;
-}
 
-
-.story-tile-style1:hover {
-  box-shadow: rgba(255, 255, 255, 0.1) 0px 3px 6px,
-    rgba(0, 0, 0, 0.1) 0px 3px 6px;
-}
 
 .style1-number{
   width: 50px;
@@ -33,16 +23,15 @@
 }
 
 .style1-author-container{
-  border: black solid 1px;
-  width: 120px;
-  min-width: fit-content;
+  display: flex;
+  align-items: center;
+  width: 240px;
   height: 30px;
-  justify-content: space-between;
 }
 
 .style1-profile-pic{
-  width: 30px;
-  height: 30px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   border: black solid 1px;
   overflow: hidden;
@@ -50,7 +39,6 @@
 
 .style1-profile-pic img {
   object-fit: cover;
-  overflow: visible;
   position: relative;
   width: 100%;
   height: 100%;
@@ -59,13 +47,32 @@
 
 .style1-author-name{
   font-size: 14px;
+  /* width: 100%; */
+  position: relative;
+  margin-left: 10px;
+}
+
+
+.style1-story-title:hover,
+.style1-author-name:hover{
+  cursor: pointer;
 }
 
 .style1-story-title-container{
   margin-top: 10px;
   height: 30px;
-  width: 80%;
+  width: 100%;
+  max-width: 280px;
+  word-break:keep-all;
+  text-overflow: ellipsis;
+
 }
+
+/* display: block; */
+
+
+
+
 
 .style1-story-title{
   font-weight: bold;

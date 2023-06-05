@@ -18,9 +18,24 @@ const initialLoadAction = (data) => ({
 const initialState = { stories: [], tags: [] };
 
 export const initialLoad = () => async (dispatch) => {
+	console.log('=-=-=-=---=');
+	console.log('=-=-=-=---=');
+	console.log('=-=-=-=---=');
+	console.log('=-=-=-=---=');
+	console.log('=-=-=-=---=');
+
+	console.log('here');
+	console.log('here');
+	console.log('here');
+	console.log('here');
+	console.log('here');
+	console.log('=-=-=-=---=');
+	console.log('=-=-=-=---=');
+	console.log('=-=-=-=---=');
+	console.log('=-=-=-=---=');
 
 	// const response = await fetch("/api/story", {
-	const response = await fetch("/api/init/", {
+	const response = await fetch("/api/story/initialize", {
 		method: "GET",
 		headers: {
 			"Content-Type": "application/json",
@@ -31,12 +46,13 @@ export const initialLoad = () => async (dispatch) => {
 		const data = await response.json();
 
 		console.log(data);
-
+ 
 		dispatch(initialLoadAction(data));
 		return null;
 	} else if (response.status < 500) {
 		const data = await response.json();
 		if (data.errors) {
+
 			return data.errors;
 		}
 	} else {

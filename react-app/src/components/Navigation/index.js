@@ -15,15 +15,10 @@ function Navigation(){
   const state = useSelector(state=>state)
   const user = useSelector(state=>state.session.user)
 
-  console.log(state);
-  console.log(user);
 
-  
 
   const {scrollPosition, windowSize} = useContext(WindowContext)
-  console.log(scrollPosition);
-  console.log(windowSize);
-
+  
 
   const colorSchemes = {
     '/': ['nav-yellow', 'nav-white', 'button-black', 'button-green'],
@@ -39,14 +34,8 @@ function Navigation(){
 
   
   useEffect(() => {
-    console.log(scrollPosition);
-
-    console.log('scrollin');
-
+   
       const colors = colorScheme.current; 
-
-      console.log(colors[3]);
-      
       if(scrollPosition <= 370){
         setNavColor(colors[0])
         setButtonStyle(colors[2])

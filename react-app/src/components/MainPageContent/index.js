@@ -8,13 +8,11 @@ const MainPageContent = () => {
 
   const {windowSize} = useContext(WindowContext)
 
-  console.log(windowSize);
 
   const isMobileView = windowSize <= 900;
   const [isExtended, setIsExtended] = useState(false);
   const history = useHistory()
 
-  console.log(windowSize);
 
   const handleLogoClick = () => {
     history.push('/');

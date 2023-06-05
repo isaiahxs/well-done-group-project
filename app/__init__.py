@@ -87,10 +87,10 @@ def initial_load():
     Eager Load data upon initialization 
     """
     stories = Story.query.all()
-    tags = Tag.query.all()
+    # tags = Tag.query.all()
     return {
         'stories': [story.to_dict() for story in stories],
-        'tags': [tag.to_dict() for tag in tags],
+        # 'tags': [tag.to_dict() for tag in tags],
     }
 
 

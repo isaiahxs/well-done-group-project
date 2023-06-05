@@ -17,23 +17,21 @@ import * as storyActions from './store/story';
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(true);
+  const state = useSelector(state=>state)
+
+  console.log(state);
   
   
   useEffect(() => {
-    dispatch(authenticate()).then(() => {
-      dispatch(storyActions.initialLoad()).then(() => {
-        setIsLoaded(true)
-      });
+
+    dispatch(authenticate())
+
+    dispatch(storyActions.initialLoad()).then(() => {
+      setIsLoaded(true)
     });
+
   }, [dispatch]);
 
-  
-  
-  
-    const state = useSelector(state=>state)
-
-
-  console.log(state);
 
   return (
     <>
@@ -54,6 +52,10 @@ function App() {
           </Route>
 
           <Route path="/story/:id" exact>
+            <StoryPage/>
+          </Route>
+
+          <Route path="/author/:id" exact>
             <StoryPage/>
           </Route>
 

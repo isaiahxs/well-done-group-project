@@ -18,7 +18,7 @@ const TrendingBanner = () => {
     dispatch(storyActions.getStories()).then(() => {
       isLoaded(true);
     });
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (stories) {
