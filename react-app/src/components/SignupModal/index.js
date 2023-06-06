@@ -123,6 +123,8 @@ function SignupModal() {
 
       if (response.status === 202) {
         closeModal();
+        history.push('/home')
+
       }
     } catch (error) {
       console.log(error);
@@ -212,7 +214,6 @@ function SignupModal() {
             placeholder={validationErrors['lastName'] || ''}
           />
         </label>
-        {/* <a href="https://www.flaticon.com/free-icons/book" title="book icons">Book icons created by Freepik - Flaticon</a> */}
         <div className="profile-image-buttons-container flexbetween">
           <div
             className={`profile-image-button ${glowing ? 'glowing' : ''} ${

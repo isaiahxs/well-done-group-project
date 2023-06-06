@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import './Navigation.css';
 import { WindowContext } from '../../context/WindowContext';
 import { ModalContext } from '../../context/ModalContext';
+import * as sessionActions from '../../store/session';
 
 function Navigation(){
   const { modal, openModal, closeModal, updateObj, setUpdateObj } = useContext(ModalContext);
@@ -92,10 +93,24 @@ function Navigation(){
   };
 
   const handleLoginClick = () => {
-    console.log('click');
       openModal('login');
   };
- 
+  const handleSignupClick = () => {
+    openModal('signup');
+};
+
+const demoUser = async (e) => {
+  e.preventDefault();
+  const response = await dispatch(
+    sessionActions.signin({ email:'demo@aa.io', password:'password' })
+  );
+  if (response.status===200) {
+    setUpdateObj(null)
+    closeModal()
+    history.push('/home')
+  };
+};
+
 
 
   return (
@@ -107,10 +122,10 @@ function Navigation(){
           <div className='logo' onClick={handleLogoClick}>SHMEDIUM</div>
           <div className={`nav-link-buttons ${buttonStylings}`}>
             <div className={`nav-button ${buttonStylings}`} onClick={handleStoryClick}>Our Story</div>
-            <div className={`nav-button ${buttonStylings}`} onClick={handleLogoClick}>Demo User</div>
+            <div className={`nav-button ${buttonStylings}`} onClick={demoUser}>Demo User</div>
             <div className={`nav-button ${buttonStylings}`} onClick={handleWriteClick}>Write</div>
-            <div className={`sign-in-nav-button nav-button2 ${buttonStylings}`} onClick={()=>handleLoginClick()}>Sign In</div>
-            <div className={`get-started button ${buttonStyle}`}>Get started</div>
+            <div className={`sign-in-nav-button nav-button2 ${buttonStylings}`} onClick={handleLoginClick}>Sign In</div>
+            <div className={`get-started button ${buttonStyle}`} onClick={handleSignupClick}>Get started</div>
           </div>
         </div>
 

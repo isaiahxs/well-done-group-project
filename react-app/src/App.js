@@ -15,6 +15,7 @@ import SignupModal from './components/SignupModal';
 
 import * as storyActions from './store/story';
 import { ModalContext } from './context/ModalContext';
+import UserHomePage from './components/UserHomePage';
 
 
 function App() {
@@ -83,6 +84,9 @@ function App() {
             <StoryPage/>
           </Route>
 
+          <Route path="/home" exact>
+            <UserHomePage/>
+          </Route>
 
         </Switch>
       )}

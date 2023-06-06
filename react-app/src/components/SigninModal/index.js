@@ -76,6 +76,8 @@ function SigninModal() {
       if (response.status === 200) {
         setUpdateObj(null)
         closeModal()
+        history.push('/home')
+
       };
     } catch (error) {
       console.error(error);
@@ -99,6 +101,7 @@ function SigninModal() {
     if (response.status===200) {
       setUpdateObj(null)
       closeModal()
+      history.push('/home')
     };
   };
   
