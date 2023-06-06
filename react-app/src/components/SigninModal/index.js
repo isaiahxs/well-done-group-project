@@ -1,12 +1,12 @@
 import React, { useEffect, useRef, useState, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink, Redirect, useHistory } from 'react-router-dom';
-import './LoginModal.css';
+import './SigninModal.css';
 import { ModalContext } from '../../context/ModalContext';
 import * as sessionActions from '../../store/session';
 
 
-function LoginModal() {
+function SigninModal() {
 
   const { modal, openModal, closeModal, updateObj, setUpdateObj} = useContext(ModalContext);
   const user = useSelector((state) => state.session.user);
@@ -18,10 +18,9 @@ function LoginModal() {
   const [validationErrors, setValidationErrors] = useState({});
   const [signInErrors, setSignInErrors] = useState({});
 
-
   const [disabledButton, setDisabledButton] = useState(false);
   const [buttonClass, setButtonClass] = useState('signin-div-button button button2 ');
-  const [buttonText, setButtonText] = useState('Log In');
+  const [buttonText, setButtonText] = useState('Sign In');
 
 
   const handleForgotPassword = () => {
@@ -68,11 +67,10 @@ function LoginModal() {
   const handleSubmit = async (e) => {
 
     e.preventDefault();
-
     let credentials = {email:credential, password}
     try {
       const  response = await dispatch(
-        sessionActions.login(credentials)
+        sessionActions.signin(credentials)
       );
 
       if (response.status === 200) {
@@ -87,7 +85,7 @@ function LoginModal() {
       setTimeout(() => {
         setDisabledButton(false);
         setButtonClass('signin-div-button button button2');
-        setButtonText('Log In');
+        setButtonText('Sign In');
       }, 3000);
     }
   };
@@ -96,7 +94,7 @@ function LoginModal() {
   const demoUser = async (e) => {
     e.preventDefault();
     const response = await dispatch(
-      sessionActions.login({ email:'demo@aa.io', password:'password' })
+      sessionActions.signin({ email:'demo@aa.io', password:'password' })
     );
     if (response.status===200) {
       setUpdateObj(null)
@@ -130,7 +128,7 @@ function LoginModal() {
 
       <form onSubmit={handleSubmit} className="signin-div">
         <label className="user">
-          Username
+          Email
           <input
             className="userField"
             type="text"
@@ -162,19 +160,19 @@ function LoginModal() {
       <div className="alt-links">
 
 
-        <div className='login-no-account-container flexcenter'>
+        <div className='signin-no-account-container flexcenter'>
           <div className='flexcenter memo-text'>
-            No account?<div onClick={1===2 ? handleSignUp : false} className='create-one'>Create One</div>  
+            No account?<div onClick={handleSignUp} className='create-one'>Create One</div>  
           </div>
           
         </div>
 
 
 
-        <div className='login-forgot-account-container memo-text'>
+        <div className='signin-forgot-account-container memo-text'>
 
           <div>Forgot email or trouble signing in?</div>
-          <div className="login-forgot-password-link link" onClick={handleForgotPassword}>
+          <div className="signin-forgot-password-link link" onClick={handleForgotPassword}>
             Get help.
           </div>
           
@@ -185,7 +183,7 @@ function LoginModal() {
 
 
 
-        <div className='login-demo-container memo-text demo-user-singin link' onClick={demoUser}> 
+        <div className='signin-demo-container memo-text demo-user-singin link' onClick={demoUser}> 
           Demo User
         </div>
 
@@ -195,4 +193,4 @@ function LoginModal() {
   );
 }
 
-export default LoginModal;
+export default SigninModal;

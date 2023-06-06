@@ -69,6 +69,7 @@
   font-size: 13.5px;
   font-weight: 300;
   transform: translate(-50%,0);
+
 }
 
 .nav-link-buttons{
@@ -88,59 +89,66 @@
   z-index: 1;
 }
 
-.get-started:hover,
-.logo:hover{
+
+.logo,
+.get-started,
+.nav-button2,
+.nav-button{
   cursor: pointer;
 }
 
 
-.nav-button2:hover,
-.nav-button:hover{
-  cursor: pointer;
+.nav-button{
+  visibility: hidden;
+}
+
+.nav-button2{
+  visibility: hidden;
 }
 
 
 
 
+@media screen and (min-width: 545px) {
+  .nav-button2 {
+    visibility: visible;
+  }
 
-@media screen and (max-width: 710px) {
+  .nav-button2.show{
+    visibility: visible;
+  }
+}
+
+
+
+
+@media screen and (min-width: 570px) {
+  .nav-button2 {
+    visibility: visible;
+  }
+
+
+  .nav-buttons.show{
+    width: 100%;
+  }
+}
+
+
+
+@media screen and (min-width: 710px) {
   .nav-button {
-    visibility: hidden;
+    visibility: visible;
   }
   .show{
     visibility: visible;
   }
 }
 
-@media screen and (max-width: 570px) {
-  .nav-button2 {
-    visibility: hidden;
-  }
-  .nav-button2,
-  .nav-button {
-    position: relative;
-    display: flex;
-    text-align: center;
-    width: 20px;
-    left: 5px;
-  }
 
-  .nav-buttons.show{
 
-    width: 100%;
-  }
 
-}
 
-@media screen and (max-width: 545px) {
-  .nav-button2 {
-    visibility: hidden;
-  }
-  .nav-button2.show{
-    visibility: visible;
-  }
 
-}
 
 
 

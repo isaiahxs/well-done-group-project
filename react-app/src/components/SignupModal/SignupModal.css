@@ -1,10 +1,10 @@
-.signin-form-page-container {
+.signup-form-page-container {
   user-select: none;
 }
 
 
 
-.signin-form-page-container {
+.signup-form-page-container {
   z-index: 1000000;
   background-color: white;
   padding: 20px;
@@ -20,49 +20,54 @@
 }
 
 
-.signin-header-container {
+.signup-header-container {
   width: 100%;
   height: fit-content;
   position: relative;
 }
 
-.signin-header {
-  margin-top: 115px;
+.signup-header {
+  margin-top: 55px;
   font-size: 30px;
   font-weight: 100;
 }
 
 
-.signin-close-button{
+.signup-close-button{
   position: absolute;
   right: 40px;
   top: 40px;
 }
 
-.signin-div {
+.signup-div {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 50%;
+  justify-content: center;
+  width: fit-content;
   margin: 0 auto;
-  margin-top: 70px;
+  margin-top: 30px;
 }
 
 
+.email-field-invalid{
+  color: red;
+}
 
 
-
-.signin-div label {
+.signup-div label {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: 100%;
+  width: calc(100% - 2 * 5px);
+  right: 2%;
   margin-bottom: 10px;
   font-size: 20px;
   position: relative;
+  box-sizing: border-box;
 }
 
-.signin-div input {
+.signup-div input {
   width: 100%;
   padding: 5px;
   margin-top: 5px;
@@ -75,14 +80,8 @@
 
 
 
-.signin-div-button {
-  width: 99%;
+.signup-div-button  {
   padding: 10px;
-  font-size: 15px;
-}
-
-
-.signin-div-button  {
   position: relative;
   bottom: 20px;
   border-radius: 20px;
@@ -91,15 +90,13 @@
   border: 1px solid #33a245;
   color: #33a245;
   font-size: 22px;
-  margin-top: 30px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-
 }
 
-.signin-div-button:hover {
+.signup-div-button:hover {
   color: #ffffff;
   background-color: #33a245;
   font-size: 22px;
@@ -116,6 +113,9 @@
   cursor:not-allowed;
   background-color: #d27777;
 }
+
+
+
 .alt-links{
   position: relative;
   width: 80%;
@@ -127,9 +127,9 @@
 }
 
 
-.login-no-account-container{
+.signup-no-account-container{
   height: 40px;
-  width: 200px;
+  width: 260px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -155,7 +155,7 @@
 }
 
 
-.login-forgot-account-container{
+.signup-forgot-account-container{
   color: #757575;
   margin-top: 50px;
   height: 40px;
@@ -166,7 +166,7 @@
   font-size: 13px;
 } 
 
-.login-demo-container {
+.signup-demo-container {
   color: #757575;
   margin-top: 50px;
   height: 40px;
@@ -197,26 +197,53 @@
   text-decoration: underline;
 }
 
-.login-forgot-password-link {
-  position: relative;
-  left: 4px;
-}
+
 
 .demo-user-singin{
   left: 14px;
   display: block;
-  margin-top: 50px;
+  margin-top: 30px;
   color: #757575;
   text-decoration: underline;
   cursor: pointer;
 }
 
+.profile-image-buttons-container{
+  height: 40px;
+  width: 300px;
+  margin: auto 0;
+  margin-top: 15px;
+  margin-bottom: 15px;
 
 
+}
+
+.profile-image-button{
+  border: black solid 1px;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  overflow: hidden;
+}
+
+.profile-image-button.glowing {
+  box-shadow: 0 0 10px #09f, 0 0 5px #09f;
+}
+
+.profile-image-button-img {
+  object-fit: contain;
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.selected {
+  outline: 2px solid rgb(34, 171, 151);
+}
 
 
 @media screen and (min-width: 710px) {
-  .signin-form-page-container {
+  .signup-form-page-container {
     width: 650px;
 
     height: 90%;
@@ -227,17 +254,22 @@
   }
 
 
-  .signin-header {
+  .signup-header {
     margin-top: 40px;
     font-size: 30px;
     font-weight: 100;
   }
 
-  .signin-close-button{
+  .signup-close-button{
     position: absolute;
     right: 20px;
     top: 20px;
     cursor: pointer;
+  }
+
+  .signup-no-account-container{
+    position: relative;
+    bottom: 20px;
   }
 
 

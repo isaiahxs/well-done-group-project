@@ -147,7 +147,6 @@
 }
 
 .ourstorypage-100-million-section.left {
-  padding-right: 0.5em;
   font-size: 40px;
   height: fit-content;
 }
@@ -155,13 +154,15 @@
 .ourstorypage-100-million-section.right {
   padding-left: 0.5em;
   font-size: 25px;
+  height: fit-content;
 }
 
 .ourstorypage-100-million-content {
   width: 100%;
   position: relative;
-  left: 15px;
-  padding: 5%;
+  padding: 1%;
+  width: 90%;
+  margin-bottom: 10px;
 }
 
 .ourstorypage-quote-image-container {
@@ -175,7 +176,6 @@
   position: relative;
   width: 80%;
   height: 80%;
-  left: -5%;
   max-width: 350px;
 }
 

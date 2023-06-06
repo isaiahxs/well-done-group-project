@@ -29,7 +29,7 @@ export const authenticate = () => async (dispatch) => {
 	}
 };
 
-export const login = (credentials) => async (dispatch) => {
+export const signin = (credentials) => async (dispatch) => {
 	const { email, password } = credentials
 	const response = await fetch("/api/auth/login", {
 		method: "POST",
@@ -68,18 +68,26 @@ export const logout = () => async (dispatch) => {
 	}
 };
 
-export const signUp = (username, email, password) => async (dispatch) => {
+export const signUp = (credentials) => async (dispatch) => {
+	const {email, password, firstName, lastName, profileImage, username} = credentials
+
+	console.log(email, password, firstName, lastName, profileImage, username);
 	const response = await fetch("/api/auth/signup", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
-		},
+		}, 
 		body: JSON.stringify({
 			username,
 			email,
 			password,
+			first_name:firstName,
+			last_name:lastName,
+			profile_image:profileImage
 		}),
 	});
+ 
+	console.log(response);
 
 	if (response.ok) {
 		const data = await response.json();
@@ -88,7 +96,8 @@ export const signUp = (username, email, password) => async (dispatch) => {
 	} else if (response.status < 500) {
 		const data = await response.json();
 		if (data.errors) {
-			return data.errors;
+			console.log(data.errors);
+			return data;
 		}
 	} else {
 		return ["An error occurred. Please try again."];
@@ -98,7 +107,7 @@ export const signUp = (username, email, password) => async (dispatch) => {
 export default function reducer(state = initialState, action) {
 	switch (action.type) {
 		case SET_USER:
-			return { user: action.payload };
+			return { user: action.payload.user };
 		case REMOVE_USER:
 			return { user: null };
 		default:

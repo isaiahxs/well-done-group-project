@@ -73,8 +73,8 @@ def sign_up():
         db.session.add(user)
         db.session.commit()
         login_user(user)
-        return user.to_dict()
-    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+        return {'user': user.to_dict(), 'status': 202}
+    return {'errors': validation_errors_to_error_messages(form.errors), 'status': 401}, 401
 
 
 @auth_routes.route('/unauthorized')
