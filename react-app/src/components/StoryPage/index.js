@@ -70,19 +70,45 @@ const StoryPage = () => {
   // }
   //--------------------------------------------------------------
 
-
-  const insertImagesInContent = (content) => {
-    let updatedContent = content;
+// first version --------------------------------------------------------------
+  // const insertImagesInContent = (content) => {
+  //   let updatedContent = content;
   
-    story.images.forEach((image) => {
-      const imageTag = `<img src="${image.url}" alt="${image.altTag}" class="story-image">`;
-      updatedContent = updatedContent.slice(0, image.position) + imageTag + updatedContent.slice(image.position);
-    });
+  //   story.images.forEach((image) => {
+  //     console.log('-----IMAGE POSITION-----', image.position)
+  //     const imageTag = `<img src="${image.url}" alt="${image.altTag}" class="story-image">`;
+  //     const insertionIndex = image.position; //originally had + imageTag.length
 
-    //check content length and if it is bigger than 0, will have to remove that last part
+  //     // updatedContent = updatedContent.slice(0, insertionIndex) + imageTag + updatedContent.slice(insertionIndex);
+
+  //     updatedContent = updatedContent.slice(0, image.position) + imageTag + updatedContent.slice(image.position);
+  //   });
+
+  //   //check content length and if it is bigger than 0, will have to remove that last part
+  
+  //   return updatedContent;
+  // };
+  //--------------------------------------------------------------
+
+//second version--------------------------------------------------------------
+  const insertImagesInContent = (content) => {
+    let updatedContent = content.trim();
+    const sortedImages = story.images.sort((a, b) => a.position - b.position);
+    let offset = 0;
+  
+    sortedImages.forEach((image) => {
+      console.log('-----IMAGE POSITION-----', image.position)
+
+      const imageTag = `<img src="${image.url}" alt="${image.altTag}" class="story-image">`;
+      const insertionIndex = image.position + offset;
+  
+      updatedContent = updatedContent.slice(0, insertionIndex) + imageTag + updatedContent.slice(insertionIndex);
+      offset += imageTag.length;
+    });
   
     return updatedContent;
   };
+  //--------------------------------------------------------------
 
   // will iterate over spot images that story has and store that number as amount of splits and split content by that. take image sources and put them in the middle of the content
 
