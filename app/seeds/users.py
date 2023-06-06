@@ -16,7 +16,7 @@ def seed_users():
         username='marnie',
         email='marnie@aa.io',
         password='password',
-        profile_image='profile_image.jpg',
+        profile_image='https://cdn-icons-png.flaticon.com/512/1090/1090806.png',
         first_name='Marnie',
         last_name='Smith'
     )
@@ -52,7 +52,7 @@ def seed_users():
         username='spiderman',
         email='spiderman@example.com',
         password='spidey123',
-        profile_image='profile_image.jpg',
+        profile_image='https://cdn-icons-png.flaticon.com/512/1090/1090806.png',
         first_name='Peter',
         last_name='Parker'
     )
