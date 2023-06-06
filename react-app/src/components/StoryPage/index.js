@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import './StoryPage.css';
@@ -9,6 +9,10 @@ const StoryPage = () => {
   const { id } = useParams()
   const stories = useSelector(state => state.story.stories);
   const story = stories.find(story => story.id === Number(id));
+  const [date, setDate] = useState('')
+  const [readTime, setReadTime] = useState(4)
+  // const [readTime, setReadTime] = useState(readTime);
+  // const {readTime} = useContext(WindowContext)
 
   const history = useHistory();
 
@@ -16,7 +20,12 @@ const StoryPage = () => {
     // Fetch the current story based on the ID from the URL or Redux store
     // You can dispatch an action or make an API call to fetch the story data
     // and update the Redux store accordingly
-  }, [])
+    if (story) {
+      setDate(story?.createdAt.slice(0, 16))
+      // setReadTime(readTime)
+    }
+    setReadTime(Math.floor(Math.random() * (20) + 4))
+  }, [story])
 
 //map over 
 //use params to get the id from the url
@@ -36,27 +45,44 @@ const StoryPage = () => {
     history.push('/');
   };
 
+  //--------------------------------------------------------------
+  //first images in content mod
+  // const insertImagesInContent = (content) => {
+  //   const image1 = story.images[0];
+  //   const image2 = story.images[1];
+  //   const contentArray = content.split('\n'); //split the content by new lines
+
+  //   //insert the first image at the halfway point
+  //   const halfwayIndex = Math.floor(contentArray.length / 2);
+  //   contentArray.splice(
+  //     halfwayIndex,
+  //     0,
+  //     `<img src="${image1.url}" alt="${image1.altTag}" class="story-image">`
+  //   );
+
+  //   //insert the second image at the end
+  //   contentArray.push(
+  //     `<img src="${image2.url}" alt="${image2.altTag}" class="story-image">`
+  //   );
+
+  //   //join the content array back into a string
+  //   return contentArray.join('\n');
+  // }
+  //--------------------------------------------------------------
+
+
   const insertImagesInContent = (content) => {
-    const image1 = story.images[0];
-    const image2 = story.images[1];
-    const contentArray = content.split('\n'); //split the content by new lines
+    let updatedContent = content;
+  
+    story.images.forEach((image) => {
+      const imageTag = `<img src="${image.url}" alt="${image.altTag}" class="story-image">`;
+      updatedContent = updatedContent.slice(0, image.position) + imageTag + updatedContent.slice(image.position);
+    });
 
-    //insert the first image at the halfway point
-    const halfwayIndex = Math.floor(contentArray.length / 2);
-    contentArray.splice(
-      halfwayIndex,
-      0,
-      `<img src="${image1.url}" alt="${image1.altTag}" class="story-image">`
-    );
-
-    //insert the second image at the end
-    contentArray.push(
-      `<img src="${image2.url}" alt="${image2.altTag}" class="story-image">`
-    );
-
-    //join the content array back into a string
-    return contentArray.join('\n');
-  }
+    //check content length and if it is bigger than 0, will have to remove that last part
+  
+    return updatedContent;
+  };
 
   // will iterate over spot images that story has and store that number as amount of splits and split content by that. take image sources and put them in the middle of the content
 
@@ -93,6 +119,12 @@ const StoryPage = () => {
     ))
   }
 
+  const renderTags = () => {
+    return story.tags.map(tag => (
+      <button key={tag.id} className='main-page-tag memo-text story-tag'>{tag.tag}</button>
+    ))
+  }
+
   return (
     <>
     <div className="story-page">
@@ -104,17 +136,27 @@ const StoryPage = () => {
 
           <div className='author-section'>
             <div className='author-image'>insert author's image here</div>
-            <div className="story-author">{story.authorInfo.firstName} {story.authorInfo.lastName}</div>
-            <a className='follow'>Follow</a>
+            <div className='author-information'>
+              <div className="story-author">
+                {story.authorInfo.firstName} {story.authorInfo.lastName} ·
+                <a className='follow'> Follow</a>
+                <p className='time'>{readTime} min read · {date}</p>
+              </div>
+            </div>
             {/* here we can come up with a way to randomize the duration length and use the date created to know how long it has been */}
-            <p className='time'>X min read · X days ago</p>
           </div>
 
-          <div className='alt-options'>
+          <div className='options-bar'>
+            <button className='clap-button'>Clap {story.claps}</button>
+            <button className='comment-button'>Comment {story.comments.length}</button>
+          </div>
+
+          {/* this is where the options will appear under a certain width */}
+          {/* <div className='alt-options'>
             <button>Listen</button>
             <button>Share</button>
             <button>... More</button>
-          </div>
+          </div> */}
 
           {/* splice the content, character number, separate content into two diff divs, where the gap is, insert image */}
 
@@ -129,6 +171,15 @@ const StoryPage = () => {
           ))} */}
           <div className="story-content" dangerouslySetInnerHTML={{ __html: insertImagesInContent(story.content) }}>
             {/* {renderStoryContent(story.content)} */}
+          </div>
+
+          <div className='main-page-tag-container'>
+            {renderTags()}
+          </div>
+
+          <div className='options-bar'>
+            <button className='clap-button'>Clap {story.claps}</button>
+            <button className='comment-button'>Comment {story.comments.length}</button>
           </div>
         </>
       )}
