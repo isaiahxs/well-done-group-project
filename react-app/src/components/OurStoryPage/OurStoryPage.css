@@ -122,7 +122,7 @@
 
 /* DIV 5 Stylings */
 .ourstorypage-100-million-container {
-  height: fit-content;
+  height: 100%;
   background-color: black;
   color: white;
   border-bottom: white solid 1px;
@@ -149,6 +149,7 @@
 .ourstorypage-100-million-section.left {
   padding-right: 0.5em;
   font-size: 40px;
+  height: fit-content;
 }
 
 .ourstorypage-100-million-section.right {
@@ -157,10 +158,10 @@
 }
 
 .ourstorypage-100-million-content {
-  width: 95%;
+  width: 100%;
   position: relative;
-  top: 40px;
   left: 15px;
+  padding: 5%;
 }
 
 .ourstorypage-quote-image-container {
@@ -333,7 +334,7 @@
 }
 
 .ourstorypage-read-reward-header {
-  width: 80%;
+  width: 100%;
   text-align: left;
   left: 5%;
   margin-top: 30px;
@@ -742,7 +743,7 @@
 
   .ourstorypage-read-reward-header.header-text {
     font-size: 4vw;
-    width: 80%;
+    width: 100%;
   }
 
   .ourstorypage-living-network-content {
@@ -791,8 +792,8 @@
 
 @media screen and (min-width: 1005px) {
   .ourstorypage-100-million-section.left {
-    margin-top: 10px;
-    font-size: 7.5vw;
+    font-size: 5vw;
+    height: fit-content;
   }
 
   .ourstorypage-read-reward-header {
@@ -834,10 +835,7 @@
     padding-bottom: 45px;
   }
 
-  .ourstorypage-100-million-content.left {
-    top: 0%;
-    height: 100%;
-  }
+
 }
 
 @media screen and (min-width: 990px) {

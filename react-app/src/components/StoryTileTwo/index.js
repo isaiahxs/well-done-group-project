@@ -48,7 +48,7 @@ const StoryTileTwo = ({ story, index }) => {
         </div>
 
         {windowSize > 699 && (<div className="style2-header-container flexbetween memo-text">
-          <div className="style2-header-content">The story's header goes here</div>
+          <div className="style2-header-content">{story.content.slice(0,80) + '...'}</div>
         </div>)}
 
         <div className="style2-date-read-time-container flexbetween memo-text">
