@@ -5,7 +5,7 @@ from sqlalchemy.sql import text
 def seed_story_images():
     StoryImage.query.delete() 
 
-    story_image1 = StoryImage(story_id=1, url='image.jpg', position=646, alt_tag='great image')
+    story_image1 = StoryImage(story_id=1, url='https://hips.hearstapps.com/hmg-prod/images/how-to-write-a-love-letter-1608316069.png', position=646, alt_tag='great image')
     story_image2 = StoryImage(story_id=1, url='https://images.pexels.com/photos/356372/pexels-photo-356372.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', position=2, alt_tag='great image')
 
     story_image3 = StoryImage(story_id=2, url='https://images.pexels.com/photos/4906289/pexels-photo-4906289.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', position=1, alt_tag='great image')
@@ -26,7 +26,7 @@ def seed_story_images():
     story_image13 = StoryImage(story_id=7, url='https://images.pexels.com/photos/3727463/pexels-photo-3727463.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', position=1, alt_tag='great image')
     story_image14 = StoryImage(story_id=7, url='https://images.pexels.com/photos/1139319/pexels-photo-1139319.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', position=2, alt_tag='great image')
 
-    story_image15 = StoryImage(story_id=8, url='hhttps://images.pexels.com/photos/3861958/pexels-photo-3861958.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', position=1, alt_tag='great image')
+    story_image15 = StoryImage(story_id=8, url='https://images.pexels.com/photos/3861958/pexels-photo-3861958.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', position=1, alt_tag='great image')
     story_image16 = StoryImage(story_id=8, url='https://images.pexels.com/photos/1438081/pexels-photo-1438081.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', position=2, alt_tag='great image')
 
     story_image17 = StoryImage(story_id=9, url='https://images.pexels.com/photos/196645/pexels-photo-196645.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', position=1, alt_tag='great image')
