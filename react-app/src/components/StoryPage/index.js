@@ -11,6 +11,7 @@ const StoryPage = () => {
   const story = stories.find(story => story.id === Number(id));
   const [date, setDate] = useState('')
   const [readTime, setReadTime] = useState(4)
+  const [sortedContent, setSortedContent] = useState([])
   // const [readTime, setReadTime] = useState(readTime);
   // const {readTime} = useContext(WindowContext)
 
@@ -92,6 +93,8 @@ const StoryPage = () => {
 
 //second version--------------------------------------------------------------
   const insertImagesInContent = (content) => {
+
+    console.log(content);
     let updatedContent = content.trim();
     const sortedImages = story.images.sort((a, b) => a.position - b.position);
     let offset = 0;
@@ -101,6 +104,8 @@ const StoryPage = () => {
 
       const imageTag = `<img src="${image.url}" alt="${image.altTag}" class="story-image">`;
       const insertionIndex = image.position + offset;
+
+
   
       updatedContent = updatedContent.slice(0, insertionIndex) + imageTag + updatedContent.slice(insertionIndex);
       offset += imageTag.length;
@@ -108,6 +113,77 @@ const StoryPage = () => {
   
     return updatedContent;
   };
+
+  console.log(story);
+
+  useEffect(()=>{
+    if(story){
+
+      let tempArr =  [];
+      let lastPosition = 0;  
+
+      story.images.forEach((image, i) => { 
+        console.log(       image.position);
+ 
+        let text = story.content.slice(lastPosition, image.position).trim();
+        console.log(text);
+        let img = image.url;
+        tempArr.push({text, image: img});
+
+        lastPosition = image.position;  
+      });
+ // Check if there's remaining content
+ console.log(lastPosition);
+      if (lastPosition < story.content.length) { 
+        let remainingText = story.content.slice(lastPosition,story.content.length-1); 
+        console.log(remainingText); 
+        tempArr.push({text: remainingText});  
+      } 
+
+      setSortedContent(tempArr);
+    }
+  }, [story]);
+
+  console.log(sortedContent);
+
+console.log(``);
+
+let str = `Front-end development continues to evolve rapidly, with new technologies and trends emerging regularly. Staying up to date with the latest front-end development trends is crucial for developers to deliver cutting-edge user experiences and maintain their competitive edge. As summer approaches, let's explore some of the top front-end development trends that are expected to make an impact in the coming months. Progressive Web Apps (PWAs): Progressive Web Apps are gaining popularity for their ability to provide a native app-like experience within web browsers. PWAs combine the best of web and mobile app technologies, offering offline functionality, push notifications, and seamless performance. As the demand for mobile-friendly and cross-platform experiences grows, investing in PWAs can be a game-changer. Responsive Web Design: Responsive web design has been a trend for some time, but its importance remains constant. With an increasing variety of devices and screen sizes, creating websites that adapt seamlessly to different resolutions and orientations is crucial. This summer, focus on building responsive designs that prioritize user experience across all devices. Micro Frontends: Micro Frontends are an architectural approach that enables breaking down a front-end monolith into smaller, manageable components. Each component represents a self-contained functionality, making it easier to develop, test, and deploy. By adopting Micro Frontends, development teams can work independently on different parts of a project, leading to faster development cycles and improved scalability. Low-Code Development: The rise of low-code development platforms empowers front-end developers to build applications with minimal coding. These platforms offer intuitive interfaces, drag-and-drop functionality, and pre-built components, enabling developers to focus on higher-level tasks and accelerate development speed. Embracing low-code tools can significantly streamline front-end development processes. Motion Design and Animations: Incorporating motion design and animations into web interfaces can enhance user engagement and provide delightful experiences. By leveraging CSS animations, SVG, or JavaScript libraries, developers can create interactive and visually appealing elements that capture users' attention. With the growing demand for engaging user interfaces, mastering motion design is a valuable skill. Voice User Interfaces (VUIs): As voice assistants and smart speakers become increasingly common, Voice User Interfaces (VUIs) are gaining traction. Integrating VUIs into web applications allows users to interact with the interface using voice commands.`
+
+  // let content = insertImagesInContent(story)
+console.log('Once upona  time'.slice(0,2));
+  const items = [
+    { 
+      text: 'This is some text.', 
+      image: 'https://images.pexels.com/photos/356372/pexels-photo-356372.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' 
+    },
+    { 
+      text: 'This is more text.', 
+      image: 'https://images.pexels.com/photos/356372/pexels-photo-356372.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' 
+    },
+    { 
+      text: 'Yet more text.', 
+      image: 'https://hips.hearstapps.com/hmg-prod/images/how-to-write-a-love-letter-1608316069.png' 
+    },
+    { 
+      text: 'This is the last bit of text with an image.', 
+      image: 'https://images.pexels.com/photos/356372/pexels-photo-356372.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' 
+ 
+    },
+    { 
+      text: 'This text does not have an associated image.' 
+    },
+    { 
+      text: 'Neither does this text.' 
+    }
+  ];
+
+
+
+
+
+
+
   //--------------------------------------------------------------
 
   // will iterate over spot images that story has and store that number as amount of splits and split content by that. take image sources and put them in the middle of the content
@@ -196,8 +272,17 @@ const StoryPage = () => {
               className="story-image"
             />
           ))} */}
-          <div className="story-content" dangerouslySetInnerHTML={{ __html: insertImagesInContent(story.content) }}>
-            {/* {renderStoryContent(story.content)} */}
+          {/* <div className="story-content" dangerouslySetInnerHTML={{ __html: insertImagesInContent(story.content) }}>
+            {renderStoryContent(story.content)}
+          </div> */}
+
+          <div className="story-content">
+            {sortedContent && sortedContent.map((item, index) => (
+                <div key={index}>
+                    {item.text && <div className='memo-text'>{item.text}</div>}
+                    {item.image && <img src={item.image} alt="description" className="story-image" />}
+                    </div>
+            ))}
           </div>
 
           <div className='main-page-tag-container'>

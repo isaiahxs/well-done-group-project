@@ -5,16 +5,16 @@ from sqlalchemy.sql import text
 def seed_story_images():
     StoryImage.query.delete() 
 
-    story_image1 = StoryImage(story_id=1, url='https://hips.hearstapps.com/hmg-prod/images/how-to-write-a-love-letter-1608316069.png', position=646, alt_tag='great image')
-    story_image2 = StoryImage(story_id=1, url='https://images.pexels.com/photos/356372/pexels-photo-356372.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', position=2, alt_tag='great image')
+    story_image1 = StoryImage(story_id=1, url='https://hips.hearstapps.com/hmg-prod/images/how-to-write-a-love-letter-1608316069.png', position=2, alt_tag='great image')
+    story_image2 = StoryImage(story_id=1, url='https://images.pexels.com/photos/356372/pexels-photo-356372.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', position=646, alt_tag='great image')
 
     story_image3 = StoryImage(story_id=2, url='https://images.pexels.com/photos/4906289/pexels-photo-4906289.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', position=1192, alt_tag='great image')
     story_image4 = StoryImage(story_id=2, url='https://images.pexels.com/photos/3062597/pexels-photo-3062597.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', position=3567, alt_tag='great image')
 
-    story_image5 = StoryImage(story_id=3, url='https://images.pexels.com/photos/1181263/pexels-photo-1181263.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', position=1920, alt_tag='great image')
+    story_image5 = StoryImage(story_id=3, url='https://images.pexels.com/photos/1181263/pexels-photo-1181263.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', position=2671, alt_tag='great image')
     story_image6 = StoryImage(story_id=3, url='https://images.pexels.com/photos/1181676/pexels-photo-1181676.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', position=4849, alt_tag='great image')
 
-    story_image7 = StoryImage(story_id=4, url='https://images.pexels.com/photos/4974920/pexels-photo-4974920.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', position=1213, alt_tag='great image')
+    story_image7 = StoryImage(story_id=4, url='https://images.pexels.com/photos/4974920/pexels-photo-4974920.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', position=2671, alt_tag='great image')
     story_image8 = StoryImage(story_id=4, url='https://images.pexels.com/photos/1921326/pexels-photo-1921326.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', position=5157, alt_tag='great image')
 
     story_image9 = StoryImage(story_id=5, url='https://media.cnn.com/api/v1/images/stellar/prod/180927122050-apple-logo-gfx.jpg?q=w_3000,h_2250,x_0,y_0,c_fill', position=1654, alt_tag='great image')
