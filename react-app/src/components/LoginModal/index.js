@@ -9,7 +9,7 @@ import * as sessionActions from '../../store/session';
 function LoginModal() {
 
   const { modal, openModal, closeModal, updateObj, setUpdateObj} = useContext(ModalContext);
-  const sessionUser = useSelector((state) => state.session.user);
+  const user = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
   const history = useHistory();
   const formRef = useRef(null);
@@ -66,14 +66,16 @@ function LoginModal() {
 
 
   const handleSubmit = async (e) => {
+
     e.preventDefault();
 
+    let credentials = {email:credential, password}
     try {
-      const { data, response } = await dispatch(
-        sessionActions.login({ credential, password })
+      const  response = await dispatch(
+        sessionActions.login(credentials)
       );
 
-      if (response.ok) {
+      if (response.status === 200) {
         setUpdateObj(null)
         closeModal()
       };
@@ -81,7 +83,7 @@ function LoginModal() {
       console.error(error);
       setDisabledButton(true);
       setButtonClass('signin-div-button disabled disabled2');
-      setButtonText('The provided credentials were invalid');
+      setButtonText('Invalid');
       setTimeout(() => {
         setDisabledButton(false);
         setButtonClass('signin-div-button button button2');
@@ -93,10 +95,10 @@ function LoginModal() {
 
   const demoUser = async (e) => {
     e.preventDefault();
-    const { response } = await dispatch(
-      sessionActions.login({ credential:'demo@aa.io', password:'password' })
+    const response = await dispatch(
+      sessionActions.login({ email:'demo@aa.io', password:'password' })
     );
-    if (response.ok) {
+    if (response.status===200) {
       setUpdateObj(null)
       closeModal()
     };
@@ -115,8 +117,6 @@ function LoginModal() {
     };
   }
   }, [updateObj]);
-
-
 
 
   return (
@@ -171,7 +171,7 @@ function LoginModal() {
 
 
 
-        <div className='login-forgot-account-container flexcenter'>
+        <div className='login-forgot-account-container memo-text'>
 
           <div>Forgot email or trouble signing in?</div>
           <div className="login-forgot-password-link link" onClick={handleForgotPassword}>
@@ -185,13 +185,11 @@ function LoginModal() {
 
 
 
-        <div>
-          <div>Click “Sign In” to agree to Medium’s Terms of Service and acknowledge that Medium’s Privacy Policy applies to you.</div>
+        <div className='login-demo-container memo-text demo-user-singin link' onClick={demoUser}> 
+          Demo User
         </div>
 
-        <div className="demo-user-singin link" onClick={demoUser}>
-        Demo User
-        </div>
+
       </div>
     </div>
   );

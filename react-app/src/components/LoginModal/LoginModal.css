@@ -106,8 +106,16 @@
   transition: color 0.5s;
 }
 
+.disabled{
+  color: #ffffff;
+  background-color: #ce2525;
 
+}
 
+.disabled:hover{
+  cursor:not-allowed;
+  background-color: #d27777;
+}
 .alt-links{
   position: relative;
   width: 80%;
@@ -120,14 +128,13 @@
 
 
 .login-no-account-container{
-  border: black solid 1px;
   height: 40px;
   width: 200px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  margin-top: 20px;
-
+  margin-top: 35px;
+  
 } 
 
 .create-one{
@@ -149,31 +156,59 @@
 
 
 .login-forgot-account-container{
-  border: black solid 1px;
+  color: #757575;
   margin-top: 50px;
   height: 40px;
   width: 500px;
   display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
 } 
 
+.login-demo-container {
+  color: #757575;
+  margin-top: 50px;
+  height: 40px;
+  width: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 13px;
+  padding: 0 10px;
+}
 
-.login-signup-link {
-  position: relative;
-  right: 21px;
-
+.demo-user-singin {
+  color: #757575;
+  text-decoration: underline;
+  cursor: pointer;
+  margin: 0 5px;
 }
 
 
+
+.link{
+  cursor: pointer;
+}
+
+.link:hover{
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 .login-forgot-password-link {
   position: relative;
-  right: 21px;
+  left: 4px;
 }
 
 .demo-user-singin{
   left: 14px;
   display: block;
+  margin-top: 50px;
+  color: #757575;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 

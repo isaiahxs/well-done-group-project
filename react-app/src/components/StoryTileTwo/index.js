@@ -24,7 +24,6 @@ const StoryTileTwo = ({ story, index }) => {
 
   },[story])
 
-console.log(story);
 
 
   return (

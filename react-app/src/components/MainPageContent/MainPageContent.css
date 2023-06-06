@@ -54,9 +54,6 @@
   height: 900px;
 }
 
-
-
-
 @keyframes shimmer {
   0% {
     background-position: -200px 0;
@@ -67,12 +64,16 @@
 }
 
 .skeleton-tag {
-  background-image: linear-gradient(90deg, #b5b5b5 0px, rgba(159, 159, 159, 0.1) 40px, #b6b6b6 80px);
+  background-image: linear-gradient(
+    90deg,
+    #b5b5b5 0px,
+    rgba(159, 159, 159, 0.1) 40px,
+    #b6b6b6 80px
+  );
   background-size: 100% 100%;
   animation: shimmer 3s infinite linear;
-  animation-delay: .1s;
+  animation-delay: 0.1s;
   z-index: 2;
-
 
   border-radius: 15px;
   white-space: nowrap;
@@ -85,13 +86,7 @@
   display: inline-block;
   margin: 5px;
   background-color: #f2f2f2;
-
-
-
-
 }
-
-
 
 .main-page-small-view-tags {
   position: relative;
@@ -101,9 +96,10 @@
   width: 90%;
   left: 5%;
   transition: height 0.5s ease;
+  overflow-x: hidden;
 }
 
-.main-page-small-view-tags-extended{
+.main-page-small-view-tags-extended {
   position: relative;
   width: 90%;
   left: 5%;
@@ -111,10 +107,10 @@
   padding: 5px;
   transition: height 0.5s ease;
   overflow: scroll;
-
+  overflow-x: hidden;
 }
 
-.divider-line{
+.divider-line {
   border-top: solid rgba(0, 0, 0, 0.154) 1px;
   width: 100%;
   height: 60px;
@@ -122,8 +118,7 @@
   top: 45px;
 }
 
-
-.see-more-topics{
+.see-more-topics {
   top: 5px;
   left: 5%;
   position: relative;
@@ -134,17 +129,17 @@
   font-weight: 300;
 }
 
-.see-more-topics.small{
+.see-more-topics.small {
   top: 25px;
 }
 
-
 .main-page-tags-extended {
-  height: 550px;
+  height: 500px;
   transition: height 0.5s ease;
   overflow: scroll;
-}
+  overflow-x: hidden;
 
+}
 
 .main-page-tags {
   height: 300px;
@@ -182,7 +177,7 @@
   margin: 1px;
 }
 
-.main-page-small-view-footer-item{
+.main-page-small-view-footer-item {
   position: relative;
   top: 5px;
   border-radius: 10px;
@@ -196,11 +191,10 @@
   left: 5%;
 }
 
-
 .main-page-content-header {
   height: 70px;
 }
-.main-page-small-view-content-header{
+.main-page-small-view-content-header {
   height: 20px;
 }
 
@@ -213,26 +207,21 @@
   font-size: 15px;
   font-weight: 500;
   margin-top: 30px;
-  transition: all .5s;
+  transition: all 0.5s;
 }
 
 .main-page-tag-header.extended {
   margin-top: 0px;
-  transition: all .5s;
-
+  transition: all 0.5s;
 }
 
-
-
-.main-page-small-view-footer{
+.main-page-small-view-footer {
   width: 100%;
   background-color: black;
   height: 150px;
   position: relative;
   left: 0%;
 }
-
-
 
 .main-page-small-view-tag-header {
   width: 100%;
@@ -243,7 +232,7 @@
   font-weight: 500;
 }
 
-.footer-logo{
+.footer-logo {
   color: rgb(255, 255, 255);
   width: fit-content;
   height: 100px;
@@ -254,9 +243,8 @@
   top: 20px;
   left: 5%;
   padding: 9px;
-
 }
 .main-page-small-view-footer-item:hover,
-.footer-logo:hover{
+.footer-logo:hover {
   cursor: pointer;
 }
