@@ -21,6 +21,34 @@
   font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+.author-section {
+  display: flex;
+  align-items: center;
+  margin-top: 30px;
+}
+
+/* .author-section-footer {
+  margin-top: 40px;
+  background-color: red;
+} */
+
+.author-image {
+  height: 50px;
+  width: 50px;
+  /* width: 75%; */
+  margin-right: 10px;
+  /* border: 1px solid black;
+  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 1); */
+
+}
+
+.author-information {
+  width: 50%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .story-author {
   font-size: 16px;
   font-weight: lighter;
@@ -35,6 +63,8 @@
   color: #479275;
   font-size: 16px;
   font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  cursor: pointer;
+  /* margin-left: 10px */
 }
 
 .time {
@@ -42,6 +72,35 @@
   font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: lighter;
   font-size: 14px; 
+  margin-top: 3px;
+}
+
+.options-bar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 20px;
+  border-top: 1px solid rgb(242, 242, 242);
+  border-bottom: 1px solid rgb(242, 242, 242);
+  padding: 8px 3px;
+}
+
+.clap-button {
+  cursor: pointer;
+  background-color: rgb(234, 234, 234);
+  border: none;
+  border-radius: 20px;
+  padding: 5px 10px;
+  font-size: 16px;
+}
+
+.comment-button {
+  cursor: pointer;
+  background-color: rgb(234, 234, 234);
+  border: none;
+  border-radius: 20px;
+  padding: 5px 10px;
+  font-size: 16px;
 }
 
 .alt-options{
@@ -74,6 +133,11 @@
   font-family: source-serif-pro, Georgia, Cambria, "Times New Roman", Times, serif;
 }
 
+.story-tag {
+  border: none;
+  margin-top: 30px;
+}
+
 .story-image {
   display: flex;
   margin: 0 auto;
@@ -95,4 +159,9 @@
   font-weight: bold;
   margin-top: 20px;
   color: #777;
+}
+
+.footer {
+  background-color: #fafafa;
+  width: 100%
 }
