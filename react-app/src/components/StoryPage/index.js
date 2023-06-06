@@ -135,7 +135,8 @@ const StoryPage = () => {
           <h1 className="story-title">{story.title}</h1>
 
           <div className='author-section'>
-            <div className='author-image'>insert author's image here</div>
+            {/* <div className='author-image'>{story.authorInfo.profileImage}</div> */}
+            <img src={story.authorInfo.profileImage} alt='author-image' className='author-image'/>
             <div className='author-information'>
               <div className="story-author">
                 {story.authorInfo.firstName} {story.authorInfo.lastName} ·
@@ -180,6 +181,20 @@ const StoryPage = () => {
           <div className='options-bar'>
             <button className='clap-button'>Clap {story.claps}</button>
             <button className='comment-button'>Comment {story.comments.length}</button>
+          </div>
+
+          <div className='footer'>
+            <div className='author-section'>
+              <img src={story.authorInfo.profileImage} alt='author-image' className='author-image'/>
+              <div className='author-information'>
+                <div className="story-author">
+                  {story.authorInfo.firstName} {story.authorInfo.lastName} ·
+                  <a className='follow'> Follow</a>
+                  <p className='time'>{readTime} min read · {date}</p>
+                </div>
+              </div>
+              {/* here we can come up with a way to randomize the duration length and use the date created to know how long it has been */}
+            </div>
           </div>
         </>
       )}

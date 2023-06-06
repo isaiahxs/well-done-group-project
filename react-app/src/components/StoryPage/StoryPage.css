@@ -24,10 +24,18 @@
 .author-section {
   display: flex;
   align-items: center;
+  margin-top: 30px;
 }
 
+/* .author-section-footer {
+  margin-top: 40px;
+  background-color: red;
+} */
+
 .author-image {
-  /* width: 50%; */
+  height: 50px;
+  width: 50px;
+  /* width: 75%; */
   margin-right: 10px;
 }
 
@@ -148,4 +156,9 @@
   font-weight: bold;
   margin-top: 20px;
   color: #777;
+}
+
+.footer {
+  background-color: #fafafa;
+  width: 100%
 }
