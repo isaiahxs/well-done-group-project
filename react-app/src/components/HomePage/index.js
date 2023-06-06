@@ -16,9 +16,10 @@ const HomePage = () => {
 
   return (
     <div>
+      <div className='banner-cover'></div>
       <MainPageBanner/>
       <TrendingBanner/>
-      <MainPageContent />
+      <MainPageContent/>
 
     </div>
 
