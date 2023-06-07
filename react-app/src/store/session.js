@@ -76,13 +76,9 @@ export const logout = () => async (dispatch) => {
 };
 
 export const search = (searchQuery) => async (dispatch) => {
-	console.log('searching');
-	console.log('searching');
-	console.log('searching');
-	console.log('searching');
-	const response = await fetch(`/api/search?q=${encodeURIComponent(searchQuery)}`);
+
+	const response = await fetch(`/api/search?q=${searchQuery}`);
 	if (response.ok) {
-		console.log('ye sok');
 		const data = await response.json();
 		dispatch(userSearch(data));
 	}

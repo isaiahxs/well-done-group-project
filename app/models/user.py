@@ -51,3 +51,10 @@ class User(db.Model, UserMixin):
             'numFollowers': len(self.followers)
 
         }
+    def safe_dict(self):
+        return {
+            'firstName': self.first_name,
+            'lastName': self.last_name,
+            'followers': [follower.to_dict() for follower in self.followers],
+            'numFollowers': len(self.followers)
+        }

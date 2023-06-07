@@ -42,5 +42,16 @@ class Story(db.Model):
             'comments': [comment.to_dict() for comment in self.comments],
             'claps': len(self.claps)
         }
-
+    def safe_dict(self):
+        return {
+            'id': self.id,
+            'authorId': self.author_id,
+            'authorInfo': self.author.safe_dict(),
+            'title': self.title,
+            'content': self.content,
+            'tags': [tag.tag.to_dict() for tag in self.tags],
+            'images': [image.to_dict() for image in self.images],
+            'comments': [comment.to_dict() for comment in self.comments],
+            'claps': len(self.claps)
+        }
         

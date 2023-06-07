@@ -23,10 +23,12 @@ function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(true);
   const state = useSelector(state=>state)
+  const search = useSelector(state=>state.session.search)
   const user = useSelector(state=>state.session.user)
   const { modal, openModal, closeModal, setUpdateObj } = useContext(ModalContext);
 
   console.log(state);
+  console.log(search);
   
   
   useEffect(() => {

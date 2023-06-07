@@ -99,28 +99,33 @@ def initial_load():
 @app.route("/api/search")
 def search():
     """
-    Search db on a string 
+    Search db based a string 
     """
     # Get search query from the request args
     search_query = request.args.get('q')
 
+    stories = []
     if search_query:
 
         search_terms = search_query.split()
 
-        query = Story.query
+        conditions = [Story.title.ilike(f'%{term}%') for term in search_terms]
+        author_conditions = [User.first_name.ilike(f'%{term}%') | User.last_name.ilike(f'%{term}%') for term in search_terms]
 
-  
-        for term in search_terms:
-            # Use ilike for case-insensitive search
-            query = query.filter(Story.title.ilike(f'%{term}%'))
+        # last_names = [Story.author.lastName.ilike(f'%{term}%') for term in search_terms]
 
-        stories = query.all()
-    else:
-        stories = []
+        stories = Story.query.filter(or_(*conditions)).all()
+        authors = User.query.filter(or_(*author_conditions)).all()
+        # author1 = Story.query.filter(or_(*first_names)).all()
+        # author2 = Story.query.filter(or_(*last_names)).all()
 
     return {
-        'stories': [story.to_dict() for story in stories],
+        'search': search_query,
+        'stories': [story.safe_dict() for story in stories],
+        'length': len(stories),
+        'authors': [author.safe_dict() for author in authors]
+        # 'authors': [*author1,*author2]
+
     }
 
 
