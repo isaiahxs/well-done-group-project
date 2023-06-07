@@ -1,8 +1,13 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { useHistory, useLocation } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import './StoryTileTwo.css';
 import mediumLogoCircles from '../../public/medium-logo-circles.jpeg';
 import { WindowContext } from '../../context/WindowContext';
+import openBook from '../../public/open-book.png';
+import quill from '../../public/quill.png';
+import userOutline from '../../public/user-outline.png';
+import fountainPen from '../../public/fountain-pen.png';
 
 const StoryTileTwo = ({ story, index }) => {
   const history = useHistory();
@@ -10,7 +15,29 @@ const StoryTileTwo = ({ story, index }) => {
   const [readTime, setReadTime] = useState(4)
   const {windowSize} = useContext(WindowContext)
   const [thumbnail, setThumbnail] = useState('')
+  const [profileImageSrc, setProfileImageSrc] = useState('');
+  const user = useSelector((state) => state.session.user);
 
+  useEffect(()=>{
+    if(user && user.profileImage){
+      if(user.profileImage === 'quill'){
+        setProfileImageSrc(quill)
+      }
+      else if(user.profileImage === 'user-outline'){
+        setProfileImageSrc(userOutline)
+      }
+      else if(user.profileImage === 'open-book'){
+        setProfileImageSrc(openBook)
+      }
+      else if(user.profileImage === 'fountain-pen'){
+        setProfileImageSrc(fountainPen)
+      }
+      else {
+        setProfileImageSrc(user.profileImage)
+      }
+    }
+
+  },[user]);
 
   useEffect(()=>{
     if(story){
@@ -31,11 +58,12 @@ const StoryTileTwo = ({ story, index }) => {
       <div className="style2-content">
         <div className="style2-author-container">
           <div className="style2-profile-image">
-            <img
-              // src={story?.authorInfo.profileImage}
-              src={mediumLogoCircles}
-              alt="author profile picture"
-            ></img>
+          {story?.authorInfo?.profileImage && (
+                <img
+                  src={story?.authorInfo.profileImage}
+                  alt="author profile picture"
+                ></img>
+              )}
           </div>
           <div 
           className="style2-author-name memo-text"

@@ -83,13 +83,10 @@ function Navigation(){
 
   useEffect(()=>{
     if(user && user.profileImage){
-      console.log(user.profileImage);
-
       if(user.profileImage === 'quill'){
         setProfileImageSrc(quill)
       }
       else if(user.profileImage === 'user-outline'){
-        console.log('yes');
         setProfileImageSrc(userOutline)
       }
       else if(user.profileImage === 'open-book'){

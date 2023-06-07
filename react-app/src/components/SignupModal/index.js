@@ -218,7 +218,7 @@ function SignupModal() {
             placeholder={validationErrors['lastName'] || ''}
           />
         </label>
-        <div className="profile-image-buttons-container">
+        {openBook && fountainPen && userOutline && quill &&(<div className="profile-image-buttons-container">
           <div className="profile-image-buttons-header align-left">
             Select a Profile Image{' '}
             <div className="profile-image-buttons-header-note">
@@ -293,7 +293,7 @@ function SignupModal() {
             ></img>
           </div>
           </div>
-        </div>
+        </div>)}
         <div onMouseEnter={handleSubmitEnter}>
           <button
             type="submit"
