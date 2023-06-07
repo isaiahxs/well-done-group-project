@@ -12,10 +12,13 @@
   background-color: #fec016;
 } 
 
+
+
 .nav-bar.logged {
   background-color: #ffffff;
   border-bottom: rgba(73, 73, 73, 0.05) solid 1px ;
   box-shadow: 2px 0  0 2px rgba(73, 73, 73, 1) solid 1px ;
+  position: relative;
 
   height: 55px;
 

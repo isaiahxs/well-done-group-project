@@ -229,7 +229,7 @@ function SignupModal() {
           <div className="profile-image-buttons">
             <div
               className={`profile-image-button ${glowing ? 'glowing' : ''} ${
-                profileImage.alt === 'openBook' ? 'selected' : ''
+                profileImage.alt === 'openBook' ? 'icon-selected' : ''
               }`}
               onClick={() =>{
                 setProfileImage({ url: 'open-book', alt: 'openBook' })
@@ -246,7 +246,7 @@ function SignupModal() {
             
             <div
               className={`profile-image-button ${glowing ? 'glowing' : ''} ${
-                profileImage.alt === 'quill' ? 'selected' : ''
+                profileImage.alt === 'quill' ? 'icon-selected' : ''
               }`}
               onClick={() =>{ 
                 setProfileImage({ url: 'quill', alt: 'quill' })
@@ -262,7 +262,7 @@ function SignupModal() {
             </div>
             <div
               className={`profile-image-button ${glowing ? 'glowing' : ''} ${
-                profileImage.alt === 'user-outline' ? 'selected' : ''
+                profileImage.alt === 'user-outline' ? 'icon-selected' : ''
               }`}
               onClick={() =>{
                 setProfileImage({ url: 'user-outline', alt: 'user-outline' })
@@ -278,7 +278,7 @@ function SignupModal() {
             </div>
           <div
             className={`profile-image-button ${glowing ? 'glowing' : ''} ${
-              profileImage.alt === 'fountain-pen' ? 'selected' : ''
+              profileImage.alt === 'fountain-pen' ? 'icon-selected' : ''
             }`}
             onClick={() =>{
               setProfileImage({ url: 'fountain-pen', alt: 'fountain-pen' })

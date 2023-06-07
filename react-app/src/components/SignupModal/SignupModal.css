@@ -250,7 +250,7 @@
   height: 100%;
 }
 
-.selected {
+.icon-selected {
   outline: 2px solid rgb(34, 171, 151);
 }
 

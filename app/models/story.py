@@ -49,6 +49,7 @@ class Story(db.Model):
             'authorInfo': self.author.safe_dict(),
             'title': self.title,
             'content': self.content,
+            'createdAt': self.created_at,
             'tags': [tag.tag.to_dict() for tag in self.tags],
             'images': [image.to_dict() for image in self.images],
             'comments': [comment.to_dict() for comment in self.comments],

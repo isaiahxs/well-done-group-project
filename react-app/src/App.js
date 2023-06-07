@@ -16,7 +16,7 @@ import ProfileButtonModal from './components/ProfileButtonModal';
 
 import * as storyActions from './store/story';
 import { ModalContext } from './context/ModalContext';
-import UserHomePage from './components/UserHomePage';
+import UserHomePage from './components/FeedPage';
 
 
 function App() {

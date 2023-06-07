@@ -98,8 +98,10 @@ function Navigation() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     if (user) {
       history.push('/home');
+      return
     }
     history.push('/');
+    return
   };
 
   const handleStoryClick = () => {
@@ -211,6 +213,7 @@ function Navigation() {
                  </form>
                </div>
               )}
+              
             </div>
 
             <div className={`nav-user-buttons `}>

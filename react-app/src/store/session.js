@@ -1,7 +1,9 @@
 // constants
 const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
-const USER_SEARCH = "session/USER_SEARCH";
+const NEW_SEARCH = "session/NEW_SEARCH";
+const REMOVE_SEARCH = "session/REMOVE_SEARCH";
+const SET_FEED = "session/SET_FEED";
 
 const setUser = (user) => ({
 	type: SET_USER,
@@ -12,13 +14,21 @@ const removeUser = () => ({
 	type: REMOVE_USER,
 });
 
-const userSearch = (data) => ({
-	type: USER_SEARCH,
+const newSearch = (data) => ({
+	type: NEW_SEARCH,
 	payload: data,
-
 });
 
-const initialState = { user: null, search: null };
+const removeSearchAction = (searchQuery) => ({
+	type: REMOVE_SEARCH,
+	payload: searchQuery,
+});
+const setFeedAction = (feed) => ({
+	type: SET_FEED,
+	payload: feed,
+});
+
+const initialState = { user: null, search: {}, currentFeed: 'for you' };
 
 export const authenticate = () => async (dispatch) => {
 	const response = await fetch("/api/auth/", {
@@ -80,8 +90,18 @@ export const search = (searchQuery) => async (dispatch) => {
 	const response = await fetch(`/api/search?q=${searchQuery}`);
 	if (response.ok) {
 		const data = await response.json();
-		dispatch(userSearch(data));
+		dispatch(newSearch(data));
+		dispatch(setFeedAction(searchQuery))
+
 	}
+};
+
+export const removeSearch = (searchQuery) => async (dispatch) => {
+		dispatch(removeSearchAction(searchQuery));
+};
+
+export const setFeed = (feed) => async (dispatch) => {
+	dispatch(setFeedAction(feed));
 };
 
 
@@ -128,10 +148,18 @@ export default function reducer(state = initialState, action) {
 			return {...newState, user: action.payload.user };
 		case REMOVE_USER:
 			return {...newState, user: null };
-		case USER_SEARCH:
-			return {...newState, search: action.payload };		
-
-
+		case NEW_SEARCH:
+			const newSearch = {...newState.search}
+			newSearch[action.payload.search] = action.payload
+			return {...newState, search: newSearch};		
+		case REMOVE_SEARCH:{
+			const newSearch = {...newState.search}
+			delete newSearch[action.payload]
+			return {...newState, search: newSearch };		
+		}
+		case SET_FEED:{
+			return {...newState, currentFeed: action.payload };		
+		}
 		default:
 			return newState;
 	}

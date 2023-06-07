@@ -46,7 +46,6 @@ const StoryTileOne = ({ story, index }) => {
   },[story])
 
 
-  console.log(story?.authorInfo?.profileImage);
 
 
   return (

@@ -7,6 +7,7 @@ import { WindowContext } from '../../context/WindowContext';
 
 import StoryTileTwo from '../StoryTileTwo';
 import StoryTileTwoSkeleton from '../StoryTileTwoSkeleton';
+import mediumLogoLarge from '../../public/medium-logo-with-cirlces.svg';
 
 const MainPageContent = () => {
   const { windowSize } = useContext(WindowContext);
@@ -46,8 +47,8 @@ const MainPageContent = () => {
                   Discover more of what matters to you
                 </div>
 
-                {Array.from({ length: 40 }).map((_, index) => (
-                  <div key={index} className="skeleton-tag"></div>
+                {Array.from({ length: 40 }).map((_, i) => (
+                  <div key={i} className="skeleton-tag"></div>
                 ))}
               </div>
 
@@ -66,7 +67,8 @@ const MainPageContent = () => {
 
               <div className="main-page-small-view-footer">
                 <div className="footer-logo" onClick={handleLogoClick}>
-                  SHMEDIUM
+                  <img src={mediumLogoLarge} alt="medium cirlce logo"></img>
+
                 </div>
                 <div className="main-page-small-view-footer-item">About</div>
                 <div className="main-page-small-view-footer-item">Help</div>
@@ -103,8 +105,8 @@ const MainPageContent = () => {
                     isExtended ? 'main-page-tags-extended' : 'main-page-tags'
                   }
                 >
-                  {Array.from({ length: 40 }).map((_, index) => (
-                    <div key={index} className="skeleton-tag"></div>
+                  {Array.from({ length: 40 }).map((_, i) => (
+                    <div key={i} className="skeleton-tag"></div>
                   ))}
                 </div>
                 <div
@@ -149,8 +151,8 @@ const MainPageContent = () => {
                 </div>
 
                 {tags &&
-                  tags.map((tag) => {
-                    return <div className="main-page-tag memo-text">{tag}</div>;
+                  tags.map((tag, i) => {
+                    return <div key={i} className="main-page-tag memo-text">{tag}</div>;
                   })}
               </div>
               <div
@@ -164,9 +166,10 @@ const MainPageContent = () => {
 
               <div className="main-page-small-feed">
                 {stories &&
-                  stories.map((story) => {
+                  stories.map((story, i) => {
                     return (
                       <StoryTileTwo
+                        key={i}
                         className="main-page-feed-article"
                         story={story}
                       />
@@ -176,7 +179,8 @@ const MainPageContent = () => {
 
               <div className="main-page-small-view-footer">
                 <div className="footer-logo" onClick={handleLogoClick}>
-                  SHMEDIUM
+                  <img src={mediumLogoLarge} alt="medium cirlce logo"></img>
+
                 </div>
                 <div className="main-page-small-view-footer-item">About</div>
                 <div className="main-page-small-view-footer-item">Help</div>
@@ -190,9 +194,10 @@ const MainPageContent = () => {
 
               <div className="main-page-wide-feed">
                 {stories &&
-                  stories.map((story) => {
+                  stories.map((story,i) => {
                     return (
                       <StoryTileTwo
+                        key={i}
                         className="main-page-feed-article"
                         story={story}
                       />
@@ -221,9 +226,9 @@ const MainPageContent = () => {
                   }
                 >
                   {tags &&
-                    tags.map((tag) => {
+                    tags.map((tag, i) => {
                       return (
-                        <div className="main-page-tag memo-text">{tag}</div>
+                        <div key={i} className="main-page-tag memo-text">{tag}</div>
                       );
                     })}
                 </div>
