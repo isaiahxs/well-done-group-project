@@ -3,6 +3,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import './StoryTileTwo.css';
 import mediumLogoCircles from '../../public/medium-logo-circles.jpeg';
 import { WindowContext } from '../../context/WindowContext';
+import parse from 'html-react-parser';
 
 const StoryTileTwo = ({ story, index }) => {
   const history = useHistory();
@@ -10,10 +11,14 @@ const StoryTileTwo = ({ story, index }) => {
   const [readTime, setReadTime] = useState(4)
   const {windowSize} = useContext(WindowContext)
   const [thumbnail, setThumbnail] = useState('')
+  const [storyContent, setStoryContent] = useState('')
 
 
   useEffect(()=>{
     if(story){
+      let parsedContent = parse(story.content.slice(0,80) + '...')
+      console.log('----THIS IS OUR PARSED CONTENT----', parsedContent)
+      setStoryContent(parsedContent)
       let month = story?.createdAt.slice(8,11)
       let day = story?.createdAt.slice(5,7)
       setDate(`${month} ${day}`)
@@ -48,8 +53,10 @@ const StoryTileTwo = ({ story, index }) => {
         </div>
 
         {windowSize > 699 && (<div className="style2-header-container flexbetween memo-text">
-          <div className="style2-header-content">{story.content.slice(0,80) + '...'}</div>
+          <div className="style2-header-content">{storyContent}</div>
         </div>)}
+
+        {/* story.content.slice(0,80) + '...' */}
 
         <div className="style2-date-read-time-container flexbetween memo-text">
           <div className="style2-date-content">{date}</div>
