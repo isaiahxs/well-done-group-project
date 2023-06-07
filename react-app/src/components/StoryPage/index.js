@@ -63,7 +63,7 @@ const StoryPage = () => {
  // Check if there's remaining content
  console.log(lastPosition);
       if (lastPosition < story.content.length) { 
-        let remainingText = story.content.slice(lastPosition,story.content.length-1); 
+        let remainingText = story.content.slice(lastPosition); 
         console.log(remainingText); 
         tempArr.push({text: remainingText});  
       } 
