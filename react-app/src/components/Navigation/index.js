@@ -119,7 +119,6 @@ function Navigation() {
     openModal('signup');
   };
   const handleProfileClick = () => {
-    // openModal('signin');
     openModal('profileModal');
   };
   
@@ -135,11 +134,16 @@ function Navigation() {
     }
   };
 
-  const newSearch = () => {
+  const newSearch = async () => {
+    console.log('searching');
+    const searchResults = await dispatch(sessionActions.search(search))
+    if(searchResults){
+      console.log(searchResults);
+    }
+
     return
   }
 
-  console.log(modal);
 
   return (
     <>
@@ -183,14 +187,14 @@ function Navigation() {
                  <div className={`nav-search`}>
                  <div
                    className="maginfy-container"
-                   onClick={() => dispatch(sessionActions.search(search))}
+                   onClick={newSearch}
                  >
                    <i className="fa-solid fa-magnifying-glass"></i>
                  </div>
                  <form
                    onSubmit={(e) => {
                      e.preventDefault();
-                     dispatch(sessionActions.search(search));
+                     newSearch()
                      setSearch('');
                    }}
                  >

@@ -18,7 +18,7 @@ const userSearch = (data) => ({
 
 });
 
-const initialState = { user: null, search: {} };
+const initialState = { user: null, search: null };
 
 export const authenticate = () => async (dispatch) => {
 	const response = await fetch("/api/auth/", {
@@ -76,8 +76,13 @@ export const logout = () => async (dispatch) => {
 };
 
 export const search = (searchQuery) => async (dispatch) => {
+	console.log('searching');
+	console.log('searching');
+	console.log('searching');
+	console.log('searching');
 	const response = await fetch(`/api/search?q=${encodeURIComponent(searchQuery)}`);
 	if (response.ok) {
+		console.log('ye sok');
 		const data = await response.json();
 		dispatch(userSearch(data));
 	}
@@ -124,11 +129,11 @@ export default function reducer(state = initialState, action) {
 	const newState = {...state}
 	switch (action.type) {
 		case SET_USER:
-			return { user: action.payload.user };
+			return {...newState, user: action.payload.user };
 		case REMOVE_USER:
-			return { user: null };
+			return {...newState, user: null };
 		case USER_SEARCH:
-			return { search: action.payload };		
+			return {...newState, search: action.payload };		
 
 
 		default:
