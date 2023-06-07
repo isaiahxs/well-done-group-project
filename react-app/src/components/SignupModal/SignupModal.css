@@ -59,7 +59,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  width: calc(100% - 2 * 5px);
+  width: calc(100%);
   right: 2%;
   margin-bottom: 10px;
   font-size: 20px;
@@ -69,7 +69,6 @@
 
 .signup-div input {
   width: 100%;
-  padding: 5px;
   margin-top: 5px;
   margin-bottom: 10px;
   border-radius: 20px;
@@ -154,17 +153,7 @@
   left: 2px
 }
 
-
-.signup-forgot-account-container{
-  color: #757575;
-  margin-top: 50px;
-  height: 40px;
-  width: 500px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 13px;
-} 
+ 
 
 .signup-demo-container {
   color: #757575;
@@ -209,13 +198,36 @@
 }
 
 .profile-image-buttons-container{
-  height: 40px;
+  height: 100px;
   width: 300px;
   margin: auto 0;
-  margin-top: 15px;
+  margin-top: -5px;
   margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.profile-image-buttons-header{
+  height: 30px;
+  width: 100%;
+  margin-bottom: 10px;
+  font-size: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.profile-image-buttons-header-note{
+  font-size: 12px;
+  display: flex;
+  margin-bottom: 10px;
 
 
+}
+
+.profile-image-buttons{
+  display: flex;
+  justify-content: space-between;
 }
 
 .profile-image-button{
@@ -224,6 +236,7 @@
   width: 50px;
   height: 50px;
   overflow: hidden;
+  cursor: pointer;
 }
 
 .profile-image-button.glowing {
@@ -240,6 +253,8 @@
 .selected {
   outline: 2px solid rgb(34, 171, 151);
 }
+
+
 
 
 @media screen and (min-width: 710px) {
@@ -269,7 +284,7 @@
 
   .signup-no-account-container{
     position: relative;
-    bottom: 20px;
+    bottom: 30px;
   }
 
 

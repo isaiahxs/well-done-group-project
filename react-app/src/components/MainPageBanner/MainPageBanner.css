@@ -4,7 +4,6 @@
   background-color: #fec016;
   width: 100%;
   left: 0%;
-  margin-top: 75px;
   margin-top: 0px;
   overflow: hidden;
   display: block;
@@ -20,17 +19,17 @@
 
 @media screen and (max-width: 549px) {
   .main-page-banner-container{
-    height: 455px;
+    height: 445px;
   }
 }
 @media screen and (min-width: 550px) {
   .main-page-banner-container{
-    height: 468px;
+    height: 458px;
   }
 }
 @media screen and (min-width: 600px) {
   .main-page-banner-container{
-    height: 465px;
+    height: 450px;
   }
 }
 
@@ -51,7 +50,7 @@
   top: 90px;
   letter-spacing: -4px;
   font-weight: 300;
-
+  font-size: 70px;
 }
 
 .discover-stories{
@@ -60,8 +59,15 @@
   width: 90%;
   height: 70px;
   top: 130px;
+  font-size: 25px;
+
+  width: 400px;
+  top: 110px;
 
 }
+
+
+
 
 .start-reading{
   position: relative;
@@ -72,10 +78,12 @@
   justify-content: center;
   align-items: center;
   width: 200px;
-  height: 40px;
+  height: 43px;
   left: 0%;
-  top: 175px;
+  top: 150px;
   z-index: 1;
+  font-size: 20px;
+
 }
 
 .start-reading:hover{
@@ -94,29 +102,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-@media screen and (max-width: 549px) {
-
-  .stay-curious{
-    font-size: 60px;
-  }
-  .discover-stories{
-    font-size: 25px;
-
-  }
-  .start-reading{
-    font-size: 20px;
-  }
-}
-
 @media screen and (min-width: 550px) {
   .stay-curious{
     font-size: 80px;
@@ -124,13 +109,11 @@
   .discover-stories{
     font-size: 25px;
     width: 400px;
-    top: 110px;
-
 
   }
   .start-reading{
     font-size: 20px;
-    top: 125;
+    top: 125px;
   }
 }
 
@@ -141,7 +124,7 @@
   .discover-stories{
     font-size: 25px;
     width: 400px;
-    top: 115px;
+
 
   }
   .start-reading{
@@ -152,3 +135,9 @@
 }
 
 
+
+/* 
+width: fit-content;
+text-align: center;
+font-size: 8vw;
+line-height: 0.9; */

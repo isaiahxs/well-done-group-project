@@ -23,7 +23,7 @@ function SignupModal() {
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
-  const [profileImage, setProfileImage] = useState({ path: '', alt: '' });
+  const [profileImage, setProfileImage] = useState({ url: '', alt: '' });
 
   const [validationErrors, setValidationErrors] = useState({});
   const [signupErrors, setSignupErrors] = useState({});
@@ -70,7 +70,7 @@ function SignupModal() {
       signupErrors['lastName'] = 'Please include last name';
     }
 
-    if (profileImage.path.length === 0) {
+    if (profileImage.url.length === 0) {
       errors['profileImage'] = 'Please select profile image';
       signupErrors['profileImage'] = 'Please select profile image';
     }
@@ -87,14 +87,19 @@ function SignupModal() {
     }
   }, [signupErrors]);
 
+  console.log(typeof profileImage.url);
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    console.log(profileImage.url);
     let credentials = {
       email: credential,
       password,
       firstName,
       lastName,
-      profileImage,
+      profileImage:profileImage.url,
       username: `${firstName + '#' + Math.floor(Math.random() * 1000)} `,
     };
     try {
@@ -123,8 +128,7 @@ function SignupModal() {
 
       if (response.status === 202) {
         closeModal();
-        history.push('/home')
-
+        history.push('/home');
       }
     } catch (error) {
       console.log(error);
@@ -214,60 +218,80 @@ function SignupModal() {
             placeholder={validationErrors['lastName'] || ''}
           />
         </label>
-        <div className="profile-image-buttons-container flexbetween">
+        <div className="profile-image-buttons-container">
+          <div className="profile-image-buttons-header align-left">
+            Select a Profile Image{' '}
+            <div className="profile-image-buttons-header-note">
+              (you can update this later in your settings)
+            </div>
+          </div>
+
+          <div className="profile-image-buttons">
+            <div
+              className={`profile-image-button ${glowing ? 'glowing' : ''} ${
+                profileImage.alt === 'openBook' ? 'selected' : ''
+              }`}
+              onClick={() =>{
+                setProfileImage({ url: 'open-book', alt: 'openBook' })
+                setGlowing(false)
+
+              }}
+            >
+              <img
+                className="profile-image-button-img"
+                src={openBook}
+                alt="openBook"
+              ></img>
+            </div>
+            
+            <div
+              className={`profile-image-button ${glowing ? 'glowing' : ''} ${
+                profileImage.alt === 'quill' ? 'selected' : ''
+              }`}
+              onClick={() =>{ 
+                setProfileImage({ url: 'quill', alt: 'quill' })
+                setGlowing(false)
+
+            }}
+            >
+              <img
+                className="profile-image-button-img"
+                src={quill}
+                alt="quill"
+              ></img>
+            </div>
+            <div
+              className={`profile-image-button ${glowing ? 'glowing' : ''} ${
+                profileImage.alt === 'user-outline' ? 'selected' : ''
+              }`}
+              onClick={() =>{
+                setProfileImage({ url: 'user-outline', alt: 'user-outline' })
+                setGlowing(false)
+
+              }}
+            >
+              <img
+                className="profile-image-button-img"
+                src={userOutline}
+                alt="userOutline"
+              ></img>
+            </div>
           <div
             className={`profile-image-button ${glowing ? 'glowing' : ''} ${
-              profileImage.alt === 'openBook' ? 'selected' : ''
+              profileImage.alt === 'fountain-pen' ? 'selected' : ''
             }`}
-            onClick={() =>
-              setProfileImage({ path: 'img.jpg', alt: 'openBook' })
-            }
-          >
+            onClick={() =>{
+              setProfileImage({ url: 'fountain-pen', alt: 'fountain-pen' })
+              setGlowing(false)
+            
+            }}
+            >
             <img
-              className="profile-image-button-img"
-              src={openBook}
-              alt="openBook"
+            className="profile-image-button-img"
+            src={fountainPen}
+            alt="fountainPen"
             ></img>
           </div>
-          <div
-            className={`profile-image-button ${glowing ? 'glowing' : ''} ${
-              profileImage.alt === 'quill' ? 'selected' : ''
-            }`}
-            onClick={() => setProfileImage({ path: 'img.jpg', alt: 'quill' })}
-          >
-            <img
-              className="profile-image-button-img"
-              src={quill}
-              alt="quill"
-            ></img>
-          </div>
-          <div
-            className={`profile-image-button ${glowing ? 'glowing' : ''} ${
-              profileImage.alt === 'userOutline' ? 'selected' : ''
-            }`}
-            onClick={() =>
-              setProfileImage({ path: 'img.jpg', alt: 'userOutline' })
-            }
-          >
-            <img
-              className="profile-image-button-img"
-              src={userOutline}
-              alt="userOutline"
-            ></img>
-          </div>
-          <div
-            className={`profile-image-button ${glowing ? 'glowing' : ''} ${
-              profileImage.alt === 'fountainPen' ? 'selected' : ''
-            }`}
-            onClick={() =>
-              setProfileImage({ path: 'img.jpg', alt: 'fountainPen' })
-            }
-          >
-            <img
-              className="profile-image-button-img"
-              src={fountainPen}
-              alt="fountainPen"
-            ></img>
           </div>
         </div>
         <div onMouseEnter={handleSubmitEnter}>
@@ -293,5 +317,16 @@ function SignupModal() {
     </div>
   );
 }
+
+// npm install react-html-parser
+
+// import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
+
+// const string = 'This is a <b>bold</b> text';
+
+// return <div>{ReactHtmlParser(string)}</div>;
+
+
+
 
 export default SignupModal;

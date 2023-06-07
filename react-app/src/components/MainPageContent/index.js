@@ -17,8 +17,13 @@ const MainPageContent = () => {
   const tags = useSelector((state) => state.story.tags);
   const stories = useSelector((state) => state.story.stories);
   const loaded = useSelector((state) => state.story.loaded);
+  const user = useSelector((state) => state.session.user);
+
 
   const handleLogoClick = () => {
+    if(user){
+      history.push('/home');
+    }
     history.push('/');
   };
 

@@ -12,6 +12,16 @@
   background-color: #fec016;
 } 
 
+.nav-bar.logged {
+  background-color: #ffffff;
+  border-bottom: rgba(73, 73, 73, 0.05) solid 1px ;
+  box-shadow: 2px 0  0 2px rgba(73, 73, 73, 1) solid 1px ;
+
+  height: 55px;
+
+
+} 
+
 
 .get-started{
   border-radius: 20px;
@@ -67,8 +77,6 @@
   max-width: 1200px;
   height: 40px;
   justify-content: space-between;
-  font-size: 13.5px;
-  font-weight: 300;
   transform: translate(-50%,0);
 
 }
@@ -80,14 +88,32 @@
   width: 410px;
 }
 
-
 .logo{
-  font-size: 32px;
-  color: rgb(0, 0, 0);
   display: flex;
-  height: fit-content;
   position: relative;
-  z-index: 1;
+  z-index: 100;
+}
+
+.logo img {
+  object-fit: contain; 
+  max-width: 100%;  
+  max-height: 100%;  
+}
+
+.logo.large{
+  height: 30px; 
+  width: 170px; 
+  right: 15px;
+  position: relative;
+  z-index: 100;
+}
+
+.logo.small{
+  height: 25px; 
+  width: 160px; 
+  right: 10px;
+  position: relative;
+  z-index: 100;
 }
 
 
@@ -98,15 +124,32 @@
   cursor: pointer;
 }
 
-
+.nav-button2,
 .nav-button{
   visibility: hidden;
+  font-size: 13.5px;
+  font-weight: 300;
 }
 
-.nav-button2{
-  visibility: hidden;
+
+
+
+
+
+.profile-div{
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  border: black solid 1px;
+  overflow: hidden;
 }
 
+.profile-div img{
+  width: 100%;
+  height: 100%;
+  object-fit: conver;
+  position: relative;
+}
 
 
 
@@ -143,6 +186,7 @@
   .show{
     visibility: visible;
   }
+
 }
 
 

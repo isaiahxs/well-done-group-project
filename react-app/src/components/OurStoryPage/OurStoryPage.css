@@ -729,12 +729,12 @@
     font-size: 65px;
   }
 
-   .header-text {
+   /* .header-text {
     width: fit-content;
     text-align: center;
     font-size: 8vw;
     line-height: 0.9;
-  }
+  } */
 
   .ourstorypage-quote-image-container {
     margin-top: 70px;
