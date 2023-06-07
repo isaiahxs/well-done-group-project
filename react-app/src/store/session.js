@@ -97,7 +97,7 @@ export const search = (searchQuery) => async (dispatch) => {
 };
 
 export const removeSearch = (searchQuery) => async (dispatch) => {
-		dispatch(removeSearchAction(searchQuery));
+	dispatch(removeSearchAction(searchQuery));
 };
 
 export const setFeed = (feed) => async (dispatch) => {

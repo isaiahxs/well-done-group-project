@@ -205,7 +205,9 @@ def create_story_with_images():
 
         incoming_data = request.get_json()
         image_data_list = incoming_data.get('images', [])
+        tag_data_list = incoming_data.get('tags', [])
 
+    # handle story images
         for image_data in image_data_list:
 
             print(image_data)
@@ -219,7 +221,23 @@ def create_story_with_images():
             db.session.add(new_story_image)
             db.session.commit()
         else:
-            print('errors')        
+            print('errors')  
+
+
+    # handle story tags
+        for tag_data in tag_data_list:
+
+            print(tag_data)
+
+            new_story_tag = StoryTag(
+                story_id=story_id,
+                tag_id=tag_data['id'],
+            )
+            db.session.add(new_story_tag)
+            db.session.commit()
+        else:
+            print('errors')  
+         
 
 
         return new_story.to_dict()
