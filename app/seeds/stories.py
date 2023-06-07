@@ -31,36 +31,27 @@ def seed_stories():
     story5 = Story(
         author_id=5,
         title="My interview experience at Apple",
-        content="""
-        Embarking on the interview process at a prestigious company like Apple can be both exhilarating and nerve-wracking. As a backend developer with limited skills, I recently had the opportunity to interview with Apple, and it turned out to be a humbling experience. In this article, I'll share my candid account of the interview, highlighting the challenges I faced, the lessons I learned, and the personal growth that resulted from this remarkable journey.
-
-        The Initial Excitement:
-        When I received the interview invitation from Apple, excitement surged through me. I was well aware of the company's reputation for technical excellence and innovation, and I saw this opportunity as a chance to step up my career. However, I soon realized that my technical skills were far from matching the high standards set by Apple.
-
-        The Technical Assessment:
-        As the interview day approached, I devoted countless hours to studying and preparing for the technical assessment. I reviewed core concepts, brushed up on programming languages, and even attempted to tackle more complex algorithms. However, despite my efforts, my lack of experience became evident during the interview.
-
-        The Challenging Questions:
-        The interview began with basic technical questions, which I answered reasonably well. However, as the questions delved deeper into advanced topics and complex problem-solving scenarios, I found myself struggling. The interviewers were patient and encouraging, but I could sense my confidence waning with each passing minute. The questions pushed the limits of my knowledge, exposing the gaps in my skill set.
-
-        Embracing Honesty and Humility:
-        As the interview progressed, it became clear that I was not meeting the expectations set by the interviewers. Rather than pretending to be an expert in areas I wasn't, I decided to be honest about my limitations. I openly admitted when I didn't know the answer and asked clarifying questions to demonstrate my willingness to learn.
-
-        The Lessons Learned:
-        While the interview did not go as I had hoped, it provided me with invaluable lessons that have shaped my professional growth:
-
-        Embrace Humility: Recognizing and accepting our limitations is an essential part of personal and professional development. It's okay not to have all the answers, as long as we remain open to learning and growing.
-
-        Continuous Learning: The interview experience highlighted the importance of continuously expanding my knowledge and keeping up with industry trends. It reinforced the need to invest time in sharpening my technical skills.
-
-        Focus on Core Competencies: Understanding my strengths and focusing on my core competencies allowed me to refine my skill set and become a more well-rounded developer. It's crucial to concentrate on areas where I can excel rather than trying to be proficient in everything.
-
-        Resilience and Perseverance: Receiving constructive feedback and learning from setbacks is a key aspect of personal growth. I emerged from the interview experience with a renewed determination to persevere and improve my skills.
-
-        Conclusion:
-        My interview experience at Apple as a backend developer with limited skills was undoubtedly challenging. However, it served as a transformative journey, reminding me of the importance of humility, continuous learning, and self-improvement. While the outcome wasn't what I had hoped for, I emerged with a newfound appreciation for the importance of building a strong foundation of technical knowledge and embracing a growth mindset. Every setback is an opportunity for growth, and I am now more committed than ever to honing my skills and striving for excellence in my future endeavors.
-                """,
+        content="""Embarking on the interview process at a prestigious company like Apple can be both exhilarating and nerve-wracking. As a backend developer with limited skills, I recently had the opportunity to interview with Apple, and it turned out to be a humbling experience. In this article, I'll share my candid account of the interview, highlighting the challenges I faced, the lessons I learned, and the personal growth that resulted from this remarkable journey. <b>The Initial Excitement</b>:
+        When I received the interview invitation from Apple, excitement surged through me. I was well aware of the company's reputation for technical excellence and innovation, and I saw this opportunity as a chance to step up my career. However, I soon realized that my technical skills were far from matching the high standards set by Apple. <b>The Technical Assessment</b>:
+        As the interview day approached, I devoted countless hours to studying and preparing for the technical assessment. I reviewed core concepts, brushed up on programming languages, and even attempted to tackle more complex algorithms. However, despite my efforts, my lack of experience became evident during the interview. The Challenging Questions:
+        The interview began with basic technical questions, which I answered reasonably well. However, as the questions delved deeper into advanced topics and complex problem-solving scenarios, I found myself struggling. The interviewers were patient and encouraging, but I could sense my confidence waning with each passing minute. The questions pushed the limits of my knowledge, exposing the gaps in my skill set. Embracing Honesty and Humility:
+        As the interview progressed, it became clear that I was not meeting the expectations set by the interviewers. Rather than pretending to be an expert in areas I wasn't, I decided to be honest about my limitations. I openly admitted when I didn't know the answer and asked clarifying questions to demonstrate my willingness to learn. The Lessons Learned:
+        While the interview did not go as I had hoped, it provided me with invaluable lessons that have shaped my professional growth: Embrace Humility: Recognizing and accepting our limitations is an essential part of personal and professional development. It's okay not to have all the answers, as long as we remain open to learning and growing. Continuous Learning: The interview experience highlighted the importance of continuously expanding my knowledge and keeping up with industry trends. It reinforced the need to invest time in sharpening my technical skills. Focus on Core Competencies: Understanding my strengths and focusing on my core competencies allowed me to refine my skill set and become a more well-rounded developer. It's crucial to concentrate on areas where I can excel rather than trying to be proficient in everything. Resilience and Perseverance: Receiving constructive feedback and learning from setbacks is a key aspect of personal growth. I emerged from the interview experience with a renewed determination to persevere and improve my skills. Conclusion:
+        My interview experience at Apple as a backend developer with limited skills was undoubtedly challenging. However, it served as a transformative journey, reminding me of the importance of humility, continuous learning, and self-improvement. While the outcome wasn't what I had hoped for, I emerged with a newfound appreciation for the importance of building a strong foundation of technical knowledge and embracing a growth mindset. Every setback is an opportunity for growth, and I am now more committed than ever to honing my skills and striving for excellence in my future endeavors.""",
         )
+    #modify the content to include bold and italic formatting
+    # modified_content = story5.content.replace("The Technical Assessment", "<b>The Technical Assessment</b>")
+    # modified_content = modified_content.replace("The Challenging Questions", "<b>The Challenging Questions</b>")
+    # modified_content = modified_content.replace("Embracing Honesty and Humility", "<b>Embracing Honesty and Humility</b>")
+    # modified_content = modified_content.replace("The Lessons Learned", "<b>The Lessons Learned</b>")
+    # modified_content = modified_content.replace("Embrace Humility", "<b>Embrace Humility</b>")
+    # modified_content = modified_content.replace("Continuous Learning", "<b>Continuous Learning</b>")
+    # modified_content = modified_content.replace("Focus on Core Competencies", "<b>Focus on Core Competencies</b>")
+    # modified_content = modified_content.replace("Resilience and Perseverance", "<b>Resilience and Perseverance</b>")
+    # modified_content = modified_content.replace("Conclusion", "<b>Conclusion</b>")
+
+    # #assign the modified content back to the story
+    # story5.content = modified_content
     story6 = Story(
         author_id=1,
         title="You Can’t Always Get Closure from People You Want It From",
