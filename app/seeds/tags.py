@@ -17,14 +17,14 @@ def seed_tags():
     #     'personal_development', 'architecture', 'film', 'biology', 'sociology'
     # ]
     tags = [
-        'sports', 'programming', 'dataScience', 'technology', 
-        'selfImprovement', 'writing', 'relationships', 'machineLearning',
-        'productivity', 'webDevelopment', 'javaScript', 'python', 
-        'softwareDevelopment', 'health', 'lifestyle', 'travel', 'education',
-        'business', 'science', 'history', 'music', 'books', 'entertainment',
-        'politics', 'design', 'art', 'photography', 'cooking', 'environment',
-        'psychology', 'economics', 'philosophy', 'culture', 'fashion',
-        'personalDevelopment', 'architecture', 'film', 'biology', 'sociology'
+        'Sports', 'Programming', 'Data Science', 'Technology',
+        'Self Improvement', 'Writing', 'Relationships', 'Machine Learning',
+        'Productivity', 'Web Development', 'JavaScript', 'Python',
+        'Software Development', 'Health', 'Lifestyle', 'Travel', 'Education',
+        'Business', 'Science', 'History', 'Music', 'Books', 'Entertainment',
+        'Politics', 'Design', 'Art', 'Photography', 'Cooking', 'Environment',
+        'Psychology', 'Economics', 'Philosophy', 'Culture', 'Fashion',
+        'Personal Development', 'Architecture', 'Film', 'Biology', 'Sociology'
     ]
 
     for tag in tags:

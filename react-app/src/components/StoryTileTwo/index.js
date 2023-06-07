@@ -16,6 +16,8 @@ const StoryTileTwo = ({ story, index }) => {
   const [readTime, setReadTime] = useState(4)
   const {windowSize} = useContext(WindowContext)
   const [thumbnail, setThumbnail] = useState('')
+  const [profileImageSrc, setProfileImageSrc] = useState('');
+  const user = useSelector((state) => state.session.user);
   const [storyContent, setStoryContent] = useState('')
 
   useEffect(()=>{
