@@ -8,6 +8,7 @@ import * as sessionActions from '../../store/session';
 
 function SigninModal() {
 
+
   const { modal, openModal, closeModal, updateObj, setUpdateObj} = useContext(ModalContext);
   const user = useSelector((state) => state.session.user);
   const dispatch = useDispatch();

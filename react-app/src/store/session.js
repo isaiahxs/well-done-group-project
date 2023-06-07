@@ -1,6 +1,7 @@
 // constants
 const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
+const USER_SEARCH = "session/USER_SEARCH";
 
 const setUser = (user) => ({
 	type: SET_USER,
@@ -11,7 +12,13 @@ const removeUser = () => ({
 	type: REMOVE_USER,
 });
 
-const initialState = { user: null };
+const userSearch = (data) => ({
+	type: USER_SEARCH,
+	payload: data,
+
+});
+
+const initialState = { user: null, search: {} };
 
 export const authenticate = () => async (dispatch) => {
 	const response = await fetch("/api/auth/", {
@@ -68,6 +75,15 @@ export const logout = () => async (dispatch) => {
 	}
 };
 
+export const search = (searchQuery) => async (dispatch) => {
+	const response = await fetch(`/api/search?q=${encodeURIComponent(searchQuery)}`);
+	if (response.ok) {
+		const data = await response.json();
+		dispatch(userSearch(data));
+	}
+};
+
+
 export const signUp = (credentials) => async (dispatch) => {
 	const {email, password, firstName, lastName, profileImage, username} = credentials
 
@@ -105,12 +121,17 @@ export const signUp = (credentials) => async (dispatch) => {
 };
 
 export default function reducer(state = initialState, action) {
+	const newState = {...state}
 	switch (action.type) {
 		case SET_USER:
 			return { user: action.payload.user };
 		case REMOVE_USER:
 			return { user: null };
+		case USER_SEARCH:
+			return { search: action.payload };		
+
+
 		default:
-			return state;
+			return newState;
 	}
 }

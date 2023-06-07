@@ -42,7 +42,7 @@ function SignupModal() {
 
   const handleSignIn = () => {
     closeModal();
-    openModal('login');
+    openModal('signin');
   };
 
   useEffect(() => {

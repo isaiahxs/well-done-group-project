@@ -15,7 +15,6 @@ const ModalProvider = ({ children }) => {
   };
 
 
-
   const closeModal = () => {
     setModal(null);
   };

@@ -12,6 +12,7 @@ from .api.comment_routes import comment_routes
 from .api.follow_routes import follow_routes
 from .seeds import seed_commands
 from .config import Config
+from sqlalchemy import or_
 
 app = Flask(__name__, static_folder='../react-app/build', static_url_path='/')
 
@@ -92,6 +93,39 @@ def initial_load():
         'stories': [story.to_dict() for story in stories],
         # 'tags': [tag.to_dict() for tag in tags],
     }
+
+# from .models import db, User, Story, Follower, Clap, Comment, StoryImage, Tag, StoryTag
+
+@app.route("/api/search")
+def search():
+    """
+    Search db on a string 
+    """
+    # Get search query from the request args
+    search_query = request.args.get('q')
+
+    if search_query:
+
+        search_terms = search_query.split()
+
+        query = Story.query
+
+  
+        for term in search_terms:
+            # Use ilike for case-insensitive search
+            query = query.filter(Story.title.ilike(f'%{term}%'))
+
+        stories = query.all()
+    else:
+        stories = []
+
+    return {
+        'stories': [story.to_dict() for story in stories],
+    }
+
+
+
+
 
 
 

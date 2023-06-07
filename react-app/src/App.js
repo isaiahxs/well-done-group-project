@@ -10,6 +10,7 @@ import WritePage from './components/WritePage';
 import StoryPage from './components/StoryPage';
 import SigninModal from './components/SigninModal';
 import SignupModal from './components/SignupModal';
+import ProfileButtonModal from './components/ProfileButtonModal';
 
 
 
@@ -39,22 +40,23 @@ function App() {
   }, [dispatch]);
 
   console.log(modal);
-
+ 
 
   return (
     <>
 
 
-        {((modal === 'login' || modal === 'signup')) && (
+        {((modal === 'signin' || modal === 'signup' || modal === 'profileModal')) && (
         <div
           className={
-            modal === 'profileMenu'
+            modal === 'profileModal'
               ? 'modal-container-transparent'
               : 'modal-container'
           }
         >
-          {modal === 'login' && <SigninModal />}
+          {modal === 'signin' && <SigninModal />}
           {modal === 'signup' && <SignupModal />}
+          {modal === 'profileModal' && <ProfileButtonModal />}
         </div>
       )}
 
