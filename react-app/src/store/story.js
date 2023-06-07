@@ -86,7 +86,8 @@ export const updateClapCount = (storyId) => async (dispatch) => {
 	})
 	if (response.ok) {
 		const data = await response.json();
-		dispatch(updateClapAction(data));
+		// dispatch(updateClapAction(data));
+		dispatch(updateClapAction({ storyId, claps: data.totalClaps }));
 		return null;
 	} else if (response.status < 500) {
 		const data = await response.json();
