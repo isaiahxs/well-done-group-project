@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import './StoryPage.css';
 import { WindowContext } from '../../context/WindowContext';
+import parse from 'html-react-parser';
 
 const StoryPage = () => {
 
@@ -117,11 +118,15 @@ const StoryPage = () => {
           <div className="story-content">
             {sortedContent && sortedContent.map((item, index) => (
                 <div key={index}>
-                    {item.text && <div className='memo-text'>{item.text}</div>}
+                    {item.text && <div className='memo-text'>{parse(item.text)}</div>}
                     {item.image && <img src={item.image} alt="description" className="story-image" />}
                     </div>
             ))}
           </div>
+
+          {/* <div>
+            {parse(story.content)}
+          </div> */}
 
           <div className='main-page-tag-container'>
             {renderTags()}

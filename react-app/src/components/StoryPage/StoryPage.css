@@ -79,7 +79,7 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-  margin-top: 20px;
+  margin-top: 30px;
   border-top: 1px solid rgb(242, 242, 242);
   border-bottom: 1px solid rgb(242, 242, 242);
   padding: 8px 3px;
@@ -125,7 +125,7 @@
 .story-content {
   font-size: 20px;
   font-weight: lighter;
-  margin-top: 0px;
+  margin-top: 30px;
   margin-bottom: 0px;
   /* text-align: center; */
   color: #292929;
@@ -143,10 +143,10 @@
   margin: 0 auto;
   max-width: 70%;
   height: auto;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  /* margin-top: 25px;
+  margin-bottom: 30px; */
   width: 70%;
-  /* border-radius: 20px; */
+  border-radius: 20px;
   border: 1px solid black;
   box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 1);
 

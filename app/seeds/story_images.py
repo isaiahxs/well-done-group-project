@@ -17,8 +17,8 @@ def seed_story_images():
     story_image7 = StoryImage(story_id=4, url='https://images.pexels.com/photos/4974920/pexels-photo-4974920.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', position=2671, alt_tag='great image')
     story_image8 = StoryImage(story_id=4, url='https://images.pexels.com/photos/1921326/pexels-photo-1921326.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1', position=5157, alt_tag='great image')
 
-    story_image9 = StoryImage(story_id=5, url='https://media.cnn.com/api/v1/images/stellar/prod/180927122050-apple-logo-gfx.jpg?q=w_3000,h_2250,x_0,y_0,c_fill', position=1631, alt_tag='great image')
-    story_image10 = StoryImage(story_id=5, url='https://www.apple.com/newsroom/images/product/iphone/standard/Apple-iPhone-14-iPhone-14-Plus-hero-220907.jpg.landing-big_2x.jpg', position=3096, alt_tag='great image')
+    story_image9 = StoryImage(story_id=5, url='https://media.cnn.com/api/v1/images/stellar/prod/180927122050-apple-logo-gfx.jpg?q=w_3000,h_2250,x_0,y_0,c_fill', position=832, alt_tag='apple store')
+    story_image10 = StoryImage(story_id=5, url='https://www.apple.com/newsroom/images/product/iphone/standard/Apple-iPhone-14-iPhone-14-Plus-hero-220907.jpg.landing-big_2x.jpg', position=3202, alt_tag='pictures of iphones')
 
     story_image11 = StoryImage(story_id=6, url='https://images.pexels.com/photos/3183150/pexels-photo-3183150.jpeg?auto=compress&cs=tinysrgb&w=300', position=1, alt_tag='great image')
     story_image12 = StoryImage(story_id=6, url='https://images.pexels.com/photos/821754/pexels-photo-821754.jpeg?auto=compress&cs=tinysrgb&w=300', position=2, alt_tag='great image')
