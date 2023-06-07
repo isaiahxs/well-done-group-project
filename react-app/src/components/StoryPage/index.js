@@ -4,6 +4,8 @@ import { useHistory, useLocation, useParams } from 'react-router-dom';
 import './StoryPage.css';
 import { WindowContext } from '../../context/WindowContext';
 import parse from 'html-react-parser';
+import { useDispatch } from 'react-redux';
+import { updateClapCount } from '../../store/story';
 
 const StoryPage = () => {
 
@@ -15,6 +17,16 @@ const StoryPage = () => {
   const [sortedContent, setSortedContent] = useState([])
   // const [readTime, setReadTime] = useState(readTime);
   // const {readTime} = useContext(WindowContext)
+  const dispatch = useDispatch();
+
+  //first version that was updating frontend but not backend
+  // const handleClapClick = () => {
+  //   dispatch(updateClapCount(story.id)) //dispatching the action to update the clap count
+  // }
+
+  const handleClapClick = async () => {
+    await dispatch(updateClapCount(story.id)) //dispatching the action to update the clap count
+  }
 
   const history = useHistory();
 
@@ -100,7 +112,7 @@ const StoryPage = () => {
           </div>
 
           <div className='options-bar'>
-            <button className='clap-button'>Clap {story.claps}</button>
+            <button className='clap-button' onClick={handleClapClick}>Clap {story.claps}</button>
             <button className='comment-button'>Comment {story.comments.length}</button>
           </div>
 
