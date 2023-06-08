@@ -4,11 +4,15 @@ from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
 from flask_login import LoginManager
-from .models import db, User
+from .models import db, User, Story, Follower, Clap, Comment, StoryImage, Tag, StoryTag
 from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
+from .api.story_routes import story_routes
+from .api.comment_routes import comment_routes
+from .api.follow_routes import follow_routes
 from .seeds import seed_commands
 from .config import Config
+from sqlalchemy import or_
 
 app = Flask(__name__, static_folder='../react-app/build', static_url_path='/')
 
@@ -28,6 +32,10 @@ app.cli.add_command(seed_commands)
 app.config.from_object(Config)
 app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
+app.register_blueprint(story_routes, url_prefix='/api/story')
+app.register_blueprint(comment_routes, url_prefix='/api/comment')
+app.register_blueprint(follow_routes, url_prefix='/api/follow')
+
 db.init_app(app)
 Migrate(app, db)
 
@@ -71,6 +79,70 @@ def api_help():
                     app.view_functions[rule.endpoint].__doc__ ]
                     for rule in app.url_map.iter_rules() if rule.endpoint != 'static' }
     return route_list
+
+
+
+@app.route("/api/init")
+def initial_load():
+    """
+    Eager Load data upon initialization 
+    """
+    stories = Story.query.all()
+    # tags = Tag.query.all()
+    return {
+        'stories': [story.to_dict() for story in stories],
+        # 'tags': [tag.to_dict() for tag in tags],
+    }
+
+# from .models import db, User, Story, Follower, Clap, Comment, StoryImage, Tag, StoryTag
+
+@app.route("/api/search")
+def search():
+    """
+    Search db based a string 
+    """
+    # Get search query from the request args
+    search_query = request.args.get('q')
+
+    stories = []
+    if search_query:
+
+        search_terms = search_query.split()
+
+        conditions = [Story.title.ilike(f'%{term}%') for term in search_terms]
+        author_conditions = [User.first_name.ilike(f'%{term}%') | User.last_name.ilike(f'%{term}%') for term in search_terms]
+        tag_conditions = [Tag.tag.ilike(f'%{term}%') for term in search_terms]
+
+        # last_names = [Story.author.lastName.ilike(f'%{term}%') for term in search_terms]
+
+        stories = Story.query.filter(or_(*conditions)).all()
+        authors = User.query.filter(or_(*author_conditions)).all()
+
+
+        matching_tags = Tag.query.filter(or_(*tag_conditions)).all()
+        matching_tag_ids = [tag.id for tag in matching_tags]
+
+        matching_story_tags = StoryTag.query.filter(StoryTag.tag_id.in_(matching_tag_ids)).all()
+
+        matching_story_ids = set(story_tag.story_id for story_tag in matching_story_tags)
+        tagged_stories = Story.query.filter(Story.id.in_(matching_story_ids)).all()
+
+        # author1 = Story.query.filter(or_(*first_names)).all()
+        # author2 = Story.query.filter(or_(*last_names)).all()
+
+    return {
+        'search': search_query,
+        'stories': [story.safe_dict() for story in stories],
+        'length': len(stories),
+        'authors': [author.safe_dict() for author in authors],
+        'taggedStories': [story.safe_dict() for story in tagged_stories]
+    }
+
+
+
+
+
+
 
 
 @app.route('/', defaults={'path': ''})

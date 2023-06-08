@@ -1,8 +1,10 @@
 from flask import Blueprint, jsonify, session, request
-from app.models import User, db
+from app.models import User, db, Follower, Story
 from app.forms import LoginForm
 from app.forms import SignUpForm
 from flask_login import current_user, login_user, logout_user, login_required
+from sqlalchemy.orm import joinedload
+
 
 auth_routes = Blueprint('auth', __name__)
 
@@ -24,7 +26,15 @@ def authenticate():
     Authenticates a user.
     """
     if current_user.is_authenticated:
-        return current_user.to_dict()
+        followings = Follower.query.filter_by(follower_id=current_user.id).all()
+        followed_authors_ids = [following.author_id for following in followings]
+        subscribed_stories = Story.query.options(joinedload(Story.author)).filter(Story.author_id.in_(followed_authors_ids)).all()
+        
+        return {
+            'user': current_user.to_dict(),
+            'status': 200,
+            'subscribedStories': [story.to_dict() for story in subscribed_stories],
+        }
     return {'errors': ['Unauthorized']}
 
 
@@ -41,11 +51,21 @@ def login():
         # Add the user to the session, we are logged in!
         user = User.query.filter(User.email == form.data['email']).first()
         login_user(user)
-        return user.to_dict()
+
+
+        followings = Follower.query.filter_by(follower_id=current_user.id).all()
+        followed_authors_ids = [following.author_id for following in followings]
+        subscribed_stories = Story.query.options(joinedload(Story.author)).filter(Story.author_id.in_(followed_authors_ids)).all()
+        
+        return {
+            'user': user.to_dict(),
+            'status': 200,
+            'subscribedStories': [story.to_dict() for story in subscribed_stories],
+            }
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
-@auth_routes.route('/logout')
+@auth_routes.route('/logout', methods=['DELETE'])
 def logout():
     """
     Logs a user out
@@ -65,13 +85,16 @@ def sign_up():
         user = User(
             username=form.data['username'],
             email=form.data['email'],
-            password=form.data['password']
+            password=form.data['password'],
+            first_name=form.data['first_name'],
+            last_name=form.data['last_name'],
+            profile_image=form.data['profile_image']
         )
         db.session.add(user)
         db.session.commit()
         login_user(user)
-        return user.to_dict()
-    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+        return {'user': user.to_dict(), 'status': 202}
+    return {'errors': validation_errors_to_error_messages(form.errors), 'status': 401}, 401
 
 
 @auth_routes.route('/unauthorized')

@@ -1,17 +1,42 @@
 // constants
 const SET_USER = "session/SET_USER";
+const RESTORE_USER = "session/RESTORE_USER";
 const REMOVE_USER = "session/REMOVE_USER";
+const NEW_SEARCH = "session/NEW_SEARCH";
+const REMOVE_SEARCH = "session/REMOVE_SEARCH";
+const SET_FEED = "session/SET_FEED";
 
-const setUser = (user) => ({
+export const setUser = (user) => ({
 	type: SET_USER,
 	payload: user,
 });
+
+export const restoreUser = (user) => ({
+	type: RESTORE_USER,
+	payload: user,
+});
+
 
 const removeUser = () => ({
 	type: REMOVE_USER,
 });
 
-const initialState = { user: null };
+const newSearch = (data) => ({
+	type: NEW_SEARCH,
+	payload: data,
+});
+
+const removeSearchAction = (searchQuery) => ({
+	type: REMOVE_SEARCH,
+	payload: searchQuery,
+});
+
+const setFeedAction = (feed) => ({
+	type: SET_FEED,
+	payload: feed,
+});
+
+const initialState = { user: null, search: {}, currentFeed: 'for you', subscribedStories: [] };
 
 export const authenticate = () => async (dispatch) => {
 	const response = await fetch("/api/auth/", {
@@ -25,11 +50,12 @@ export const authenticate = () => async (dispatch) => {
 			return;
 		}
 
-		dispatch(setUser(data));
+		dispatch(restoreUser(data));
 	}
 };
 
-export const login = (email, password) => async (dispatch) => {
+export const signin = (credentials) => async (dispatch) => {
+	const { email, password } = credentials
 	const response = await fetch("/api/auth/login", {
 		method: "POST",
 		headers: {
@@ -44,7 +70,7 @@ export const login = (email, password) => async (dispatch) => {
 	if (response.ok) {
 		const data = await response.json();
 		dispatch(setUser(data));
-		return null;
+		return data;
 	} else if (response.status < 500) {
 		const data = await response.json();
 		if (data.errors) {
@@ -57,6 +83,7 @@ export const login = (email, password) => async (dispatch) => {
 
 export const logout = () => async (dispatch) => {
 	const response = await fetch("/api/auth/logout", {
+		method: "DELETE",
 		headers: {
 			"Content-Type": "application/json",
 		},
@@ -67,27 +94,56 @@ export const logout = () => async (dispatch) => {
 	}
 };
 
-export const signUp = (username, email, password) => async (dispatch) => {
+export const search = (searchQuery) => async (dispatch) => {
+
+	const response = await fetch(`/api/search?q=${searchQuery}`);
+	if (response.ok) {
+		const data = await response.json();
+		dispatch(newSearch(data));
+		dispatch(setFeedAction(searchQuery))
+
+	}
+};
+
+export const removeSearch = (searchQuery) => async (dispatch) => {
+	dispatch(removeSearchAction(searchQuery));
+};
+
+export const setFeed = (feed) => async (dispatch) => {
+	dispatch(setFeedAction(feed));
+};
+
+
+export const signUp = (credentials) => async (dispatch) => {
+	const {email, password, firstName, lastName, profileImage, username} = credentials
+
+	console.log(email, password, firstName, lastName, profileImage, username);
 	const response = await fetch("/api/auth/signup", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
-		},
+		}, 
 		body: JSON.stringify({
 			username,
 			email,
 			password,
+			first_name:firstName,
+			last_name:lastName,
+			profile_image:profileImage
 		}),
 	});
+ 
+	console.log(response);
 
 	if (response.ok) {
 		const data = await response.json();
 		dispatch(setUser(data));
-		return null;
+		return data;
 	} else if (response.status < 500) {
 		const data = await response.json();
 		if (data.errors) {
-			return data.errors;
+			console.log(data.errors);
+			return data;
 		}
 	} else {
 		return ["An error occurred. Please try again."];
@@ -95,12 +151,29 @@ export const signUp = (username, email, password) => async (dispatch) => {
 };
 
 export default function reducer(state = initialState, action) {
+	const newState = {...state}
 	switch (action.type) {
 		case SET_USER:
-			return { user: action.payload };
+			console.log(action.payload);
+			return {...newState, user: action.payload.user, subscribedStories: action.payload.subscribedStories };
+		case RESTORE_USER:
+			console.log(action.payload);
+			return {...newState, user: action.payload.user };			
 		case REMOVE_USER:
-			return { user: null };
+			return {...newState, user: null };
+		case NEW_SEARCH:
+			const newSearch = {...newState.search}
+			newSearch[action.payload.search] = action.payload
+			return {...newState, search: newSearch};		
+		case REMOVE_SEARCH:{
+			const newSearch = {...newState.search}
+			delete newSearch[action.payload]
+			return {...newState, search: newSearch };		
+		}
+		case SET_FEED:{
+			return {...newState, currentFeed: action.payload };		
+		}
 		default:
-			return state;
+			return newState;
 	}
 }

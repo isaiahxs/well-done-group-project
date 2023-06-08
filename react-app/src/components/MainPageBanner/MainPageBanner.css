@@ -1,0 +1,143 @@
+.main-page-banner-container{
+  position: relative;
+  border-bottom: black solid 1px;
+  background-color: #fec016;
+  width: 100%;
+  left: 0%;
+  margin-top: 0px;
+  overflow: hidden;
+  display: block;
+
+}
+
+.content-container {
+  max-width: 1000px; 
+  margin: 0 auto;
+}
+
+
+
+@media screen and (max-width: 549px) {
+  .main-page-banner-container{
+    height: 445px;
+  }
+}
+@media screen and (min-width: 550px) {
+  .main-page-banner-container{
+    height: 458px;
+  }
+}
+@media screen and (min-width: 600px) {
+  .main-page-banner-container{
+    height: 450px;
+  }
+}
+
+/* Hide Mmm effects on small screen */
+@media screen and (max-width: 750px) {
+  .mmm-container-container {
+    display: none;
+  }
+}
+
+
+
+.stay-curious{
+  position: relative;
+  width: fit-content;
+  height: fit-content;
+  left: 0%;
+  top: 90px;
+  letter-spacing: -4px;
+  font-weight: 300;
+  font-size: 70px;
+}
+
+.discover-stories{
+  font-weight: 300;
+  position: relative;
+  width: 90%;
+  height: 70px;
+  top: 130px;
+  font-size: 25px;
+
+  width: 400px;
+  top: 110px;
+
+}
+
+
+
+
+.start-reading{
+  position: relative;
+  border-radius: 20px;
+  background-color: rgba(0, 0, 0, 0.858);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 43px;
+  left: 0%;
+  top: 150px;
+  z-index: 1;
+  font-size: 20px;
+
+}
+
+.start-reading:hover{
+  cursor: pointer;
+  background-color: black;
+}
+
+
+
+.stay-curious,
+.discover-stories,
+.start-reading{
+  left: 5%;
+}
+
+
+
+
+@media screen and (min-width: 550px) {
+  .stay-curious{
+    font-size: 80px;
+  }
+  .discover-stories{
+    font-size: 25px;
+    width: 400px;
+
+  }
+  .start-reading{
+    font-size: 20px;
+    top: 125px;
+  }
+}
+
+@media screen and (min-width: 850px) {
+  .stay-curious{
+    font-size: 100px;
+  }
+  .discover-stories{
+    font-size: 25px;
+    width: 400px;
+
+
+  }
+  .start-reading{
+    font-size: 20px;
+    top: 150px;
+
+  }
+}
+
+
+
+/* 
+width: fit-content;
+text-align: center;
+font-size: 8vw;
+line-height: 0.9; */

@@ -1,7 +1,324 @@
-.profile-dropdown {
-  position: absolute;
+.nav-bar {
+  position: fixed;
+  display: flex;
+  justify-content: space-between;
+  top: 0px;
+  left: 0px;
+  height: 75px;
+  width: 100%;
+  z-index: 10;
+  border-bottom: black solid 1px ;
+  transition: all .75s;
+  background-color: #fec016;
+} 
+
+
+
+.nav-bar.logged {
+  background-color: #ffffff;
+  border-bottom: rgba(73, 73, 73, 0.05) solid 1px ;
+  box-shadow: 2px 0  0 2px rgba(73, 73, 73, 1) solid 1px ;
+  position: relative;
+  height: 55px;
+} 
+
+
+.get-started{
+  border-radius: 20px;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  width: 108px;
+  min-width: 108px;
+  height: 37px;
+  background-color: rgb(4, 4, 4);
 }
 
-.hidden {
-  display: none;
+
+.nav-white{
+  background-color: #ffffff;
+}
+
+
+.nav-red{
+  background-color: #f24d2d;
+}
+
+.nav-yellow{
+  background-color: #fec016;
+}
+
+.button-black{
+ background-color: rgb(4, 4, 4);
+}
+
+.button-green{
+  background-color: #198917;
+}
+
+.button-green:hover{
+  background-color: #147113;
+  
+}
+
+
+
+
+.nav-buttons{
+  user-select: none;
+  display: flex;
+  position: absolute;
+  align-items: center;
+  left: 50%;
+  width: 90%;
+  max-width: 1200px;
+  height: 40px;
+  justify-content: space-between;
+  transform: translate(-50%,0);
+
+}
+
+.nav-link-buttons{
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+  width: 410px;
+}
+.nav-user-buttons {
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+  width: 300px;
+}
+
+.logo{
+  display: flex;
+  position: relative;
+  z-index: 100;
+}
+
+.logo img {
+  object-fit: contain; 
+  width: 100%;  
+  height: 100%;  
+}
+
+.logo.large{
+  height: 30px; 
+  width: 170px; 
+  right: 15px;
+  position: relative;
+  z-index: 100;
+}
+
+.logo.large img {
+  object-fit: contain; 
+  width: 200px;  
+  height: 100%;  
+}
+
+.logo.small{
+  height: 50px; 
+  width: 50px; 
+  right: 20px;
+  position: relative;
+  z-index: 100;
+}
+
+
+.profile-div,
+.bell-icon-container,
+.logo,
+.get-started,
+.nav-button2,
+.nav-button{
+  cursor: pointer;
+}
+
+
+.nav-button{
+  visibility: hidden;
+  font-size: 13.5px;
+  font-weight: 300;
+}
+.nav-button2{
+  font-size: 13.5px;
+  font-weight: 300;
+  position: relative;
+  right: 15px;
+}
+
+
+
+
+
+.profile-div{
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  border: black solid 1px;
+  overflow: hidden;
+}
+
+.profile-div img{
+  width: 100%;
+  height: 100%;
+  object-fit: conver;
+  position: relative;
+}
+
+
+.nav-search{
+  width: 200px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  border-radius: 20px;
+  background-color: #fafafa; 
+}
+.searchField{
+  outline: none;
+  border: none;
+  position: relative;
+  left: 15px;
+  overflow: scroll;
+  width: 160px;
+  background-color: #fafafa; 
+
+}
+
+.maginfy-container{
+  cursor: pointer;
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  left: 10px;
+  background-color: #fafafa; 
+
+}
+
+.fa-magnifying-glass{
+  width: fit-content;
+  height: fit-content;
+}
+
+.nav-write{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+  color: #818181;
+  font-weight: 300;
+  font-size: 15px;
+  width: 65px;
+  height: 40px;
+  cursor: pointer;
+  right: 10px;
+  margin-right: 5px;
+}
+
+.nav-write:hover{
+
+  color: #474747;
+
+}
+
+
+.signup-button-container,
+.signin-button-container{
+  position: relative;
+  margin-left: 10px;
+  width: fit-content;
+  height: 40px;
+  font-size: 14px;
+}
+
+
+.signup-button,
+.signin-button{
+  border-radius: 15px;
+  width: 50px;
+  height: 20px;
+  padding: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+  font-weight: 100;
+  cursor: pointer;
+}
+
+.signin-button{
+color: #878787;
+
+}
+.signin-button:hover{
+  color: #3e3e3e;
+  
+  }
+
+
+.signup-button{
+  background-color: #a57d00 ;
+  color: white;
+}
+.signup-button:hover{
+  background-color: #8c6900 ;
+  color: white;
+}
+
+
+
+
+
+
+@media screen and (min-width: 545px) {
+  .nav-button2{
+    right: 0px;
+  }
+
+  .nav-button2.show{
+    visibility: visible;
+  }
+}
+
+
+
+
+@media screen and (min-width: 570px) {
+  .nav-button2 {
+    visibility: visible;
+  }
+
+
+}
+
+
+
+@media screen and (min-width: 900px) {
+  .nav-button {
+    visibility: visible;
+  }
+  .show{
+    visibility: visible;
+  }
+
+}
+
+
+
+
+
+
+
+
+
+@media screen and (min-width: 1200px) {
+  .nav-buttons {
+    right: 10%;
+
+  }
 }

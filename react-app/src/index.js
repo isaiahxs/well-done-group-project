@@ -3,14 +3,20 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 
-import { ModalProvider, Modal } from "./context/Modal";
+// import { ModalProvider, Modal } from "./context/Modal";
 import configureStore from "./store";
 import * as sessionActions from "./store/session";
 import App from "./App";
 
+import { WindowProvider } from './context/WindowContext';
+import { ModalProvider } from './context/ModalContext';
+
 import "./index.css";
 
 const store = configureStore();
+
+
+
 
 if (process.env.NODE_ENV !== "production") {
 	window.store = store;
@@ -25,8 +31,9 @@ function Root() {
 		<ModalProvider>
 			<Provider store={store}>
 				<BrowserRouter>
-					<App />
-					<Modal />
+					<WindowProvider> 
+						<App />
+					</WindowProvider> 
 				</BrowserRouter>
 			</Provider>
 		</ModalProvider>
