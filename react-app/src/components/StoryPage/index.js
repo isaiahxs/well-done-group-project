@@ -128,8 +128,10 @@ const StoryPage = () => {
             <button className='clap-count'>Claps {story.claps}</button>
             <CommentPanel isOpen={isCommentPanelOpen} comments={story.comments} storyId={story.id} onClose={() => setCommentPanelOpen(false)} />
 
-            <button className='comment-button' onClick={() => setCommentPanelOpen(true)}>Comment {story.comments.length}</button>
-            {/* <button className='comment-button'>Comment {story.comments.length}</button> */}
+            {/* {isCommentPanelOpen && <div className="overlay" onClick={() => setCommentPanelOpen(false)}></div>} */}
+            
+            <div className={`overlay ${isCommentPanelOpen ? 'active' : ''}`} onClick={() => setCommentPanelOpen(false)}></div>
+
           </div>
 
           {/* this is where the options will appear under a certain width */}

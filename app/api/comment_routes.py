@@ -21,7 +21,27 @@ def get_comment(id):
     # return {**comment.to_dict(), "author": {"firstName": comment.user.firstName, "lastName": comment.user.lastName}}
 
 
+@comment_routes.route('/<int:id>', methods=['POST'])
+@login_required
+def create_comment(id):
+    """
+    Create a new comment
+    """
+    form = CommentForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
 
+    if form.validate_on_submit():
+        comment = Comment(
+            user_id=current_user.id,
+            story_id=id,
+            content=form.data['content']
+        )
+
+        db.session.add(comment)
+        db.session.commit()
+        return comment.to_dict()
+    else:
+        return {'error': form.errors}, 422
 
 
 @comment_routes.route('/<int:id>', methods=['PUT'])

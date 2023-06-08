@@ -127,16 +127,27 @@ export const removeClap = (storyId ) => async (dispatch) => {
 	}
 }
 
+//define new action type
+const POST_COMMENT = "story/POST_COMMENT";
+
+//create an action creator function
+const postCommentAction = (comment) => ({
+	type: POST_COMMENT,
+	payload: comment,
+})
+
+//dispatch action in postComment thunk after we receive response
 export const postComment = (storyId, comment) => async (dispatch) => {
 	const response = await fetch(`/api/story/${storyId}/comment`, {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
 		},
-		body: JSON.stringify({ comment })
+		body: JSON.stringify({ content: comment })
 	})
 	if (response.ok) {
 		const data = await response.json();
+		dispatch(postCommentAction(data)); //dispatch the action
 		return data;
 	} else {
 		const data = await response.json();
@@ -191,39 +202,24 @@ export default function reducer(state = initialState, action) {
 			}
 		}
 
+		case 'POST_COMMENT': {
+			const newComment = action.payload;
+			const updatedStories = state.stories.map((story) => {
+				if (story.id === newComment.storyId) {
+					return {
+						...story,
+						comments: [...story.comments, newComment]
+					};
+				}
+				return story;
+			})
+			return {
+				...state,
+				stories: updatedStories
+			}
+		}
+
 		default:
 			return state;
 	}
 }
-//map over array, have an accum which is an object, stick a key on that object of whatever you're iterating over's id, story.id into the accumulator
-// instead of user, it'll be story and story.id to get a dictionary of normalized data
-// so we could key into it at the state level
-
-//don's suggestion
-// users: conversation.users.reduce((userAcc, user) => {
-// 	userAcc[user.username] = user;
-// 	return userAcc;
-//   }, {}),
-
-//second version modified with currentStory
-// export default function reducer(state = initialState, action) {
-// 	switch (action.type) {
-// 		case GET_STORIES:
-// 			return { ...state, stories: action.payload.stories };
-
-// 		case INITIAL_LOAD:
-// 			return {
-// 				...state,
-// 				stories: action.payload.stories,
-// 				currentStory: action.payload.currentStory, // Add this line to update the current story
-// 			};
-
-// 		default:
-// 			return state;
-// 	}
-// }
-
-
-//initialLoadAction is responsible for updating the 'stories' state in the Redux store. we can modify it to include currentStory property and set it to the desired story.
-
-//in the reducer, we can modify the INITIAL_LOAD case to update the 'stories' and 'currentStory' properties in the state

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Comments from '../Comments';
 import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -10,9 +10,16 @@ const CommentPanel = ({ isOpen, comments, onClose, storyId }) => {
     const stories = useSelector(state => state.story.stories);
     const story = stories.find(story => story.id === Number(storyId));
 
+    useEffect(() => {
+        setShowComments(isOpen);
+    }, [isOpen])
+
     return (
         <div>
-            <button onClick={() => setShowComments(!showComments)}>Comment</button>            
+            <button onClick={() => setShowComments(!showComments)}>Comments {story.comments.length}</button>            
+
+            {/* <button onClick={onClose}>Comments {story.comments.length}</button> */}
+
             <div className={`comment-panel ${showComments ? 'comment-panel-open' : 'comment-panel-closed'}`}>
                 <Comments storyId={story.id} comments={story.comments} authorInfo={story.authorInfo} />
             </div>
