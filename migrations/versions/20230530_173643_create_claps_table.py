@@ -60,9 +60,13 @@ def upgrade():
     sa.PrimaryKeyConstraint('id')
     )
 
-    if environment == "production":
-        op.execute(f"ALTER TABLE tags SET SCHEMA {SCHEMA};")
+
     # ### end Alembic commands ###qqqqqqqqq
+    if environment == "production":
+        op.execute(f"ALTER TABLE followers SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE claps SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE storyImages SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE storyTags SET SCHEMA {SCHEMA};")
 
 
 def downgrade():
