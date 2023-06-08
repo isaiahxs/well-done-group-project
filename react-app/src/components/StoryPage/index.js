@@ -65,7 +65,7 @@ const StoryPage = () => {
   };
 
 
-  console.log(story);
+  // console.log(story);
 
   useEffect(()=>{
     if(story){

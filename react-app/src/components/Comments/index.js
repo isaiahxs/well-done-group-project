@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import {postComment} from '../../store/story'
 import './Comments.css'
 
-const Comments = ({ storyId, comments }) => {
+const Comments = ({ storyId, comments, authorInfo }) => {
     const [commentText, setCommentText] = useState('');
     const dispatch = useDispatch();
   

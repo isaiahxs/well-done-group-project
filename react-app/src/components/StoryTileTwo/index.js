@@ -44,7 +44,7 @@ const StoryTileTwo = ({ story, index }) => {
   useEffect(()=>{
     if(story){
       let parsedContent = parse(story.content.slice(0,80) + '...')
-      console.log('----THIS IS OUR PARSED CONTENT----', parsedContent)
+      // console.log('----THIS IS OUR PARSED CONTENT----', parsedContent)
       setStoryContent(parsedContent)
       let month = story?.createdAt.slice(8,11)
       let day = story?.createdAt.slice(5,7)

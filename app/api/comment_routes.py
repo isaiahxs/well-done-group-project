@@ -17,6 +17,10 @@ def get_comment(id):
     if comment is None:
         return {"error": "Comment not found"}, 404
     return comment.to_dict()
+    #will try soon
+    # return {**comment.to_dict(), "author": {"firstName": comment.user.firstName, "lastName": comment.user.lastName}}
+
+
 
 
 

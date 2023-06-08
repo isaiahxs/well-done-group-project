@@ -29,5 +29,9 @@ class Comment(db.Model):
             'storyId': self.story_id,
             'content': self.content,
             'createdAt': self.created_at,
-            'updatedAt': self.updated_at
+            'updatedAt': self.updated_at,
+            'author': {
+                'firstName': self.user.first_name,
+                'lastName': self.user.last_name,
+            }
         }
