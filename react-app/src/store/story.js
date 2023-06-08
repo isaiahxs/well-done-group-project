@@ -155,6 +155,33 @@ export const postComment = (storyId, comment) => async (dispatch) => {
 	}
 }
 
+//define new action type
+const EDIT_COMMENT = "story/EDIT_COMMENT";
+
+//create an action creator function
+const editCommentAction = (comment) => ({
+	type: EDIT_COMMENT,
+	payload: comment,
+})
+
+//dispatch action in postComment thunk after we receive response
+export const editComment = (storyId, commentId, comment) => async (dispatch) => {
+	const response = await fetch(`/api/story/${storyId}/comment/${commentId}`, {
+		method: "PUT",
+		headers: {
+			"Content-Type": "application/json",
+			},
+		body: JSON.stringify({ content: comment })
+	})
+	if (response.ok) {
+		const data = await response.json();
+		dispatch(editCommentAction(data)); //dispatch the action
+		return data;
+	} else {
+		const data = await response.json();
+		return data;
+	}
+}
 
 
 //first version
@@ -210,6 +237,25 @@ export default function reducer(state = initialState, action) {
 						...story,
 						comments: [...story.comments, newComment]
 					};
+				}
+				return story;
+			})
+			return {
+				...state,
+				stories: updatedStories
+			}
+		}
+
+		case 'EDIT_COMMENT': {
+			const updatedComment = action.payload;
+			const updatedStories = state.stories.map((story) => {
+				if (story.id === updatedComment.storyId) {
+					return {
+						...story,
+						comments: story.comments.map((comment) =>
+							comment.id === updatedComment.id ? updatedComment : comment
+						),
+					}
 				}
 				return story;
 			})
