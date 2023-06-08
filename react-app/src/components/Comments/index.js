@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {postComment} from '../../store/story'
 import {editComment} from '../../store/story'
+import {deleteComment} from '../../store/story'
 import './Comments.css'
 
 const Comments = ({ userId, storyId, comments, authorInfo }) => {
@@ -28,6 +29,10 @@ const Comments = ({ userId, storyId, comments, authorInfo }) => {
         await dispatch(editComment(storyId, commentId, editText));
         setEditingCommentId(null);
         setEditText('');
+    }
+
+    const handleDelete = (storyId, commentId) => {
+        dispatch(deleteComment(storyId, commentId));
     }
 
     return (
@@ -67,8 +72,12 @@ const Comments = ({ userId, storyId, comments, authorInfo }) => {
                         }
                     </p>
                     {userId && userId === comment.userId && editingCommentId !== comment.id &&
-                        <button onClick={() => handleEdit(comment.id, comment.content)}>Edit</button>}
-
+                        <div>
+                        <button onClick={() => handleEdit(comment.id, comment.content)}>Edit</button>
+                    
+                        <button onClick={() => handleDelete(storyId, comment.id)}>Delete</button>
+                        </div>
+                    }
                 </div>
             </div>
           ))}

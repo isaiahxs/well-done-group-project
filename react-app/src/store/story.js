@@ -164,7 +164,7 @@ const editCommentAction = (comment) => ({
 	payload: comment,
 })
 
-//dispatch action in postComment thunk after we receive response
+//dispatch action in editComment thunk after we receive response
 export const editComment = (storyId, commentId, comment) => async (dispatch) => {
 	const response = await fetch(`/api/comment/${commentId}`, {
 		method: "PUT",
@@ -177,6 +177,33 @@ export const editComment = (storyId, commentId, comment) => async (dispatch) => 
 		const data = await response.json();
 		dispatch(editCommentAction(data)); //dispatch the action
 		return data;
+	} else {
+		const data = await response.json();
+		return data;
+	}
+}
+
+
+//define new action type
+const DELETE_COMMENT = "story/DELETE_COMMENT";
+
+//create an action creator function
+const deleteCommentAction = (commentId) => ({
+	type: DELETE_COMMENT,
+	payload: commentId,
+})
+
+//dispatch action in deleteComment thunk after we receive response
+export const deleteComment = (storyId, commentId) => async (dispatch) => {
+	const response = await fetch(`/api/comment/${commentId}`, {
+		method: "DELETE",
+		headers: {
+			"Content-Type": "application/json",
+		},
+	})
+	if (response.ok) {
+		dispatch(deleteCommentAction(commentId));
+		return commentId;
 	} else {
 		const data = await response.json();
 		return data;
@@ -265,6 +292,23 @@ export default function reducer(state = initialState, action) {
 			}
 		}
 
+		case 'DELETE_COMMENT': {
+			const commentIdToDelete = action.payload;
+			const updatedStories = state.stories.map((story) => {
+				//filter out comments we want to delete
+				return {
+					...story,
+					comments:story.comments.filter(
+						(comment) => comment.id !== commentIdToDelete
+					)
+				}
+			})
+			return {
+				...state,
+				stories: updatedStories
+			}
+		}
+		
 		default:
 			return state;
 	}
