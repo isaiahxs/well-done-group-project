@@ -18,9 +18,9 @@ const FeedPage = () => {
 
 
   useEffect(() => {
-     if(!user){ 
-      history.push('/')
-    }
+    //  if(!user){ 
+    //   history.push('/')
+    // }
 
     window.scrollTo(0, 0);
 

@@ -111,12 +111,11 @@
 .feed-header.extended {
   height: 50px;
   transition: height 0.5s ease;
-
   position: sticky;
   display: flex;
   justify-content: space-between;
   top: 50px;
-  z-index: 100;
+  z-index: 1;
 }
 
 .header-title{

@@ -122,6 +122,15 @@ function App() {
           </Route>
 
 
+          {/* <Route path="/" exact>
+            {user && (
+              <FeedPage/>
+            )}
+            {!user && (
+              <HomePage/>
+            )}
+          </Route> */}
+
         </Switch>
       )}
     </>
