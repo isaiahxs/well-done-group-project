@@ -9,6 +9,7 @@ const CommentPanel = ({ isOpen, comments, onClose, storyId }) => {
     const [showComments, setShowComments] = useState(false);
     const stories = useSelector(state => state.story.stories);
     const story = stories.find(story => story.id === Number(storyId));
+    const userId = useSelector(state => state.session.user?.id);
 
     useEffect(() => {
         setShowComments(isOpen);
@@ -21,7 +22,7 @@ const CommentPanel = ({ isOpen, comments, onClose, storyId }) => {
             {/* <button onClick={onClose}>Comments {story.comments.length}</button> */}
 
             <div className={`comment-panel ${showComments ? 'comment-panel-open' : 'comment-panel-closed'}`}>
-                <Comments storyId={story.id} comments={story.comments} authorInfo={story.authorInfo} />
+                <Comments storyId={story.id} comments={story.comments} authorInfo={story.authorInfo} userId={userId}/>
             </div>
         </div>
     );
