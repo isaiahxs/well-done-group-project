@@ -88,13 +88,17 @@ export const updateClapCount = (storyId) => async (dispatch) => {
 		const data = await response.json();
 		dispatch(updateClapAction({ storyId, claps: data.totalClaps }));
 		return null;
-	} else if (response.status < 500) {
-		const data = await response.json();
-		if (data.errors) {
-			return data.errors;
-		}
+	// } else if (response.status < 500) {
+	// 	const data = await response.json();
+	// 	if (data.errors) {
+	// 		return data.errors;
+	// 	}
+	// } else {
+	// 	return ["An error occurred. Please try again."];
+	// }
 	} else {
-		return ["An error occurred. Please try again."];
+		const data = await response.json();
+		return data;
 	}
 }
 
@@ -109,13 +113,17 @@ export const removeClap = (storyId ) => async (dispatch) => {
 		const data = await response.json();
 		dispatch(updateClapAction({ storyId, claps: data.totalClaps }));
 		return null;
-	} else if (response.status < 500) {
-		const data = await response.json();
-		if (data.errors) {
-			return data.errors;
-		}
+	// } else if (response.status < 500) {
+	// 	const data = await response.json();
+	// 	if (data.errors) {
+	// 		return data.errors;
+	// 	}
+	// } else {
+	// 	return ["An error occurred. Please try again."];
+	// }
 	} else {
-		return ["An error occurred. Please try again."];
+		const data = await response.json();
+		return data;
 	}
 }
 

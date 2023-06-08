@@ -25,11 +25,19 @@ const StoryPage = () => {
   // }
 
   const handleClapClick = async () => {
-    await dispatch(updateClapCount(story.id)) //dispatching the action to update the clap count
+    const response = await dispatch(updateClapCount(story.id)) //dispatching the action to update the clap count
+
+    if (response && response.error) {
+      alert("Sorry, you cannot clap your own stories.")
+    }
   }
 
-  const handleUnclapClick = () => {
-    dispatch(removeClap(story.id));
+  const handleUnclapClick = async () => {
+    const response = await dispatch(removeClap(story.id));
+
+    if (response && response.message) {
+      alert("Sorry, you do not have any claps to remove.")
+    }
   }
 
   const history = useHistory();
