@@ -1,8 +1,10 @@
 from flask import Blueprint, jsonify, session, request
-from app.models import User, db
+from app.models import User, db, Follower, Story
 from app.forms import LoginForm
 from app.forms import SignUpForm
 from flask_login import current_user, login_user, logout_user, login_required
+from sqlalchemy.orm import joinedload
+
 
 auth_routes = Blueprint('auth', __name__)
 
@@ -41,7 +43,17 @@ def login():
         # Add the user to the session, we are logged in!
         user = User.query.filter(User.email == form.data['email']).first()
         login_user(user)
-        return {'user': user.to_dict(), 'status': 200}
+
+
+        followings = Follower.query.filter_by(follower_id=current_user.id).all()
+        followed_authors_ids = [following.author_id for following in followings]
+        subscribed_stories = Story.query.options(joinedload(Story.author)).filter(Story.author_id.in_(followed_authors_ids)).all()
+        
+        return {
+            'user': user.to_dict(),
+            'status': 200,
+            'subscribedStories': [story.to_dict() for story in subscribed_stories],
+            }
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 

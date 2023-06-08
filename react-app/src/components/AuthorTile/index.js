@@ -50,9 +50,9 @@ const AuthorTile = ({ author, index }) => {
       <div className="style1-content">
         <div className="style1-author-container">
           {author&&(<div className="style1-profile-image">
-          {author.profileImage && (
+          {author?.profileImage && (
                 <img
-                  src={author.profileImage}
+                  src={author?.profileImage}
                   alt="author profile picture"
                 ></img>
               )}

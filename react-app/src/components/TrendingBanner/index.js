@@ -32,7 +32,7 @@ const TrendingBanner = () => {
 
   useEffect(() => {
     if (stories) {
-      setTrendingStories(stories.slice(0, 6));
+      setTrendingStories(stories.slice(6, 12));
     }
   }, [stories]);
 

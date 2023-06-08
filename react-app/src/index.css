@@ -41,6 +41,9 @@ body {
   font-family: sans-serif;
 }
 
+.flex{
+  display: flex;
+}
 
 
 

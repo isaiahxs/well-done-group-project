@@ -1,9 +1,10 @@
 from flask import Blueprint, jsonify, session, render_template, request, redirect
 from flask_login import login_required, current_user
-from app.models import db, Story, Tag, StoryImage, StoryTag, Comment, User,Clap
+from app.models import db, Story, Tag, StoryImage, StoryTag, Comment, User, Clap, Follower
 from app.forms import StoryForm
 from app.forms import StoryImageForm
 from app.forms import CommentForm
+from sqlalchemy.orm import joinedload
 story_routes = Blueprint('stories', __name__)
 
 
@@ -24,8 +25,11 @@ def initial_load():
     """
     Eager Load data upon initialization 
     """
+
+
     stories = Story.query.all()
     tags = Tag.query.all()
+
     return {
         'stories': [story.to_dict() for story in stories],
         'tags': [tag.tag for tag in tags],

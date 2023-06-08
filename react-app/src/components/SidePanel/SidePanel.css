@@ -1,0 +1,61 @@
+
+.sidepanel-staff-picks-container{
+  flex-direction: column;
+  display: flex;
+  position: relative;
+  height: 440px;
+
+}
+
+
+.sidepanel-staff-picks-header{
+  height: 80px;
+  width: 95%;
+  margin-left: 5%;
+  position: relative;
+  font-weight: 500;
+}
+
+
+.sidepanel-staff-picks-content {
+  height: 40px;
+  width: 100%;
+  position: relative;
+  flex-direction: column;
+
+}
+
+.sidepanel-writing-wrapper {
+  height: 300px;
+  background-color: rgb(176, 163, 146);
+}
+
+.sidepanel-writing-container {
+  height: 80%;
+  width: 80%;
+  background-color: rgb(244, 214, 174);
+}
+
+
+.sidepanel-tags-container {
+  position: relative;
+  top: 0px;
+  height: 300px;
+
+
+}
+
+.sidepanel-tags {
+  height: 300px;
+  padding: 6px;
+  overflow: hidden;
+  transition: height 0.5s ease;
+}
+
+.sidepanel-tags-extended {
+  height: 500px;
+  transition: height 0.5s ease;
+  overflow: scroll;
+  overflow-x: hidden;
+
+}

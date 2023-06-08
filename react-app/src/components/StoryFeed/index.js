@@ -15,9 +15,11 @@ import StoryTileTwoSkeleton from '../StoryTileTwoSkeleton';
 const StoryFeed = () => {
   const dispatch = useDispatch()
   const stories = useSelector(state=>state.story.stories)
+  const subscribedStories = useSelector(state=>state.session.subscribedStories)
   const searchResults = useSelector(state=>state.session.search)
   const currentFeed = useSelector(state=>state.session.currentFeed)
 
+  const { scrollPosition, windowSize, searchInputRef } = useContext(WindowContext);
 
 
   const [selected, setSelected] = useState('stories')
@@ -38,29 +40,23 @@ const StoryFeed = () => {
     }
     if(currentFeed === 'following'){
       setShowHeader(false)
-      setFeedContent(stories)
+      setFeedContent(subscribedStories)
       setSelected('stories')
 
     }
-    if(currentFeed === '+'){}
+
     if(currentFeed && searchResults[currentFeed]){
       setShowHeader(true)
       setFeedContent(searchResults[currentFeed].stories)
     }
 
-
-
-
-    
   },[currentFeed])
 
-  console.log(currentFeed);
+
 
 
 const handleSelectFeed = (feed) => {
-
-  console.log(feed);
-  console.log(selected);
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 
 
   if(feed==='stories'){
@@ -73,6 +69,13 @@ const handleSelectFeed = (feed) => {
       setFeedContent(searchResults[currentFeed].authors)
       return 
   }
+  if(feed==='taggedStories'){
+    setSelected('taggedStories')
+    setFeedContent(searchResults[currentFeed].taggedStories)
+    return 
+}
+
+
 
   dispatch(sessionActions.setFeed(feed))
 
@@ -94,9 +97,14 @@ const handleRemoveSearch = (e, searchQuery) => {
         <nav className={`feed-nav flexcenter`}>
           <div className='feed-select-container'>
             
-            <div className={`feed-select small memo-text flexcenter ${currentFeed === '+' ? 'selected' : ''}`} onClick={()=>handleSelectFeed('+')}>
+            <div className={`feed-select small memo-text flexcenter ${currentFeed === '+' ? 'selected' : ''}`} onClick={()=>{
+                 window.scrollTo({ top: 0, behavior: 'smooth' })
+                 searchInputRef.current.focus();
+
+                 }}>
               <div className='add-container flexcenter'>
-                 +
+              <i className="fa-solid fa-magnifying-glass"></i>
+
               </div>
              
             </div>
@@ -124,6 +132,7 @@ const handleRemoveSearch = (e, searchQuery) => {
             
             <div className={`feed-select med memo-text flexcenter ${selected === 'stories' ? 'selected' : ''}`} onClick={()=>handleSelectFeed('stories')}>Stories</div>
             <div className={`feed-select large memo-text flexcenter ${selected === 'authors' ? 'selected' : ''}`} onClick={()=>handleSelectFeed('authors')}>Authors</div>
+            <div className={`feed-select large memo-text flexcenter ${selected === 'taggedStories' ? 'selected' : ''}`} onClick={()=>handleSelectFeed('taggedStories')}>Tags</div>
 
           </div>
    
@@ -151,6 +160,9 @@ const handleRemoveSearch = (e, searchQuery) => {
 
 
 
+      {selected === 'taggedStories' && currentFeed && feedContent && feedContent.map((story, i) => (
+        <StoryTileTwo key={i} story={story}/>
+      ))}
 
 
       {selected === 'stories' && currentFeed && feedContent && feedContent.map((story, i) => (

@@ -32,7 +32,7 @@ function Navigation() {
   const user = useSelector((state) => state.session.user);
   const searchResults = useSelector((state) => state.session.search);
 
-  const { scrollPosition, windowSize } = useContext(WindowContext);
+  const { scrollPosition, windowSize, searchInputRef } = useContext(WindowContext);
 
   const colorSchemes = {
     '/': ['nav-yellow', 'nav-white', 'button-black', 'button-green'],
@@ -202,6 +202,7 @@ function Navigation() {
                  >
                    <label>
                      <input
+                       ref={searchInputRef}
                        className="searchField"
                        type="search"
                        value={search}

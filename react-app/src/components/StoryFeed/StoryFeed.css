@@ -39,8 +39,9 @@
   cursor: pointer;
   margin-right: 4px;
   margin-left: 4px;
-  padding-bottom: 10px; 
   box-sizing: border-box;
+  border-bottom: #ffffff solid 1px;
+
 }
 
 .feed-select.small{
@@ -78,7 +79,6 @@
   color: black;
   font-weight: 300;
   border-bottom: #000000 solid 1px;
-  padding-bottom: 10px; 
 }
 
 .add-container{
@@ -111,6 +111,12 @@
 .feed-header.extended {
   height: 50px;
   transition: height 0.5s ease;
+
+  position: sticky;
+  display: flex;
+  justify-content: space-between;
+  top: 50px;
+  z-index: 100;
 }
 
 .header-title{
@@ -134,3 +140,4 @@
   box-shadow: 2px 0  0 2px rgba(73, 73, 73, 1) solid 1px ;
   height: 55px;
 } 
+

@@ -22,14 +22,27 @@ const FeedPage = () => {
   },[user])
 
   return (
-    <div>
+    <>
 
-      <StoryFeed/>
-
-      {windowSize > 750 &&(
-        <SidePanel/>
+      {windowSize < 900 &&(
+        <div>
+          <StoryFeed className='storyfeed-wrapper wide'/>
+        </div>
       )}
-    </div>
+
+
+      {windowSize > 899 &&(
+        <div className='feedpage-container flex'>
+          <div className='storyfeed-wrapper'> <StoryFeed/> </div>
+          <div className='sidepanel-wrapper'> <SidePanel/> </div>
+          
+        </div>
+      )}
+
+
+
+
+    </>
 
   )
 }

@@ -23,7 +23,6 @@ const initialLoadAction = (data) => ({
 const initialState = { stories: [], tags: [], loaded: false };
 
 export const initialLoad = () => async (dispatch) => {
-	// const response = await fetch("/api/story", {
 	const response = await fetch("/api/story/initialize", {
 		method: "GET",
 		headers: {
@@ -33,9 +32,6 @@ export const initialLoad = () => async (dispatch) => {
 
 	if (response.ok) {
 		const data = await response.json();
-
-		console.log(data);
- 
 		dispatch(initialLoadAction(data));
 		return null;
 	} else if (response.status < 500) {

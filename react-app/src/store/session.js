@@ -23,12 +23,13 @@ const removeSearchAction = (searchQuery) => ({
 	type: REMOVE_SEARCH,
 	payload: searchQuery,
 });
+
 const setFeedAction = (feed) => ({
 	type: SET_FEED,
 	payload: feed,
 });
 
-const initialState = { user: null, search: {}, currentFeed: 'for you' };
+const initialState = { user: null, search: {}, currentFeed: 'for you', subscribedStories: [] };
 
 export const authenticate = () => async (dispatch) => {
 	const response = await fetch("/api/auth/", {
@@ -145,7 +146,7 @@ export default function reducer(state = initialState, action) {
 	const newState = {...state}
 	switch (action.type) {
 		case SET_USER:
-			return {...newState, user: action.payload.user };
+			return {...newState, user: action.payload.user, subscribedStories: action.payload.subscribedStories };
 		case REMOVE_USER:
 			return {...newState, user: null };
 		case NEW_SEARCH:
