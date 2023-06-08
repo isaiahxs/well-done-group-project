@@ -15,8 +15,9 @@ import ProfileButtonModal from './components/ProfileButtonModal';
 
 
 import * as storyActions from './store/story';
+import * as sessionActions from './store/session';
 import { ModalContext } from './context/ModalContext';
-import UserHomePage from './components/FeedPage';
+import FeedPage from './components/FeedPage';
 
 
 function App() {
@@ -31,18 +32,41 @@ function App() {
   console.log(search);
   
   
+  // useEffect(() => {
+
+  //   dispatch(authenticate()).then(() => {
+  //     setIsLoaded(true)
+
+  //   dispatch(storyActions.initialLoad())
+  //   // .then(() => {
+  //   //   setIsLoaded(true)
+
+  //   // dispatch(authenticate())
+
+  //   // dispatch(storyActions.initialLoad()).then(() => {
+  //   //   setIsLoaded(true)
+  //   });
+
+  // }, [dispatch]);
+
+  // useEffect(() => {
+  //   dispatch(authenticate()).then(() => {
+  //     setIsLoaded(true);
+  //     dispatch(storyActions.initialLoad());
+  //   });
+  // }, [dispatch]);
+
+
   useEffect(() => {
 
-    dispatch(authenticate())
-
-    dispatch(storyActions.initialLoad()).then(() => {
-      setIsLoaded(true)
-    });
-
+    dispatch(authenticate()).then(() => {
+      dispatch(storyActions.initialLoad());
+    }).then(() => {
+      setIsLoaded(true);
+    })
   }, [dispatch]);
 
-  console.log(modal);
- 
+
 
   return (
     <>
@@ -64,13 +88,14 @@ function App() {
 
 
 
-      <Navigation isLoaded={isLoaded} />
+      {isLoaded && (<Navigation isLoaded={isLoaded} />)}
       {isLoaded && (
         <Switch>
 
-          <Route path="/" exact>
-            <HomePage/>
+          <Route path="/home" exact>
+            <FeedPage/>
           </Route>
+
 
           <Route path="/about" exact>
             <OurStoryPage/>
@@ -88,9 +113,14 @@ function App() {
             <StoryPage/>
           </Route>
 
-          <Route path="/home" exact>
-            <UserHomePage/>
+          <Route path="/tag/:tag" exact>
+            <FeedPage/>
           </Route>
+
+          <Route path="/" exact>
+            <HomePage/>
+          </Route>
+
 
         </Switch>
       )}

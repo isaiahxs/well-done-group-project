@@ -1,14 +1,21 @@
 // constants
 const SET_USER = "session/SET_USER";
+const RESTORE_USER = "session/RESTORE_USER";
 const REMOVE_USER = "session/REMOVE_USER";
 const NEW_SEARCH = "session/NEW_SEARCH";
 const REMOVE_SEARCH = "session/REMOVE_SEARCH";
 const SET_FEED = "session/SET_FEED";
 
-const setUser = (user) => ({
+export const setUser = (user) => ({
 	type: SET_USER,
 	payload: user,
 });
+
+export const restoreUser = (user) => ({
+	type: RESTORE_USER,
+	payload: user,
+});
+
 
 const removeUser = () => ({
 	type: REMOVE_USER,
@@ -38,12 +45,25 @@ export const authenticate = () => async (dispatch) => {
 		},
 	});
 	if (response.ok) {
+		console.log('ye sok');
+		console.log('ye sok');
+		console.log('ye sok');
+		console.log('ye sok');
+		console.log('ye sok');
+		console.log('ye sok');
+		console.log('ye sok');
+		console.log('ye sok');
+		console.log('ye sok');
+		console.log('ye sok');
+		console.log('ye sok');
+		console.log('ye sok');
 		const data = await response.json();
+		console.log(data);
 		if (data.errors) {
 			return;
 		}
 
-		dispatch(setUser(data));
+		dispatch(restoreUser(data));
 	}
 };
 
@@ -146,7 +166,11 @@ export default function reducer(state = initialState, action) {
 	const newState = {...state}
 	switch (action.type) {
 		case SET_USER:
+			console.log(action.payload);
 			return {...newState, user: action.payload.user, subscribedStories: action.payload.subscribedStories };
+		case RESTORE_USER:
+			console.log(action.payload);
+			return {...newState, user: action.payload };			
 		case REMOVE_USER:
 			return {...newState, user: null };
 		case NEW_SEARCH:

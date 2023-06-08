@@ -3,7 +3,6 @@
   max-width: 1200px;
   width: 100%;
   margin: 0 auto;
-  border-right: black solid 1px;
 }
 
 
@@ -15,15 +14,18 @@
 
 .storyfeed-wrapper{
   width: 65%;
+  padding-right: 5%;
 }
 
 .sidepanel-wrapper{
+  border-left: #e6e6e6 solid 1px;
+
   position: relative;
   width: 35%;
   min-width: 300px;
-  height: 100px;
+  height: 1000px;
   position: sticky;
-  top: -740px;
+  top: -450px;
 
 
 

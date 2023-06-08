@@ -7,6 +7,7 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 5px;
+  margin-top: 10px;
 }
 
 .story-tile-style3:first-child {
@@ -59,8 +60,9 @@
 
 .style3-story-title-container{
   margin-top: 5px;
+  margin-bottom: 5px;
   height: fit-content;
-  width: 300px;
+  width: 80%;
   word-break:keep-all;
   text-overflow: ellipsis;
   font-weight: bold;

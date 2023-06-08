@@ -90,7 +90,7 @@
   justify-content: space-between;
   display: flex;
   align-items: center;
-  width: 250px;
+  width: 300px;
 }
 
 .logo{
@@ -131,13 +131,18 @@
   cursor: pointer;
 }
 
-.nav-button2,
+
 .nav-button{
   visibility: hidden;
   font-size: 13.5px;
   font-weight: 300;
 }
-
+.nav-button2{
+  font-size: 13.5px;
+  font-weight: 300;
+  position: relative;
+  right: 15px;
+}
 
 
 
@@ -207,11 +212,66 @@
   width: 65px;
   height: 40px;
   cursor: pointer;
+  right: 10px;
+  margin-right: 5px;
 }
 
+.nav-write:hover{
+
+  color: #474747;
+
+}
+
+
+.signup-button-container,
+.signin-button-container{
+  position: relative;
+  margin-left: 10px;
+  width: fit-content;
+  height: 40px;
+  font-size: 14px;
+}
+
+
+.signup-button,
+.signin-button{
+  border-radius: 15px;
+  width: 50px;
+  height: 20px;
+  padding: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+  font-weight: 100;
+  cursor: pointer;
+}
+
+.signin-button{
+color: #878787;
+
+}
+.signin-button:hover{
+  color: #3e3e3e;
+  
+  }
+
+
+.signup-button{
+  background-color: #a57d00 ;
+  color: white;
+}
+.signup-button:hover{
+  background-color: #8c6900 ;
+  color: white;
+}
+
+
+
+
+
+
 @media screen and (min-width: 545px) {
-  .nav-button2 {
-    visibility: visible;
+  .nav-button2{
+    right: 0px;
   }
 
   .nav-button2.show{

@@ -175,6 +175,7 @@
   box-sizing: border-box;
   display: inline-block;
   margin: 1px;
+  cursor: pointer;
 }
 
 .main-page-small-view-footer-item {

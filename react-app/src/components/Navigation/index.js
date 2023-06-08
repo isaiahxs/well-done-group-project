@@ -48,6 +48,7 @@ function Navigation() {
   const [navColor, setNavColor] = useState(colorScheme[0]);
   const [buttonStyle, setButtonStyle] = useState(colorScheme[2]);
   const [profileImageSrc, setProfileImageSrc] = useState('');
+  const [isTagUrl, setIsTagUrl] = useState(false);
 
   useEffect(() => {
     const colors = colorScheme.current;
@@ -61,7 +62,16 @@ function Navigation() {
     }
   }, [scrollPosition]);
 
+
   useEffect(() => {
+    setIsTagUrl(false)
+
+
+    if(location.pathname.slice(0,4) === '/tag' || location.pathname.slice(0,6) === '/story') {  
+      setIsTagUrl(true)
+    }
+
+
     const newColorScheme =
       colorSchemes[location.pathname] || colorSchemes.default;
     colorScheme.current = newColorScheme;
@@ -114,7 +124,7 @@ function Navigation() {
     colorScheme.current = colorSchemes['/write'];
   };
 
-  const handleLoginClick = () => {
+  const handleSigninClick = () => {
     openModal('signin');
   };
   const handleSignupClick = () => {
@@ -137,13 +147,7 @@ function Navigation() {
   };
 
   const newSearch = async () => {
-    console.log('searching');
-    const searchResults = await dispatch(sessionActions.search(search))
-    if(searchResults){
-      console.log(searchResults);
-    }
-
-    return
+    await dispatch(sessionActions.search(search))
   }
 
 
@@ -157,35 +161,7 @@ function Navigation() {
                 <img src={mediumLogoSmall} alt="medium cirlce logo" />
               </div>
 
-              {windowSize > 60000 && (
-                <div className={`nav-search`}>
-                  <div
-                    className="maginfy-container"
-                    onClick={() => dispatch(sessionActions.search(search))}
-                  >
-                    <i className="fa-solid fa-magnifying-glass"></i>
-                  </div>
-                  <form
-                    onSubmit={(e) => {
-                      e.preventDefault();
-                      dispatch(sessionActions.search(search));
-                      setSearch('');
-                    }}
-                  >
-                    <label>
-                      <input
-                        className="searchField"
-                        type="search"
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-                        required
-                        placeholder={'Search Medium'}
-                      />
-                    </label>
-                  </form>
-                </div>
-              )}
-              {windowSize > 1 && (
+             
                  <div className={`nav-search`}>
                  <div
                    className="maginfy-container"
@@ -213,7 +189,7 @@ function Navigation() {
                    </label>
                  </form>
                </div>
-              )}
+            
               
             </div>
 
@@ -236,11 +212,15 @@ function Navigation() {
                   <img src={bellIcon} alt="write symbol"></img>
                 </div>
               <div className={`nav-user-profile-div`} onClick={handleProfileClick}>
+
+
+
                 {user && user.profileImage && (
                   <div className={`profile-div`}  onClick={handleProfileClick}>
                     <img src={profileImageSrc} alt="user profile picture" />
                   </div>
                 )}
+
 
                 {user && !user.profileImage && (
                   <div
@@ -248,13 +228,102 @@ function Navigation() {
                     onClick={handleProfileClick}
                   ></div>
                 )}
+
+
+                {!user && (
+                  <div className={`profile-div`}  onClick={userOutline}>
+                    <img src={profileImageSrc} alt="user profile picture" />
+                  </div>
+                )}
               </div>
             </div>
           </div>
         </nav>
       )}
 
-      {!user && (
+
+  {!user && isTagUrl && (
+        <nav className={`nav-bar logged flexcenter ${colorSchemes['/'][1]}`}>
+          <div className={`nav-buttons memo-text ${buttonStylings}`}>
+            <div className="flexcenter">
+              <div className="logo small" onClick={handleLogoClick}>
+                <img src={mediumLogoSmall} alt="medium cirlce logo" />
+              </div>
+
+             
+{ windowSize > 700 && (               <div className={`nav-search`}>
+                 <div
+                   className="maginfy-container"
+                   onClick={newSearch}
+                 >
+                   <i className="fa-solid fa-magnifying-glass"></i>
+                 </div>
+                 <form
+                   onSubmit={(e) => {
+                     e.preventDefault();
+                     newSearch()
+                     setSearch('');
+                   }}
+                 >
+                   <label>
+                     <input
+                       ref={searchInputRef}
+                       className="searchField"
+                       type="search"
+                       value={search}
+                       onChange={(e) => setSearch(e.target.value)}
+                       required
+                       placeholder={'Search Medium'}
+                     />
+                   </label>
+                 </form>
+               </div>)}
+            
+              
+            </div>
+
+            <div className={`nav-user-buttons flex`}>
+ 
+
+              <div className={`nav-write`} onClick={handleWriteClick} >
+
+                <div className="write-icon-container">
+                  <img src={writeIcon} alt="write symbol"></img>
+                </div>
+                <div className=" memo-text ">Write</div>
+
+              </div>
+                   
+              <div className="signup-button-container flexcenter">
+              <div className="signup-button flexcenter" onClick={handleSignupClick}>
+                  Sign up
+              </div>
+              </div>
+
+              <div className="signin-button-container flexcenter">
+              <div className="signin-button flexcenter"  onClick={handleSigninClick}>
+                  Sign In
+              </div>
+              </div>
+
+
+
+
+              <div className={`nav-user-profile-div`} onClick={handleProfileClick}>
+                {!user && userOutline && (
+                  <div className={`profile-div`}  onClick={handleProfileClick}>
+                    <img src={userOutline} alt="user profile picture" />
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </nav>
+      )}
+
+
+
+      {!user && !isTagUrl && (
         <nav className={`nav-bar flexcenter ${navColor}`}>
           <div className={`nav-buttons memo-text ${buttonStylings}`}>
             <div className="logo large" onClick={handleLogoClick}>
@@ -281,7 +350,7 @@ function Navigation() {
               </div>
               <div
                 className={`sign-in-nav-button nav-button2 ${buttonStylings}`}
-                onClick={handleLoginClick}
+                onClick={handleSigninClick}
               >
                 Sign In
               </div>

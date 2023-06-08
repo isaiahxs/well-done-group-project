@@ -36,24 +36,24 @@ const SidePanel = () => {
           </div>
           
           <div className="sidepanel-staff-picks-content flex">
-            <StoryTileThree story={stories[1]}/>
-            <StoryTileThree story={stories[2]}/>
-            <StoryTileThree story={stories[3]}/>
-            <StoryTileThree story={stories[4]}/>
-            <StoryTileThree story={stories[4]}/>
+            <StoryTileThree story={stories[7]}/>
+            <StoryTileThree story={stories[8]}/>
+            <StoryTileThree story={stories[9]}/>
+            <StoryTileThree story={stories[12]}/>
+            <StoryTileThree story={stories[11]}/>
           </div>
           
 
         </div>
 
-        <div className="sidepanel-writing-wrapper flexcenter">
-          <div className="sidepanel-writing-container">writing container</div>
-        </div>
+
 
         <div className="sidepanel-tags-container">          
-        
-        <div className={`main-page-tag-header  memo-text ${showTags ? 'extended' : ''}`}>
-          Discover more of what matters to you
+        <div className='flexcenter'>
+          <div className={`sidepanel-tag-header  memo-text ${showTags ? 'extended' : ''}`}>
+            Discover more of what matters to you
+          </div>
+
         </div>
 
         <div className={showTags ? 'sidepanel-tags-extended' : 'sidepanel-tags'}>

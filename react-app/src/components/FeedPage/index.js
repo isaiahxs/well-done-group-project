@@ -9,18 +9,27 @@ import { WindowContext } from '../../context/WindowContext';
 
 
 
-
 const FeedPage = () => {
   const history = useHistory()
+  const location = useLocation();
+
   const { scrollPosition, windowSize } = useContext(WindowContext);
   const user = useSelector(state=>state.session.user)
 
-  useEffect(()=>{
-    if(!user){
+
+  useEffect(() => {
+    if(location.pathname.slice(0,5) === '/home' && !user) {  
+      console.log('yes');
       history.push('/')
     }
-  },[user])
+  }, [location.pathname, user, history]);
 
+
+
+    useEffect(()=>{
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    },[])
+ 
   return (
     <>
 
@@ -30,20 +39,14 @@ const FeedPage = () => {
         </div>
       )}
 
-
       {windowSize > 899 &&(
         <div className='feedpage-container flex'>
           <div className='storyfeed-wrapper'> <StoryFeed/> </div>
           <div className='sidepanel-wrapper'> <SidePanel/> </div>
-          
         </div>
       )}
 
-
-
-
     </>
-
   )
 }
 export default FeedPage

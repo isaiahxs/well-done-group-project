@@ -52,6 +52,32 @@ const StoryFeed = () => {
 
   },[currentFeed])
 
+  useEffect(()=>{
+    console.log(currentFeed);
+
+    if(stories && !currentFeed){
+      dispatch(sessionActions.setFeed('stories'))
+    }
+    if(currentFeed === 'for you' || currentFeed === 'stories'){
+      setShowHeader(false)
+      setFeedContent(stories)
+      setSelected('stories')
+
+    }
+    if(currentFeed === 'following'){
+      setShowHeader(false)
+      setFeedContent(subscribedStories)
+      setSelected('stories')
+
+    }
+
+    if(currentFeed && searchResults[currentFeed]){
+      setShowHeader(true)
+      setFeedContent(searchResults[currentFeed].stories)
+    }
+
+  },[currentFeed])
+
 
 
 

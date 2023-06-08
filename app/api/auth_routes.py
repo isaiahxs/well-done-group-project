@@ -26,7 +26,15 @@ def authenticate():
     Authenticates a user.
     """
     if current_user.is_authenticated:
-        return current_user.to_dict()
+        followings = Follower.query.filter_by(follower_id=current_user.id).all()
+        followed_authors_ids = [following.author_id for following in followings]
+        subscribed_stories = Story.query.options(joinedload(Story.author)).filter(Story.author_id.in_(followed_authors_ids)).all()
+        
+        return {
+            'user': current_user.to_dict(),
+            'status': 200,
+            'subscribedStories': [story.to_dict() for story in subscribed_stories],
+        }
     return {'errors': ['Unauthorized']}
 
 
