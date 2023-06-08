@@ -83,10 +83,28 @@
   border-top: 1px solid rgb(242, 242, 242);
   border-bottom: 1px solid rgb(242, 242, 242);
   padding: 8px 3px;
+  font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 .clap-button {
   cursor: pointer;
+  background-color: rgb(234, 234, 234);
+  border: none;
+  border-radius: 20px;
+  padding: 5px 10px;
+  font-size: 16px;
+}
+
+.unclap-button {
+  cursor: pointer;
+  background-color: rgb(234, 234, 234);
+  border: none;
+  border-radius: 20px;
+  padding: 5px 10px;
+  font-size: 16px;
+}
+
+.clap-count {
   background-color: rgb(234, 234, 234);
   border: none;
   border-radius: 20px;

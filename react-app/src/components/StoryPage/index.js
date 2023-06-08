@@ -5,7 +5,7 @@ import './StoryPage.css';
 import { WindowContext } from '../../context/WindowContext';
 import parse from 'html-react-parser';
 import { useDispatch } from 'react-redux';
-import { updateClapCount } from '../../store/story';
+import { updateClapCount, removeClap } from '../../store/story';
 
 const StoryPage = () => {
 
@@ -26,6 +26,10 @@ const StoryPage = () => {
 
   const handleClapClick = async () => {
     await dispatch(updateClapCount(story.id)) //dispatching the action to update the clap count
+  }
+
+  const handleUnclapClick = () => {
+    dispatch(removeClap(story.id));
   }
 
   const history = useHistory();
@@ -112,7 +116,9 @@ const StoryPage = () => {
           </div>
 
           <div className='options-bar'>
-            <button className='clap-button' onClick={handleClapClick}>Clap {story.claps}</button>
+            <button className='clap-button' onClick={handleClapClick}>Clap</button>
+            <button className='unclap-button' onClick={handleUnclapClick}>Unclap</button>
+            <button className='clap-count'>Claps {story.claps}</button>
             <button className='comment-button'>Comment {story.comments.length}</button>
           </div>
 
