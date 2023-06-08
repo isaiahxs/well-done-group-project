@@ -12,12 +12,10 @@ const CommentPanel = ({ isOpen, comments, onClose, storyId }) => {
 
     return (
         <div>
-            <button onClick={() => setShowComments(!showComments)}>Comment</button>
-            {showComments && (
-                <div className="comment-panel">
+            <button onClick={() => setShowComments(!showComments)}>Comment</button>            
+            <div className={`comment-panel ${showComments ? 'comment-panel-open' : 'comment-panel-closed'}`}>
                 <Comments storyId={story.id} comments={story.comments} authorInfo={story.authorInfo} />
-                </div>
-            )}
+            </div>
         </div>
     );
 };
