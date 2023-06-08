@@ -7,6 +7,18 @@ import parse from 'html-react-parser';
 import { useDispatch } from 'react-redux';
 import { updateClapCount, removeClap } from '../../store/story';
 
+const Comments = ({ comments }) => {
+  return (
+    <div className='comments-section'>
+      {comments.map((comment, index) => (
+        <div key={index} className='comment'>
+          <p>{comment.content}</p>
+        </div>
+      ))}
+    </div>
+  );
+};
+
 const StoryPage = () => {
 
   const { id } = useParams()
@@ -64,6 +76,7 @@ const StoryPage = () => {
   const handleLogoClick = () => {
     history.push('/');
   };
+
 
 
   console.log(story);
@@ -159,7 +172,9 @@ const StoryPage = () => {
           </div>
 
           <div className='options-bar'>
-            <button className='clap-button'>Clap {story.claps}</button>
+            <button className='clap-button' onClick={handleClapClick}>Clap</button>
+            <button className='unclap-button' onClick={handleUnclapClick}>Unclap</button>
+            <button className='clap-count'>Claps {story.claps}</button>
             <button className='comment-button'>Comment {story.comments.length}</button>
           </div>
 
@@ -174,6 +189,8 @@ const StoryPage = () => {
                 </div>
               </div>
             </div>
+
+
           </div>
         </>
       )}
