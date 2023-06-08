@@ -166,7 +166,7 @@ const editCommentAction = (comment) => ({
 
 //dispatch action in postComment thunk after we receive response
 export const editComment = (storyId, commentId, comment) => async (dispatch) => {
-	const response = await fetch(`/api/story/${storyId}/comment/${commentId}`, {
+	const response = await fetch(`/api/comment/${commentId}`, {
 		method: "PUT",
 		headers: {
 			"Content-Type": "application/json",
