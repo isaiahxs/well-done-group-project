@@ -24,6 +24,14 @@ def seed():
         # the schema name (see comment in users.py undo_users function).
         # Make sure to add all your other model's undo functions below
         undo_users()
+        undo_tags()
+        undo_stories()
+        undo_comments()
+        undo_followers()
+        undo_claps()
+        undo_story_images()
+        undo_story_tags()
+        
     seed_users()
     seed_tags()
     seed_stories()
