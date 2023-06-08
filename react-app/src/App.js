@@ -88,7 +88,7 @@ function App() {
 
 
 
-      {isLoaded && (<Navigation isLoaded={isLoaded} />)}
+      {isLoaded && (<Navigation/>)}
       {isLoaded && (
         <Switch>
 

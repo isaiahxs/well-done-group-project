@@ -29,6 +29,8 @@ const SidePanel = () => {
 
   return (
        <div className="sidepanel-container">
+          <div className='sidepanel-banner-cover'></div>
+
         <div className="sidepanel-staff-picks-container flexcenter align-left">
 
           <div className="sidepanel-staff-picks-header flexcenter align-left memo-text">

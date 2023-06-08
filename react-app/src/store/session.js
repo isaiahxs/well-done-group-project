@@ -158,7 +158,7 @@ export default function reducer(state = initialState, action) {
 			return {...newState, user: action.payload.user, subscribedStories: action.payload.subscribedStories };
 		case RESTORE_USER:
 			console.log(action.payload);
-			return {...newState, user: action.payload };			
+			return {...newState, user: action.payload.user };			
 		case REMOVE_USER:
 			return {...newState, user: null };
 		case NEW_SEARCH:

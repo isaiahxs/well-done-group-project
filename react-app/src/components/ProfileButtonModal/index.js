@@ -28,7 +28,7 @@ console.log('opening!');
   }, []);
 
   const logout = (e) => {
-    // dispatch(sessionActions.logout());
+
     history.push('/');
     closeModal();
     dispatch(sessionActions.logout())

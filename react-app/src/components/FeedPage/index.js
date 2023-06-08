@@ -18,11 +18,13 @@ const FeedPage = () => {
 
 
   useEffect(() => {
-    if(location.pathname.slice(0,5) === '/home' && !user) {  
-      console.log('yes');
+     if(!user){ 
       history.push('/')
     }
-  }, [location.pathname, user, history]);
+
+    window.scrollTo(0, 0);
+
+  }, [user]);
 
 
 

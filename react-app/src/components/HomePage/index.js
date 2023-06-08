@@ -14,12 +14,8 @@ const HomePage = () => {
   useEffect(() => {
 
     window.scrollTo(0, 0);
-    if(user){
-      history.push('/home')
-    }
 
-
-  }, [user]);
+  }, []);
 
 
   return (

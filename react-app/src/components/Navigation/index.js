@@ -33,7 +33,7 @@ const profileImages = {
 }
 
 
-function Navigation({isLoaded}) {
+function Navigation() {
   const { modal, openModal, closeModal, updateObj, setUpdateObj } =
     useContext(ModalContext);
 
@@ -42,9 +42,11 @@ function Navigation({isLoaded}) {
   const location = useLocation();
   const [buttonStylings, setButtonStylings] = useState('');
   const [search, setSearch] = useState('');
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const state = useSelector((state) => state);
   const user = useSelector((state) => state.session.user);
+  // const userImage = useSelector((state) => state.session.user.profileImage);
   const searchResults = useSelector((state) => state.session.search);
 
   const { scrollPosition, windowSize, searchInputRef } = useContext(WindowContext);
@@ -72,7 +74,35 @@ function Navigation({isLoaded}) {
   }, [scrollPosition]);
 
 
+  // useEffect(() => {
+  //   setIsLoaded(false)
+
+  //   setIsTagUrl(false)
+  //   if(location.pathname.slice(0,4) === '/tag' || location.pathname.slice(0,6) === '/story') {  
+  //     setIsTagUrl(true)
+  //   }
+
+
+  //   const newColorScheme =
+  //     colorSchemes[location.pathname] || colorSchemes.default;
+  //   colorScheme.current = newColorScheme;
+  //   setNavColor(newColorScheme[0]);
+  //   setButtonStyle(newColorScheme[2]);
+
+  //   if (!user) {
+  //     if (location.pathname === '/write' || location.pathname === '/about') {
+  //       setButtonStylings('show');
+  //     } else {
+  //       setButtonStylings('');
+  //     }
+  //   }
+  //   setIsLoaded(true)
+  // }, [location.pathname]);
+
+
   useEffect(() => {
+    setIsLoaded(false)
+
     setIsTagUrl(false)
     if(location.pathname.slice(0,4) === '/tag' || location.pathname.slice(0,6) === '/story') {  
       setIsTagUrl(true)
@@ -80,7 +110,7 @@ function Navigation({isLoaded}) {
 
 
     const newColorScheme =
-      colorSchemes[location.pathname] || colorSchemes.default;
+    colorSchemes[location.pathname] || colorSchemes.default;
     colorScheme.current = newColorScheme;
     setNavColor(newColorScheme[0]);
     setButtonStyle(newColorScheme[2]);
@@ -92,8 +122,8 @@ function Navigation({isLoaded}) {
         setButtonStylings('');
       }
     }
+    setIsLoaded(true)
   }, [location.pathname]);
-
 
 
   const getProfileImageSrc = (profileImage) => {
@@ -102,9 +132,19 @@ function Navigation({isLoaded}) {
 
   useEffect(() => {
       if (user) {
+        console.log(user);
           setProfileImageSrc(getProfileImageSrc(user.profileImage));
       }
   }, [user]);
+
+
+
+
+
+
+
+
+
 
   const handleLogoClick = () => {
     colorScheme.current = colorSchemes['/'];
@@ -154,8 +194,19 @@ function Navigation({isLoaded}) {
   }
 
 
+
+  if (!isLoaded) {
+    return null; 
+  }
+
+
   return (
+     
     <>
+
+   
+
+    
       {user && (
         <nav className={`nav-bar logged flexcenter ${colorSchemes['/'][1]}`}>
           <div className={`nav-buttons memo-text ${buttonStylings}`}>
@@ -218,7 +269,7 @@ function Navigation({isLoaded}) {
 
 
 
-                {isLoaded && (
+                {user && user.profileImage && (
                   <div className={`profile-div`}  onClick={handleProfileClick}>
                     <img src={profileImageSrc} alt="user profile picture" />
                   </div>
@@ -229,7 +280,9 @@ function Navigation({isLoaded}) {
                   <div
                     className={`profile-div`}
                     onClick={handleProfileClick}
-                  ></div>
+                  >
+                    <img src={quill} alt="user profile picture" />
+                  </div>
                 )}
 
 
@@ -243,6 +296,14 @@ function Navigation({isLoaded}) {
           </div>
         </nav>
       )}
+
+
+
+
+
+
+
+
 
 
   {!user && isTagUrl && (
@@ -332,6 +393,8 @@ function Navigation({isLoaded}) {
             <div className="logo large" onClick={handleLogoClick}>
               <img src={mediumLogoLarge} alt="medium cirlce logo"></img>
             </div>
+
+
             <div className={`nav-link-buttons ${buttonStylings}`}>
               <div
                 className={`nav-button ${buttonStylings}`}
@@ -372,8 +435,7 @@ function Navigation({isLoaded}) {
 
 
 
-
-    </>
+      </>
   );
 }
 
