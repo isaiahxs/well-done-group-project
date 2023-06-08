@@ -1,9 +1,10 @@
 from flask import Blueprint, jsonify, session, render_template, request, redirect
 from flask_login import login_required, current_user
-from app.models import db, Story, Tag, StoryImage, StoryTag, Comment, User,Clap
+from app.models import db, Story, Tag, StoryImage, StoryTag, Comment, User, Clap, Follower
 from app.forms import StoryForm
 from app.forms import StoryImageForm
 from app.forms import CommentForm
+from sqlalchemy.orm import joinedload
 story_routes = Blueprint('stories', __name__)
 
 
@@ -24,8 +25,11 @@ def initial_load():
     """
     Eager Load data upon initialization 
     """
+
+
     stories = Story.query.all()
     tags = Tag.query.all()
+
     return {
         'stories': [story.to_dict() for story in stories],
         'tags': [tag.tag for tag in tags],
@@ -205,7 +209,9 @@ def create_story_with_images():
 
         incoming_data = request.get_json()
         image_data_list = incoming_data.get('images', [])
+        tag_data_list = incoming_data.get('tags', [])
 
+    # handle story images
         for image_data in image_data_list:
 
             print(image_data)
@@ -219,7 +225,23 @@ def create_story_with_images():
             db.session.add(new_story_image)
             db.session.commit()
         else:
-            print('errors')        
+            print('errors')  
+
+
+    # handle story tags
+        for tag_data in tag_data_list:
+
+            print(tag_data)
+
+            new_story_tag = StoryTag(
+                story_id=story_id,
+                tag_id=tag_data['id'],
+            )
+            db.session.add(new_story_tag)
+            db.session.commit()
+        else:
+            print('errors')  
+         
 
 
         return new_story.to_dict()

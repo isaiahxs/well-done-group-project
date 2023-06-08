@@ -8,6 +8,7 @@ import { WindowContext } from '../../context/WindowContext';
 import StoryTileTwo from '../StoryTileTwo';
 import StoryTileTwoSkeleton from '../StoryTileTwoSkeleton';
 import mediumLogoLarge from '../../public/medium-logo-with-cirlces.svg';
+import * as sessionActions from '../../store/session';
 
 const MainPageContent = () => {
   const { windowSize } = useContext(WindowContext);
@@ -15,6 +16,7 @@ const MainPageContent = () => {
   const isMobileView = windowSize <= 900;
   const [isExtended, setIsExtended] = useState(false);
   const history = useHistory();
+  const dispatch = useDispatch();
   const tags = useSelector((state) => state.story.tags);
   const stories = useSelector((state) => state.story.stories);
   const loaded = useSelector((state) => state.story.loaded);
@@ -28,6 +30,16 @@ const MainPageContent = () => {
     history.push('/');
   };
 
+
+  const navToFeed = (tag) => {
+    console.log(tag);
+    dispatch(sessionActions.search(tag))
+    history.push(`/tag/${tag}`)
+    return
+  }
+
+
+ 
   return (
     <>
       {!loaded && (
@@ -152,7 +164,13 @@ const MainPageContent = () => {
 
                 {tags &&
                   tags.map((tag, i) => {
-                    return <div key={i} className="main-page-tag memo-text">{tag}</div>;
+                    return <div 
+                    key={i} 
+                    className="main-page-tag memo-text" 
+                    onClick={()=>{
+                      console.log('click');
+                      navToFeed(tag)
+                    }}>{tag} </div>;
                   })}
               </div>
               <div
@@ -228,7 +246,7 @@ const MainPageContent = () => {
                   {tags &&
                     tags.map((tag, i) => {
                       return (
-                        <div key={i} className="main-page-tag memo-text">{tag}</div>
+                        <div key={i} className="main-page-tag memo-text" onClick={()=>navToFeed(tag)}>{tag}</div>
                       );
                     })}
                 </div>

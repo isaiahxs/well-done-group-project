@@ -1,14 +1,21 @@
 // constants
 const SET_USER = "session/SET_USER";
+const RESTORE_USER = "session/RESTORE_USER";
 const REMOVE_USER = "session/REMOVE_USER";
 const NEW_SEARCH = "session/NEW_SEARCH";
 const REMOVE_SEARCH = "session/REMOVE_SEARCH";
 const SET_FEED = "session/SET_FEED";
 
-const setUser = (user) => ({
+export const setUser = (user) => ({
 	type: SET_USER,
 	payload: user,
 });
+
+export const restoreUser = (user) => ({
+	type: RESTORE_USER,
+	payload: user,
+});
+
 
 const removeUser = () => ({
 	type: REMOVE_USER,
@@ -23,12 +30,13 @@ const removeSearchAction = (searchQuery) => ({
 	type: REMOVE_SEARCH,
 	payload: searchQuery,
 });
+
 const setFeedAction = (feed) => ({
 	type: SET_FEED,
 	payload: feed,
 });
 
-const initialState = { user: null, search: {}, currentFeed: 'for you' };
+const initialState = { user: null, search: {}, currentFeed: 'for you', subscribedStories: [] };
 
 export const authenticate = () => async (dispatch) => {
 	const response = await fetch("/api/auth/", {
@@ -42,7 +50,7 @@ export const authenticate = () => async (dispatch) => {
 			return;
 		}
 
-		dispatch(setUser(data));
+		dispatch(restoreUser(data));
 	}
 };
 
@@ -75,6 +83,7 @@ export const signin = (credentials) => async (dispatch) => {
 
 export const logout = () => async (dispatch) => {
 	const response = await fetch("/api/auth/logout", {
+		method: "DELETE",
 		headers: {
 			"Content-Type": "application/json",
 		},
@@ -97,7 +106,7 @@ export const search = (searchQuery) => async (dispatch) => {
 };
 
 export const removeSearch = (searchQuery) => async (dispatch) => {
-		dispatch(removeSearchAction(searchQuery));
+	dispatch(removeSearchAction(searchQuery));
 };
 
 export const setFeed = (feed) => async (dispatch) => {
@@ -145,7 +154,11 @@ export default function reducer(state = initialState, action) {
 	const newState = {...state}
 	switch (action.type) {
 		case SET_USER:
-			return {...newState, user: action.payload.user };
+			console.log(action.payload);
+			return {...newState, user: action.payload.user, subscribedStories: action.payload.subscribedStories };
+		case RESTORE_USER:
+			console.log(action.payload);
+			return {...newState, user: action.payload.user };			
 		case REMOVE_USER:
 			return {...newState, user: null };
 		case NEW_SEARCH:

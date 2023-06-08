@@ -1,11 +1,12 @@
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useEffect, useState, useRef } from 'react';
 
 export const WindowContext = createContext();
 
 export const WindowProvider = ({ children }) => {
   const [windowSize, setWindowSize] = useState(window.innerWidth);
   const [scrollPosition, setScrollPosition] = useState(window.scrollY);
-  
+  const searchInputRef = useRef();
+
   useEffect(() => {
 
 
@@ -37,7 +38,7 @@ export const WindowProvider = ({ children }) => {
 
 
   return (
-    <WindowContext.Provider value={ {windowSize, scrollPosition} }>
+    <WindowContext.Provider value={ {windowSize, scrollPosition, searchInputRef} }>
       {children}
     </WindowContext.Provider>
   );

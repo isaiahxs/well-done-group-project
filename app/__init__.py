@@ -111,11 +111,22 @@ def search():
 
         conditions = [Story.title.ilike(f'%{term}%') for term in search_terms]
         author_conditions = [User.first_name.ilike(f'%{term}%') | User.last_name.ilike(f'%{term}%') for term in search_terms]
+        tag_conditions = [Tag.tag.ilike(f'%{term}%') for term in search_terms]
 
         # last_names = [Story.author.lastName.ilike(f'%{term}%') for term in search_terms]
 
         stories = Story.query.filter(or_(*conditions)).all()
         authors = User.query.filter(or_(*author_conditions)).all()
+
+
+        matching_tags = Tag.query.filter(or_(*tag_conditions)).all()
+        matching_tag_ids = [tag.id for tag in matching_tags]
+
+        matching_story_tags = StoryTag.query.filter(StoryTag.tag_id.in_(matching_tag_ids)).all()
+
+        matching_story_ids = set(story_tag.story_id for story_tag in matching_story_tags)
+        tagged_stories = Story.query.filter(Story.id.in_(matching_story_ids)).all()
+
         # author1 = Story.query.filter(or_(*first_names)).all()
         # author2 = Story.query.filter(or_(*last_names)).all()
 
@@ -123,9 +134,8 @@ def search():
         'search': search_query,
         'stories': [story.safe_dict() for story in stories],
         'length': len(stories),
-        'authors': [author.safe_dict() for author in authors]
-        # 'authors': [*author1,*author2]
-
+        'authors': [author.safe_dict() for author in authors],
+        'taggedStories': [story.safe_dict() for story in tagged_stories]
     }
 
 
