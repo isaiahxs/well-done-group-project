@@ -127,6 +127,24 @@ export const removeClap = (storyId ) => async (dispatch) => {
 	}
 }
 
+export const postComment = (storyId, comment) => async (dispatch) => {
+	const response = await fetch(`/api/story/${storyId}/comment`, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({ comment })
+	})
+	if (response.ok) {
+		const data = await response.json();
+		return data;
+	} else {
+		const data = await response.json();
+		return data;
+	}
+}
+
+
 
 //first version
 export default function reducer(state = initialState, action) {

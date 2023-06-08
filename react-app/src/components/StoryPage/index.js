@@ -6,6 +6,7 @@ import { WindowContext } from '../../context/WindowContext';
 import parse from 'html-react-parser';
 import { useDispatch } from 'react-redux';
 import { updateClapCount, removeClap } from '../../store/story';
+import CommentPanel from '../CommentPanel';
 
 const StoryPage = () => {
 
@@ -18,11 +19,9 @@ const StoryPage = () => {
   // const [readTime, setReadTime] = useState(readTime);
   // const {readTime} = useContext(WindowContext)
   const dispatch = useDispatch();
+  //track whether comment panel is open or not
+  const [isCommentPanelOpen, setCommentPanelOpen] = useState(false);
 
-  //first version that was updating frontend but not backend
-  // const handleClapClick = () => {
-  //   dispatch(updateClapCount(story.id)) //dispatching the action to update the clap count
-  // }
 
   const handleClapClick = async () => {
     const response = await dispatch(updateClapCount(story.id)) //dispatching the action to update the clap count
@@ -127,7 +126,10 @@ const StoryPage = () => {
             <button className='clap-button' onClick={handleClapClick}>Clap</button>
             <button className='unclap-button' onClick={handleUnclapClick}>Unclap</button>
             <button className='clap-count'>Claps {story.claps}</button>
-            <button className='comment-button'>Comment {story.comments.length}</button>
+            <CommentPanel isOpen={isCommentPanelOpen} comments={story.comments} storyId={story.id} onClose={() => setCommentPanelOpen(false)} />
+
+            <button className='comment-button' onClick={() => setCommentPanelOpen(true)}>Comment {story.comments.length}</button>
+            {/* <button className='comment-button'>Comment {story.comments.length}</button> */}
           </div>
 
           {/* this is where the options will appear under a certain width */}
@@ -135,10 +137,6 @@ const StoryPage = () => {
             <button>Listen</button>
             <button>Share</button>
             <button>... More</button>
-          </div> */}
-
-          {/* <div className="story-content" dangerouslySetInnerHTML={{ __html: insertImagesInContent(story.content) }}>
-            {renderStoryContent(story.content)}
           </div> */}
 
           <div className="story-content">
@@ -149,10 +147,6 @@ const StoryPage = () => {
                     </div>
             ))}
           </div>
-
-          {/* <div>
-            {parse(story.content)}
-          </div> */}
 
           <div className='main-page-tag-container'>
             {renderTags()}
