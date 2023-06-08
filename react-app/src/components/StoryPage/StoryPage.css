@@ -37,8 +37,9 @@
   width: 50px;
   /* width: 75%; */
   margin-right: 10px;
-  /* border: 1px solid black;
-  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 1); */
+  border: 2px solid black;
+  border-radius: 30px;
+  /* box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 1); */
 
 }
 

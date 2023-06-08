@@ -33,5 +33,6 @@ class Comment(db.Model):
             'author': {
                 'firstName': self.user.first_name,
                 'lastName': self.user.last_name,
-            }
+                'profileImage': self.user.profile_image,
+            },
         }

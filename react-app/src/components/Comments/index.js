@@ -26,7 +26,10 @@ const Comments = ({ storyId, comments, authorInfo }) => {
   
         <div>
           {comments.map((comment) => (
-            <p key={comment.id}>{comment.content}</p>
+            <div className='comment-tile'>
+                <img src={comment.author.profileImage} alt='comment-author-image' className='comment-author-image'/>
+                <p key={comment.id}>{comment.author.firstName} {comment.author.lastName}: "{comment.content}"</p>
+            </div>
           ))}
         </div>
       </div>

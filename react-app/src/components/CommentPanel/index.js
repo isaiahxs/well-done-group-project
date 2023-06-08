@@ -4,15 +4,6 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import './CommentPanel.css';  // CSS for sliding animation
 
-// const Comment = ({comment}) => {
-//     return (
-//         <div className='comment'>
-//             <h4>{comment.author}</h4>
-//             <p>{comment.content}</p>
-//         </div>
-//     )
-// }
-
 const CommentPanel = ({ isOpen, comments, onClose, storyId }) => {
     const {id} = useParams();
     const [showComments, setShowComments] = useState(false);

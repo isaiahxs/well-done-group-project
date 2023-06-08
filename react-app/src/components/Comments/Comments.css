@@ -1,0 +1,13 @@
+.comment-author-image {
+    height: 50px;
+    width: 50px;
+    margin-right: 10px;
+    /* box-shadow: 3px 3px 0px 0px rgba(0, 0, 0, 1); */
+    border-radius: 30px;
+    border: 2px solid black;
+}
+
+.comment-tile {
+    display: flex;
+    margin: 5px;
+}
