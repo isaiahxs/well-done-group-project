@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useContext, useState } from 'react';
 import { useHistory} from 'react-router-dom';
 import { useDispatch, useSelector  } from 'react-redux';
 import { ModalContext } from '../../context/ModalContext';
+import * as sessionActions from '../../store/session';
 
 import './ProfileButtonModal.css';
 
@@ -30,6 +31,7 @@ console.log('opening!');
     // dispatch(sessionActions.logout());
     history.push('/');
     closeModal();
+    dispatch(sessionActions.logout())
   };
 
   
@@ -40,6 +42,9 @@ console.log('opening!');
     
     <div className="profile-menu" ref={formRef}>
       heloo
+      <div className="profilemenu-logout-button" onClick={logout}>
+        Sign out
+      </div>
     </div>
         
 

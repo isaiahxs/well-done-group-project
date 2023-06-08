@@ -45,20 +45,7 @@ export const authenticate = () => async (dispatch) => {
 		},
 	});
 	if (response.ok) {
-		console.log('ye sok');
-		console.log('ye sok');
-		console.log('ye sok');
-		console.log('ye sok');
-		console.log('ye sok');
-		console.log('ye sok');
-		console.log('ye sok');
-		console.log('ye sok');
-		console.log('ye sok');
-		console.log('ye sok');
-		console.log('ye sok');
-		console.log('ye sok');
 		const data = await response.json();
-		console.log(data);
 		if (data.errors) {
 			return;
 		}
@@ -96,6 +83,7 @@ export const signin = (credentials) => async (dispatch) => {
 
 export const logout = () => async (dispatch) => {
 	const response = await fetch("/api/auth/logout", {
+		method: "DELETE",
 		headers: {
 			"Content-Type": "application/json",
 		},

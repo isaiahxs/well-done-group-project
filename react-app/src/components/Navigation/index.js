@@ -18,7 +18,22 @@ import fountainPen from '../../public/fountain-pen.png';
 import writeIcon from '../../public/write-icon.svg';
 import bellIcon from '../../public/bell-icon.svg';
 
-function Navigation() {
+const colorSchemes = {
+  '/': ['nav-yellow', 'nav-white', 'button-black', 'button-green'],
+  '/write': ['nav-red', 'nav-white', 'button-black', 'button-black'],
+  '/about': ['nav-white', 'nav-white', 'button-black', 'button-black'],
+  default: ['nav-white', 'nav-white', 'button-black', 'button-black'],
+};
+
+const profileImages = {
+  'quill': quill,
+  'user-outline': userOutline,
+  'open-book': openBook,
+  'fountain-pen': fountainPen,
+}
+
+
+function Navigation({isLoaded}) {
   const { modal, openModal, closeModal, updateObj, setUpdateObj } =
     useContext(ModalContext);
 
@@ -34,12 +49,6 @@ function Navigation() {
 
   const { scrollPosition, windowSize, searchInputRef } = useContext(WindowContext);
 
-  const colorSchemes = {
-    '/': ['nav-yellow', 'nav-white', 'button-black', 'button-green'],
-    '/write': ['nav-red', 'nav-white', 'button-black', 'button-black'],
-    '/about': ['nav-white', 'nav-white', 'button-black', 'button-black'],
-    default: ['nav-white', 'nav-white', 'button-black', 'button-black'],
-  };
 
   // const [colorScheme, setColorScheme] = useState(colorSchemes[location.pathname] || colorSchemes.default);
   const colorScheme = useRef(
@@ -65,8 +74,6 @@ function Navigation() {
 
   useEffect(() => {
     setIsTagUrl(false)
-
-
     if(location.pathname.slice(0,4) === '/tag' || location.pathname.slice(0,6) === '/story') {  
       setIsTagUrl(true)
     }
@@ -87,20 +94,16 @@ function Navigation() {
     }
   }, [location.pathname]);
 
+
+
+  const getProfileImageSrc = (profileImage) => {
+    return profileImages[profileImage] || profileImage;
+  };
+
   useEffect(() => {
-    if (user && user.profileImage) {
-      if (user.profileImage === 'quill') {
-        setProfileImageSrc(quill);
-      } else if (user.profileImage === 'user-outline') {
-        setProfileImageSrc(userOutline);
-      } else if (user.profileImage === 'open-book') {
-        setProfileImageSrc(openBook);
-      } else if (user.profileImage === 'fountain-pen') {
-        setProfileImageSrc(fountainPen);
-      } else {
-        setProfileImageSrc(user.profileImage);
+      if (user) {
+          setProfileImageSrc(getProfileImageSrc(user.profileImage));
       }
-    }
   }, [user]);
 
   const handleLogoClick = () => {
@@ -215,7 +218,7 @@ function Navigation() {
 
 
 
-                {user && user.profileImage && (
+                {isLoaded && (
                   <div className={`profile-div`}  onClick={handleProfileClick}>
                     <img src={profileImageSrc} alt="user profile picture" />
                   </div>
