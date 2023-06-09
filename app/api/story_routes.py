@@ -5,6 +5,12 @@ from app.forms import StoryForm
 from app.forms import StoryImageForm
 from app.forms import CommentForm
 from sqlalchemy.orm import joinedload
+
+from werkzeug.utils import secure_filename
+from ..aws3 import s3, bucket
+import os
+
+
 story_routes = Blueprint('stories', __name__)
 
 
@@ -156,6 +162,25 @@ def create_story_image(id):
 
       print(form.errors)
 
+    if 'file' in request.files:
+            file = request.files['file']
+            if file.filename == '':
+                return {"error": "No file selected"}, 400
+
+            filename = secure_filename(file.filename)
+            file.save(filename)
+
+            s3.upload_file(
+                Bucket='well-done-proj',
+                Filename=filename,
+                Key=filename
+            )
+
+            url = f"https://{bucket}.s3.us-east-2.amazonaws.com/{filename}"
+        
+    # take a look at this after, test validate form before and 
+
+
     if form.validate_on_submit():
       data = form.data
       story = Story.query.get(id)
@@ -193,6 +218,26 @@ def create_story_with_images():
     form['csrf_token'].data = request.cookies['csrf_token']
     if not form.validate_on_submit(): 
         print(form.errors)
+
+
+
+    if 'file' in request.files:
+            file = request.files['file']
+            if file.filename == '':
+                return {"error": "No file selected"}, 400
+
+            filename = secure_filename(file.filename)
+            file.save(filename)
+
+            s3.upload_file(
+                Bucket='well-done-proj',
+                Filename=filename,
+                Key=filename
+            )
+
+            url = f"https://{bucket}.s3.us-east-2.amazonaws.com/{filename}"
+        
+    # take a look at this after, test validate form before and 
 
     if form.validate_on_submit():
         data = form.data

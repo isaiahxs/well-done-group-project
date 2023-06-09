@@ -104,7 +104,6 @@ const StoryFeed = () => {
 
   return (
     <div className="storyfeed-container">
-          {!user && (<div className='sidepanel-banner-cover'></div>)}
 
       <nav className={`feed-nav flexcenter`}>
         <div className="feed-select-container">

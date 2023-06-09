@@ -2,20 +2,20 @@
   flex-direction: row;
   max-width: 1200px;
   width: 100%;
+  position: relative;
   margin: 0 auto;
+  top: 55px;
 }
 
 
-
+.storyfeed-wrapper{
+  width: 65%;
+}
 
 .storyfeed-wrapper.wide{
   width: 100%;
 }
 
-.storyfeed-wrapper{
-  width: 65%;
-  padding-right: 5%;
-}
 
 .sidepanel-wrapper{
   border-left: #e6e6e6 solid 1px;
@@ -26,7 +26,5 @@
   height: 1000px;
   position: sticky;
   top: -450px;
-
-
-
 }
+

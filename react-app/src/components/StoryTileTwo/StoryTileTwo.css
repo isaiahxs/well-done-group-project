@@ -1,5 +1,4 @@
 .story-tile-style2 {
-  background-color: #fff;
   height: fit-content;
   width: 99%;
   left: 0%;
@@ -98,7 +97,6 @@
 .style2-story-image{
   height: 105px;
   width: 150px;
-  background-color: aquamarine;
   right: 0px;
   overflow: hidden;
 }
@@ -122,7 +120,6 @@
   .style2-story-image{
     height: 150px;
     width: 200px;
-    background-color: rgb(206, 142, 46);
     right: 0px;
   }
 

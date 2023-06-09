@@ -1,24 +1,24 @@
 // constants
 const GET_STORIES = "story/GET_STORIES";
+const INITIAL_LOAD = "story/INITIAL_LOAD";
+const CREATE_STORY = "story/CREATE_STORY";
 
 const getStoriesAction = (stories) => ({
 	type: GET_STORIES,
 	payload: stories,
 });
 
-const INITIAL_LOAD = "story/INITIAL_LOAD";
-
-//used to have `payload: data,` after type but then changed it so payload has stories and currentStory
 const initialLoadAction = (data) => ({
 	type: INITIAL_LOAD,
 	payload: data
 });
 
-//what i tried, but then realized we might not need to do a currentStory since we can key into stories
-// payload: {
-// 	stories: data.stories,
-// 	currentStory: data.currentStory, //this is the current story
-// }
+const createStoryAction = (data) => ({
+	type: CREATE_STORY,
+	payload: data
+});
+
+
 
 const initialState = { stories: [], tags: [], loaded: false };
 
@@ -38,6 +38,27 @@ export const initialLoad = () => async (dispatch) => {
 		const data = await response.json();
 		if (data.errors) {
 
+			return data.errors;
+		}
+	} else {
+		return ["An error occurred. Please try again."];
+	}
+};
+
+export const createStory = () => async (dispatch) => {
+	const response = await fetch("/api/story/create", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		}
+	});
+	if (response.ok) {
+		const data = await response.json();
+		dispatch(createStoryAction(data));
+		return null;
+	} else if (response.status < 500) {
+		const data = await response.json();
+		if (data.errors) {
 			return data.errors;
 		}
 	} else {

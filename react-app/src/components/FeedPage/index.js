@@ -18,9 +18,6 @@ const FeedPage = () => {
 
 
   useEffect(() => {
-    //  if(!user){ 
-    //   history.push('/')
-    // }
 
     window.scrollTo(0, 0);
 
@@ -37,7 +34,7 @@ const FeedPage = () => {
 
       {windowSize < 900 &&(
         <div>
-          <StoryFeed className='storyfeed-wrapper wide'/>
+          <StoryFeed className={`storyfeed-wrapper wide`}/>
         </div>
       )}
 

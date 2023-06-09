@@ -1,22 +1,27 @@
+.storyfeed-container{
+  width: 100%;
+  position: relative;
+  background-color: #4752b1;
+}
+
+
+
 .feed-nav {
-  position: sticky;
   display: flex;
   justify-content: space-between;
-  top: 0px;
-  left: 0px;
   width: 100%;
-  z-index: 10;
   background-color: #ffffff;
+  background-color: #4752b1;
   border-bottom: rgba(73, 73, 73, 0.2) solid 1px ;
   box-shadow: 2px 0  0 2px rgba(73, 73, 73, 1) solid 1px ;
   height: 55px;
 } 
 
 .feed-select-container{
+  background-color: #32c72d;
+  border: black solid 1px;
   display: flex;
-  position: absolute;
   width: 100%;
-  left: 10px;
   height: 100%;
   overflow-x: scroll;
   scrollbar-width: none; /* For Firefox */
@@ -134,7 +139,7 @@
   top: 0px;
   left: 0px;
   width: 100%;
-  background-color: #ffffff;
+  background-color: #d03838;
   border-bottom: rgba(73, 73, 73, 0.2) solid 1px ;
   box-shadow: 2px 0  0 2px rgba(73, 73, 73, 1) solid 1px ;
   height: 55px;
