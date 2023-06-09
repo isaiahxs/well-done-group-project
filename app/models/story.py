@@ -23,7 +23,7 @@ class Story(db.Model):
 
     author = db.relationship('User', backref='stories')
     claps = db.relationship('Clap', back_populates='story', cascade="all, delete-orphan")
-    tags = db.relationship('StoryTag', back_populates='story', cascade="all, delete-orphan")
+    tags = db.relationship('StoryTag', back_populates='story', overlaps='story_tags', cascade="all, delete-orphan")
     images = db.relationship('StoryImage', back_populates='story', cascade="all, delete-orphan")
     comments = db.relationship('Comment', back_populates='story', cascade="all, delete-orphan")
 
