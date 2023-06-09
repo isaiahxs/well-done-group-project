@@ -6,7 +6,7 @@ from sqlalchemy import Column, DateTime, func
 
 
 class StoryTag(db.Model):
-    __tablename__ = 'storyTags'
+    __tablename__ = 'story_tags'
 
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
