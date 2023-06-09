@@ -13,6 +13,7 @@ import StoryTileTwoSkeleton from '../StoryTileTwoSkeleton';
 const StoryFeed = () => {
   const dispatch = useDispatch();
   const stories = useSelector((state) => state.story.stories);
+  const loaded = useSelector((state) => state.story.loaded);
   const subscribedStories = useSelector(
     (state) => state.session.subscribedStories
   );
@@ -27,28 +28,6 @@ const StoryFeed = () => {
   const [feedContent, setFeedContent] = useState(null);
   const [showHeader, setShowHeader] = useState(false);
 
-  useEffect(() => {
-    console.log(currentFeed);
-
-    if (stories && !currentFeed) {
-      dispatch(sessionActions.setFeed('stories'));
-    }
-    if (currentFeed === 'for you' || currentFeed === 'stories') {
-      setShowHeader(false);
-      setFeedContent(stories);
-      setSelected('stories');
-    }
-    if (currentFeed === 'following') {
-      setShowHeader(false);
-      setFeedContent(subscribedStories);
-      setSelected('stories');
-    }
-
-    if (currentFeed && searchResults[currentFeed]) {
-      setShowHeader(true);
-      setFeedContent(searchResults[currentFeed].stories);
-    }
-  }, [currentFeed]);
 
   useEffect(() => {
     console.log(currentFeed);
@@ -71,7 +50,9 @@ const StoryFeed = () => {
       setShowHeader(true);
       setFeedContent(searchResults[currentFeed].stories);
     }
-  }, [currentFeed]);
+  }, [currentFeed, stories, subscribedStories]);
+
+
 
   const handleSelectFeed = (feed) => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -101,6 +82,8 @@ const StoryFeed = () => {
     dispatch(sessionActions.setFeed('for you'));
     dispatch(sessionActions.removeSearch(searchQuery));
   };
+
+  console.log(currentFeed);
 
   return (
     <div className="storyfeed-container">
@@ -159,8 +142,8 @@ const StoryFeed = () => {
         </div>
       </nav>
 
-      {/* {showHeader && ( */}
-      <div className={`feed-header ${showHeader ? 'extended' : ''}`}>
+
+      <div className={`feed-header ${showHeader ? 'extended' : 'hidden'}`}>
         <nav className={`search-nav flexcenter`}>
           <div className="feed-select-container">
             <div
@@ -190,9 +173,11 @@ const StoryFeed = () => {
           </div>
         </nav>
       </div>
-      {/* )} */}
 
-      {!currentFeed && !feedContent && (
+
+                
+
+      {!loaded && (
         <div>
           <StoryTileTwoSkeleton />
           <StoryTileTwoSkeleton />
@@ -205,17 +190,17 @@ const StoryFeed = () => {
         </div>
       )}
 
-      {selected === 'taggedStories' &&
+      {loaded && selected === 'taggedStories' &&
         currentFeed &&
         feedContent &&
         feedContent.map((story, i) => <StoryTileTwo key={i} story={story} />)}
 
-      {selected === 'stories' &&
+      {loaded && selected === 'stories' &&
         currentFeed &&
         feedContent &&
         feedContent.map((story, i) => <StoryTileTwo key={i} story={story} />)}
 
-      {selected === 'authors' &&
+      {loaded && selected === 'authors' &&
         currentFeed &&
         feedContent &&
         feedContent.map((author, i) => <AuthorTile key={i} author={author} />)}
