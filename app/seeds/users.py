@@ -188,7 +188,7 @@ def seed_users():
         username='scarletwitch',
         email='scarletwitch@example.com',
         password='chaosmagic',
-        profile_image='https://images-wixmp-ed30a86b8c4ca887773594c2.wixmp.com/f/aac39ffc-42e8-49fe-a1a1-9706baf7af0d/dejzo14-06af50ae-86db-4e4e-91b9-22bfafdb84a4.png/v1/fill/w_894,h_894,q_70,strp/scarlet_witch_icon_by_thelivingethan_dejzo14-pre.jpg?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ1cm46YXBwOjdlMGQxODg5ODIyNjQzNzNhNWYwZDQxNWVhMGQyNmUwIiwiaXNzIjoidXJuOmFwcDo3ZTBkMTg4OTgyMjY0MzczYTVmMGQ0MTVlYTBkMjZlMCIsIm9iaiI6W1t7ImhlaWdodCI6Ijw9MzI4OCIsInBhdGgiOiJcL2ZcL2FhYzM5ZmZjLTQyZTgtNDlmZS1hMWExLTk3MDZiYWY3YWYwZFwvZGVqem8xNC0wNmFmNTBhZS04NmRiLTRlNGUtOTFiOS0yMmJmYWZkYjg0YTQucG5nIiwid2lkdGgiOiI8PTMyODgifV1dLCJhdWQiOlsidXJuOnNlcnZpY2U6aW1hZ2Uub3BlcmF0aW9ucyJdfQ.eVqNMf3sSSuX7W_HATqPMRaIjHw4TIa2z3KTQgcLFbc',
+        profile_image='https://64.media.tumblr.com/8bf96fe7d1092b99185c0a3af0342e7b/0d6f9bc72839780b-58/s400x600/3b355d8f8808590c9d9416c56fb64b5fa0256a8f.png',
         first_name='Wanda',
         last_name='Maximoff'
     )
