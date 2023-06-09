@@ -60,7 +60,6 @@ def upgrade():
     sa.PrimaryKeyConstraint('id')
     )
 
-
     # ### end Alembic commands ###qqqqqqqqq
     if environment == "production":
         op.execute(f"ALTER TABLE followers SET SCHEMA {SCHEMA};")

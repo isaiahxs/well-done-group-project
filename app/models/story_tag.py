@@ -12,8 +12,8 @@ class StoryTag(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    story_id = db.Column(db.Integer, db.ForeignKey('stories.id'), nullable=False)
-    tag_id = db.Column(db.Integer, db.ForeignKey('tags.id'), nullable=False)
+    story_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('stories.id')), nullable=False)
+    tag_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('tags.id')), nullable=False)
 
     story = db.relationship('Story', backref='story_tags')
     tag = db.relationship('Tag', backref='story_tags')
