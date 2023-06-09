@@ -7,7 +7,7 @@ from sqlalchemy import Column, DateTime, func
 
 
 class StoryImage(db.Model):
-    __tablename__ = 'storyImages'
+    __tablename__ = 'story_images'
 
     if environment == "production":
         __table_args__ = {'schema': SCHEMA}
