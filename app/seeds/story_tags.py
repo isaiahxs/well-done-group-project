@@ -46,8 +46,8 @@ def seed_story_tags():
 
 def undo_story_tags():
     if environment == "production":
-        db.session.execute(f"TRUNCATE table {SCHEMA}.storyTags RESTART IDENTITY CASCADE;")
+        db.session.execute(f"TRUNCATE table {SCHEMA}.story_tags RESTART IDENTITY CASCADE;")
     else:
-        db.session.execute(text("DELETE FROM storyTags"))
+        db.session.execute(text("DELETE FROM story_tags"))
         
     db.session.commit()
