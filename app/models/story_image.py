@@ -13,7 +13,7 @@ class StoryImage(db.Model):
         __table_args__ = {'schema': SCHEMA}
 
     id = db.Column(db.Integer, primary_key=True)
-    story_id = db.Column(db.Integer, db.ForeignKey('stories.id'), nullable=False)
+    story_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('stories.id')), nullable=False)
     url = db.Column(db.String(255), nullable=False)
     position = db.Column(db.Integer, nullable=False)
     alt_tag = db.Column(db.String, nullable=False)
