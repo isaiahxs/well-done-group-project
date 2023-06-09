@@ -40,7 +40,7 @@ def upgrade():
     sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-    op.create_table('storyImages',
+    op.create_table('story_images',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('story_id', sa.Integer(), nullable=False),
     sa.Column('url', sa.String(length=255), nullable=False),
@@ -64,7 +64,7 @@ def upgrade():
     if environment == "production":
         op.execute(f"ALTER TABLE followers SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE claps SET SCHEMA {SCHEMA};")
-        op.execute(f"ALTER TABLE storyImages SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE story_images SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE storyTags SET SCHEMA {SCHEMA};")
 
 
@@ -73,7 +73,7 @@ def downgrade():
 
 
     op.drop_table('storyTags')
-    op.drop_table('storyImages')
+    op.drop_table('story_images')
     op.drop_table('claps')
     op.drop_table('followers')
     # ### end Alembic commands ###
