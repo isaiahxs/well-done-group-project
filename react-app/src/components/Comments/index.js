@@ -74,13 +74,13 @@ const Comments = ({ userId, storyId, comments, authorInfo }) => {
             <div className='most-relevant'>Most Relevant</div>
           {comments.map((comment) => (
             // console.log('THIS IS OUR COMMENT AUTHOR ID', comment.userId),
-            <div className='comment-tile'>
+            <div className='comment-tile' key={comment.id}>
                 <div>
                     <img src={comment.author.profileImage} alt='comment-author-image' className='comment-author-image'/>
-                    <p key={comment.id}>{comment.author.firstName} {comment.author.lastName}</p>
+                    <p>{comment.author.firstName} {comment.author.lastName}</p>
                     <p className='time'>{comment.createdAt.slice(0, 16)}</p>
                     {/* <p key={comment.id}>{comment.content}</p> */}
-                    <p key={comment.id}>
+                    <p>
                         {editingCommentId === comment.id ?
                             <form onSubmit={(e) => handleEditSubmit(e, comment.id)}>
                                 <input 
