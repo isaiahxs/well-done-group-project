@@ -23,6 +23,8 @@ const SidePanel = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
     dispatch(sessionActions.search(tag))
+    dispatch(sessionActions.setFeed(tag))
+    dispatch(sessionActions.setSubFeed('taggedStories'))
   }
 
 
@@ -36,14 +38,19 @@ const SidePanel = () => {
           <div className="sidepanel-staff-picks-header flexcenter align-left memo-text">
             <div >Staff Picks of the Month:</div>
           </div>
-          
-          <div className="sidepanel-staff-picks-content flex">
-            <StoryTileThree story={stories[7]}/>
-            <StoryTileThree story={stories[8]}/>
-            <StoryTileThree story={stories[9]}/>
-            <StoryTileThree story={stories[12]}/>
-            <StoryTileThree story={stories[11]}/>
-          </div>
+
+
+            <div className="sidepanel-staff-picks-content flex">
+              <StoryTileThree story={stories[7]}/>
+              <StoryTileThree story={stories[8]}/>
+              <StoryTileThree story={stories[9]}/>
+              <StoryTileThree story={stories[12]}/>
+              <StoryTileThree story={stories[13]}/>
+              <StoryTileThree story={stories[14]}/>
+              <StoryTileThree story={stories[15]}/>
+              <StoryTileThree story={stories[16]}/>
+            </div>
+      
           
 
         </div>

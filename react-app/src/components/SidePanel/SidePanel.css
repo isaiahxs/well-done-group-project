@@ -25,21 +25,17 @@
 
 
 .sidepanel-staff-picks-content {
-  height: 40px;
+  height: 100%;
   width: 100%;
   position: relative;
   flex-direction: column;
-
+  overflow-y: scroll;
+  scrollbar-width: none; /* For Firefox */
+  -ms-overflow-style: none;  /* For Internet Explorer and Edge */
 }
 
-.sidepanel-writing-wrapper {
-  height: 300px;
-}
-
-.sidepanel-writing-container {
-  height: 90%;
-  width: 90%;
-  background-color: rgb(244, 214, 174);
+.sidepanel-staff-picks-content::-webkit-scrollbar {
+  display: none; /* For Chrome, Safari and Opera */
 }
 
 
@@ -47,7 +43,7 @@
   position: relative;
   top: 0px;
   height: 300px;
-  width: 90%;
+  width: 100%;
   border-top: #e6e6e6 solid 1px;
 
 }

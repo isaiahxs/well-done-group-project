@@ -70,7 +70,6 @@ body {
   right: 0;
   bottom: 0;
   z-index: 100;
-  /* background-color: transparent; */
   background-color: rgba(229, 229, 229, .1);
 
 }

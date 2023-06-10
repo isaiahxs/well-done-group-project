@@ -1,0 +1,31 @@
+.createstory-container{
+  border: black solid 1px;
+  width: 100%;
+  height: fit-content;
+  top: 70px;
+  position: relative;
+}
+
+.image-main{
+  width: 50px;
+  height: 50px;
+}
+
+.image-main img{
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+}
+
+.imagelist{
+  position: absolute;
+  left:300px;
+  top: 300px;
+  border: green 1px solid;
+  width: 500px;
+  height: 500px;
+}
+
+.listitem{
+font-size: 15px;
+}

@@ -20,10 +20,13 @@ import bellIcon from '../../public/bell-icon.svg';
 
 const colorSchemes = {
   '/': ['nav-yellow', 'nav-white', 'button-black', 'button-green'],
+  '/home': ['nav-yellow', 'nav-white', 'button-black', 'button-green'],
   '/write': ['nav-red', 'nav-white', 'button-black', 'button-black'],
   '/about': ['nav-white', 'nav-white', 'button-black', 'button-black'],
   default: ['nav-white', 'nav-white', 'button-black', 'button-black'],
 };
+
+
 
 const profileImages = {
   'quill': quill,
@@ -46,20 +49,17 @@ function Navigation() {
 
   const state = useSelector((state) => state);
   const user = useSelector((state) => state.session.user);
-  // const userImage = useSelector((state) => state.session.user.profileImage);
   const searchResults = useSelector((state) => state.session.search);
 
   const { scrollPosition, windowSize, searchInputRef } = useContext(WindowContext);
 
 
-  // const [colorScheme, setColorScheme] = useState(colorSchemes[location.pathname] || colorSchemes.default);
-  const colorScheme = useRef(
-    colorSchemes[location.pathname] || colorSchemes.default
-  );
+  const colorScheme = useRef(colorSchemes[location.pathname] || colorSchemes.default);
   const [navColor, setNavColor] = useState(colorScheme[0]);
   const [buttonStyle, setButtonStyle] = useState(colorScheme[2]);
   const [profileImageSrc, setProfileImageSrc] = useState('');
   const [isTagUrl, setIsTagUrl] = useState(false);
+  const [isLandingPage, setIsLandingPage] = useState(false);
 
   useEffect(() => {
     const colors = colorScheme.current;
@@ -74,43 +74,25 @@ function Navigation() {
   }, [scrollPosition]);
 
 
-  // useEffect(() => {
-  //   setIsLoaded(false)
-
-  //   setIsTagUrl(false)
-  //   if(location.pathname.slice(0,4) === '/tag' || location.pathname.slice(0,6) === '/story') {  
-  //     setIsTagUrl(true)
-  //   }
-
-
-  //   const newColorScheme =
-  //     colorSchemes[location.pathname] || colorSchemes.default;
-  //   colorScheme.current = newColorScheme;
-  //   setNavColor(newColorScheme[0]);
-  //   setButtonStyle(newColorScheme[2]);
-
-  //   if (!user) {
-  //     if (location.pathname === '/write' || location.pathname === '/about') {
-  //       setButtonStylings('show');
-  //     } else {
-  //       setButtonStylings('');
-  //     }
-  //   }
-  //   setIsLoaded(true)
-  // }, [location.pathname]);
 
 
   useEffect(() => {
     setIsLoaded(false)
+    setIsLandingPage(false)
 
-    setIsTagUrl(false)
-    if(location.pathname.slice(0,4) === '/tag' || location.pathname.slice(0,6) === '/story') {  
-      setIsTagUrl(true)
+ 
+    if(location.pathname === '/' ) {  
+      setIsLandingPage(true)
     }
 
+    // Initialize with the default color scheme
+    let newColorScheme = colorSchemes[location.pathname] || colorSchemes.default
 
-    const newColorScheme =
-    colorSchemes[location.pathname] || colorSchemes.default;
+    
+    if (colorSchemes[location.pathname]) {
+      newColorScheme = colorSchemes[location.pathname];
+    }
+
     colorScheme.current = newColorScheme;
     setNavColor(newColorScheme[0]);
     setButtonStyle(newColorScheme[2]);
@@ -122,8 +104,9 @@ function Navigation() {
         setButtonStylings('');
       }
     }
+
     setIsLoaded(true)
-  }, [location.pathname]);
+  }, [location.pathname, user]);
 
 
   const getProfileImageSrc = (profileImage) => {
@@ -132,17 +115,9 @@ function Navigation() {
 
   useEffect(() => {
       if (user) {
-        console.log(user);
           setProfileImageSrc(getProfileImageSrc(user.profileImage));
       }
   }, [user]);
-
-
-
-
-
-
-
 
 
 
@@ -163,8 +138,7 @@ function Navigation() {
   };
 
   const handleWriteClick = () => {
-    history.push('/write');
-    colorScheme.current = colorSchemes['/write'];
+    history.push('/create');
   };
 
   const handleSigninClick = () => {
@@ -190,25 +164,25 @@ function Navigation() {
   };
 
   const newSearch = async () => {
-    await dispatch(sessionActions.search(search))
+    dispatch(sessionActions.search(search))
+    dispatch(sessionActions.setFeed(search))
+    dispatch(sessionActions.setSubFeed('stories'))
+    if(location.pathname !== '/home'){
+      history.push(`/home`)
+    }
   }
-
 
 
   if (!isLoaded) {
-    return null; 
+    return null
   }
-
 
   return (
      
     <>
-
-   
-
-    
+      {/* // For user logged in */}
       {user && (
-        <nav className={`nav-bar logged flexcenter ${colorSchemes['/'][1]}`}>
+        <nav className={`nav-bar ${location.pathname === '/home' ? 'logged' : ''} flexcenter ${navColor}`}>
           <div className={`nav-buttons memo-text ${buttonStylings}`}>
             <div className="flexcenter">
               <div className="logo small" onClick={handleLogoClick}>
@@ -233,7 +207,7 @@ function Navigation() {
                    <label>
                      <input
                        ref={searchInputRef}
-                       className="searchField"
+                       className='search-field'
                        type="search"
                        value={search}
                        onChange={(e) => setSearch(e.target.value)}
@@ -305,9 +279,10 @@ function Navigation() {
 
 
 
+{/* // For no user and on any page other than landing */}
 
-  {!user && isTagUrl && (
-        <nav className={`nav-bar logged flexcenter ${colorSchemes['/'][1]}`}>
+  {!user && !isLandingPage && (
+        <nav className={`nav-bar logged flexcenter ${navColor}`}>
           <div className={`nav-buttons memo-text ${buttonStylings}`}>
             <div className="flexcenter">
               <div className="logo small" onClick={handleLogoClick}>
@@ -332,7 +307,7 @@ function Navigation() {
                    <label>
                      <input
                        ref={searchInputRef}
-                       className="searchField"
+                       className="search-field"
                        type="search"
                        value={search}
                        onChange={(e) => setSearch(e.target.value)}
@@ -386,8 +361,8 @@ function Navigation() {
       )}
 
 
-
-      {!user && !isTagUrl && (
+{/* // For no user and at landing page */}
+      {!user && isLandingPage && (
         <nav className={`nav-bar flexcenter ${navColor}`}>
           <div className={`nav-buttons memo-text ${buttonStylings}`}>
             <div className="logo large" onClick={handleLogoClick}>

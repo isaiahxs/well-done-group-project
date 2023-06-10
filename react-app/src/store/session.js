@@ -1,20 +1,20 @@
+
 // constants
+import {SUBSCRIBED_STORIES} from './story'
 const SET_USER = "session/SET_USER";
-const RESTORE_USER = "session/RESTORE_USER";
 const REMOVE_USER = "session/REMOVE_USER";
 const NEW_SEARCH = "session/NEW_SEARCH";
 const REMOVE_SEARCH = "session/REMOVE_SEARCH";
 const SET_FEED = "session/SET_FEED";
+const SET_SUB_FEED = "session/SET_SUB_FEED";
+
 
 export const setUser = (user) => ({
 	type: SET_USER,
 	payload: user,
 });
 
-export const restoreUser = (user) => ({
-	type: RESTORE_USER,
-	payload: user,
-});
+
 
 
 const removeUser = () => ({
@@ -36,7 +36,14 @@ const setFeedAction = (feed) => ({
 	payload: feed,
 });
 
-const initialState = { user: null, search: {}, currentFeed: 'for you', subscribedStories: [] };
+const setSubFeedAction = (subFeed) => ({
+	type: SET_SUB_FEED,
+	payload: subFeed,
+});
+
+
+
+const initialState = { user: null, search: {}, currentFeed: 'for you', subFeed: null, subscribedStories: [] };
 
 export const authenticate = () => async (dispatch) => {
 	const response = await fetch("/api/auth/", {
@@ -50,7 +57,7 @@ export const authenticate = () => async (dispatch) => {
 			return;
 		}
 
-		dispatch(restoreUser(data));
+		dispatch(setUser(data));
 	}
 };
 
@@ -110,9 +117,15 @@ export const removeSearch = (searchQuery) => async (dispatch) => {
 };
 
 export const setFeed = (feed) => async (dispatch) => {
+	console.log(feed);
+
 	dispatch(setFeedAction(feed));
 };
 
+export const setSubFeed = (subFeed) => async (dispatch) => {
+	console.log(subFeed);
+	dispatch(setSubFeedAction(subFeed));
+};
 
 export const signUp = (credentials) => async (dispatch) => {
 	const {email, password, firstName, lastName, profileImage, username} = credentials
@@ -154,13 +167,9 @@ export default function reducer(state = initialState, action) {
 	const newState = {...state}
 	switch (action.type) {
 		case SET_USER:
-			console.log(action.payload);
-			return {...newState, user: action.payload.user, subscribedStories: action.payload.subscribedStories };
-		case RESTORE_USER:
-			console.log(action.payload);
-			return {...newState, user: action.payload.user };			
+			return {...newState, user: action.payload.user, subscribedStories: action.payload.subscribedStories, userStories: action.payload.userStories, followedAuthorIds:action.payload.followedAuthorIds, };		
 		case REMOVE_USER:
-			return {...newState, user: null };
+			return initialState;
 		case NEW_SEARCH:
 			const newSearch = {...newState.search}
 			newSearch[action.payload.search] = action.payload
@@ -173,6 +182,13 @@ export default function reducer(state = initialState, action) {
 		case SET_FEED:{
 			return {...newState, currentFeed: action.payload };		
 		}
+		case SET_SUB_FEED:{
+			return {...newState, subFeed: action.payload };		
+		}
+		case SUBSCRIBED_STORIES:
+			return {...newState, subscribedStories: action.payload};		
+		
+
 		default:
 			return newState;
 	}

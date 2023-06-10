@@ -5,9 +5,14 @@ from app.forms import StoryForm
 from app.forms import StoryImageForm
 from app.forms import CommentForm
 from sqlalchemy.orm import joinedload
+from werkzeug.utils import secure_filename
+import os
+
+from ..aws3 import s3, bucket
+import boto3
+
+
 story_routes = Blueprint('stories', __name__)
-
-
 
 
 @story_routes.route('/')
@@ -19,13 +24,46 @@ def stories():
     return {'stories': [story.to_dict() for story in stories]}
 
 
+@story_routes.route('/imagetest')
+def image_test():
+    """
+    Query for a story by id and returns that story in a dictionary
+    """
+
+    print('here')
+    print('here')
+    print('here')
+
+
+    image_name = 'Screenshot_2023-06-10_at_12.34.11_AM.png'
+    # image_name = 'https://well-done-proj.s3.us-east-2.amazonaws.com/Screenshot_2023-05-29_at_8.51.57_PM.png'
+    # image_name = 'https://well-done-proj.s3.us-east-2.amazonaws.com/Screenshot_2023-06-03_at_6.04.00_PM.png'
+    # Generate the presigned URL for the image
+    presigned_url = s3.generate_presigned_url(
+        'get_object',
+        Params={'Bucket': bucket, 'Key': image_name},
+        ExpiresIn=3600  # The URL will be valid for 1 hour
+    )
+    print('################')
+    print(presigned_url)
+    print('################')
+
+
+    return {'image':presigned_url}
+
+
+
+
+
+
+
+
 
 @story_routes.route('/initialize')
 def initial_load():
     """
     Eager Load data upon initialization 
     """
-
 
     stories = Story.query.all()
     tags = Tag.query.all()
@@ -48,6 +86,25 @@ def curr_user_stories():
     if stories is None:
         return {"error": "No stories found"}, 404
     return {'stories': [story.to_dict() for story in stories]}
+
+
+
+
+@story_routes.route('/subscribed')
+@login_required
+def subscribed_stories():
+    """
+    Query for all stories from  user's followed authors and returns them in a list of story dictionaries
+    """
+
+    followings = Follower.query.filter_by(follower_id=current_user.id).all()
+    followed_authors_ids = [following.author_id for following in followings]
+    subscribed_stories = Story.query.options(joinedload(Story.author)).filter(Story.author_id.in_(followed_authors_ids)).all()
+    
+
+    if subscribed_stories is None:
+        return {"error": "No stories found"}, 404
+    return {'subscribedStories': [story.to_dict() for story in subscribed_stories],}
 
 
 
@@ -149,12 +206,92 @@ def create_story_image(id):
     """
     Creates a new story image
     """
+    print('-=-=-*********=-=-')
+    print('-=-=-*********=-=-')
+
+    if 'images' in request.files:
+        files = request.files.getlist('images')
+        for file in files:
+            if file.filename == '':
+                return {"error": "No file selected"}, 400
+            filename = secure_filename(file.filename)
+            file.save(filename)
+            s3.upload_file(
+                Bucket='well-done-proj',
+                Filename=filename,
+                Key=filename
+            )
+            url = f"https://{bucket}.s3.us-east-2.amazonaws.com/{filename}"
+            print('#################')
+            print(url)
+            print('#################')
+
+            print('=================')
+            print(file)
+            print('=================')
+
+
+    if 'file' in request.files:
+            file = request.files['file']
+            print('-=-=-=-=-')
+            print('-=-=-=-=-')
+            print(file)
+            print('-=-=-=-=-')
+            print('-=-=-=-=-')
+            print('-=-=-=-=-')
+            if file.filename == '':
+                return {"error": "No file selected"}, 400
+
+            filename = secure_filename(file.filename)
+            file.save(filename)
+
+            s3.upload_file(
+                Bucket='well-done-proj',
+                Filename=filename,
+                Key=filename
+            )
+
+            url = f"https://{bucket}.s3.us-east-2.amazonaws.com/{filename}"
+
+            print(url)
+
+
+    print('-=-=-*****AFTER****=-=-')
+    print('-=-=-*****AFTER****=-=-')
+ 
 
     form = StoryImageForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if not form.validate_on_submit(): 
 
       print(form.errors)
+
+    # if 'file' in request.files:
+    #         file = request.files['file']
+    #         print('-=-=-=-=-')
+    #         print('-=-=-=-=-')
+    #         print(file)
+    #         print('-=-=-=-=-')
+    #         print('-=-=-=-=-')
+    #         print('-=-=-=-=-')
+    #         if file.filename == '':
+    #             return {"error": "No file selected"}, 400
+
+    #         filename = secure_filename(file.filename)
+    #         file.save(filename)
+
+    #         s3.upload_file(
+    #             Bucket='well-done-proj',
+    #             Filename=filename,
+    #             Key=filename
+    #         )
+
+    #         url = f"https://{bucket}.s3.us-east-2.amazonaws.com/{filename}"
+
+    #         print(url)
+        
+    # take a look at this after, test validate form before and 
+
 
     if form.validate_on_submit():
       data = form.data
@@ -178,7 +315,7 @@ def create_story_image(id):
       return jsonify({**new_story_image.to_dict(), 'message': 'Story image successfully created'}), 201
 
     if form.errors:
-      return "Bad Data"
+      return {'error': "Bad Data"}
 
 
 
@@ -193,6 +330,26 @@ def create_story_with_images():
     form['csrf_token'].data = request.cookies['csrf_token']
     if not form.validate_on_submit(): 
         print(form.errors)
+
+
+
+    if 'file' in request.files:
+            file = request.files['file']
+            if file.filename == '':
+                return {"error": "No file selected"}, 400
+
+            filename = secure_filename(file.filename)
+            file.save(filename)
+
+            s3.upload_file(
+                Bucket='well-done-proj',
+                Filename=filename,
+                Key=filename
+            )
+
+            url = f"https://{bucket}.s3.us-east-2.amazonaws.com/{filename}"
+        
+    # take a look at this after, test validate form before and 
 
     if form.validate_on_submit():
         data = form.data
