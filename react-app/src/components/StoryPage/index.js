@@ -84,7 +84,7 @@ const StoryPage = () => {
         lastPosition = image.position;  
       });
  // Check if there's remaining content
- console.log(lastPosition);
+//  console.log(lastPosition);
       if (lastPosition < story.content.length) { 
         let remainingText = story.content.slice(lastPosition); 
         console.log(remainingText); 

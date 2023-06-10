@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, session, render_template, request, redirect
 from flask_login import login_required, current_user
-from app.models import db, Story, Tag, StoryImage, StoryTag, Comment
+from app.models import db, Story, Tag, StoryImage, StoryTag, Comment, CommentClap
 from app.forms import StoryForm
 from app.forms import StoryImageForm
 from app.forms import CommentForm
@@ -83,3 +83,43 @@ def delete_comment(id):
     db.session.commit()
     return {"message": "Comment deleted successfully"}
 
+
+@comment_routes.route('/<int:id>/clap', methods=['POST'])
+@login_required
+def create_comment_clap(id):
+    """
+    Create a new clap for a comment
+    """
+    comment = Comment.query.get(id)
+    if comment is None:
+        return {"error": "Comment not found"}, 404
+    if comment.user_id == current_user.id:
+        return {"error": "You cannot clap for your own comment"}, 403
+    
+    clap = CommentClap.query.filter_by(user_id=current_user.id, comment_id=id).first()
+    if clap is None:
+        new_clap = CommentClap(user_id=current_user.id, comment_id=id)
+        db.session.add(new_clap)
+        db.session.commit()
+        return new_clap.to_dict()
+    else:
+        return {"error": "You have already clapped for this comment"}, 403
+    
+
+@comment_routes.route('/<int:id>/clap', methods=['DELETE'])
+@login_required
+def delete_comment_clap(id):
+    """
+    Delete a clap for a comment
+    """
+    comment = Comment.query.get(id)
+    if comment is None:
+        return {"error": "Comment not found"}, 404
+    
+    clap = CommentClap.query.filter_by(user_id=current_user.id, comment_id=id).first()
+    if clap is not None:
+        db.session.delete(clap)
+        db.session.commit()
+        return {"message": "Clap deleted successfully"}
+    else:
+        return {"error": "You have not clapped for this comment"}, 403

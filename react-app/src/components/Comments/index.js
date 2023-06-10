@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import {postComment} from '../../store/story'
+import {addCommentClap, postComment} from '../../store/story'
 import {editComment} from '../../store/story'
 import {deleteComment} from '../../store/story'
+import { removeCommentClap } from '../../store/story';
+import { useSelector } from 'react-redux';
 import './Comments.css'
 
 const Comments = ({ userId, storyId, comments, authorInfo }) => {
@@ -12,6 +14,7 @@ const Comments = ({ userId, storyId, comments, authorInfo }) => {
     const [editText, setEditText] = useState('');
     const dispatch = useDispatch();
     const [date, setDate] = useState('')
+    // const comments = useSelector(state => state.story.stories.find(story => story.id === storyId).comments)
 
     const handleSubmit = (event) => {
       event.preventDefault();
@@ -33,6 +36,26 @@ const Comments = ({ userId, storyId, comments, authorInfo }) => {
 
     const handleDelete = (storyId, commentId) => {
         dispatch(deleteComment(storyId, commentId));
+    }
+
+    const handleClap = async (commentId) => {
+        // dispatch (addCommentClap(commentId));
+
+        const response = await dispatch(addCommentClap(commentId));
+
+        if (response && response.error) {
+          alert('Sorry, you cannot clap this comment.')
+        }
+    }
+
+    const handleUnclap = async (commentId) => {
+        // dispatch (removeCommentClap(commentId));
+
+        const response = await dispatch(removeCommentClap(commentId));
+
+        if (response && response.error) {
+          alert('Sorry, you do not have any claps to remove on this comment.')
+        }
     }
 
     return (
@@ -71,6 +94,14 @@ const Comments = ({ userId, storyId, comments, authorInfo }) => {
                         comment.content
                         }
                     </p>
+                    <p>Claps: {comment.clapCount}</p> {/* Show clap count */}
+                    {userId && userId !== comment.userId &&
+                      <div>
+                        <button onClick={() => handleClap(comment.id)}>Clap</button>
+                        <button onClick={() => handleUnclap(comment.id)}>Remove Clap</button>
+                      </div>
+                    }
+
                     {userId && userId === comment.userId && editingCommentId !== comment.id &&
                         <div>
                         <button onClick={() => handleEdit(comment.id, comment.content)}>Edit</button>
