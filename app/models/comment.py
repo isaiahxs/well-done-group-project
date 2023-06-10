@@ -36,4 +36,6 @@ class Comment(db.Model):
                 'lastName': self.user.last_name,
                 'profileImage': self.user.profile_image,
             },
+            'claps': len(self.claps),
+            'claps': [clap.to_dict() for clap in self.claps]
         }
