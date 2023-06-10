@@ -65,20 +65,37 @@ export const initialLoad = () => async (dispatch) => {
 };
 
 export const createStory = (createStoryObj) => async (dispatch) => {
-	// const response = await fetch("/api/story/create", {
-    const { images } = createStoryObj
+	
+	console.log(createStoryObj);
+	console.log('here');
+    const { title, images, tags, content, authorId } = createStoryObj
 		const formData = new FormData();
-    // formData.append("country", country);
-    // if(spotImages) formData.append("spotImages", spotImages);
+
     if (images) {
-      for (let i = 0; i < images.length; i++) {
-        formData.append("images", images[i]);
-      }
-    }
-		const response = await fetch("/api/story/1/image", {
+			for (let i = 0; i < images.length; i++) {
+					formData.append("images", images[i].file);
+					formData.append(`altTag${i}`, images[i].altTag);
+					formData.append(`position${i}`, images[i].position);
+			}
+		}
+    if (tags) {
+			for (let i = 0; i < tags.length; i++) {
+					formData.append("tags", tags[i].id);
+			}
+		}
+
+		formData.append('content', content)
+		formData.append('authorId', authorId)
+		formData.append('title', title)
+
+
+		const response = await fetch("/api/story/create", {
 			method: "POST",
 			body: formData
 	});
+
+	console.log(response);
+
 	if (response.ok) {
 		const data = await response.json();
 		dispatch(createStoryAction(data));

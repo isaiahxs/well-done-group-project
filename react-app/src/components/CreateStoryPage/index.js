@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import './CreateStoryPage.css';
 
@@ -10,6 +10,7 @@ const CreateStoryPage = () => {
   const [blocks, setBlocks] = useState([]);
   const [titleText, setTitleText] = useState('');
   const [showLabel, setShowLabel] = useState('');
+  const [storyTags, setStoryTags] = useState([{id:2, tag:"Programming"}]);
 
   const fileInputRef = useRef(null);
 
@@ -45,11 +46,48 @@ const CreateStoryPage = () => {
   };
 
   const handleSubmit = async (e) => {
+
+    if(!user) return
     e.preventDefault();
     let createStoryObj = {};
+
+
+    createStoryObj['author'] = user.id
+    createStoryObj['title'] = titleText
+
+    let content = []
+    let storyImages = []
+
+    let lastPos = 0
+    blocks.map(block=>{
+      if(block.type === 'text'){
+        content.push(block.content)
+        lastPos = block.content.length
+      }
+      
+      if(block.type === 'image'){
+        storyImages.push({
+          file:block.content,
+          altTag:block.altTag,
+          position: lastPos
+        })
+      }
+    })
+
+    let joinedContent = content.join(' ')
+    console.log(content);
+
+    createStoryObj['content'] = joinedContent
+    createStoryObj['images'] = storyImages
+    createStoryObj['tags'] = storyTags
+
+
+    console.log(createStoryObj);
+
     
 
     const response = await dispatch(storyActions.createStory(createStoryObj));
+    console.log(response);
   };
 
   
@@ -109,7 +147,7 @@ console.log(blocks);
           if (block.type === 'text') {
             return (
               <div className="text-wrapper" key={index}>
-                <button className="delete-button" onClick={() => deleteBlock(index)}>X</button>
+                <button type="button" className="delete-button" onClick={() => deleteBlock(index)}>X</button>
               <div className="text-container">
                 <textarea
                   className="text-input"
@@ -127,7 +165,7 @@ console.log(blocks);
           } else if (block.type === 'image') {
             return (
               <div className="image-wrapper" key={index}>
-                  <button className="delete-button" onClick={() => deleteBlock(index)}>X</button>
+                  <button type="button" className="delete-button" onClick={() => deleteBlock(index)}>X</button>
                 <div className="image-container">
                   {block.content ? 
                   <img className="story-image" src={URL.createObjectURL(block.content)} alt="" /> : 
@@ -161,9 +199,9 @@ console.log(blocks);
 
 
         <div>
-          {blocks.length > 0 && blocks[blocks.length-1].type !== 'text' && <button className="add-button" onClick={() => addBlock('text')}>Add New Section</button>}
-          {blocks.length === 0 && <button className="add-button" onClick={() => addBlock('text')}>Add New Section</button>}
-          <button className="add-button" onClick={() => addBlock('image')}>Add Image</button>
+          {blocks.length > 0 && blocks[blocks.length-1].type !== 'text' && <button type="button" className="add-button" onClick={() => addBlock('text')}>Add New Section</button>}
+          {blocks.length === 0 && <button type="button" className="add-button" onClick={() => addBlock('text')}>Add New Section</button>}
+          <button type="button" className="add-button" onClick={() => addBlock('image')}>Add Image</button>
         </div>
 
         <button type="submit">Submit</button>

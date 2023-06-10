@@ -102,6 +102,8 @@ const StoryPage = () => {
     ))
   }
 
+  console.log(sortedContent);
+
   return (
     <>
     <div className="story-page">
@@ -145,7 +147,7 @@ const StoryPage = () => {
             {sortedContent && sortedContent.map((item, index) => (
                 <div key={index}>
                     {item.text && <div className='memo-text'>{parse(item.text)}</div>}
-                    {item.image && <img src={item.image} alt="description" className="story-image" />}
+                    {item.image && <img src={item.image} alt={item.text} className="story-image" />}
                     </div>
             ))}
           </div>
