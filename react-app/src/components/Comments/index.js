@@ -4,6 +4,7 @@ import {addCommentClap, postComment} from '../../store/story'
 import {editComment} from '../../store/story'
 import {deleteComment} from '../../store/story'
 import { removeCommentClap } from '../../store/story';
+import { useSelector } from 'react-redux';
 import './Comments.css'
 
 const Comments = ({ userId, storyId, comments, authorInfo }) => {
@@ -13,6 +14,7 @@ const Comments = ({ userId, storyId, comments, authorInfo }) => {
     const [editText, setEditText] = useState('');
     const dispatch = useDispatch();
     const [date, setDate] = useState('')
+    // const comments = useSelector(state => state.story.stories.find(story => story.id === storyId).comments)
 
     const handleSubmit = (event) => {
       event.preventDefault();
@@ -37,11 +39,23 @@ const Comments = ({ userId, storyId, comments, authorInfo }) => {
     }
 
     const handleClap = async (commentId) => {
-        dispatch (addCommentClap(commentId));
+        // dispatch (addCommentClap(commentId));
+
+        const response = await dispatch(addCommentClap(commentId));
+
+        if (response && response.error) {
+          alert('Sorry, you cannot clap this comment.')
+        }
     }
 
     const handleUnclap = async (commentId) => {
-        dispatch (removeCommentClap(commentId));
+        // dispatch (removeCommentClap(commentId));
+
+        const response = await dispatch(removeCommentClap(commentId));
+
+        if (response && response.error) {
+          alert('Sorry, you do not have any claps to remove on this comment.')
+        }
     }
 
     return (
