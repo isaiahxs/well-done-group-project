@@ -81,8 +81,13 @@ const Comments = ({ userId, storyId, comments, authorInfo }) => {
                         }
                     </p>
                     <p>Claps: {comment.clapCount}</p> {/* Show clap count */}
-                    <button onClick={() => handleClap(comment.id)}>Clap</button> {/* Clap button */}
-                    <button onClick={() => handleUnclap(comment.id)}>Remove Clap</button> {/* Unclap button */}
+                    {userId && userId !== comment.userId &&
+                      <div>
+                        <button onClick={() => handleClap(comment.id)}>Clap</button>
+                        <button onClick={() => handleUnclap(comment.id)}>Remove Clap</button>
+                      </div>
+                    }
+
                     {userId && userId === comment.userId && editingCommentId !== comment.id &&
                         <div>
                         <button onClick={() => handleEdit(comment.id, comment.content)}>Edit</button>
