@@ -26,6 +26,9 @@ const CreateStoryPage = () => {
   const { modal, openModal, closeModal, needsRerender, setNeedsRerender, setUpdateObj } = useContext(ModalContext);
   const [defaultImage, setDefaultImage] = useState('');
   
+  const image = useSelector((state) => state.story.image);
+
+  console.log(image);
 
   let timeoutId;
 
@@ -170,6 +173,12 @@ console.log(spotPreviewImageFile);
           >
             Add Image
           </button>
+          <button
+            className="host-form-add-spot-image-button button"
+            onClick={() => dispatch(storyActions.storyImageTest())}
+          >
+            load in Image
+          </button>
  
       <div className="image-container">
         <div className="image-main-container">
@@ -178,6 +187,25 @@ console.log(spotPreviewImageFile);
               <img src={spotPreviewImage} alt="preview"></img>
             )}
           </div>
+
+          <div className="image-main">
+          
+              <img src='https://well-done-proj.s3.us-east-2.amazonaws.com/Screenshot_2023-06-10_at_12.34.11_AM.png' alt="preview"></img>
+           
+          </div>
+          <div className="image-main">
+          
+              <img src={image} alt="preview"></img>
+           
+          </div>
+
+          <div className="image-main">
+          
+              <img src='https://well-done-proj.s3.amazonaws.com/Screenshot_2023-06-10_at_12.34.11_AM.png?AWSAccessKeyId=AKIAZX5EVMCUOIBBFI6O&Signature=fiVe6Rjtc43ODqBtno2wP%2Fy3SgE%3D&Expires=1686388467' alt="preview"></img>
+          
+          </div>
+
+          
         </div>
 
         <input

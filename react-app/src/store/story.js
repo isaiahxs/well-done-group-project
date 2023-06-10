@@ -4,6 +4,7 @@ const INITIAL_LOAD = "story/INITIAL_LOAD";
 const CREATE_STORY = "story/CREATE_STORY";
 const FOLLOW_AUTHOR = "story/FOLLOW_AUTHOR";
 const UNFOLLOW_AUTHOR = "story/UNFOLLOW_AUTHOR";
+const IMAGE_TEST = "story/IMAGE_TEST";
 export const SUBSCRIBED_STORIES = "story/SUBSCRIBED_STORIES";
 
 const getStoriesAction = (stories) => ({
@@ -31,6 +32,10 @@ const followAuthorAction = (data) => ({
 });
 const unfollowAuthorAction = (data) => ({
 	type: UNFOLLOW_AUTHOR,
+	payload: data
+});
+const imageTestAction = (data) => ({
+	type: IMAGE_TEST,
 	payload: data
 });
 
@@ -122,6 +127,28 @@ export const getSubscribedStories = () => async (dispatch) => {
 	if (response.ok) {
 		const data = await response.json();
 		dispatch(getSubscribedStoriesAction(data));
+		return null;
+	} else if (response.status < 500) {
+		const data = await response.json();
+		if (data.errors) {
+			return data.errors;
+		}
+	} else {
+		return ["An error occurred. Please try again."];
+	}
+};
+
+
+export const storyImageTest = () => async (dispatch) => {
+	const response = await fetch("/api/story/imagetest", {
+		method: "GET",
+		headers: {
+			"Content-Type": "application/json",
+		}
+	});
+	if (response.ok) {
+		const data = await response.json();
+		dispatch(imageTestAction(data));
 		return null;
 	} else if (response.status < 500) {
 		const data = await response.json();
@@ -324,6 +351,13 @@ export const unfollowAuthor = (id) => async (dispatch) => {
 export default function reducer(state = initialState, action) {
 	const newState = {...state}
 	switch (action.type) {
+		case IMAGE_TEST:
+			console.log(action.payload);
+			return {image: action.payload };
+
+
+
+
 		case GET_STORIES:
 			return {stories: action.payload.stories };
 

@@ -5,15 +5,14 @@ from app.forms import StoryForm
 from app.forms import StoryImageForm
 from app.forms import CommentForm
 from sqlalchemy.orm import joinedload
-
 from werkzeug.utils import secure_filename
-from ..aws3 import s3, bucket
 import os
+
+from ..aws3 import s3, bucket
+import boto3
 
 
 story_routes = Blueprint('stories', __name__)
-
-
 
 
 @story_routes.route('/')
@@ -23,6 +22,32 @@ def stories():
     """
     stories = Story.query.all()
     return {'stories': [story.to_dict() for story in stories]}
+
+
+@story_routes.route('/imagetest')
+def image_test():
+    """
+    Query for a story by id and returns that story in a dictionary
+    """
+
+
+    image_name = 'Screenshot_2023-06-10_at_12.34.11_AM.png'
+
+    # Generate the presigned URL for the image
+    presigned_url = s3.generate_presigned_url(
+        'get_object',
+        Params={'Bucket': bucket, 'Key': image_name},
+        ExpiresIn=3600  # The URL will be valid for 1 hour
+    )
+
+
+    return {'image':presigned_url}
+
+
+
+
+
+
 
 
 
