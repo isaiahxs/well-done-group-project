@@ -70,6 +70,9 @@ const StoryPage = () => {
   useEffect(()=>{
     if(story){
 
+
+      console.log(story);
+
       let tempArr =  [];
       let lastPosition = 0;  
 
@@ -103,7 +106,7 @@ const StoryPage = () => {
   }
 
   console.log(sortedContent);
-
+ 
   return (
     <>
     <div className="story-page">
