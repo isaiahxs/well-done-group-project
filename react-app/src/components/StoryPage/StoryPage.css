@@ -190,6 +190,7 @@
   display: flex;
   margin: 0 auto;
   max-width: 70%;
+  min-height: 70px;
   height: auto;
   /* margin-top: 25px; */
   /* margin-bottom: -10px; */
