@@ -10,7 +10,7 @@ import userOutline from '../../public/user-outline.png';
 import fountainPen from '../../public/fountain-pen.png';
 import parse from 'html-react-parser';
 
-const StoryTileTwo = ({ story, index }) => {
+const StoryTileTwo = ({ story}) => {
   const history = useHistory();
   const [date, setDate] = useState('Dec 25, 2560')
   const [readTime, setReadTime] = useState(4)
@@ -91,7 +91,7 @@ const StoryTileTwo = ({ story, index }) => {
           <div className="style2-header-content">{storyContent}</div>
         </div>)}
 
-        {/* story.content.slice(0,80) + '...' */}
+     
 
         <div className="style2-date-read-time-container flexbetween memo-text">
           <div className="style2-date-content">{date}</div>

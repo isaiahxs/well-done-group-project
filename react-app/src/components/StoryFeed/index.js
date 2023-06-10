@@ -13,6 +13,7 @@ import StoryTileTwoSkeleton from '../StoryTileTwoSkeleton';
 const StoryFeed = () => {
   const dispatch = useDispatch();
   const stories = useSelector((state) => state.story.stories);
+  const userStories = useSelector((state) => state.story.userStories);
   const loaded = useSelector((state) => state.story.loaded);
   const subscribedStories = useSelector(
     (state) => state.session.subscribedStories
@@ -28,18 +29,28 @@ const StoryFeed = () => {
   const [feedContent, setFeedContent] = useState(null);
   const [showHeader, setShowHeader] = useState(false);
 
-
   useEffect(() => {
     console.log(currentFeed);
 
     if (stories && !currentFeed) {
       dispatch(sessionActions.setFeed('stories'));
     }
+
+
     if (currentFeed === 'for you' || currentFeed === 'stories') {
       setShowHeader(false);
       setFeedContent(stories);
       setSelected('stories');
     }
+
+    
+    if (currentFeed === 'by you') {
+      setShowHeader(false);
+      setFeedContent(userStories);
+      setSelected('userStories');
+    }
+
+
     if (currentFeed === 'following') {
       setShowHeader(false);
       setFeedContent(subscribedStories);
@@ -111,6 +122,22 @@ const StoryFeed = () => {
           >
             For you
           </div>
+
+
+          <div
+            className={`feed-select med memo-text flexcenter ${
+              currentFeed === 'by you' ? 'selected' : ''
+            }`}
+            onClick={() => handleSelectFeed('by you')}
+          >
+            By you
+          </div>
+
+
+
+
+
+
           <div
             className={`feed-select large memo-text flexcenter ${
               currentFeed === 'following' ? 'selected' : ''
@@ -190,20 +217,25 @@ const StoryFeed = () => {
         </div>
       )}
 
-      {loaded && selected === 'taggedStories' &&
+
+
+      {loaded && selected !== 'authors' &&
         currentFeed &&
         feedContent &&
         feedContent.map((story, i) => <StoryTileTwo key={i} story={story} />)}
 
-      {loaded && selected === 'stories' &&
-        currentFeed &&
-        feedContent &&
-        feedContent.map((story, i) => <StoryTileTwo key={i} story={story} />)}
+
 
       {loaded && selected === 'authors' &&
         currentFeed &&
         feedContent &&
         feedContent.map((author, i) => <AuthorTile key={i} author={author} />)}
+
+
+
+
+
+        
     </div>
   );
 };

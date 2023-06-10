@@ -236,7 +236,7 @@ export default function reducer(state = initialState, action) {
 			return {stories: action.payload.stories };
 		case INITIAL_LOAD:
 			console.log(action.payload);
-			return {stories: action.payload.stories, tags: action.payload.tags, loaded: true };
+			return {stories: action.payload.stories, userStories: action.payload.userStories, tags: action.payload.tags, loaded: true };
 
 			return {...newState};
 		

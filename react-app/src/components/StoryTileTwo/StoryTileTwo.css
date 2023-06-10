@@ -112,6 +112,11 @@
 }
 
 
+.style2-edit-button{
+  position: absolute;
+  bottom: 5px;
+  border: black solid 1px;
+}
 
 
 
@@ -163,6 +168,7 @@
 
 
 }
+
 
 
 

@@ -32,13 +32,14 @@ def initial_load():
     Eager Load data upon initialization 
     """
 
-
+    user_stories = Story.query.filter_by(author_id=current_user.id).all()
     stories = Story.query.all()
     tags = Tag.query.all()
 
     return {
         'stories': [story.to_dict() for story in stories],
         'tags': [tag.tag for tag in tags],
+        'userStories': [story.to_dict() for story in user_stories]
     }
 
 

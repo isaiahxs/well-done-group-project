@@ -33,7 +33,7 @@ const FeedPage = () => {
     <>
 
       {windowSize < 900 &&(
-        <div>
+        <div className='feedpage-container flex'>
           <StoryFeed className={`storyfeed-wrapper wide`}/>
         </div>
       )}
