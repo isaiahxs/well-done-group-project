@@ -372,7 +372,67 @@ export const unfollowAuthor = (id) => async (dispatch) => {
 	}
 };
 
+//define new action type
+const ADD_COMMENT_CLAP = "story/ADD_COMMENT_CLAP";
 
+//create an action creator function
+const addCommentClapAction = (payload) => ({
+	type: ADD_COMMENT_CLAP,
+	payload,
+})
+
+export const addCommentClap = (commentId) => async (dispatch) => {
+
+	const response = await fetch(`/api/comment/${commentId}/clap`, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		}
+	});
+	if (response.ok) {
+		const data = await response.json();
+		dispatch(addCommentClapAction(data));
+		return null;
+	} else if (response.status < 500) {
+		const data = await response.json();
+		if (data.errors) {
+			return data.errors;
+		}
+	} else {
+		return ["An error occurred. Please try again."];
+	}
+};
+
+
+//define new action type
+const REMOVE_COMMENT_CLAP = "story/REMOVE_COMMENT_CLAP";
+
+//create an action creator function
+const removeCommentClapAction = (payload) => ({
+	type: REMOVE_COMMENT_CLAP,
+	payload,
+})
+
+export const removeCommentClap = (commentId) => async (dispatch) => {
+	const response = await fetch(`/api/comment/${commentId}/clap`, {
+		method: "DELETE",
+		headers: {
+			"Content-Type": "application/json",
+		}
+	});
+	if (response.ok) {
+		const data = await response.json();
+		dispatch(removeCommentClapAction(data));
+		return null;
+	} else if (response.status < 500) {
+		const data = await response.json();
+		if (data.errors) {
+			return data.errors;
+		}
+	} else {
+		return ["An error occurred. Please try again."];
+	}
+};
 
 
 
@@ -477,6 +537,50 @@ export default function reducer(state = initialState, action) {
 					comments:story.comments.filter(
 						(comment) => comment.id !== commentIdToDelete
 					)
+				}
+			})
+			return {
+				...state,
+				stories: updatedStories
+			}
+		}
+
+		case ADD_COMMENT_CLAP: {
+			const {commentId, claps} = action.payload;
+			const updatedStories = state.stories.map((story) => {
+				return {
+					...story,
+					comments: story.comments.map((comment) => {
+						if (comment.id === commentId) {
+							return {
+								...comment,
+								clapCount: claps
+							};
+						}
+						return comment;
+					}),
+				}
+			})
+			return {
+				...state,
+				stories: updatedStories
+			}
+		}
+
+		case REMOVE_COMMENT_CLAP: {
+			const {commentId, claps} = action.payload;
+			const updatedStories = state.stories.map((story) => {
+				return {
+					...story,
+					comments: story.comments.map((comment) => {
+						if (comment.id === commentId) {
+							return {
+								...comment,
+								clapCount: claps
+							};
+						}
+						return comment;
+					}),
 				}
 			})
 			return {
