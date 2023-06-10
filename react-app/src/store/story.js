@@ -68,10 +68,14 @@ export const getStories = () => async (dispatch) => {
 	}
 };
 
+//define new action type
+const UPDATE_CLAP_COUNT = "story/UPDATE_CLAP_COUNT";
+
+// //create an action creator function
 export const updateClapAction = (data) => ({
-	type: "UPDATE_CLAP_COUNT",
-	payload: data
-});
+	type: UPDATE_CLAP_COUNT,
+	payload: data,
+})
 
 export const updateClapCount = (storyId) => async (dispatch) => {
 	const response = await fetch(`/api/story/${storyId}/clap`, {
@@ -98,6 +102,14 @@ export const updateClapCount = (storyId) => async (dispatch) => {
 	}
 }
 
+// const REMOVE_CLAP = "story/REMOVE_CLAP";
+
+// const removeClapAction = (payload) => ({
+// 	type: REMOVE_CLAP,
+// 	payload,
+// })
+
+
 export const removeClap = (storyId ) => async (dispatch) => {
 	const response = await fetch(`/api/story/${storyId}/clap`, {
 		method: "DELETE",
@@ -123,14 +135,21 @@ export const removeClap = (storyId ) => async (dispatch) => {
 	}
 }
 
+//these two require a refresh to see the change
 //define new action type
 const POST_COMMENT = "story/POST_COMMENT";
 
-//create an action creator function
+// //create an action creator function
 const postCommentAction = (comment) => ({
 	type: POST_COMMENT,
 	payload: comment,
 })
+
+//this results in an instant render
+// const postCommentAction = (comment) => ({
+// 	type: "POST_COMMENT",
+// 	payload: comment
+// });
 
 //dispatch action in postComment thunk after we receive response
 export const postComment = (storyId, comment) => async (dispatch) => {
@@ -219,7 +238,7 @@ export default function reducer(state = initialState, action) {
 
 			return {...newState};
 		
-		case 'UPDATE_CLAP_COUNT':
+		case UPDATE_CLAP_COUNT:
 			const {storyId, claps} = action.payload;
 			const updatedStories = state.stories.map((story) => {
 				if (story.id === storyId) {
@@ -252,7 +271,7 @@ export default function reducer(state = initialState, action) {
 			}
 		}
 
-		case 'POST_COMMENT': {
+		case POST_COMMENT: {
 			const newComment = action.payload;
 			const updatedStories = state.stories.map((story) => {
 				if (story.id === newComment.storyId) {
@@ -269,7 +288,7 @@ export default function reducer(state = initialState, action) {
 			}
 		}
 
-		case 'EDIT_COMMENT': {
+		case EDIT_COMMENT: {
 			const updatedComment = action.payload;
 			const updatedStories = state.stories.map((story) => {
 				if (story.id === updatedComment.storyId) {
@@ -288,7 +307,7 @@ export default function reducer(state = initialState, action) {
 			}
 		}
 
-		case 'DELETE_COMMENT': {
+		case DELETE_COMMENT: {
 			const commentIdToDelete = action.payload;
 			const updatedStories = state.stories.map((story) => {
 				//filter out comments we want to delete
