@@ -9,35 +9,41 @@ import quill from '../../public/quill.png';
 import userOutline from '../../public/user-outline.png';
 import fountainPen from '../../public/fountain-pen.png';
 
-const AuthorTile = ({ author, index }) => {
+
+const profileImages = {
+  'quill': quill,
+  'user-outline': userOutline,
+  'open-book': openBook,
+  'fountain-pen': fountainPen,
+}
+
+const AuthorTile = ({ author }) => {
   const history = useHistory();
-  const [date, setDate] = useState('Dec 25, 2560')
-  const [readTime, setReadTime] = useState(4)
-  const {windowSize} = useContext(WindowContext)
-  const [thumbnail, setThumbnail] = useState('')
+  const [name, setName] = useState('')
+
   const [profileImageSrc, setProfileImageSrc] = useState('');
-  const user = useSelector((state) => state.session.user);
 
 
-
+  const getProfileImageSrc = (profileImage) => {
+    return profileImages[profileImage] || profileImage;
+  };
+ 
   useEffect(()=>{
-    if(author && author.profileImage){
-      if(author.profileImage === 'quill'){
-        setProfileImageSrc(quill)
+
+      if(author.firstName){
+        setName(`${author.firstName} ${author.lastName}`)
       }
-      else if(author.profileImage === 'user-outline'){
-        setProfileImageSrc(userOutline)
+    
+      if(author.profileImage){
+        setProfileImageSrc(getProfileImageSrc(author.profileImage));
       }
-      else if(author.profileImage === 'open-book'){
-        setProfileImageSrc(openBook)
-      }
-      else if(author.profileImage === 'fountain-pen'){
-        setProfileImageSrc(fountainPen)
-      }
-      else {
-        setProfileImageSrc(author.profileImage)
-      }
+
+
+    if(author && author.authorInfo){
+        setName(`${author.authorInfo.firstName} ${author.authorInfo.lastName}`)
+        setProfileImageSrc(getProfileImageSrc(author.authorInfo.profileImage));
     }
+      
 
   },[author]);
 
@@ -46,27 +52,36 @@ const AuthorTile = ({ author, index }) => {
 
 
   return (
+    <>
+    {author && (
+
     <div className="auhtor-tile-style1">
       <div className="style1-content">
         <div className="style1-author-container">
-          {author&&(<div className="style1-profile-image">
-          {author?.profileImage && (
+          <div className="style1-profile-image">
+          {profileImageSrc && (
                 <img
-                  src={author?.profileImage}
+                  src={profileImageSrc}
                   alt="author profile picture"
                 ></img>
               )}
-          </div>)}
+          </div>
           <div 
           className="style1-author-name memo-text"
           onClick={() => history.push(`/author/${author.id}`)}>
-            {author.firstName} {author.lastName}
+            {name}
           </div>
         </div>
 
       </div>
 
     </div>
+    )}
+
+
+    
+    
+    </>
   );
 };
 export default AuthorTile;

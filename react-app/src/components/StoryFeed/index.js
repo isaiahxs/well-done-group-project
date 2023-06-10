@@ -61,6 +61,8 @@ const StoryFeed = () => {
       setShowHeader(true);
       setFeedContent(searchResults[currentFeed].stories);
     }
+
+    
   }, [currentFeed, stories, subscribedStories]);
 
 
@@ -95,6 +97,8 @@ const StoryFeed = () => {
   };
 
   console.log(currentFeed);
+  console.log(feedContent);
+
 
   return (
     <div className="storyfeed-container">
@@ -168,8 +172,6 @@ const StoryFeed = () => {
             ))}
         </div>
       </nav>
-
-
       <div className={`feed-header ${showHeader ? 'extended' : 'hidden'}`}>
         <nav className={`search-nav flexcenter`}>
           <div className="feed-select-container">
@@ -201,9 +203,6 @@ const StoryFeed = () => {
         </nav>
       </div>
 
-
-                
-
       {!loaded && (
         <div>
           <StoryTileTwoSkeleton />
@@ -218,24 +217,19 @@ const StoryFeed = () => {
       )}
 
 
-
       {loaded && selected !== 'authors' &&
         currentFeed &&
         feedContent &&
-        feedContent.map((story, i) => <StoryTileTwo key={i} story={story} />)}
+        feedContent.map((story, i) => <StoryTileTwo key={i} story={story} />
+      )}
 
 
 
       {loaded && selected === 'authors' &&
         currentFeed &&
         feedContent &&
-        feedContent.map((author, i) => <AuthorTile key={i} author={author} />)}
+        feedContent.map((author) => <AuthorTile key={author.id} author={author} />)}
 
-
-
-
-
-        
     </div>
   );
 };
