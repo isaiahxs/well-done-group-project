@@ -14,11 +14,6 @@ const initialLoadAction = (data) => ({
 	payload: data
 });
 
-//what i tried, but then realized we might not need to do a currentStory since we can key into stories
-// payload: {
-// 	stories: data.stories,
-// 	currentStory: data.currentStory, //this is the current story
-// }
 
 const initialState = { stories: [], tags: [], loaded: false };
 
@@ -102,12 +97,12 @@ export const updateClapCount = (storyId) => async (dispatch) => {
 	}
 }
 
-// const REMOVE_CLAP = "story/REMOVE_CLAP";
+const REMOVE_CLAP = "story/REMOVE_CLAP";
 
-// const removeClapAction = (payload) => ({
-// 	type: REMOVE_CLAP,
-// 	payload,
-// })
+const removeClapAction = (payload) => ({
+	type: REMOVE_CLAP,
+	payload,
+})
 
 
 export const removeClap = (storyId ) => async (dispatch) => {
@@ -119,7 +114,7 @@ export const removeClap = (storyId ) => async (dispatch) => {
 	})
 	if (response.ok) {
 		const data = await response.json();
-		dispatch(updateClapAction({ storyId, claps: data.totalClaps }));
+		dispatch(removeClapAction({ storyId, claps: data.totalClaps }));
 		return null;
 	// } else if (response.status < 500) {
 	// 	const data = await response.json();
@@ -135,7 +130,6 @@ export const removeClap = (storyId ) => async (dispatch) => {
 	}
 }
 
-//these two require a refresh to see the change
 //define new action type
 const POST_COMMENT = "story/POST_COMMENT";
 
@@ -145,11 +139,6 @@ const postCommentAction = (comment) => ({
 	payload: comment,
 })
 
-//this results in an instant render
-// const postCommentAction = (comment) => ({
-// 	type: "POST_COMMENT",
-// 	payload: comment
-// });
 
 //dispatch action in postComment thunk after we receive response
 export const postComment = (storyId, comment) => async (dispatch) => {
@@ -254,7 +243,7 @@ export default function reducer(state = initialState, action) {
 				stories: updatedStories
 			}
 
-		case 'REMOVE_CLAP': {
+		case REMOVE_CLAP: {
 			const {storyId, claps} = action.payload;
 			const updatedStories = state.stories.map((story) => {
 				if (story.id === storyId) {
