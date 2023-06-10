@@ -27,6 +27,7 @@ const CreateStoryPage = () => {
   const [defaultImage, setDefaultImage] = useState('');
   
   const image = useSelector((state) => state.story.image);
+  const image2 = useSelector((state) => state.story.image2);
 
   console.log(image?.image);
 
@@ -202,6 +203,12 @@ console.log(spotPreviewImageFile);
           <div className="image-main">
           
               <img src={image} alt="preview"></img>
+          
+          </div>
+
+          <div className="image-main">
+          
+              <img src={image2} alt="preview"></img>
           
           </div>
 
