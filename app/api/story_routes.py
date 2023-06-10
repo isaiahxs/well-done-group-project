@@ -37,6 +37,8 @@ def image_test():
 
     image_name = 'Render Logo.png'
     image2_name = 'Render_Logo.png'
+    image3 = 'Screenshot 2023-06-10 at 10.39.11 AM.png'
+    
     # image_name = 'https://well-done-proj.s3.us-east-2.amazonaws.com/Screenshot_2023-05-29_at_8.51.57_PM.png'
     # image_name = 'https://well-done-proj.s3.us-east-2.amazonaws.com/Screenshot_2023-06-03_at_6.04.00_PM.png'
     # Generate the presigned URL for the image
@@ -265,8 +267,10 @@ def create_story_image(id):
 
 
     print('-=-=-*****AFTER****=-=-')
+    print(filename)
     print('-=-=-*****AFTER****=-=-')
  
+
 
     form = StoryImageForm()
     form['csrf_token'].data = request.cookies['csrf_token']
