@@ -165,7 +165,9 @@ function Navigation() {
   };
 
   const newSearch = async () => {
-    await dispatch(sessionActions.search(search))
+    dispatch(sessionActions.search(search))
+    dispatch(sessionActions.setFeed(search))
+    dispatch(sessionActions.setSubFeed('stories'))
     if(location.pathname !== '/home'){
       history.push(`/home`)
     }

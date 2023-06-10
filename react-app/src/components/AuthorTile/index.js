@@ -22,13 +22,14 @@ const AuthorTile = ({ author }) => {
   const [name, setName] = useState('')
 
   const [profileImageSrc, setProfileImageSrc] = useState('');
-
+  const [numFollowers, setNumFollowers] = useState(0);
 
   const getProfileImageSrc = (profileImage) => {
     return profileImages[profileImage] || profileImage;
   };
  
   useEffect(()=>{
+    console.log(author);
 
       if(author.firstName){
         setName(`${author.firstName} ${author.lastName}`)
@@ -37,9 +38,13 @@ const AuthorTile = ({ author }) => {
       if(author.profileImage){
         setProfileImageSrc(getProfileImageSrc(author.profileImage));
       }
-
+      if(author.followers){
+        setNumFollowers(author.followers.length);
+      }
 
     if(author && author.authorInfo){
+        setNumFollowers(author.authorInfo.followers.length);
+
         setName(`${author.authorInfo.firstName} ${author.authorInfo.lastName}`)
         setProfileImageSrc(getProfileImageSrc(author.authorInfo.profileImage));
     }
@@ -55,8 +60,8 @@ const AuthorTile = ({ author }) => {
     <>
     {author && (
 
-    <div className="auhtor-tile-style1">
-      <div className="style1-content">
+    <div className="authortile-style1-wrapper">
+      <div className="authortile-style1-container flex">
         <div className="style1-author-container">
           <div className="style1-profile-image">
           {profileImageSrc && (
@@ -72,6 +77,18 @@ const AuthorTile = ({ author }) => {
             {name}
           </div>
         </div>
+
+            <div className='authortile-style1-followers-container'>
+              <div className='authortile-style1-followers-header'>Followers</div>
+              <div className='authortile-style1-followers-header'>{numFollowers}</div>
+
+
+                
+              
+
+
+            </div>
+        
 
       </div>
 

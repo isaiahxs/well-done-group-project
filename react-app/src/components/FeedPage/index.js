@@ -6,22 +6,26 @@ import StoryFeed from '../StoryFeed';
 import SidePanel from '../SidePanel';
 
 import { WindowContext } from '../../context/WindowContext';
+import { authenticate } from '../../store/session';
+import * as storyActions from '../../store/story';
 
 
 
 const FeedPage = () => {
   const history = useHistory()
   const location = useLocation();
+  const dispatch = useDispatch();
 
   const { scrollPosition, windowSize } = useContext(WindowContext);
   const user = useSelector(state=>state.session.user)
 
 
   useEffect(() => {
-
-    window.scrollTo(0, 0);
-
-  }, [user]);
+    dispatch(authenticate())
+      .then(() => {
+        dispatch(storyActions.initialLoad());
+      })
+  }, [dispatch]);
 
 
 

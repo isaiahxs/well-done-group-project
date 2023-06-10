@@ -23,6 +23,8 @@ const SidePanel = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
     dispatch(sessionActions.search(tag))
+    dispatch(sessionActions.setFeed(tag))
+    dispatch(sessionActions.setSubFeed('taggedStories'))
   }
 
 

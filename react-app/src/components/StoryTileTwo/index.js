@@ -10,7 +10,7 @@ import userOutline from '../../public/user-outline.png';
 import fountainPen from '../../public/fountain-pen.png';
 import parse from 'html-react-parser';
 
-const StoryTileTwo = ({ story}) => {
+const StoryTileTwo = ({story}) => {
   const history = useHistory();
   const [date, setDate] = useState('Dec 25, 2560')
   const [readTime, setReadTime] = useState(4)
@@ -41,8 +41,12 @@ const StoryTileTwo = ({ story}) => {
 
   },[user]);
 
+
+
+
+
   useEffect(()=>{
-    if(story){
+    if(story && story.content){
       let parsedContent = parse(story.content.slice(0,80) + '...')
       // console.log('----THIS IS OUR PARSED CONTENT----', parsedContent)
       setStoryContent(parsedContent)
@@ -53,10 +57,10 @@ const StoryTileTwo = ({ story}) => {
     setReadTime(Math.floor(Math.random() * (20) + 4))
 
 
-    if(!story.images.length){
+    if(story.images && !story.images.length){
       setThumbnail('https://miro.medium.com/v2/resize:fit:1200/1*jfdwtvU6V6g99q3G7gq7dQ.png')
     }    
-    if(story.images.length){
+    if(story.images && story.images.length){
       setThumbnail(story.images[0].url)
     }
 
@@ -80,7 +84,8 @@ const StoryTileTwo = ({ story}) => {
           <div 
           className="style2-author-name memo-text"
           onClick={() => history.push(`/author/${story.id}`)}>
-            {story?.authorInfo.firstName} {story?.authorInfo.lastName}
+            {/* {story?.authorInfo.firstName} {story?.authorInfo.lastName} */}
+            {story?.authorInfo?.firstName || 'Unknown Author'}
           </div>
         </div>
         <div className="style2-story-title-container">
