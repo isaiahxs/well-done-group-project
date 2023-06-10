@@ -28,7 +28,7 @@ const CreateStoryPage = () => {
   
   const image = useSelector((state) => state.story.image);
 
-  console.log(image);
+  console.log(image?.image);
 
   let timeoutId;
 
@@ -195,8 +195,14 @@ console.log(spotPreviewImageFile);
           </div>
           <div className="image-main">
           
-              <img src={image} alt="preview"></img>
+              <img src={image?.image} alt="preview"></img>
            
+          </div>
+
+          <div className="image-main">
+          
+              <img src={image} alt="preview"></img>
+          
           </div>
 
           <div className="image-main">

@@ -351,9 +351,11 @@ export const unfollowAuthor = (id) => async (dispatch) => {
 export default function reducer(state = initialState, action) {
 	const newState = {...state}
 	switch (action.type) {
+
+		
 		case IMAGE_TEST:
 			console.log(action.payload);
-			return {image: action.payload };
+			return {image: action.payload.image };
 
 
 

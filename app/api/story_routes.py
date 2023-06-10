@@ -30,15 +30,23 @@ def image_test():
     Query for a story by id and returns that story in a dictionary
     """
 
+    print('here')
+    print('here')
+    print('here')
+
 
     image_name = 'Screenshot_2023-06-10_at_12.34.11_AM.png'
-
+    # image_name = 'https://well-done-proj.s3.us-east-2.amazonaws.com/Screenshot_2023-05-29_at_8.51.57_PM.png'
+    # image_name = 'https://well-done-proj.s3.us-east-2.amazonaws.com/Screenshot_2023-06-03_at_6.04.00_PM.png'
     # Generate the presigned URL for the image
     presigned_url = s3.generate_presigned_url(
         'get_object',
         Params={'Bucket': bucket, 'Key': image_name},
         ExpiresIn=3600  # The URL will be valid for 1 hour
     )
+    print('################')
+    print(presigned_url)
+    print('################')
 
 
     return {'image':presigned_url}
