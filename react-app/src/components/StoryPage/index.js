@@ -117,7 +117,7 @@ const StoryPage = () => {
               <div className="story-author">
                 {story.authorInfo.firstName} {story.authorInfo.lastName} ·
                 <a className='follow'> Follow</a>
-                <p className='time'>{readTime} min read · {date}</p>
+                <p className='time'>{story.timeToRead} min read · {date}</p>
               </div>
             </div>
           </div>

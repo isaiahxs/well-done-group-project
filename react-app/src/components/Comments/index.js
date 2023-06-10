@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux';
 import './Comments.css'
 
 const Comments = ({ userId, storyId, comments, authorInfo }) => {
-    console.log('THIS IS OUR USER IDDDDDDDD', userId)
+    // console.log('THIS IS OUR USER IDDDDDDDD', userId)
     const [commentText, setCommentText] = useState('');
     const [editingCommentId, setEditingCommentId] = useState(null);
     const [editText, setEditText] = useState('');
@@ -73,7 +73,7 @@ const Comments = ({ userId, storyId, comments, authorInfo }) => {
         <div className='posted-comments'>
             <div className='most-relevant'>Most Relevant</div>
           {comments.map((comment) => (
-            console.log('THIS IS OUR COMMENT AUTHOR ID', comment.userId),
+            // console.log('THIS IS OUR COMMENT AUTHOR ID', comment.userId),
             <div className='comment-tile'>
                 <div>
                     <img src={comment.author.profileImage} alt='comment-author-image' className='comment-author-image'/>
