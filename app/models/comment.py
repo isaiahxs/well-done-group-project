@@ -21,6 +21,7 @@ class Comment(db.Model):
 
     user = db.relationship('User', back_populates='comments')
     story = db.relationship('Story', back_populates='comments')
+    claps = db.relationship('CommentClap', back_populates='comment', cascade='all, delete-orphan')
 
     def to_dict(self):
         return {

@@ -24,7 +24,8 @@ class User(db.Model, UserMixin):
     following = db.relationship('Follower', back_populates='follower_user', foreign_keys='Follower.follower_id')
     followers = db.relationship('Follower', back_populates='author_user', foreign_keys='Follower.author_id')
     comments = db.relationship('Comment', back_populates='user', cascade='all, delete-orphan')
-
+    story_claps = db.relationship('Clap', back_populates='user', cascade='all, delete-orphan')
+    comment_claps = db.relationship('CommentClap', back_populates='user', cascade='all, delete-orphan')
 
     @property
     def password(self):
