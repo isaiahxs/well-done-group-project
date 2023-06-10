@@ -104,6 +104,7 @@ def search():
     # Get search query from the request args
     search_query = request.args.get('q')
 
+
     stories = []
     if search_query:
 
@@ -132,10 +133,9 @@ def search():
 
     return {
         'search': search_query,
-        'stories': [story.safe_dict() for story in stories],
-        'length': len(stories),
-        'authors': [author.safe_dict() for author in authors],
-        'taggedStories': [story.safe_dict() for story in tagged_stories]
+        'stories': [story.to_dict() for story in stories],
+        'authors': [author.to_dict() for author in authors],
+        'taggedStories': [story.to_dict() for story in tagged_stories]
     }
 
 

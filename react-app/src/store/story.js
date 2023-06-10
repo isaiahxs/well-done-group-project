@@ -59,12 +59,20 @@ export const initialLoad = () => async (dispatch) => {
 	}
 };
 
-export const createStory = () => async (dispatch) => {
-	const response = await fetch("/api/story/create", {
-		method: "POST",
-		headers: {
-			"Content-Type": "application/json",
-		}
+export const createStory = (createStoryObj) => async (dispatch) => {
+	// const response = await fetch("/api/story/create", {
+    const { images } = createStoryObj
+		const formData = new FormData();
+    // formData.append("country", country);
+    // if(spotImages) formData.append("spotImages", spotImages);
+    if (images) {
+      for (let i = 0; i < images.length; i++) {
+        formData.append("images", images[i]);
+      }
+    }
+		const response = await fetch("/api/story/1/image", {
+			method: "POST",
+			body: formData
 	});
 	if (response.ok) {
 		const data = await response.json();

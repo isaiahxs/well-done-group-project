@@ -32,14 +32,12 @@ def initial_load():
     Eager Load data upon initialization 
     """
 
-    user_stories = Story.query.filter_by(author_id=current_user.id).all()
     stories = Story.query.all()
     tags = Tag.query.all()
 
     return {
         'stories': [story.to_dict() for story in stories],
         'tags': [tag.tag for tag in tags],
-        'userStories': [story.to_dict() for story in user_stories]
     }
 
 
@@ -55,6 +53,25 @@ def curr_user_stories():
     if stories is None:
         return {"error": "No stories found"}, 404
     return {'stories': [story.to_dict() for story in stories]}
+
+
+
+
+@story_routes.route('/subscribed')
+@login_required
+def subscribed_stories():
+    """
+    Query for all stories from  user's followed authors and returns them in a list of story dictionaries
+    """
+
+    followings = Follower.query.filter_by(follower_id=current_user.id).all()
+    followed_authors_ids = [following.author_id for following in followings]
+    subscribed_stories = Story.query.options(joinedload(Story.author)).filter(Story.author_id.in_(followed_authors_ids)).all()
+    
+
+    if subscribed_stories is None:
+        return {"error": "No stories found"}, 404
+    return {'subscribedStories': [story.to_dict() for story in subscribed_stories],}
 
 
 
@@ -156,15 +173,39 @@ def create_story_image(id):
     """
     Creates a new story image
     """
+    print('-=-=-*********=-=-')
+    print('-=-=-*********=-=-')
 
-    form = StoryImageForm()
-    form['csrf_token'].data = request.cookies['csrf_token']
-    if not form.validate_on_submit(): 
+    if 'images' in request.files:
+        files = request.files.getlist('images')
+        for file in files:
+            if file.filename == '':
+                return {"error": "No file selected"}, 400
+            filename = secure_filename(file.filename)
+            file.save(filename)
+            s3.upload_file(
+                Bucket='well-done-proj',
+                Filename=filename,
+                Key=filename
+            )
+            url = f"https://{bucket}.s3.us-east-2.amazonaws.com/{filename}"
+            print('#################')
+            print(url)
+            print('#################')
 
-      print(form.errors)
+            print('=================')
+            print(file)
+            print('=================')
+
 
     if 'file' in request.files:
             file = request.files['file']
+            print('-=-=-=-=-')
+            print('-=-=-=-=-')
+            print(file)
+            print('-=-=-=-=-')
+            print('-=-=-=-=-')
+            print('-=-=-=-=-')
             if file.filename == '':
                 return {"error": "No file selected"}, 400
 
@@ -178,6 +219,43 @@ def create_story_image(id):
             )
 
             url = f"https://{bucket}.s3.us-east-2.amazonaws.com/{filename}"
+
+            print(url)
+
+
+    print('-=-=-*****AFTER****=-=-')
+    print('-=-=-*****AFTER****=-=-')
+ 
+
+    form = StoryImageForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if not form.validate_on_submit(): 
+
+      print(form.errors)
+
+    # if 'file' in request.files:
+    #         file = request.files['file']
+    #         print('-=-=-=-=-')
+    #         print('-=-=-=-=-')
+    #         print(file)
+    #         print('-=-=-=-=-')
+    #         print('-=-=-=-=-')
+    #         print('-=-=-=-=-')
+    #         if file.filename == '':
+    #             return {"error": "No file selected"}, 400
+
+    #         filename = secure_filename(file.filename)
+    #         file.save(filename)
+
+    #         s3.upload_file(
+    #             Bucket='well-done-proj',
+    #             Filename=filename,
+    #             Key=filename
+    #         )
+
+    #         url = f"https://{bucket}.s3.us-east-2.amazonaws.com/{filename}"
+
+    #         print(url)
         
     # take a look at this after, test validate form before and 
 
@@ -204,7 +282,7 @@ def create_story_image(id):
       return jsonify({**new_story_image.to_dict(), 'message': 'Story image successfully created'}), 201
 
     if form.errors:
-      return "Bad Data"
+      return {'error': "Bad Data"}
 
 
 

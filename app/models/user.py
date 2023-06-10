@@ -48,15 +48,6 @@ class User(db.Model, UserMixin):
             'createdAt': self.created_at,
             'updatedAt': self.updated_at,
             'followers': [follower.to_dict() for follower in self.followers],
-            'numFollowers': len(self.followers)
-
-        }
-    def safe_dict(self):
-        return {
-            'id': self.id,
-            'firstName': self.first_name,
-            'lastName': self.last_name,
-            'profileImage': self.profile_image,
-            'followers': [follower.to_dict() for follower in self.followers],
+            'followings': [follow.to_dict() for follow in self.following],
             'numFollowers': len(self.followers)
         }

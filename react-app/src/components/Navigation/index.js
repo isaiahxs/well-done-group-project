@@ -138,8 +138,7 @@ function Navigation() {
   };
 
   const handleWriteClick = () => {
-    history.push('/write');
-    colorScheme.current = colorSchemes['/write'];
+    history.push('/create');
   };
 
   const handleSigninClick = () => {

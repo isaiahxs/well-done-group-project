@@ -29,11 +29,17 @@ def authenticate():
         followings = Follower.query.filter_by(follower_id=current_user.id).all()
         followed_authors_ids = [following.author_id for following in followings]
         subscribed_stories = Story.query.options(joinedload(Story.author)).filter(Story.author_id.in_(followed_authors_ids)).all()
-        
+        user_stories = Story.query.filter_by(author_id=current_user.id).all()
+
+        # followed_authors = User.query.filter(User.author_id.in_(followed_authors_ids)).all()
+
+
         return {
             'user': current_user.to_dict(),
             'status': 200,
             'subscribedStories': [story.to_dict() for story in subscribed_stories],
+            'userStories': [story.to_dict() for story in user_stories],
+            'followedAuthorIds': followed_authors_ids
         }
     return {'errors': ['Unauthorized']}
 
@@ -56,11 +62,15 @@ def login():
         followings = Follower.query.filter_by(follower_id=current_user.id).all()
         followed_authors_ids = [following.author_id for following in followings]
         subscribed_stories = Story.query.options(joinedload(Story.author)).filter(Story.author_id.in_(followed_authors_ids)).all()
+        user_stories = Story.query.filter_by(author_id=current_user.id).all()
         
         return {
             'user': user.to_dict(),
             'status': 200,
             'subscribedStories': [story.to_dict() for story in subscribed_stories],
+            'userStories': [story.to_dict() for story in user_stories],
+            'followedAuthorIds': followed_authors_ids
+
             }
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 

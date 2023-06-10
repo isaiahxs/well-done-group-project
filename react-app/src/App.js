@@ -84,7 +84,7 @@ function App() {
           </Route>
 
 
-          <Route path="/createstory" exact>
+          <Route path="/create" exact>
             <CreateStoryPage />
           </Route>
 

@@ -1,13 +1,13 @@
 import React, { useEffect, useRef, useState, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, useHistory } from 'react-router-dom';
-import './CreateSpot.css';
+import './CreateStoryPage.css';
 
 import * as sessionActions from '../../store/session';
 import * as storyActions from '../../store/story';
 import { ModalContext } from '../../context/ModalContext';
 
-const CreateSpot = () => {
+const CreateStoryPage = () => {
   const fileTypes = ['.png', '.jpg', 'jpeg'];
   const [imageUrl, setImageUrl] = useState('');
   const [imageUrlClass, setImageUrlClass] = useState('');
@@ -30,13 +30,23 @@ const CreateSpot = () => {
   let timeoutId;
 
 
+// console.log(imageUrl);
+// console.log(spotImages[0].name);
+
+
+
+console.log(spotPreviewImage);
+console.log(spotPreviewImageFile);
+
 
 
   const handleSubmit = async (e) => {
 
     e.preventDefault();
+    let createStoryObj = {}
+    createStoryObj['images'] = spotImages
 
-    const response = await dispatch(storyActions.createStory())
+    const response = await dispatch(storyActions.createStory(createStoryObj))
           
         
   }
@@ -122,19 +132,11 @@ const CreateSpot = () => {
 
 
   return (
-    <div className="host-form-page">
+    <div className="createstory-container">
+
+    <div className="createstory-container">
      
           <form onSubmit={handleSubmit}>
-
-
-            <div className="host-form-spot-preview-image-header">
-              Liven up your spot with photos
-            </div>
-
-            <div className="host-form-spot-preview-image-memo">
-              Choose a file or submit a link to at least one photo to publish
-              your spot.
-            </div>
 
             <label className="host-form-spot-preview-image">
               Add image from URL (.png .jpg .jpeg format only)
@@ -186,32 +188,20 @@ const CreateSpot = () => {
           onChange={handleFileSelect}
         />
 
-        <div className="image-main-buttons">
-          <button
-            className="image-main-button-add button"
-            onClick={() => document.getElementById('fileInput').click()}
-          >
-            Add Image
-          </button>
-          <button
-            className="image-main-button-default button"
-            onClick={makeDefault}
-          >
-            Make Default
-          </button>
-          <button
-            className="image-main-button-delete button"
-            onClick={deleteImage}
-          >
-            Delete Image
-          </button>
-        </div>
+  
 
 
       </div>
+    </div>
+    <div className='imagelist'>
+      {spotImages && spotImages.length > 0 && spotImages.map((image, i) => {
+        return image && image.name ? <div className='listitem' key={i}>{image.name}</div> : null
+      })}
+    </div>
+
     </div>
 
   );
 };
 
-export default CreateSpot;
+export default CreateStoryPage;

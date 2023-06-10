@@ -67,7 +67,7 @@ const StoryFeed = () => {
   const handleSelectFeed = (feed) => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     dispatch(sessionActions.setFeed(feed));
-    dispatch(sessionActions.setSubFeed(null));
+    dispatch(sessionActions.setSubFeed('stories'));
   };
 
 
