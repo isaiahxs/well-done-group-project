@@ -77,10 +77,10 @@ const StoryPage = () => {
       let lastPosition = 0;  
 
       story.images.forEach((image, i) => { 
-        console.log(       image.position);
+        // console.log(       image.position);
  
         let text = story.content.slice(lastPosition, image.position).trim();
-        console.log(text);
+        // console.log(text);
         let img = image.url;
         tempArr.push({text, image: img});
 
@@ -90,7 +90,7 @@ const StoryPage = () => {
 //  console.log(lastPosition);
       if (lastPosition < story.content.length) { 
         let remainingText = story.content.slice(lastPosition); 
-        console.log(remainingText); 
+        // console.log(remainingText); 
         tempArr.push({text: remainingText});  
       } 
 
@@ -122,7 +122,7 @@ const StoryPage = () => {
               <div className="story-author">
                 {story.authorInfo.firstName} {story.authorInfo.lastName} ·
                 <a className='follow'> Follow</a>
-                <p className='time'>{readTime} min read · {date}</p>
+                <p className='time'>{story.timeToRead} min read · {date}</p>
               </div>
             </div>
           </div>

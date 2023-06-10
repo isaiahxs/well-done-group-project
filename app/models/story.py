@@ -18,6 +18,8 @@ class Story(db.Model):
     author_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     title = db.Column(db.String(255), nullable=False)
     content = db.Column(db.String(6000), nullable=False)
+    time_to_read = db.Column(db.Integer, nullable=False, default=10)
+    sliced_intro = db.Column(db.String(255), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
@@ -40,7 +42,9 @@ class Story(db.Model):
             'tags': [tag.tag.to_dict() for tag in self.tags],
             'images': [image.to_dict() for image in self.images],
             'comments': [comment.to_dict() for comment in self.comments],
-            'claps': len(self.claps)
+            'claps': len(self.claps),
+            'timeToRead': self.time_to_read,
+            'slicedIntro': self.sliced_intro
         }
 
         
