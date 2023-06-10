@@ -1,24 +1,43 @@
 // constants
 const GET_STORIES = "story/GET_STORIES";
+const INITIAL_LOAD = "story/INITIAL_LOAD";
+const CREATE_STORY = "story/CREATE_STORY";
+const FOLLOW_AUTHOR = "story/FOLLOW_AUTHOR";
+const UNFOLLOW_AUTHOR = "story/UNFOLLOW_AUTHOR";
+const IMAGE_TEST = "story/IMAGE_TEST";
+export const SUBSCRIBED_STORIES = "story/SUBSCRIBED_STORIES";
 
 const getStoriesAction = (stories) => ({
 	type: GET_STORIES,
 	payload: stories,
 });
+const getSubscribedStoriesAction = (stories) => ({
+	type: SUBSCRIBED_STORIES,
+	payload: stories.subscribedStories,
+});
 
-const INITIAL_LOAD = "story/INITIAL_LOAD";
-
-//used to have `payload: data,` after type but then changed it so payload has stories and currentStory
 const initialLoadAction = (data) => ({
 	type: INITIAL_LOAD,
 	payload: data
 });
 
-//what i tried, but then realized we might not need to do a currentStory since we can key into stories
-// payload: {
-// 	stories: data.stories,
-// 	currentStory: data.currentStory, //this is the current story
-// }
+const createStoryAction = (data) => ({
+	type: CREATE_STORY,
+	payload: data
+});
+
+const followAuthorAction = (data) => ({
+	type: FOLLOW_AUTHOR,
+	payload: data
+});
+const unfollowAuthorAction = (data) => ({
+	type: UNFOLLOW_AUTHOR,
+	payload: data
+});
+const imageTestAction = (data) => ({
+	type: IMAGE_TEST,
+	payload: data
+});
 
 const initialState = { stories: [], tags: [], loaded: false };
 
@@ -45,6 +64,36 @@ export const initialLoad = () => async (dispatch) => {
 	}
 };
 
+export const createStory = (createStoryObj) => async (dispatch) => {
+	// const response = await fetch("/api/story/create", {
+    const { images } = createStoryObj
+		const formData = new FormData();
+    // formData.append("country", country);
+    // if(spotImages) formData.append("spotImages", spotImages);
+    if (images) {
+      for (let i = 0; i < images.length; i++) {
+        formData.append("images", images[i]);
+      }
+    }
+		const response = await fetch("/api/story/1/image", {
+			method: "POST",
+			body: formData
+	});
+	if (response.ok) {
+		const data = await response.json();
+		dispatch(createStoryAction(data));
+		return null;
+	} else if (response.status < 500) {
+		const data = await response.json();
+		if (data.errors) {
+			return data.errors;
+		}
+	} else {
+		return ["An error occurred. Please try again."];
+	}
+};
+
+
 
 
 export const getStories = () => async (dispatch) => {
@@ -68,10 +117,57 @@ export const getStories = () => async (dispatch) => {
 	}
 };
 
+//define new action type
+const UPDATE_CLAP_COUNT = "story/UPDATE_CLAP_COUNT";
+
+// //create an action creator function
+export const getSubscribedStories = () => async (dispatch) => {
+	const response = await fetch("/api/story/subscribed", {
+		method: "GET",
+		headers: {
+			"Content-Type": "application/json",
+		}
+	});
+	if (response.ok) {
+		const data = await response.json();
+		dispatch(getSubscribedStoriesAction(data));
+		return null;
+	} else if (response.status < 500) {
+		const data = await response.json();
+		if (data.errors) {
+			return data.errors;
+		}
+	} else {
+		return ["An error occurred. Please try again."];
+	}
+};
+
+
+export const storyImageTest = () => async (dispatch) => {
+	const response = await fetch("/api/story/imagetest", {
+		method: "GET",
+		headers: {
+			"Content-Type": "application/json",
+		}
+	});
+	if (response.ok) {
+		const data = await response.json();
+		dispatch(imageTestAction(data));
+		return null;
+	} else if (response.status < 500) {
+		const data = await response.json();
+		if (data.errors) {
+			return data.errors;
+		}
+	} else {
+		return ["An error occurred. Please try again."];
+	}
+};
+
 export const updateClapAction = (data) => ({
-	type: "UPDATE_CLAP_COUNT",
-	payload: data
-});
+	type: UPDATE_CLAP_COUNT,
+	payload: data,
+})
 
 export const updateClapCount = (storyId) => async (dispatch) => {
 	const response = await fetch(`/api/story/${storyId}/clap`, {
@@ -98,6 +194,14 @@ export const updateClapCount = (storyId) => async (dispatch) => {
 	}
 }
 
+const REMOVE_CLAP = "story/REMOVE_CLAP";
+
+const removeClapAction = (payload) => ({
+	type: REMOVE_CLAP,
+	payload,
+})
+
+
 export const removeClap = (storyId ) => async (dispatch) => {
 	const response = await fetch(`/api/story/${storyId}/clap`, {
 		method: "DELETE",
@@ -107,7 +211,7 @@ export const removeClap = (storyId ) => async (dispatch) => {
 	})
 	if (response.ok) {
 		const data = await response.json();
-		dispatch(updateClapAction({ storyId, claps: data.totalClaps }));
+		dispatch(removeClapAction({ storyId, claps: data.totalClaps }));
 		return null;
 	// } else if (response.status < 500) {
 	// 	const data = await response.json();
@@ -126,11 +230,12 @@ export const removeClap = (storyId ) => async (dispatch) => {
 //define new action type
 const POST_COMMENT = "story/POST_COMMENT";
 
-//create an action creator function
+// //create an action creator function
 const postCommentAction = (comment) => ({
 	type: POST_COMMENT,
 	payload: comment,
 })
+
 
 //dispatch action in postComment thunk after we receive response
 export const postComment = (storyId, comment) => async (dispatch) => {
@@ -207,19 +312,77 @@ export const deleteComment = (storyId, commentId) => async (dispatch) => {
 }
 
 
+export const followAuthor = (id) => async (dispatch) => {
+	const response = await fetch(`/api/follow/${id}`, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		}
+	});
+	if (response.ok) {
+		const data = await response.json();
+		dispatch(followAuthorAction(data));
+		return null;
+	} else if (response.status < 500) {
+		const data = await response.json();
+		if (data.errors) {
+			return data.errors;
+		}
+	} else {
+		return ["An error occurred. Please try again."];
+	}
+};
+
+export const unfollowAuthor = (id) => async (dispatch) => {
+	const response = await fetch(`/api/follow/${id}`, {
+		method: "DELETE",
+		headers: {
+			"Content-Type": "application/json",
+		}
+	});
+	if (response.ok) {
+		const data = await response.json();
+		dispatch(unfollowAuthorAction(data));
+
+		return null;
+	} else if (response.status < 500) {
+		const data = await response.json();
+		if (data.errors) {
+			return data.errors;
+		}
+	} else {
+		return ["An error occurred. Please try again."];
+	}
+};
+
+
+
+
+
+
 //first version
 export default function reducer(state = initialState, action) {
 	const newState = {...state}
 	switch (action.type) {
+
+		
+		case IMAGE_TEST:
+			console.log(action.payload);
+			return {image: action.payload.image };
+
+
+
+
 		case GET_STORIES:
 			return {stories: action.payload.stories };
+
 		case INITIAL_LOAD:
 			console.log(action.payload);
-			return {stories: action.payload.stories, tags: action.payload.tags, loaded: true };
+			return {stories: action.payload.stories, userStories: action.payload.userStories, tags: action.payload.tags, loaded: true };
 
 			return {...newState};
 		
-		case 'UPDATE_CLAP_COUNT':
+		case UPDATE_CLAP_COUNT:
 			const {storyId, claps} = action.payload;
 			const updatedStories = state.stories.map((story) => {
 				if (story.id === storyId) {
@@ -235,7 +398,7 @@ export default function reducer(state = initialState, action) {
 				stories: updatedStories
 			}
 
-		case 'REMOVE_CLAP': {
+		case REMOVE_CLAP: {
 			const {storyId, claps} = action.payload;
 			const updatedStories = state.stories.map((story) => {
 				if (story.id === storyId) {
@@ -252,7 +415,7 @@ export default function reducer(state = initialState, action) {
 			}
 		}
 
-		case 'POST_COMMENT': {
+		case POST_COMMENT: {
 			const newComment = action.payload;
 			const updatedStories = state.stories.map((story) => {
 				if (story.id === newComment.storyId) {
@@ -269,7 +432,7 @@ export default function reducer(state = initialState, action) {
 			}
 		}
 
-		case 'EDIT_COMMENT': {
+		case EDIT_COMMENT: {
 			const updatedComment = action.payload;
 			const updatedStories = state.stories.map((story) => {
 				if (story.id === updatedComment.storyId) {
@@ -288,7 +451,7 @@ export default function reducer(state = initialState, action) {
 			}
 		}
 
-		case 'DELETE_COMMENT': {
+		case DELETE_COMMENT: {
 			const commentIdToDelete = action.payload;
 			const updatedStories = state.stories.map((story) => {
 				//filter out comments we want to delete

@@ -8,65 +8,111 @@ import openBook from '../../public/open-book.png';
 import quill from '../../public/quill.png';
 import userOutline from '../../public/user-outline.png';
 import fountainPen from '../../public/fountain-pen.png';
+import * as storyActions from '../../store/story'
 
-const AuthorTile = ({ author, index }) => {
+
+const profileImages = {
+  'quill': quill,
+  'user-outline': userOutline,
+  'open-book': openBook,
+  'fountain-pen': fountainPen,
+}
+
+const AuthorTile = ({ author }) => {
   const history = useHistory();
-  const [date, setDate] = useState('Dec 25, 2560')
-  const [readTime, setReadTime] = useState(4)
-  const {windowSize} = useContext(WindowContext)
-  const [thumbnail, setThumbnail] = useState('')
+  const dispatch = useDispatch();
+  const [name, setName] = useState('')
+
   const [profileImageSrc, setProfileImageSrc] = useState('');
-  const user = useSelector((state) => state.session.user);
+  const [numFollowers, setNumFollowers] = useState(0);
+  const [following, setFollowing] = useState(false);
+  const followedAuthorIds = useSelector(state=>state.session.followedAuthorIds)
 
+  console.log(followedAuthorIds);
 
-
+  const getProfileImageSrc = (profileImage) => {
+    return profileImages[profileImage] || profileImage;
+  };
+ 
   useEffect(()=>{
-    if(author && author.profileImage){
-      if(author.profileImage === 'quill'){
-        setProfileImageSrc(quill)
+    console.log(author);
+
+      if(author.firstName){
+        setName(`${author.firstName} ${author.lastName}`)
       }
-      else if(author.profileImage === 'user-outline'){
-        setProfileImageSrc(userOutline)
+    
+      if(author.profileImage){
+        setProfileImageSrc(getProfileImageSrc(author.profileImage));
       }
-      else if(author.profileImage === 'open-book'){
-        setProfileImageSrc(openBook)
+      if(author.followers){
+        setNumFollowers(author.followers.length);
       }
-      else if(author.profileImage === 'fountain-pen'){
-        setProfileImageSrc(fountainPen)
-      }
-      else {
-        setProfileImageSrc(author.profileImage)
-      }
+
+    if(author && author.authorInfo){
+        setNumFollowers(author.authorInfo.followers.length);
+        setName(`${author.authorInfo.firstName} ${author.authorInfo.lastName}`)
+        setProfileImageSrc(getProfileImageSrc(author.authorInfo.profileImage));
     }
 
-  },[author]);
+    setFollowing(()=> {
+      return followedAuthorIds.find(id=>author.id===id)
+    } )
 
 
 
+  },[author, followedAuthorIds]);
+
+  const handleFollow = () => {
+    if(following){
+      dispatch(storyActions.unfollowAuthor(author.id))
+
+    }
+    if(!following){
+      dispatch(storyActions.followAuthor(author.id))
+    }
+  }
 
 
   return (
-    <div className="auhtor-tile-style1">
-      <div className="style1-content">
+    <>
+    {author && (
+
+    <div className="authortile-style1-wrapper">
+      <div className="authortile-style1-container flex">
         <div className="style1-author-container">
-          {author&&(<div className="style1-profile-image">
-          {author?.profileImage && (
+          <div className="style1-profile-image">
+          {profileImageSrc && (
                 <img
-                  src={author?.profileImage}
+                  src={profileImageSrc}
                   alt="author profile picture"
                 ></img>
               )}
-          </div>)}
+          </div>
           <div 
           className="style1-author-name memo-text"
           onClick={() => history.push(`/author/${author.id}`)}>
-            {author.firstName} {author.lastName}
+            {name}
           </div>
         </div>
+
+            <div className='authortile-style1-followers-container'>
+              <div className='authortile-style1-followers-header'>Followers</div>
+              <div className='authortile-style1-followers-header'>{numFollowers}</div>
+            </div>
+
+            <div className='authortile-style1-followers-container'>
+              <div className='authortile-style1-follow-button' onClick={handleFollow}>{following ? 'Unfollow' : 'Follow'}</div>
+            </div>
 
       </div>
 
     </div>
+    )}
+
+
+    
+    
+    </>
   );
 };
 export default AuthorTile;

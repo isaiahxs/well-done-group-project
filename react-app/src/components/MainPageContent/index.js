@@ -34,7 +34,10 @@ const MainPageContent = () => {
   const navToFeed = (tag) => {
     console.log(tag);
     dispatch(sessionActions.search(tag))
-    history.push(`/tag/${tag}`)
+    dispatch(sessionActions.setFeed(tag))
+    dispatch(sessionActions.setSubFeed('taggedStories'))
+    history.push('/home');
+
     return
   }
 

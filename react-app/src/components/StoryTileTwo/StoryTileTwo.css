@@ -1,5 +1,4 @@
 .story-tile-style2 {
-  background-color: #fff;
   height: fit-content;
   width: 99%;
   left: 0%;
@@ -7,6 +6,7 @@
   display: flex;
   justify-content: space-between;
   margin-top: 20px;
+  background-color: transparent;
 }
 
 .story-tile-style2:first-child {
@@ -98,7 +98,6 @@
 .style2-story-image{
   height: 105px;
   width: 150px;
-  background-color: aquamarine;
   right: 0px;
   overflow: hidden;
 }
@@ -113,6 +112,11 @@
 }
 
 
+.style2-edit-button{
+  position: absolute;
+  bottom: 5px;
+  border: black solid 1px;
+}
 
 
 
@@ -122,7 +126,6 @@
   .style2-story-image{
     height: 150px;
     width: 200px;
-    background-color: rgb(206, 142, 46);
     right: 0px;
   }
 
@@ -165,6 +168,7 @@
 
 
 }
+
 
 
 

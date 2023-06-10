@@ -165,7 +165,7 @@ def seed_users():
         email='blackpanther@example.com',
         password='wakandaforever',
         profile_image='https://logos-world.net/wp-content/uploads/2021/08/Symbol-Black-Panther.png',
-        first_name='T\'Challa',
+        first_name='Challa',
         last_name='Chadwick'
     )
     doctorstrange = User(
