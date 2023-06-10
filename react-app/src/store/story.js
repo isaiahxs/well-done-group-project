@@ -368,7 +368,7 @@ export default function reducer(state = initialState, action) {
 		
 		case IMAGE_TEST:
 			console.log(action.payload);
-			return {image: action.payload.image };
+			return {image: action.payload.image, image2: action.payload.image2 };
 
 
 
