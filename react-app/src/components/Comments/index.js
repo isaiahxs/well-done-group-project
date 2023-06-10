@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
-import {postComment} from '../../store/story'
+import {addCommentClap, postComment} from '../../store/story'
 import {editComment} from '../../store/story'
 import {deleteComment} from '../../store/story'
+import { removeCommentClap } from '../../store/story';
 import './Comments.css'
 
 const Comments = ({ userId, storyId, comments, authorInfo }) => {
@@ -33,6 +34,14 @@ const Comments = ({ userId, storyId, comments, authorInfo }) => {
 
     const handleDelete = (storyId, commentId) => {
         dispatch(deleteComment(storyId, commentId));
+    }
+
+    const handleClap = async (commentId) => {
+        dispatch (addCommentClap(commentId));
+    }
+
+    const handleUnclap = async (commentId) => {
+        dispatch (removeCommentClap(commentId));
     }
 
     return (
@@ -71,6 +80,9 @@ const Comments = ({ userId, storyId, comments, authorInfo }) => {
                         comment.content
                         }
                     </p>
+                    <p>Claps: {comment.clapCount}</p> {/* Show clap count */}
+                    <button onClick={() => handleClap(comment.id)}>Clap</button> {/* Clap button */}
+                    <button onClick={() => handleUnclap(comment.id)}>Remove Clap</button> {/* Unclap button */}
                     {userId && userId === comment.userId && editingCommentId !== comment.id &&
                         <div>
                         <button onClick={() => handleEdit(comment.id, comment.content)}>Edit</button>
