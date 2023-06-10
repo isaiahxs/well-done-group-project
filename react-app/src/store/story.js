@@ -2,10 +2,17 @@
 const GET_STORIES = "story/GET_STORIES";
 const INITIAL_LOAD = "story/INITIAL_LOAD";
 const CREATE_STORY = "story/CREATE_STORY";
+const FOLLOW_AUTHOR = "story/FOLLOW_AUTHOR";
+const UNFOLLOW_AUTHOR = "story/UNFOLLOW_AUTHOR";
+export const SUBSCRIBED_STORIES = "story/SUBSCRIBED_STORIES";
 
 const getStoriesAction = (stories) => ({
 	type: GET_STORIES,
 	payload: stories,
+});
+const getSubscribedStoriesAction = (stories) => ({
+	type: SUBSCRIBED_STORIES,
+	payload: stories.subscribedStories,
 });
 
 const initialLoadAction = (data) => ({
@@ -18,7 +25,14 @@ const createStoryAction = (data) => ({
 	payload: data
 });
 
-
+const followAuthorAction = (data) => ({
+	type: FOLLOW_AUTHOR,
+	payload: data
+});
+const unfollowAuthorAction = (data) => ({
+	type: UNFOLLOW_AUTHOR,
+	payload: data
+});
 
 const initialState = { stories: [], tags: [], loaded: false };
 
@@ -68,6 +82,7 @@ export const createStory = () => async (dispatch) => {
 
 
 
+
 export const getStories = () => async (dispatch) => {
 	const response = await fetch("/api/story/", {
 		method: "GET",
@@ -78,6 +93,27 @@ export const getStories = () => async (dispatch) => {
 	if (response.ok) {
 		const data = await response.json();
 		dispatch(getStoriesAction(data));
+		return null;
+	} else if (response.status < 500) {
+		const data = await response.json();
+		if (data.errors) {
+			return data.errors;
+		}
+	} else {
+		return ["An error occurred. Please try again."];
+	}
+};
+
+export const getSubscribedStories = () => async (dispatch) => {
+	const response = await fetch("/api/story/subscribed", {
+		method: "GET",
+		headers: {
+			"Content-Type": "application/json",
+		}
+	});
+	if (response.ok) {
+		const data = await response.json();
+		dispatch(getSubscribedStoriesAction(data));
 		return null;
 	} else if (response.status < 500) {
 		const data = await response.json();
@@ -228,12 +264,61 @@ export const deleteComment = (storyId, commentId) => async (dispatch) => {
 }
 
 
+export const followAuthor = (id) => async (dispatch) => {
+	const response = await fetch(`/api/follow/${id}`, {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		}
+	});
+	if (response.ok) {
+		const data = await response.json();
+		dispatch(followAuthorAction(data));
+		return null;
+	} else if (response.status < 500) {
+		const data = await response.json();
+		if (data.errors) {
+			return data.errors;
+		}
+	} else {
+		return ["An error occurred. Please try again."];
+	}
+};
+
+export const unfollowAuthor = (id) => async (dispatch) => {
+	const response = await fetch(`/api/follow/${id}`, {
+		method: "DELETE",
+		headers: {
+			"Content-Type": "application/json",
+		}
+	});
+	if (response.ok) {
+		const data = await response.json();
+		dispatch(unfollowAuthorAction(data));
+
+		return null;
+	} else if (response.status < 500) {
+		const data = await response.json();
+		if (data.errors) {
+			return data.errors;
+		}
+	} else {
+		return ["An error occurred. Please try again."];
+	}
+};
+
+
+
+
+
+
 //first version
 export default function reducer(state = initialState, action) {
 	const newState = {...state}
 	switch (action.type) {
 		case GET_STORIES:
 			return {stories: action.payload.stories };
+
 		case INITIAL_LOAD:
 			console.log(action.payload);
 			return {stories: action.payload.stories, userStories: action.payload.userStories, tags: action.payload.tags, loaded: true };

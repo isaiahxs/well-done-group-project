@@ -8,6 +8,7 @@ import openBook from '../../public/open-book.png';
 import quill from '../../public/quill.png';
 import userOutline from '../../public/user-outline.png';
 import fountainPen from '../../public/fountain-pen.png';
+import * as storyActions from '../../store/story'
 
 
 const profileImages = {
@@ -19,10 +20,15 @@ const profileImages = {
 
 const AuthorTile = ({ author }) => {
   const history = useHistory();
+  const dispatch = useDispatch();
   const [name, setName] = useState('')
 
   const [profileImageSrc, setProfileImageSrc] = useState('');
   const [numFollowers, setNumFollowers] = useState(0);
+  const [following, setFollowing] = useState(false);
+  const followedAuthorIds = useSelector(state=>state.session.followedAuthorIds)
+
+  console.log(followedAuthorIds);
 
   const getProfileImageSrc = (profileImage) => {
     return profileImages[profileImage] || profileImage;
@@ -44,16 +50,27 @@ const AuthorTile = ({ author }) => {
 
     if(author && author.authorInfo){
         setNumFollowers(author.authorInfo.followers.length);
-
         setName(`${author.authorInfo.firstName} ${author.authorInfo.lastName}`)
         setProfileImageSrc(getProfileImageSrc(author.authorInfo.profileImage));
     }
-      
 
-  },[author]);
+    setFollowing(()=> {
+      return followedAuthorIds.find(id=>author.id===id)
+    } )
 
 
 
+  },[author, followedAuthorIds]);
+
+  const handleFollow = () => {
+    if(following){
+      dispatch(storyActions.unfollowAuthor(author.id))
+
+    }
+    if(!following){
+      dispatch(storyActions.followAuthor(author.id))
+    }
+  }
 
 
   return (
@@ -81,14 +98,11 @@ const AuthorTile = ({ author }) => {
             <div className='authortile-style1-followers-container'>
               <div className='authortile-style1-followers-header'>Followers</div>
               <div className='authortile-style1-followers-header'>{numFollowers}</div>
-
-
-                
-              
-
-
             </div>
-        
+
+            <div className='authortile-style1-followers-container'>
+              <div className='authortile-style1-follow-button' onClick={handleFollow}>{following ? 'Unfollow' : 'Follow'}</div>
+            </div>
 
       </div>
 

@@ -6,6 +6,7 @@ import './StoryFeed.css';
 import { WindowContext } from '../../context/WindowContext';
 import { ModalContext } from '../../context/ModalContext';
 import * as sessionActions from '../../store/session';
+import * as storyActions from '../../store/story';
 import StoryTileTwo from '../StoryTileTwo';
 import AuthorTile from '../AuthorTile';
 import StoryTileTwoSkeleton from '../StoryTileTwoSkeleton';
@@ -83,7 +84,7 @@ const StoryFeed = () => {
     dispatch(sessionActions.removeSearch(searchQuery));
   };
 
-
+console.log(subscribedStories);
 
   return (
     <div className="storyfeed-container">
@@ -124,7 +125,10 @@ const StoryFeed = () => {
             className={`feed-select large memo-text flexcenter ${
               currentFeed === 'following' ? 'selected' : ''
             }`}
-            onClick={() => handleSelectFeed('following')}
+            onClick={() => {
+              handleSelectFeed('following')
+              dispatch(storyActions.getSubscribedStories())
+            }}
           >
             Following
           </div>

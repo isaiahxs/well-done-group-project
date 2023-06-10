@@ -1,10 +1,13 @@
+
 // constants
+import {SUBSCRIBED_STORIES} from './story'
 const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
 const NEW_SEARCH = "session/NEW_SEARCH";
 const REMOVE_SEARCH = "session/REMOVE_SEARCH";
 const SET_FEED = "session/SET_FEED";
 const SET_SUB_FEED = "session/SET_SUB_FEED";
+
 
 export const setUser = (user) => ({
 	type: SET_USER,
@@ -164,7 +167,7 @@ export default function reducer(state = initialState, action) {
 	const newState = {...state}
 	switch (action.type) {
 		case SET_USER:
-			return {...newState, user: action.payload.user, subscribedStories: action.payload.subscribedStories, userStories: action.payload.userStories };		
+			return {...newState, user: action.payload.user, subscribedStories: action.payload.subscribedStories, userStories: action.payload.userStories, followedAuthorIds:action.payload.followedAuthorIds, };		
 		case REMOVE_USER:
 			return initialState;
 		case NEW_SEARCH:
@@ -182,6 +185,10 @@ export default function reducer(state = initialState, action) {
 		case SET_SUB_FEED:{
 			return {...newState, subFeed: action.payload };		
 		}
+		case SUBSCRIBED_STORIES:
+			return {...newState, subscribedStories: action.payload};		
+		
+
 		default:
 			return newState;
 	}

@@ -10,6 +10,8 @@
 
 .storyfeed-wrapper{
   width: 65%;
+  border-right: #e6e6e6 solid 1px;
+
 }
 
 .storyfeed-wrapper.wide{
@@ -18,7 +20,6 @@
 
 
 .sidepanel-wrapper{
-  border-left: #e6e6e6 solid 1px;
 
   position: relative;
   width: 35%;

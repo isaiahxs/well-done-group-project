@@ -3,3 +3,9 @@
   height: 60px;
   margin-bottom: 5px;
 }
+
+.authortile-style1-follow-button{
+  width: 150px;
+  height: 40px;
+  border: black solid 1px;
+}
