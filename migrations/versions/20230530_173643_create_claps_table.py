@@ -59,6 +59,16 @@ def upgrade():
     sa.ForeignKeyConstraint(['tag_id'], ['tags.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+    op.create_table('comment_claps',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('user_id', sa.Integer(), nullable=False),
+    sa.Column('comment_id', sa.Integer(), nullable=False),
+    sa.Column('created_at', sa.DateTime(), nullable=True),
+    sa.Column('updated_at', sa.DateTime(), nullable=True),
+    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
+    sa.ForeignKeyConstraint(['comment_id'], ['comments.id'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
 
     # ### end Alembic commands ###qqqqqqqqq
     if environment == "production":
@@ -66,6 +76,7 @@ def upgrade():
         op.execute(f"ALTER TABLE claps SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE story_images SET SCHEMA {SCHEMA};")
         op.execute(f"ALTER TABLE story_tags SET SCHEMA {SCHEMA};")
+        op.execute(f"ALTER TABLE comment_claps SET SCHEMA {SCHEMA};")
 
 
 def downgrade():
@@ -76,4 +87,5 @@ def downgrade():
     op.drop_table('story_images')
     op.drop_table('claps')
     op.drop_table('followers')
+    op.drop_table('comment_claps')
     # ### end Alembic commands ###
