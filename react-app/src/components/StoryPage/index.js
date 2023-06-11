@@ -4,8 +4,13 @@ import { useHistory, useLocation, useParams } from 'react-router-dom';
 import './StoryPage.css';
 import parse from 'html-react-parser';
 import CommentPanel from '../CommentPanel';
+import OpenModalButton from '../OpenModalButton';
+import StoryOptionsModal from '../StoryOptionsModal';
+import { useModal } from '../../context/Modal';
 import * as sessionActions from '../../store/session';
 import * as storyActions from '../../store/story';
+import { ModalContext } from '../../context/ModalContext';
+
 
 const StoryPage = () => {
   const history = useHistory();
@@ -17,6 +22,8 @@ const StoryPage = () => {
   const [sortedContent, setSortedContent] = useState([])
   const [showComments, setShowComments] = useState(false);
   const currentUser = useSelector(state => state.session.user);
+  const { modal, openModal, closeModal, needsRerender, setNeedsRerender } = useContext(ModalContext);
+
 
   console.log(story?.claps);
 
@@ -34,6 +41,18 @@ const StoryPage = () => {
 
     if (response && response.message) {
       alert("Sorry, you do not have any claps to remove.")
+    }
+  }
+
+  const handleEditStory = () => {
+    // history.push(`/stories/${id}/edit`)
+    console.log('hi')
+  }
+
+  const handleDeleteStory = async () => {
+    const result = await dispatch(storyActions.deleteStory(id));
+    if (result && result.message) {
+      history.push('/home');
     }
   }
 
@@ -124,17 +143,6 @@ const StoryPage = () => {
             </div>
           </div>
 
-          {/* <div className='options-bar'>
-            <button className='clap-button' onClick={handleClapClick}>Clap</button>
-            <button className='unclap-button' onClick={handleUnclapClick}>Unclap</button>
-            <button className='clap-count'>Claps {story.claps}</button>
-            <CommentPanel showComments={showComments} setShowComments={setShowComments} story={story} />
-            <button className='additional-options'>...</button>
-
-            <div className={`overlay ${showComments ? 'active' : ''}`} onClick={() => setShowComments(!showComments)}></div>
-
-          </div> */}
-
           {/* changed original options bar to hide ability to clap/unclap your own stories + show ... only if you're the author of the story you're on */}
           <div className='options-bar'>
             {currentUser?.id !== story.authorInfo.id && (
@@ -146,7 +154,11 @@ const StoryPage = () => {
             <button className='clap-count'>Claps {story.claps}</button>
             <CommentPanel showComments={showComments} setShowComments={setShowComments} story={story} />
             {currentUser?.id === story.authorInfo.id && (
-              <button className='additional-options'>...</button>
+              <button className='additional-options' onClick={() => openModal('storyOptionsModal')}>...</button>
+              // <OpenModalButton
+              //   modalComponent={<StoryOptionsModal onEdit={handleEditStory} onDelete={handleDeleteStory} />}
+              //   buttonText='...'
+              // />
             )}
             <div className={`overlay ${showComments ? 'active' : ''}`} onClick={() => setShowComments(!showComments)}></div>
           </div>
