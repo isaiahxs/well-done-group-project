@@ -4,6 +4,7 @@ import { useHistory, useLocation, useParams } from 'react-router-dom';
 import './StoryPage.css';
 import parse from 'html-react-parser';
 import CommentPanel from '../CommentPanel';
+import * as sessionActions from '../../store/session';
 import * as storyActions from '../../store/story';
 
 const StoryPage = () => {
