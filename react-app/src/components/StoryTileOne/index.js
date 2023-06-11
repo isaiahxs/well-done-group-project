@@ -12,7 +12,6 @@ const StoryTileOne = ({ story, index }) => {
   const history = useHistory();
   const [date, setDate] = useState('Dec 25, 2560')
   const {windowSize} = useContext(WindowContext)
-  const [readTime, setReadTime] = useState(4)
   const isMobileView = windowSize <= 900;
   const [profileImageSrc, setProfileImageSrc] = useState('');
   const user = useSelector((state) => state.session.user);
@@ -42,9 +41,7 @@ const StoryTileOne = ({ story, index }) => {
     if(story){
       setDate(story?.createdAt.slice(0,16))
     }
-    setReadTime(Math.floor(Math.random() * (20) + 4))
   },[story])
-
 
 
 
@@ -86,7 +83,7 @@ const StoryTileOne = ({ story, index }) => {
               <i className="style1 fa-solid fa-circle"></i>
               <div className="style1-date-read-time-content">
                 {/* {story?.readTime} min read */}
-                {readTime} min read
+                {story?.timeToRead} min read
               </div>
             </div>
           </div>
@@ -127,8 +124,7 @@ const StoryTileOne = ({ story, index }) => {
               <div className="style1-date-content">{date}</div>
               <i className="style1 fa-solid fa-circle"></i>
               <div className="style1-date-read-time-content">
-                {/* {story?.readTime} min read */}
-                {readTime} min read
+                {story?.timeToRead} min read
               </div>
             </div>
           </div>

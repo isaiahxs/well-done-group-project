@@ -18,7 +18,6 @@ const StoryTileTwo = ({story}) => {
   const [thumbnail, setThumbnail] = useState('')
   const [profileImageSrc, setProfileImageSrc] = useState('');
   const user = useSelector((state) => state.session.user);
-  const [storyContent, setStoryContent] = useState('')
 
   useEffect(()=>{
     if(user && user.profileImage){
@@ -46,10 +45,8 @@ const StoryTileTwo = ({story}) => {
 
 
   useEffect(()=>{
-    if(story && story.content){
-      let parsedContent = parse(story.content.slice(0,80) + '...')
-      // console.log('----THIS IS OUR PARSED CONTENT----', parsedContent)
-      setStoryContent(parsedContent)
+    if(story){
+
       let month = story?.createdAt.slice(8,11)
       let day = story?.createdAt.slice(5,7)
       setDate(`${month} ${day}`)
@@ -93,7 +90,7 @@ const StoryTileTwo = ({story}) => {
         </div>
 
         {windowSize > 699 && (<div className="style2-header-container flexbetween memo-text">
-          <div className="style2-header-content">{storyContent}</div>
+          <div className="style2-header-content">{story.slicedIntro}</div>
         </div>)}
 
      
@@ -103,7 +100,7 @@ const StoryTileTwo = ({story}) => {
           <i className="style2 fa-solid fa-circle"></i>
           <div className="style2-date-read-time-content">
             {/* {story?.readTime} min read */}
-            {readTime} min read
+            {story?.timeToRead} min read
           </div>
         </div>
       </div>
