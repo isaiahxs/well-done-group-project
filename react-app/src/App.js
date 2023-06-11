@@ -88,6 +88,10 @@ function App() {
             <CreateStoryPage />
           </Route>
 
+          <Route path="/create/:id" exact>
+            <CreateStoryPage />
+          </Route>
+
           <Route path="/" exact>
             <HomePage/>
           </Route>

@@ -1,12 +1,12 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import './CreateStoryPage.css';
 
 import * as storyActions from '../../store/story';
 
 
-const CreateStoryPage = () => {
+const CreateStoryPage = ({story}) => {
   const [blocks, setBlocks] = useState([]);
   const [titleText, setTitleText] = useState('');
   const [showLabel, setShowLabel] = useState('');
@@ -19,16 +19,102 @@ const CreateStoryPage = () => {
 
   const user = useSelector((state) => state.session.user);
   const tags = useSelector((state) => state.story.tags);
+  const currentStory = useSelector((state) => state.story.currentStory);
+
+  const {id} = useParams()
+
+  console.log(id);
+  console.log(currentStory);
+
+
+  useEffect(() => {
+
+    dispatch(storyActions.getStoryById(id))
+   
+  }, [id])
 
 
 
-  const addBlock = (type) => {
-    const newBlock = { type, content: '', altTag: '' };
+//   useEffect(()=>{
+//     if(story){
+
+//       let tempArr =  [];
+//       let lastPosition = 0;  
+
+//       story.images.forEach((image, i) => { 
+ 
+//         let text = story.content.slice(lastPosition, image.position)
+        
+//         let img = image.url
+
+//         let altTag = image.altTag
+//         tempArr.push({text, image: img, altTag});
+//         lastPosition = image.position;  
+//       });
+//  // Check if there's remaining content
+//       if (lastPosition < story.content.length) { 
+//         let remainingText = story.content.slice(lastPosition); 
+//         tempArr.push({text: remainingText});  
+//       } 
+
+//       setSortedContent(tempArr);
+//     }
+//   }, [story]);
+
+useEffect(() => {
+
+
+  if (currentStory && currentStory.authorId !== user.id) {
+    history.push('/create')
+  } 
+
+
+  if (currentStory && currentStory.authorId === user.id) {
+
+    console.log('yes');
+    let tempArr =  [];
+    let lastPosition = 0;  
+    let blocksTemp = [];
+
+    currentStory.images.forEach((image, i) => { 
+      let text = currentStory.content.slice(lastPosition, image.position);
+      let img = image.url;
+      let altTag = image.altTag;
+
+      // add text block if there is text before the image
+      if(text.trim() !== '') {
+        blocksTemp.push({type: 'text', content: text});
+      }
+
+      // add image block
+      blocksTemp.push({type: 'awsimage', content: img, altTag});
+      
+      lastPosition = image.position;  
+    });
+
+    // Check if there's remaining content
+    if (lastPosition < currentStory.content.length) { 
+      let remainingText = currentStory.content.slice(lastPosition); 
+      blocksTemp.push({type: 'text', content: remainingText});
+    } 
+
+    // set blocks for the current currentStory
+    setBlocks(blocksTemp);
+  }
+}, [currentStory]);
+
+
+
+  const addBlock = (type, content = '', altTag = '') => {
+    const newBlock = { type, content, altTag };
     setBlocks([...blocks, newBlock]);
     if (type === 'image') {
       fileInputRef.current.click();
     }
   }
+
+
+
 
   const deleteBlock = (index) => {
     const newBlocks = [...blocks];
@@ -185,6 +271,27 @@ console.log(blocks);
                 </div>
               </div>
             );
+          } else if (block.type === 'awsimage') {
+            return (
+              <div className="image-wrapper" key={index}>
+                  <button type="button" className="delete-button" onClick={() => deleteBlock(index)}>X</button>
+                <div className="image-container">
+                  {block.content ? 
+                  <img className="story-image" src={block.content} alt="" /> : 
+                  null}
+                  <input
+                    className="alt-text-input"
+                    value={block.altTag}
+                    onChange={(e) => {
+                      const newBlocks = [...blocks];
+                      newBlocks[index].altTag = e.target.value;
+                      setBlocks(newBlocks);
+                    }}
+                    placeholder='Add alt tag'
+                  />
+                </div>
+              </div>
+            );
           }
         })}
 
@@ -213,3 +320,7 @@ console.log(blocks);
 };
 
 export default CreateStoryPage;
+
+
+
+// ok lets do this, if theres a story we need to iterate over the content and spearate it into these blocks using this add block method. we dont need to worry about the sorted content. we will simply iterate over the images, any text that comes before the image goe sinto a block labled text, and the image foes in a nother block and so forth until we get thru all the content. after all the images are done we check iof theres any content left over and if so we put that in the last text box

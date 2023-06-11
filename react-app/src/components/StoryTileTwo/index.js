@@ -60,7 +60,7 @@ console.log(fadeTrigger);
 
 
   return (
-    <div className="story-tile-style2">
+    <div className="story-tile-style2 fade-in">
       <div className="style2-content">
         <div className="style2-author-container">
           <div className="style2-profile-image">
@@ -94,8 +94,11 @@ console.log(fadeTrigger);
             {story?.timeToRead} min read
           </div>
         </div>
+        <div onClick={()=>{
+          history.push(`/create/${story.id}`)
+        }}>edit</div>
       </div>
-      <div className={`style2-story-image fade-in`}>
+      <div className={`style2-story-image`}>
         <img
           src={thumbnail}
           alt={'profile image'}

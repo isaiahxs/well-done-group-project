@@ -50,7 +50,7 @@ const TrendingBanner = () => {
         <div className="memo-text"> Trending on Medium </div>
       </div>
 
-      {!loaded && (
+      {1==1 && (
         <div className="main-page-trending-tile-container">
           <StoryTileOneSkeleton />
           <StoryTileOneSkeleton />

@@ -9,7 +9,7 @@ import * as sessionActions from '../../store/session';
 import * as storyActions from '../../store/story';
 import StoryTileTwo from '../StoryTileTwo';
 import AuthorTile from '../AuthorTile';
-import StoryTileTwoSkeleton from '../StoryTileTwoSkeleton';
+import StoryTileFourSkeleton from '../StoryTileFourSkeleton';
 
 
 
@@ -200,14 +200,14 @@ console.log(subscribedStories);
 
       {!loaded && (
         <div>
-          <StoryTileTwoSkeleton />
-          <StoryTileTwoSkeleton />
-          <StoryTileTwoSkeleton />
-          <StoryTileTwoSkeleton />
-          <StoryTileTwoSkeleton />
-          <StoryTileTwoSkeleton />
-          <StoryTileTwoSkeleton />
-          <StoryTileTwoSkeleton />
+          <StoryTileFourSkeleton />
+          <StoryTileFourSkeleton />
+          <StoryTileFourSkeleton />
+          <StoryTileFourSkeleton />
+          <StoryTileFourSkeleton />
+          <StoryTileFourSkeleton />
+          <StoryTileFourSkeleton />
+          <StoryTileFourSkeleton />
         </div>
       )}
 
