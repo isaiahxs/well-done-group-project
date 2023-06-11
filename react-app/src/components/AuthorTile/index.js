@@ -69,11 +69,10 @@ const AuthorTile = ({ author }) => {
 
   const handleFollow = async () => {
     if(following){
-      dispatch(storyActions.unfollowAuthor(author.id))
-
+      await dispatch(storyActions.unfollowAuthor(author.id))
     }
     if(!following){
-      dispatch(storyActions.followAuthor(author.id))
+      await dispatch(storyActions.followAuthor(author.id))
     }
 
     //after following or unfollowing, fetch updated author data
