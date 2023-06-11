@@ -372,7 +372,18 @@ def create_story_with_images():
             url = f"https://{bucket}.s3.us-east-2.amazonaws.com/{filename}"
 
             print('-=-=-=-=-')
+            print('-=-=-=-=-')
+            print('-=-=-=-=-')
+            print('-=-=-=-=-')
+            print('-=-=-=-=-')
             print(filename)
+            print('-=-=-=-=-')
+            print('-=-=-=-=-')
+            print('-=-=-=-=-')
+            print('-=-=-=-=-')
+            print('-=-=-=-=-')
+            print('-=-=-=-=-')
+
             print(url)
             print('-=-=-=-=-')
 
@@ -382,6 +393,7 @@ def create_story_with_images():
             new_story_image = StoryImage(
                 story_id=new_story.id,
                 url=url,
+                file_name=filename,
                 position=position,
                 alt_tag=alt_tag
             )

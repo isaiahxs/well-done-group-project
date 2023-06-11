@@ -72,8 +72,17 @@ const StoryPage = () => {
         let text = story.content.slice(lastPosition, image.position)
 
         console.log(text);
+        console.log(image.upgradedUrl);
+        
+        let img = image.url
+        console.log(img);
+        // console.log(image.url.slice(0,17))
 
-        let img = image.url;
+          // if(image.url.slice(0,17)==='https://well-done'){
+          //   img = image.upgradedUrl;
+          // }
+        console.log(img);
+
         let altTag = image.altTag
         tempArr.push({text, image: img, altTag});
 

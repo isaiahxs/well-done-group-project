@@ -41,7 +41,7 @@ class Story(db.Model):
             'createdAt': self.created_at,
             'updatedAt': self.updated_at,
             'tags': [tag.tag.to_dict() for tag in self.tags],
-            'images': [image.to_dict(s3, bucket) for image in self.images],
+            'images': [image.to_dict() for image in self.images],
             
             'comments': [comment.to_dict() for comment in self.comments],
             'claps': len(self.claps),
