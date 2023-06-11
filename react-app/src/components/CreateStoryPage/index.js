@@ -66,7 +66,7 @@ const CreateStoryPage = () => {
       console.log(lastPos);
       if (block.type === 'text') {
         content.push(block.content);
-        lastPos += block.content.trim().length;
+        lastPos += block.content.length;
       } 
       
       if (block.type === 'image') {
@@ -112,25 +112,6 @@ const CreateStoryPage = () => {
   };
  
   
-  
-  
-  // story{
-  //   content: '3241234  1324 12 34 123 412 34 1234'
-  //   storyImages [{url:'', position:6},{url:'', position:16}]
-  // }
-// if(story){
-// for iamge in storyImages
-//  content = {
-//   type:text,
-//   content:storyImages.slice(lastPosition,storyImage[i].position)
-//  } 
-//  content = {
-//   type:image,
-//   content: image.url
-//  }
-
-// }
-
 
 
 console.log(blocks);
