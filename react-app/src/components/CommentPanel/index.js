@@ -18,7 +18,7 @@ const CommentPanel = ({ showComments, setShowComments, story}) => {
             <button onClick={() => setShowComments(!showComments)}>{commentBtnText}</button> 
 
             <div className={`comment-panel ${showComments ? 'comment-panel-open' : 'comment-panel-closed'}`}>
-                <Comments storyId={story.id} comments={story.comments} authorInfo={story.authorInfo} userId={userId}/>
+                <Comments storyId={story.id} authorInfo={story.authorInfo} userId={userId}/>
             </div>
         </div>
     );
