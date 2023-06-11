@@ -55,7 +55,11 @@ const AuthorTile = ({ author }) => {
     }
 
     setFollowing(()=> {
-      return followedAuthorIds.find(id=>author.id===id)
+      if(followedAuthorIds){
+        return followedAuthorIds.find(id=>author.id===id)
+      } else {
+        return false
+      }
     } )
 
 

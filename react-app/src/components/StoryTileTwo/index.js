@@ -18,6 +18,9 @@ const StoryTileTwo = ({story}) => {
   const [thumbnail, setThumbnail] = useState('')
   const [profileImageSrc, setProfileImageSrc] = useState('');
   const user = useSelector((state) => state.session.user);
+  const [name, setName] = useState('')
+
+
 
   useEffect(()=>{
     if(user && user.profileImage){
@@ -61,6 +64,16 @@ const StoryTileTwo = ({story}) => {
       setThumbnail(story.images[0].url)
     }
 
+    console.log(story);
+
+    if(story.authorInfo){
+      setName(`${story.authorInfo.firstName} ${story.authorInfo.lastName}`)
+    }
+
+    if(story.author){
+      setName(`${story.authorInfo.firstName} ${story.authorInfo.lastName}`)
+    }
+
 
   },[story])
 
@@ -81,8 +94,7 @@ const StoryTileTwo = ({story}) => {
           <div 
           className="style2-author-name memo-text"
           onClick={() => history.push(`/author/${story.id}`)}>
-            {/* {story?.authorInfo.firstName} {story?.authorInfo.lastName} */}
-            {story?.authorInfo?.firstName || 'Unknown Author'}
+            {name}
           </div>
         </div>
         <div className="style2-story-title-container">

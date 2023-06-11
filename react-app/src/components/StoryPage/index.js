@@ -66,33 +66,18 @@ const StoryPage = () => {
       let lastPosition = 0;  
 
       story.images.forEach((image, i) => { 
-        console.log(image.position);
  
-        // let text = story.content.slice(lastPosition, image.position + 1)
         let text = story.content.slice(lastPosition, image.position)
-
-        console.log(text);
-        console.log(image.upgradedUrl);
         
         let img = image.url
-        console.log(img);
-        // console.log(image.url.slice(0,17))
-
-          // if(image.url.slice(0,17)==='https://well-done'){
-          //   img = image.upgradedUrl;
-          // }
-        console.log(img);
 
         let altTag = image.altTag
         tempArr.push({text, image: img, altTag});
-
         lastPosition = image.position;  
       });
  // Check if there's remaining content
-//  console.log(lastPosition);
       if (lastPosition < story.content.length) { 
         let remainingText = story.content.slice(lastPosition); 
-        // console.log(remainingText); 
         tempArr.push({text: remainingText});  
       } 
 

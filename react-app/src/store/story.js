@@ -4,9 +4,8 @@ const GET_STORY_BY_ID = "story/GET_STORY_BY_ID";
 const GET_USER_STORIES = "story/GET_USER_STORIES";
 const INITIAL_LOAD = "story/INITIAL_LOAD";
 const CREATE_STORY = "story/CREATE_STORY";
-const FOLLOW_AUTHOR = "story/FOLLOW_AUTHOR";
-const UNFOLLOW_AUTHOR = "story/UNFOLLOW_AUTHOR";
-const IMAGE_TEST = "story/IMAGE_TEST";
+export const FOLLOW_AUTHOR = "story/FOLLOW_AUTHOR";
+export const UNFOLLOW_AUTHOR = "story/UNFOLLOW_AUTHOR";
 const CLAP_STORY = "story/CLAP_STORY";
 const ADD_COMMENT_CLAP = "story/ADD_COMMENT_CLAP";
 const UNCLAP_STORY = "story/UNCLAP_STORY";
@@ -53,10 +52,7 @@ const unfollowAuthorAction = (data) => ({
 	type: UNFOLLOW_AUTHOR,
 	payload: data
 });
-const imageTestAction = (data) => ({
-	type: IMAGE_TEST,
-	payload: data
-});
+
 
 export const clapStoryAction = (data) => ({
 	type: CLAP_STORY,
@@ -166,8 +162,6 @@ export const createStory = (createStoryObj) => async (dispatch) => {
 };
 
 
-
-
 export const getStories = () => async (dispatch) => {
 	const response = await fetch("/api/story/", {
 		method: "GET",
@@ -211,10 +205,7 @@ export const getUserStories = () => async (dispatch) => {
 };
 
 export const getStoryById = (id) => async (dispatch) => {
-	console.log('here');
-	console.log('here');
-	console.log('here');
-	console.log('here');
+
 	const response = await fetch(`/api/story/${id}`, {
 		method: "GET",
 		headers: {
@@ -259,26 +250,6 @@ export const getSubscribedStories = () => async (dispatch) => {
 };
 
 
-export const storyImageTest = () => async (dispatch) => {
-	const response = await fetch("/api/story/imagetest", {
-		method: "GET",
-		headers: {
-			"Content-Type": "application/json",
-		}
-	});
-	if (response.ok) {
-		const data = await response.json();
-		dispatch(imageTestAction(data));
-		return null;
-	} else if (response.status < 500) {
-		const data = await response.json();
-		if (data.errors) {
-			return data.errors;
-		}
-	} else {
-		return ["An error occurred. Please try again."];
-	}
-};
 
 
 
@@ -503,9 +474,6 @@ export default function reducer(state = initialState, action) {
 	switch (action.type) {
 
 		
-		case IMAGE_TEST:
-			console.log(action.payload);
-			return {image: action.payload.image, image2: action.payload.image2 };
 
 
 		case GET_STORIES:
@@ -514,8 +482,6 @@ export default function reducer(state = initialState, action) {
 		case GET_USER_STORIES:
 			return {...newState, userStories: action.payload.stories };
 		case GET_STORY_BY_ID:
-			console.log(action.payload );
-			console.log('here');
 			return {...newState, currentStory: action.payload };
 	
 
