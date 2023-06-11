@@ -394,7 +394,7 @@ export const followAuthor = (id) => async (dispatch) => {
 	});
 	if (response.ok) {
 		const data = await response.json();
-		console.log('THIS IS OUR DATATATATATATA', data)
+		// console.log('THIS IS OUR DATATATATATATA', data)
 		dispatch(followAuthorAction(data));
 		return null;
 	} else if (response.status < 500) {

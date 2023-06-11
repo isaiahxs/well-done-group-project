@@ -28,6 +28,7 @@ const AuthorTile = ({ author }) => {
   const [following, setFollowing] = useState(false);
   const [authorData, setAuthorData] = useState(author)
   const followedAuthorIds = useSelector(state=>state.session.followedAuthorIds)
+  const currentUserId = useSelector(state=>state.session.user.id)
 
   console.log("followedAuthorIds", followedAuthorIds);
 
@@ -112,9 +113,11 @@ const AuthorTile = ({ author }) => {
               <div className='authortile-style1-followers-header'>{numFollowers}</div>
             </div>
 
-            <div className='authortile-style1-followers-container'>
-              <div className='authortile-style1-follow-button' onClick={handleFollow}>{following ? 'Unfollow' : 'Follow'}</div>
-            </div>
+            {currentUserId !== author.id && (
+              <div className='authortile-style1-followers-container'>
+                <div className='authortile-style1-follow-button' onClick={handleFollow}>{following ? 'Unfollow' : 'Follow'}</div>
+              </div>
+            )}
 
       </div>
 
