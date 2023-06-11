@@ -68,7 +68,7 @@ export const createStory = (createStoryObj) => async (dispatch) => {
 	
 	console.log(createStoryObj);
 	console.log('here');
-    const { title, images, tags, content, authorId } = createStoryObj
+    const { title, slicedIntro, timeToRead, images, tags, content, authorId } = createStoryObj
 		const formData = new FormData();
 
     if (images) {
@@ -87,6 +87,8 @@ export const createStory = (createStoryObj) => async (dispatch) => {
 		formData.append('content', content)
 		formData.append('authorId', authorId)
 		formData.append('title', title)
+		formData.append('slicedIntro', slicedIntro)
+		formData.append('timeToRead', timeToRead)
 
 
 		const response = await fetch("/api/story/create", {

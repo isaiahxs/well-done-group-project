@@ -446,7 +446,9 @@ def create_story_with_images():
         new_story = Story(
             author_id=current_user.id,
             title=data['title'],
-            content=request.form.get('content')
+            content=request.form.get('content'),
+            time_to_read=request.form.get('time_to_read'),
+            sliced_intro=request.form.get('sliced_intro'),
         )
         db.session.add(new_story)
         db.session.commit()

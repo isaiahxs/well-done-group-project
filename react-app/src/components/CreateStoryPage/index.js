@@ -80,6 +80,8 @@ const CreateStoryPage = () => {
     createStoryObj['content'] = joinedContent
     createStoryObj['images'] = storyImages
     createStoryObj['tags'] = storyTags
+    createStoryObj['slicedIntro'] = joinedContent.slice(0,130) + '...'
+    createStoryObj['timeToRead'] = Math.floor(Math.random() * (20) + 4)
 
 
     console.log(createStoryObj);

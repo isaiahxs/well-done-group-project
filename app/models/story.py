@@ -18,8 +18,8 @@ class Story(db.Model):
     author_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod('users.id')), nullable=False)
     title = db.Column(db.String(255), nullable=False)
     content = db.Column(db.String(6000), nullable=False)
-    time_to_read = db.Column(db.Integer, nullable=False, default=10)
-    sliced_intro = db.Column(db.String(255), nullable=False)
+    time_to_read = db.Column(db.Integer, nullable=True, default=10)
+    sliced_intro = db.Column(db.String(255), nullable=True,default='Click to continue reading')
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
