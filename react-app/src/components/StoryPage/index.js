@@ -66,7 +66,13 @@ const StoryPage = () => {
         console.log(image.position);
  
         let text = story.content.slice(lastPosition, image.position).trim();
-        // console.log(text);
+
+
+        console.log(text);
+
+
+
+
         let img = image.url;
         let altTag = image.altTag
         tempArr.push({text, image: img, altTag});

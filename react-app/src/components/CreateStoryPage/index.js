@@ -61,35 +61,26 @@ const CreateStoryPage = () => {
     let storyImages = []
 
     let lastPos = 0
+
     blocks.map((block) => {
+      console.log(lastPos);
       if (block.type === 'text') {
         content.push(block.content);
         lastPos += block.content.length;
-      }
+      } 
       
       if (block.type === 'image') {
+        console.log(lastPos);
+        console.log(block.altTag);
         storyImages.push({
+          
           file: block.content,
           altTag: block.altTag ? block.altTag : 'Story image',
-          position: lastPos + block.content.length
+          position: lastPos
         });
       }
     });
-    // blocks.map(block=>{
-    //   if(block.type === 'text'){
-    //     content.push(block.content)
-    //     lastPos += block.content.length
-    //   }
-      
-    //   if(block.type === 'image'){
-    //     storyImages.push({
-    //       file:block.content,
-    //       altTag:block.altTag ? block.altTag : 'Story image',
-    //       position: lastPos
-    //     })
-    //     lastPos++
-    //   }
-    // })
+
 
     let joinedContent = content.join(' ')
     console.log(content);
@@ -106,6 +97,7 @@ const CreateStoryPage = () => {
     console.log(createStoryObj);
 
     
+
 
     const response = await dispatch(storyActions.createStory(createStoryObj));
 
