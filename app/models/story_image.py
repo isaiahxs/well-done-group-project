@@ -3,6 +3,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from datetime import datetime
 from sqlalchemy import Column, DateTime, func
+from ..aws3 import s3, bucket
 
 
 
@@ -22,12 +23,26 @@ class StoryImage(db.Model):
 
     story = db.relationship('Story', back_populates='images')
 
-    def to_dict(self):
+
+
+
+
+
+    def to_dict(self, s3, bucket):
+        upgraded_url = s3.generate_presigned_url(
+            'get_object',
+            Params={'Bucket': bucket, 'Key': self.url},
+            ExpiresIn=3600  # The URL will be valid for 1 hour
+        )
         return {
             'id': self.id,
             'storyId': self.story_id,
             'url': self.url,
             'position': self.position,
-            'altTag': self.alt_tag
+            'altTag': self.alt_tag,
+            'upgradedUrl': upgraded_url                   
         }
+
+
+
         

@@ -59,7 +59,7 @@ const Comments = ({ userId, storyId, comments, authorInfo }) => {
 
     return (
       <div>
-        <h1 className='responses'>Responses ({comments.length})</h1>
+        <h1 className='responses'>Comments - {comments.length}</h1>
         <form className='new-comment' onSubmit={handleSubmit}>
           <input
             value={commentText}

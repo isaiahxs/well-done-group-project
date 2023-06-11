@@ -282,8 +282,8 @@ export const storyImageTest = () => async (dispatch) => {
 
 
 
-export const updateClapCount = (storyId) => async (dispatch) => {
-	const response = await fetch(`/api/story/${storyId}/clap`, {
+export const clapStory = (id) => async (dispatch) => {
+	const response = await fetch(`/api/story/${id}/clap`, {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
@@ -306,9 +306,8 @@ export const updateClapCount = (storyId) => async (dispatch) => {
 }
 
 
-
-export const removeClap = (storyId ) => async (dispatch) => {
-	const response = await fetch(`/api/story/${storyId}/clap`, {
+export const unclapStory = (id ) => async (dispatch) => {
+	const response = await fetch(`/api/story/${id}/clap`, {
 		method: "DELETE",
 		headers: {
 			"Content-Type": "application/json",

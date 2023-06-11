@@ -24,7 +24,6 @@ const StoryFeed = () => {
 
   const { searchInputRef } = useContext(WindowContext);
 
-  const [selected, setSelected] = useState('stories');
   const [feedContent, setFeedContent] = useState(null);
   const [showSubMenu, setShowSubMenu] = useState(false);
 

@@ -6,6 +6,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
 from datetime import datetime
 from sqlalchemy import Column, DateTime, func
+from ..aws3 import s3, bucket
 
 
 class Story(db.Model):
@@ -40,7 +41,8 @@ class Story(db.Model):
             'createdAt': self.created_at,
             'updatedAt': self.updated_at,
             'tags': [tag.tag.to_dict() for tag in self.tags],
-            'images': [image.to_dict() for image in self.images],
+            'images': [image.to_dict(s3, bucket) for image in self.images],
+            
             'comments': [comment.to_dict() for comment in self.comments],
             'claps': len(self.claps),
             'timeToRead': self.time_to_read,

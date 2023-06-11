@@ -66,7 +66,7 @@ const CreateStoryPage = () => {
       console.log(lastPos);
       if (block.type === 'text') {
         content.push(block.content);
-        lastPos += block.content.length;
+        lastPos += block.content.trim().length;
       } 
       
       if (block.type === 'image') {

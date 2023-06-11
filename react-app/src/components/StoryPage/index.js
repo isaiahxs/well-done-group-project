@@ -1,11 +1,8 @@
 import React, { useEffect, useContext, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch} from 'react-redux';
 import { useHistory, useLocation, useParams } from 'react-router-dom';
 import './StoryPage.css';
-import { WindowContext } from '../../context/WindowContext';
 import parse from 'html-react-parser';
-import { useDispatch } from 'react-redux';
-import { updateClapCount, removeClap } from '../../store/story';
 import CommentPanel from '../CommentPanel';
 import * as storyActions from '../../store/story';
 
@@ -14,15 +11,15 @@ const StoryPage = () => {
   const dispatch = useDispatch();
   const { id } = useParams()
 
-  const stories = useSelector(state => state.story.stories);
   const story = useSelector(state => state.story.currentStory);
   const [date, setDate] = useState('')
   const [sortedContent, setSortedContent] = useState([])
   const [showComments, setShowComments] = useState(false);
+  const [imgUrl, setImgUrl] = useState('');
 
 
   const handleClapClick = async () => {
-    const response = await dispatch(updateClapCount(story)) //dispatching the action to update the clap count
+    const response = await dispatch(storyActions.clapStory(id)) //dispatching the action to update the clap count
 
     if (response && response.error) {
       alert("Sorry, you cannot clap your own stories.")
@@ -30,7 +27,7 @@ const StoryPage = () => {
   }
 
   const handleUnclapClick = async () => {
-    const response = await dispatch(removeClap(story.id));
+    const response = await dispatch(storyActions.unclapStory(id));
 
     if (response && response.message) {
       alert("Sorry, you do not have any claps to remove.")
@@ -50,14 +47,12 @@ const StoryPage = () => {
     }
   }, [story])
 
-
-
+console.log(imgUrl);
 
   useEffect(()=>{
     if(story){
+      setImgUrl(story.images[0].upgradedUrl)
 
-
-      console.log(story);
 
       let tempArr =  [];
       let lastPosition = 0;  
@@ -65,13 +60,10 @@ const StoryPage = () => {
       story.images.forEach((image, i) => { 
         console.log(image.position);
  
-        let text = story.content.slice(lastPosition, image.position).trim();
-
+        // let text = story.content.slice(lastPosition, image.position + 1)
+        let text = story.content.slice(lastPosition, image.position)
 
         console.log(text);
-
-
-
 
         let img = image.url;
         let altTag = image.altTag
@@ -91,14 +83,22 @@ const StoryPage = () => {
     }
   }, [story]);
 
+  const navToFeed = (tag) => {
+    console.log(tag);
+    dispatch(sessionActions.search(tag))
+    dispatch(sessionActions.setFeed(tag))
+    dispatch(sessionActions.setSubFeed('taggedStories'))
+    history.push('/home');
+
+    return
+  }
 
   const renderTags = () => {
     return story.tags.map(tag => (
-      <button key={tag.id} className='main-page-tag memo-text story-tag'>{tag.tag}</button>
+      <button onClick={()=>navToFeed(tag.tag)} key={tag.id} className='main-page-tag memo-text story-tag'>{tag.tag}</button>
     ))
   }
 
-  console.log(sortedContent);
  
   return (
     <>
@@ -142,6 +142,7 @@ const StoryPage = () => {
                 <div key={index}>
                     {item.text && <div className='memo-text'>{parse(item.text)}</div>}
                     {item.image && <img src={item.image} alt={item?.altTag} className="story-image" />}
+                    <img src={imgUrl} alt={'item?.altTag'} className="story-image" />
                     </div>
             ))}
           </div>
