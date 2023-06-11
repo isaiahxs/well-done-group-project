@@ -154,8 +154,13 @@ const StoryPage = () => {
           </div>
 
           <div className='options-bar'>
-            <button className='clap-button'>Clap {story.claps}</button>
-            <button className='comment-button'>Comment {story.comments.length}</button>
+            <button className='clap-button' onClick={handleClapClick}>Clap</button>
+            <button className='unclap-button' onClick={handleUnclapClick}>Unclap</button>
+            <button className='clap-count'>Claps {story.claps}</button>
+            <CommentPanel showComments={showComments} setShowComments={setShowComments} story={story} />
+
+            <div className={`overlay ${showComments ? 'active' : ''}`} onClick={() => setShowComments(!showComments)}></div>
+
           </div>
 
           <div className='footer'>

@@ -14,6 +14,7 @@ const EDIT_COMMENT = "story/EDIT_COMMENT";
 const DELETE_COMMENT = "story/DELETE_COMMENT";
 const REMOVE_COMMENT_CLAP = "story/REMOVE_COMMENT_CLAP";
 export const SUBSCRIBED_STORIES = "story/SUBSCRIBED_STORIES";
+const GET_AUTHOR = "story/GET_AUTHOR";
 
 const getStoriesAction = (stories) => ({
 	type: GET_STORIES,
@@ -85,7 +86,7 @@ const removeCommentClapAction = (payload) => ({
 	payload,
 })
 
-const initialState = { stories: [], tags: [], loaded: false, currentStory: null };
+const initialState = { stories: [], tags: [], loaded: false, currentStory: null};
 
 export const initialLoad = () => async (dispatch) => {
 	const response = await fetch("/api/story/initialize", {
@@ -368,16 +369,32 @@ export const deleteComment = (storyId, commentId) => async (dispatch) => {
 	}
 }
 
+export const getAuthorById = (id) => async (dispatch) => {
+	const response = await fetch(`/api/follow/${id}/followers`);
+	if (response.ok) {
+	  const data = await response.json();
+	  return data;
+	} else if (response.status < 500) {
+	  const data = await response.json();
+	  if (data.errors) {
+		return data.errors;
+	  }
+	} else {
+	  return ["An error occurred. Please try again."];
+	}
+  };
 
 export const followAuthor = (id) => async (dispatch) => {
 	const response = await fetch(`/api/follow/${id}`, {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
-		}
+		},
+		body: JSON.stringify({ id })
 	});
 	if (response.ok) {
 		const data = await response.json();
+		console.log('THIS IS OUR DATATATATATATA', data)
 		dispatch(followAuthorAction(data));
 		return null;
 	} else if (response.status < 500) {

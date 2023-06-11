@@ -43,7 +43,7 @@ const setSubFeedAction = (subFeed) => ({
 
 
 
-const initialState = { user: null, search: {}, currentFeed: 'for you', subFeed: null, subscribedStories: [] };
+const initialState = { user: null, search: {}, currentFeed: 'for you', subFeed: null, subscribedStories: [], followedAuthorIds: [] };
 
 export const authenticate = () => async (dispatch) => {
 	const response = await fetch("/api/auth/", {

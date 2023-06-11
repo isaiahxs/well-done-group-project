@@ -26,9 +26,10 @@ const AuthorTile = ({ author }) => {
   const [profileImageSrc, setProfileImageSrc] = useState('');
   const [numFollowers, setNumFollowers] = useState(0);
   const [following, setFollowing] = useState(false);
+  const [authorData, setAuthorData] = useState(author)
   const followedAuthorIds = useSelector(state=>state.session.followedAuthorIds)
 
-  console.log(followedAuthorIds);
+  console.log("followedAuthorIds", followedAuthorIds);
 
   const getProfileImageSrc = (profileImage) => {
     return profileImages[profileImage] || profileImage;
@@ -66,13 +67,21 @@ const AuthorTile = ({ author }) => {
 
   },[author, followedAuthorIds]);
 
-  const handleFollow = () => {
+  const handleFollow = async () => {
     if(following){
       dispatch(storyActions.unfollowAuthor(author.id))
 
     }
     if(!following){
       dispatch(storyActions.followAuthor(author.id))
+    }
+
+    //after following or unfollowing, fetch updated author data
+    const updatedAuthor = await dispatch(storyActions.getAuthorById(author.id))
+    // setAuthor(updatedAuthor) //save updated author in the state
+
+    if (updatedAuthor) {
+      setNumFollowers(updatedAuthor.followerCount);
     }
   }
 

@@ -21,7 +21,11 @@ def follow(id):
         db.session.add(new_follower)
         db.session.commit()
 
-        return jsonify({'message': 'successfully followed user'}), 201
+        # getting all author ids for the current user's following list
+        followed_author_ids = [follow.author_id for follow in Follower.query.filter_by(follower_id=curr_user).all()]
+        return jsonify({'message': 'successfully followed user', 'followedAuthorIds': followed_author_ids}), 201
+
+        # return jsonify({'message': 'successfully followed user'}), 201
     else:
         return jsonify({'message': "user could not be found"}), 404
 
@@ -43,7 +47,10 @@ def unfollow(id):
         if follower:
             db.session.delete(follower)
             db.session.commit()
-            return jsonify({'message': 'successfully unfollowed user'}), 201
+            # getting all author ids for the current user's following list
+            followed_author_ids = [follow.author_id for follow in Follower.query.filter_by(follower_id=curr_user).all()]
+            return jsonify({'message': 'successfully unfollowed user', 'followedAuthorIds': followed_author_ids}), 201
+            # return jsonify({'message': 'successfully unfollowed user'}), 201
 
     return jsonify({'error': 'No releationship found'}), 400
 
@@ -80,10 +87,13 @@ def get_curr_user_followings():
     if not user:
         return {'error': 'User not found'}, 404
 
-    following = Follower.query.filter_by(follower_id=user.id).all()
+    # following = Follower.query.filter_by(follower_id=user.id).all()
+    following = Follower.query.filter_by(follower_id=current_user.id).all()
+    following_ids = [follow.author_id for follow in following]
 
 
-    return {'following': [follow.to_dict() for follow in following]}
+    # return {'following': [follow.to_dict() for follow in following]}
+    return jsonify({'followedAuthorIds': following_ids}), 201
 
 
 
