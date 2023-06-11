@@ -16,6 +16,7 @@ const StoryPage = () => {
   const [date, setDate] = useState('')
   const [sortedContent, setSortedContent] = useState([])
   const [showComments, setShowComments] = useState(false);
+  const currentUser = useSelector(state => state.session.user);
 
   console.log(story?.claps);
 
@@ -123,14 +124,31 @@ const StoryPage = () => {
             </div>
           </div>
 
-          <div className='options-bar'>
+          {/* <div className='options-bar'>
             <button className='clap-button' onClick={handleClapClick}>Clap</button>
             <button className='unclap-button' onClick={handleUnclapClick}>Unclap</button>
             <button className='clap-count'>Claps {story.claps}</button>
             <CommentPanel showComments={showComments} setShowComments={setShowComments} story={story} />
+            <button className='additional-options'>...</button>
 
             <div className={`overlay ${showComments ? 'active' : ''}`} onClick={() => setShowComments(!showComments)}></div>
 
+          </div> */}
+
+          {/* changed original options bar to hide ability to clap/unclap your own stories + show ... only if you're the author of the story you're on */}
+          <div className='options-bar'>
+            {currentUser?.id !== story.authorInfo.id && (
+              <>
+                <button className='clap-button' onClick={handleClapClick}>Clap</button>
+                <button className='unclap-button' onClick={handleUnclapClick}>Unclap</button>
+              </>
+            )}
+            <button className='clap-count'>Claps {story.claps}</button>
+            <CommentPanel showComments={showComments} setShowComments={setShowComments} story={story} />
+            {currentUser?.id === story.authorInfo.id && (
+              <button className='additional-options'>...</button>
+            )}
+            <div className={`overlay ${showComments ? 'active' : ''}`} onClick={() => setShowComments(!showComments)}></div>
           </div>
 
           {/* this is where the options will appear under a certain width */}
@@ -154,13 +172,18 @@ const StoryPage = () => {
           </div>
 
           <div className='options-bar'>
-            <button className='clap-button' onClick={handleClapClick}>Clap</button>
-            <button className='unclap-button' onClick={handleUnclapClick}>Unclap</button>
+            {currentUser?.id !== story.authorInfo.id && (
+              <>
+                <button className='clap-button' onClick={handleClapClick}>Clap</button>
+                <button className='unclap-button' onClick={handleUnclapClick}>Unclap</button>
+              </>
+            )}
             <button className='clap-count'>Claps {story.claps}</button>
             <CommentPanel showComments={showComments} setShowComments={setShowComments} story={story} />
-
+            {currentUser?.id === story.authorInfo.id && (
+              <button className='additional-options'>...</button>
+            )}
             <div className={`overlay ${showComments ? 'active' : ''}`} onClick={() => setShowComments(!showComments)}></div>
-
           </div>
 
           <div className='footer'>
