@@ -124,6 +124,8 @@ function Navigation() {
   const handleLogoClick = () => {
     colorScheme.current = colorSchemes['/'];
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    dispatch(sessionActions.setFeed('for you'))
+    dispatch(sessionActions.setSubFeed('stories'))
     if (user) {
       history.push('/home');
       return

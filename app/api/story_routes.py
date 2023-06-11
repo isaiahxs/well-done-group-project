@@ -127,9 +127,9 @@ def story(id):
     Query for a story by id and returns that story in a dictionary
     """
     story = Story.query.get(id)
+
     if story is None:
         return {"error": "Story not found"}, 404
-
     story_dict = story.to_dict()
     return story_dict
 
@@ -331,106 +331,6 @@ def create_story_image(id):
 
 
 
-# @story_routes.route('/create', methods=['POST'])
-# @login_required
-# def create_story_with_images():
-#     """
-#     Creates a new story with included images
-#     """
-#      # Create Story
-
-#     print('here')
-#     print('here')
-#     print('here')
-#     print('here')
-#     print('here')
-
-#     form = StoryForm()
-#     form['csrf_token'].data = request.cookies['csrf_token']
-#     if not form.validate_on_submit(): 
-#         print(form.errors)
-
-#     if 'images' in request.files:
-#             print('images!')
-#             print('images!')
-#             print('images!')
-   
-#             files = request.files.getlist('images')
-#             for file in files:
-#                 if file.filename == '':
-#                     return {"error": "No file selected"}, 400
-#                 filename = secure_filename(file.filename)
-#                 file.save(filename)
-#                 s3.upload_file(
-#                     Bucket='well-done-proj',
-#                     Filename=filename,
-#                     Key=filename
-#                 )
-#                 url = f"https://{bucket}.s3.us-east-2.amazonaws.com/{filename}"
-
-#                 print('#################')
-#                 print(url)
-#                 print('#################')
-
-#                 print('=================')
-#                 print(file)
-#                 print('=================')
-
-
-#     if form.validate_on_submit():
-#         data = form.data
-#         new_story = Story(
-#             author_id=current_user.id,
-#             title=data['title'],
-#             content=data['content']
-#         )
-#         db.session.add(new_story)
-#         db.session.commit()
-
-#         story_id = new_story.id
-
-
-#         incoming_data = request.get_json()
-#         image_data_list = incoming_data.get('images', [])
-#         tag_data_list = incoming_data.get('tags', [])
-
-#     # handle story images
-#         for image_data in image_data_list:
-
-#             print(image_data)
-
-#             new_story_image = StoryImage(
-#                 story_id=story_id,
-#                 url=image_data['url'],
-#                 position=image_data['position'],
-#                 alt_tag=image_data['alt_tag']
-#             )
-#             db.session.add(new_story_image)
-#             db.session.commit()
-#         else:
-#             print('errors')  
-
-
-#     # handle story tags
-#         for tag_data in tag_data_list:
-
-#             print(tag_data)
-
-#             new_story_tag = StoryTag(
-#                 story_id=story_id,
-#                 tag_id=tag_data['id'],
-#             )
-#             db.session.add(new_story_tag)
-#             db.session.commit()
-#         else:
-#             print('errors')  
-         
-
-
-#         return new_story.to_dict()
-
-#     return "Bad Data"
-
 
 @story_routes.route('/create', methods=['POST'])
 @login_required
@@ -519,6 +419,73 @@ def create_story_with_images():
         print(form.errors)
 
     return {"error": "Bad Data"}
+
+
+
+
+
+# @story_routes.route('/create', methods=['POST'])
+# @login_required
+# def create_story_with_images():
+#     """
+#     Creates a new story with included images
+#     """
+#     data = request.form
+
+#     new_story = Story(
+#         author_id=data['authorId'],
+#         title=data['title'],
+#         content=data['content'],
+#         time_to_read=data['timeToRead'],
+#         sliced_intro=data['slicedIntro']
+#     )
+#     db.session.add(new_story)
+#     db.session.commit()
+
+#     # Handle story images
+#     files = request.files.getlist('images')
+#     for i, file in enumerate(files):
+#         if file.filename == '':
+#             return {"error": "No file selected"}, 400
+
+#         filename = secure_filename(file.filename)
+#         file.save(filename)
+#         s3.upload_file(
+#             Bucket='well-done-proj',
+#             Filename=filename,
+#             Key=filename
+#         )
+#         url = f"https://{bucket}.s3.us-east-2.amazonaws.com/{filename}"
+
+#         alt_tag = data.get(f'altTag{i}')
+#         position = data.get(f'position{i}')
+
+#         new_story_image = StoryImage(
+#             story_id=new_story.id,
+#             url=url,
+#             position=position,
+#             alt_tag=alt_tag
+#         )
+#         db.session.add(new_story_image)
+#         db.session.commit()
+
+#     # Handle story tags
+#     tags = data.getlist('tags')
+#     for tag in tags:
+#         new_story_tag = StoryTag(
+#             story_id=new_story.id,
+#             tag_id=tag
+#         )
+#         db.session.add(new_story_tag)
+#         db.session.commit()
+
+#     return new_story.to_dict()
+
+
+
+
+
+
 
 
 @story_routes.route('/<int:id>/comment', methods=['POST'])
@@ -615,6 +582,8 @@ def create_clap(id):
       "message": "clap clap",
       "totalClaps": len(story.claps),
     }
+
+
 
 @story_routes.route('/<int:id>/clap', methods=['DELETE'])
 @login_required

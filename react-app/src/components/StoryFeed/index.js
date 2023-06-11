@@ -116,9 +116,15 @@ console.log(subscribedStories);
             className={`feed-select med memo-text flexcenter ${
               currentFeed === 'by you' ? 'selected' : ''
             }`}
-            onClick={() => handleSelectFeed('by you')}
+            onClick={() => {
+              handleSelectFeed('by you')
+              dispatch(storyActions.getUserStories())
+
+          
+          }}
           >
             By you
+            
           </div>
 
           <div

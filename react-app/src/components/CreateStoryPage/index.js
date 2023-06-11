@@ -47,6 +47,8 @@ const CreateStoryPage = () => {
 
   const handleSubmit = async (e) => {
 
+    console.log('submit');
+
     if(!user) return
     e.preventDefault();
     let createStoryObj = {};
@@ -59,20 +61,35 @@ const CreateStoryPage = () => {
     let storyImages = []
 
     let lastPos = 0
-    blocks.map(block=>{
-      if(block.type === 'text'){
-        content.push(block.content)
-        lastPos = block.content.length
+    blocks.map((block) => {
+      if (block.type === 'text') {
+        content.push(block.content);
+        lastPos += block.content.length;
       }
       
-      if(block.type === 'image'){
+      if (block.type === 'image') {
         storyImages.push({
-          file:block.content,
-          altTag:block.altTag,
-          position: lastPos
-        })
+          file: block.content,
+          altTag: block.altTag ? block.altTag : 'Story image',
+          position: lastPos + block.content.length
+        });
       }
-    })
+    });
+    // blocks.map(block=>{
+    //   if(block.type === 'text'){
+    //     content.push(block.content)
+    //     lastPos += block.content.length
+    //   }
+      
+    //   if(block.type === 'image'){
+    //     storyImages.push({
+    //       file:block.content,
+    //       altTag:block.altTag ? block.altTag : 'Story image',
+    //       position: lastPos
+    //     })
+    //     lastPos++
+    //   }
+    // })
 
     let joinedContent = content.join(' ')
     console.log(content);
@@ -86,12 +103,22 @@ const CreateStoryPage = () => {
 
     console.log(createStoryObj);
 
+    console.log(createStoryObj);
+
     
 
     const response = await dispatch(storyActions.createStory(createStoryObj));
+
+    if(response && response.id){
+
+      console.log(response);
+      history.push(`/story/${response.id}`)
+    }
+    if(response.ok){
+    }
     console.log(response);
   };
-
+ 
   
   
   
@@ -119,7 +146,7 @@ console.log(blocks);
 
   return (
     <div className="createstory-container">
-      <form className="article-container" onSubmit={handleSubmit}>
+      <form className="article-container" >
 
         <input
           type="file"
@@ -206,7 +233,7 @@ console.log(blocks);
           <button type="button" className="add-button" onClick={() => addBlock('image')}>Add Image</button>
         </div>
 
-        <button type="submit">Submit</button>
+        <button type="submit" onClick={handleSubmit} >Submit</button>
       </form>
     </div>
   );

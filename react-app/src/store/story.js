@@ -1,19 +1,38 @@
 // constants
 const GET_STORIES = "story/GET_STORIES";
+const GET_STORY_BY_ID = "story/GET_STORY_BY_ID";
+const GET_USER_STORIES = "story/GET_USER_STORIES";
 const INITIAL_LOAD = "story/INITIAL_LOAD";
 const CREATE_STORY = "story/CREATE_STORY";
 const FOLLOW_AUTHOR = "story/FOLLOW_AUTHOR";
 const UNFOLLOW_AUTHOR = "story/UNFOLLOW_AUTHOR";
 const IMAGE_TEST = "story/IMAGE_TEST";
+const UPDATE_CLAP_COUNT = "story/UPDATE_CLAP_COUNT";
+const ADD_COMMENT_CLAP = "story/ADD_COMMENT_CLAP";
+const REMOVE_CLAP = "story/REMOVE_CLAP";
+const POST_COMMENT = "story/POST_COMMENT";
+const EDIT_COMMENT = "story/EDIT_COMMENT";
+const DELETE_COMMENT = "story/DELETE_COMMENT";
+const REMOVE_COMMENT_CLAP = "story/REMOVE_COMMENT_CLAP";
 export const SUBSCRIBED_STORIES = "story/SUBSCRIBED_STORIES";
 
 const getStoriesAction = (stories) => ({
 	type: GET_STORIES,
 	payload: stories,
 });
+const getUserStoriesAction = (stories) => ({
+	type: GET_USER_STORIES,
+	payload: stories,
+});
+
 const getSubscribedStoriesAction = (stories) => ({
 	type: SUBSCRIBED_STORIES,
 	payload: stories.subscribedStories,
+});
+
+const getStoryByIdAction = (story) => ({
+	type: GET_STORY_BY_ID,
+	payload: story,
 });
 
 const initialLoadAction = (data) => ({
@@ -39,7 +58,38 @@ const imageTestAction = (data) => ({
 	payload: data
 });
 
-const initialState = { stories: [], tags: [], loaded: false };
+export const updateClapAction = (data) => ({
+	type: UPDATE_CLAP_COUNT,
+	payload: data,
+})
+
+const removeClapAction = (payload) => ({
+	type: REMOVE_CLAP,
+	payload,
+})
+
+const postCommentAction = (comment) => ({
+	type: POST_COMMENT,
+	payload: comment,
+})
+
+const editCommentAction = (comment) => ({
+	type: EDIT_COMMENT,
+	payload: comment,
+})
+
+
+const deleteCommentAction = (commentId) => ({
+	type: DELETE_COMMENT,
+	payload: commentId,
+})
+
+const removeCommentClapAction = (payload) => ({
+	type: REMOVE_COMMENT_CLAP,
+	payload,
+})
+
+const initialState = { stories: [], tags: [], loaded: false, currentStory: null };
 
 export const initialLoad = () => async (dispatch) => {
 	const response = await fetch("/api/story/initialize", {
@@ -99,9 +149,12 @@ export const createStory = (createStoryObj) => async (dispatch) => {
 	console.log(response);
 
 	if (response.ok) {
+		console.log('yes ok');
+
 		const data = await response.json();
+		console.log(data);
 		dispatch(createStoryAction(data));
-		return null;
+		return data;
 	} else if (response.status < 500) {
 		const data = await response.json();
 		if (data.errors) {
@@ -136,10 +189,54 @@ export const getStories = () => async (dispatch) => {
 	}
 };
 
-//define new action type
-const UPDATE_CLAP_COUNT = "story/UPDATE_CLAP_COUNT";
+export const getUserStories = () => async (dispatch) => {
+	const response = await fetch("/api/story/curr", {
+		method: "GET",
+		headers: {
+			"Content-Type": "application/json",
+		}
+	});
+	if (response.ok) {
+		const data = await response.json();
+		dispatch(getUserStoriesAction(data));
+		return null;
+	} else if (response.status < 500) {
+		const data = await response.json();
+		if (data.errors) {
+			return data.errors;
+		}
+	} else {
+		return ["An error occurred. Please try again."];
+	}
+};
 
-// //create an action creator function
+export const getStoryById = (id) => async (dispatch) => {
+	console.log('here');
+	console.log('here');
+	console.log('here');
+	console.log('here');
+	const response = await fetch(`/api/story/${id}`, {
+		method: "GET",
+		headers: {
+			"Content-Type": "application/json",
+		}
+	});
+	if (response.ok) {
+		const data = await response.json();
+		dispatch(getStoryByIdAction(data));
+		console.log(data);
+		return data;
+	} else if (response.status < 500) {
+		const data = await response.json();
+		if (data.errors) {
+			return data.errors;
+		}
+	} else {
+		return ["An error occurred. Please try again."];
+	}
+};
+
+
 export const getSubscribedStories = () => async (dispatch) => {
 	const response = await fetch("/api/story/subscribed", {
 		method: "GET",
@@ -183,10 +280,7 @@ export const storyImageTest = () => async (dispatch) => {
 	}
 };
 
-export const updateClapAction = (data) => ({
-	type: UPDATE_CLAP_COUNT,
-	payload: data,
-})
+
 
 export const updateClapCount = (storyId) => async (dispatch) => {
 	const response = await fetch(`/api/story/${storyId}/clap`, {
@@ -199,26 +293,18 @@ export const updateClapCount = (storyId) => async (dispatch) => {
 		const data = await response.json();
 		dispatch(updateClapAction({ storyId, claps: data.totalClaps }));
 		return null;
-	// } else if (response.status < 500) {
-	// 	const data = await response.json();
-	// 	if (data.errors) {
-	// 		return data.errors;
-	// 	}
-	// } else {
-	// 	return ["An error occurred. Please try again."];
-	// }
+	}
+	if (response.status < 500) {
+		const data = await response.json();
+		if (data.errors) {
+			return data.errors;
+		}
 	} else {
 		const data = await response.json();
 		return data;
 	}
 }
 
-const REMOVE_CLAP = "story/REMOVE_CLAP";
-
-const removeClapAction = (payload) => ({
-	type: REMOVE_CLAP,
-	payload,
-})
 
 
 export const removeClap = (storyId ) => async (dispatch) => {
@@ -232,28 +318,20 @@ export const removeClap = (storyId ) => async (dispatch) => {
 		const data = await response.json();
 		dispatch(removeClapAction({ storyId, claps: data.totalClaps }));
 		return null;
-	// } else if (response.status < 500) {
-	// 	const data = await response.json();
-	// 	if (data.errors) {
-	// 		return data.errors;
-	// 	}
-	// } else {
-	// 	return ["An error occurred. Please try again."];
-	// }
+	}
+		if (response.status < 500) {
+			const data = await response.json();
+			if (data.errors) {
+				return data.errors;
+			}
+	
 	} else {
 		const data = await response.json();
 		return data;
 	}
 }
 
-//define new action type
-const POST_COMMENT = "story/POST_COMMENT";
 
-// //create an action creator function
-const postCommentAction = (comment) => ({
-	type: POST_COMMENT,
-	payload: comment,
-})
 
 
 //dispatch action in postComment thunk after we receive response
@@ -275,14 +353,7 @@ export const postComment = (storyId, comment) => async (dispatch) => {
 	}
 }
 
-//define new action type
-const EDIT_COMMENT = "story/EDIT_COMMENT";
 
-//create an action creator function
-const editCommentAction = (comment) => ({
-	type: EDIT_COMMENT,
-	payload: comment,
-})
 
 //dispatch action in editComment thunk after we receive response
 export const editComment = (storyId, commentId, comment) => async (dispatch) => {
@@ -304,14 +375,7 @@ export const editComment = (storyId, commentId, comment) => async (dispatch) => 
 }
 
 
-//define new action type
-const DELETE_COMMENT = "story/DELETE_COMMENT";
 
-//create an action creator function
-const deleteCommentAction = (commentId) => ({
-	type: DELETE_COMMENT,
-	payload: commentId,
-})
 
 //dispatch action in deleteComment thunk after we receive response
 export const deleteComment = (storyId, commentId) => async (dispatch) => {
@@ -374,8 +438,6 @@ export const unfollowAuthor = (id) => async (dispatch) => {
 	}
 };
 
-//define new action type
-const ADD_COMMENT_CLAP = "story/ADD_COMMENT_CLAP";
 
 //create an action creator function
 const addCommentClapAction = (payload) => ({
@@ -406,14 +468,7 @@ export const addCommentClap = (commentId) => async (dispatch) => {
 };
 
 
-//define new action type
-const REMOVE_COMMENT_CLAP = "story/REMOVE_COMMENT_CLAP";
 
-//create an action creator function
-const removeCommentClapAction = (payload) => ({
-	type: REMOVE_COMMENT_CLAP,
-	payload,
-})
 
 export const removeCommentClap = (commentId) => async (dispatch) => {
 	const response = await fetch(`/api/comment/${commentId}/clap`, {
@@ -450,16 +505,21 @@ export default function reducer(state = initialState, action) {
 			return {image: action.payload.image, image2: action.payload.image2 };
 
 
-
-
 		case GET_STORIES:
-			return {stories: action.payload.stories };
+			return {...newState, stories: action.payload.stories };
+
+		case GET_USER_STORIES:
+			return {...newState, userStories: action.payload.stories };
+		case GET_STORY_BY_ID:
+			console.log(action.payload );
+			console.log('here');
+			return {...newState, currentStory: action.payload };
+	
 
 		case INITIAL_LOAD:
 			console.log(action.payload);
 			return {stories: action.payload.stories, userStories: action.payload.userStories, tags: action.payload.tags, loaded: true };
 
-			return {...newState};
 		
 		case UPDATE_CLAP_COUNT:
 			const {storyId, claps} = action.payload;

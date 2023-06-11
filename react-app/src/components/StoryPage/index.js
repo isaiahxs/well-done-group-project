@@ -7,24 +7,22 @@ import parse from 'html-react-parser';
 import { useDispatch } from 'react-redux';
 import { updateClapCount, removeClap } from '../../store/story';
 import CommentPanel from '../CommentPanel';
+import * as storyActions from '../../store/story';
 
 const StoryPage = () => {
-
-  const { id } = useParams()
-  const stories = useSelector(state => state.story.stories);
-  const story = stories.find(story => story.id === Number(id));
-  const [date, setDate] = useState('')
-  const [readTime, setReadTime] = useState(4)
-  const [sortedContent, setSortedContent] = useState([])
-  // const [readTime, setReadTime] = useState(readTime);
-  // const {readTime} = useContext(WindowContext)
+  const history = useHistory();
   const dispatch = useDispatch();
-  //track whether comment panel is open or not
+  const { id } = useParams()
+
+  const stories = useSelector(state => state.story.stories);
+  const story = useSelector(state => state.story.currentStory);
+  const [date, setDate] = useState('')
+  const [sortedContent, setSortedContent] = useState([])
   const [isCommentPanelOpen, setCommentPanelOpen] = useState(false);
 
 
   const handleClapClick = async () => {
-    const response = await dispatch(updateClapCount(story.id)) //dispatching the action to update the clap count
+    const response = await dispatch(updateClapCount(story)) //dispatching the action to update the clap count
 
     if (response && response.error) {
       alert("Sorry, you cannot clap your own stories.")
@@ -39,33 +37,21 @@ const StoryPage = () => {
     }
   }
 
-  const history = useHistory();
 
   useEffect(() => {
-    // Fetch the current story based on the ID from the URL or Redux store
-    // You can dispatch an action or make an API call to fetch the story data
-    // and update the Redux store accordingly
+
+    if(!story){
+      dispatch(storyActions.getStoryById(id))
+    }
+
     if (story) {
       setDate(story?.createdAt.slice(0, 16))
-      // setReadTime(readTime)
+
     }
-    setReadTime(Math.floor(Math.random() * (20) + 4))
   }, [story])
 
 
-  const {scrollPosition, windowSize} = useContext(WindowContext)
-  const isMobileView = windowSize <= 765;
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
-
-  const handleLogoClick = () => {
-    history.push('/');
-  };
-
-
-  // console.log(story);
 
   useEffect(()=>{
     if(story){
@@ -77,12 +63,13 @@ const StoryPage = () => {
       let lastPosition = 0;  
 
       story.images.forEach((image, i) => { 
-        // console.log(       image.position);
+        console.log(image.position);
  
         let text = story.content.slice(lastPosition, image.position).trim();
         // console.log(text);
         let img = image.url;
-        tempArr.push({text, image: img});
+        let altTag = image.altTag
+        tempArr.push({text, image: img, altTag});
 
         lastPosition = image.position;  
       });
@@ -150,7 +137,7 @@ const StoryPage = () => {
             {sortedContent && sortedContent.map((item, index) => (
                 <div key={index}>
                     {item.text && <div className='memo-text'>{parse(item.text)}</div>}
-                    {item.image && <img src={item.image} alt={item.text} className="story-image" />}
+                    {item.image && <img src={item.image} alt={item?.altTag} className="story-image" />}
                     </div>
             ))}
           </div>
@@ -171,7 +158,7 @@ const StoryPage = () => {
                 <div className="story-author">
                   {story.authorInfo.firstName} {story.authorInfo.lastName} ·
                   <a className='follow'> Follow</a>
-                  <p className='time'>{readTime} min read · {date}</p>
+                  <p className='time'>{story.timeToRead} min read · {date}</p>
                 </div>
               </div>
             </div>
