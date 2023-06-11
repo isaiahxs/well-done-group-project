@@ -15,7 +15,6 @@ const StoryPage = () => {
   const [date, setDate] = useState('')
   const [sortedContent, setSortedContent] = useState([])
   const [showComments, setShowComments] = useState(false);
-  const [imgUrl, setImgUrl] = useState('');
 
   console.log(story?.claps);
 
@@ -47,13 +46,20 @@ const StoryPage = () => {
       setDate(story?.createdAt.slice(0, 16))
 
     }
-  }, [story])
+  }, [story, id ])
 
-console.log(imgUrl);
+  useEffect(() => {
+
+    dispatch(storyActions.getStoryById(id))
+   
+  }, [id])
+
+
+
+
 
   useEffect(()=>{
     if(story){
-      setImgUrl(story.images[0].upgradedUrl)
 
 
       let tempArr =  [];
@@ -144,8 +150,7 @@ console.log(imgUrl);
                 <div key={index}>
                     {item.text && <div className='memo-text'>{parse(item.text)}</div>}
                     {item.image && <img src={item.image} alt={item?.altTag} className="story-image" />}
-                    <img src={imgUrl} alt={'item?.altTag'} className="story-image" />
-                    </div>
+                </div>
             ))}
           </div>
 
