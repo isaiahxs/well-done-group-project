@@ -17,6 +17,8 @@ const StoryPage = () => {
   const [showComments, setShowComments] = useState(false);
   const [imgUrl, setImgUrl] = useState('');
 
+  console.log(story?.claps);
+
 
   const handleClapClick = async () => {
     const response = await dispatch(storyActions.clapStory(id)) //dispatching the action to update the clap count

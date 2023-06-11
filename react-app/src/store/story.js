@@ -7,9 +7,9 @@ const CREATE_STORY = "story/CREATE_STORY";
 const FOLLOW_AUTHOR = "story/FOLLOW_AUTHOR";
 const UNFOLLOW_AUTHOR = "story/UNFOLLOW_AUTHOR";
 const IMAGE_TEST = "story/IMAGE_TEST";
-const UPDATE_CLAP_COUNT = "story/UPDATE_CLAP_COUNT";
+const CLAP_STORY = "story/CLAP_STORY";
 const ADD_COMMENT_CLAP = "story/ADD_COMMENT_CLAP";
-const REMOVE_CLAP = "story/REMOVE_CLAP";
+const UNCLAP_STORY = "story/UNCLAP_STORY";
 const POST_COMMENT = "story/POST_COMMENT";
 const EDIT_COMMENT = "story/EDIT_COMMENT";
 const DELETE_COMMENT = "story/DELETE_COMMENT";
@@ -58,13 +58,13 @@ const imageTestAction = (data) => ({
 	payload: data
 });
 
-export const updateClapAction = (data) => ({
-	type: UPDATE_CLAP_COUNT,
+export const clapStoryAction = (data) => ({
+	type: CLAP_STORY,
 	payload: data,
 })
 
-const removeClapAction = (payload) => ({
-	type: REMOVE_CLAP,
+const unclapStoryAction = (payload) => ({
+	type: UNCLAP_STORY,
 	payload,
 })
 
@@ -291,7 +291,8 @@ export const clapStory = (id) => async (dispatch) => {
 	})
 	if (response.ok) {
 		const data = await response.json();
-		dispatch(updateClapAction({ storyId, claps: data.totalClaps }));
+		console.log(data);
+		dispatch(clapStoryAction({ id, claps: data.totalClaps }));
 		return null;
 	}
 	if (response.status < 500) {
@@ -315,7 +316,10 @@ export const unclapStory = (id ) => async (dispatch) => {
 	})
 	if (response.ok) {
 		const data = await response.json();
-		dispatch(removeClapAction({ storyId, claps: data.totalClaps }));
+		console.log(data);
+
+
+		dispatch(unclapStoryAction({ id, claps: data.totalClaps }));
 		return null;
 	}
 		if (response.status < 500) {
@@ -520,39 +524,26 @@ export default function reducer(state = initialState, action) {
 			return {stories: action.payload.stories, userStories: action.payload.userStories, tags: action.payload.tags, loaded: true };
 
 		
-		case UPDATE_CLAP_COUNT:
-			const {storyId, claps} = action.payload;
-			const updatedStories = state.stories.map((story) => {
-				if (story.id === storyId) {
-					return {
-						...story,
-						claps: claps
-					};
-				}
-				return story;
-			})
-			return {
-				...state,
-				stories: updatedStories
-			}
+		case CLAP_STORY:
+				const { storyId, claps } = action.payload;
+				const updatedCurrentStory = newState.currentStory
+				updatedCurrentStory.claps = claps
 
-		case REMOVE_CLAP: {
+				return {
+					...state,
+					currentStory: updatedCurrentStory
+				};
+
+		case UNCLAP_STORY: {
 			const {storyId, claps} = action.payload;
-			const updatedStories = state.stories.map((story) => {
-				if (story.id === storyId) {
-					return {
-						...story,
-						claps: claps
-					};
-				}
-				return story;
-			})
+			const updatedCurrentStory = newState.currentStory
+			updatedCurrentStory.claps = claps
+				
 			return {
 				...state,
-				stories: updatedStories
-			}
+				currentStory: updatedCurrentStory
+			};
 		}
-
 		case POST_COMMENT: {
 			const newComment = action.payload;
 			const updatedStories = state.stories.map((story) => {
