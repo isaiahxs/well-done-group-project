@@ -1,19 +1,18 @@
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {addCommentClap, postComment} from '../../store/story'
 import {editComment} from '../../store/story'
 import {deleteComment} from '../../store/story'
 import { removeCommentClap } from '../../store/story';
-import { useSelector } from 'react-redux';
 import './Comments.css'
 
-const Comments = ({ userId, storyId, comments, authorInfo }) => {
+const Comments = ({ userId, storyId, authorInfo }) => {
     // console.log('THIS IS OUR USER IDDDDDDDD', userId)
     const [commentText, setCommentText] = useState('');
     const [editingCommentId, setEditingCommentId] = useState(null);
     const [editText, setEditText] = useState('');
     const dispatch = useDispatch();
-    // const comments = useSelector(state => state.story.stories.find(story => story.id === storyId).comments)
+    const comments = useSelector(state => state.story.stories.find(story => story.id === storyId).comments)
 
     const handleSubmit = (event) => {
       event.preventDefault();
