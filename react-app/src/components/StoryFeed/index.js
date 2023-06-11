@@ -11,6 +11,10 @@ import StoryTileTwo from '../StoryTileTwo';
 import AuthorTile from '../AuthorTile';
 import StoryTileTwoSkeleton from '../StoryTileTwoSkeleton';
 
+
+
+
+
 const StoryFeed = () => {
   const dispatch = useDispatch();
   const stories = useSelector((state) => state.story.stories);
@@ -27,6 +31,7 @@ const StoryFeed = () => {
   const [feedContent, setFeedContent] = useState(null);
   const [showSubMenu, setShowSubMenu] = useState(false);
 
+
   //handles showing subquery
   useEffect(() => {
       const updateFeedContent = () => {
@@ -38,7 +43,6 @@ const StoryFeed = () => {
               setFeedContent(userStories);
           } else if (currentFeed === 'following') {
               dispatch(sessionActions.setSubFeed(null));
-              console.log(subscribedStories);
               setFeedContent(subscribedStories);
           } else if (searchResults[currentFeed] && subFeed) {
               setFeedContent(searchResults[currentFeed][subFeed]);
@@ -53,18 +57,10 @@ const StoryFeed = () => {
           setShowSubMenu(false);
       }
 
-      // if (currentFeed === 'by you' && userStories.length === 0) {
-      //   dispatch(storyActions.getUserStories());
-      // }
 
       updateFeedContent();
   }, [currentFeed, subFeed, searchResults, stories, userStories, subscribedStories, dispatch]);
 
-
-
-  console.log(searchResults);
-  console.log(currentFeed);
-  console.log('currentFeed:',currentFeed,'subFeed:',subFeed,'feed content:',feedContent);
 
 
   const handleSelectFeed = (feed) => {
@@ -170,7 +166,11 @@ console.log(subscribedStories);
               className={`feed-select med memo-text flexcenter ${
                 subFeed === 'stories' ? 'selected' : ''
               }`}
-              onClick={() => handleSelectSubFeed('stories')}
+              onClick={() => {
+                handleSelectSubFeed('stories')
+                // setFadeTrigger(prevState => !prevState); 
+
+              }}
             >
               Stories
             </div>
@@ -186,7 +186,11 @@ console.log(subscribedStories);
               className={`feed-select large memo-text flexcenter ${
                 subFeed === 'taggedStories' ? 'selected' : ''
               }`}
-              onClick={() => handleSelectSubFeed('taggedStories')}
+              onClick={() => {
+                handleSelectSubFeed('taggedStories')
+                // setFadeTrigger(prevState => !prevState); 
+
+            }}
             >
               Tags
             </div>
@@ -217,6 +221,9 @@ console.log(subscribedStories);
         currentFeed &&
         feedContent &&
         feedContent.map((story, i) => <StoryTileTwo key={i} story={story} />
+
+
+
       )}
 
 

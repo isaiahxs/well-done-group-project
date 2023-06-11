@@ -4,57 +4,34 @@ import { useSelector, useDispatch } from 'react-redux';
 import './StoryTileTwo.css';
 import mediumLogoCircles from '../../public/medium-logo-circles.jpeg';
 import { WindowContext } from '../../context/WindowContext';
-import openBook from '../../public/open-book.png';
-import quill from '../../public/quill.png';
-import userOutline from '../../public/user-outline.png';
-import fountainPen from '../../public/fountain-pen.png';
-import parse from 'html-react-parser';
 
 const StoryTileTwo = ({story}) => {
   const history = useHistory();
   const [date, setDate] = useState('Dec 25, 2560')
-  const [readTime, setReadTime] = useState(4)
   const {windowSize} = useContext(WindowContext)
   const [thumbnail, setThumbnail] = useState('')
-  const [profileImageSrc, setProfileImageSrc] = useState('');
-  const user = useSelector((state) => state.session.user);
   const [name, setName] = useState('')
 
-
-
-  useEffect(()=>{
-    if(user && user.profileImage){
-      if(user.profileImage === 'quill'){
-        setProfileImageSrc(quill)
-      }
-      else if(user.profileImage === 'user-outline'){
-        setProfileImageSrc(userOutline)
-      }
-      else if(user.profileImage === 'open-book'){
-        setProfileImageSrc(openBook)
-      }
-      else if(user.profileImage === 'fountain-pen'){
-        setProfileImageSrc(fountainPen)
-      }
-      else {
-        setProfileImageSrc(user.profileImage)
-      }
-    }
-
-  },[user]);
+  const [loaded, setLoaded] = useState(false)
+  const [fadeTrigger, setFadeTrigger] = useState(false);
 
 
 
 
+console.log(fadeTrigger);
 
   useEffect(()=>{
+
+    setFadeTrigger(false)
+    
     if(story){
 
       let month = story?.createdAt.slice(8,11)
       let day = story?.createdAt.slice(5,7)
       setDate(`${month} ${day}`)
+
+
     }
-    setReadTime(Math.floor(Math.random() * (20) + 4))
 
 
     if(story.images && !story.images.length){
@@ -64,7 +41,6 @@ const StoryTileTwo = ({story}) => {
       setThumbnail(story.images[0].url)
     }
 
-    console.log(story);
 
     if(story.authorInfo){
       setName(`${story.authorInfo.firstName} ${story.authorInfo.lastName}`)
@@ -73,6 +49,10 @@ const StoryTileTwo = ({story}) => {
     if(story.author){
       setName(`${story.authorInfo.firstName} ${story.authorInfo.lastName}`)
     }
+
+    setTimeout(() => {
+      setFadeTrigger(true);
+    }, 100);
 
 
   },[story])
@@ -111,14 +91,12 @@ const StoryTileTwo = ({story}) => {
           <div className="style2-date-content">{date}</div>
           <i className="style2 fa-solid fa-circle"></i>
           <div className="style2-date-read-time-content">
-            {/* {story?.readTime} min read */}
             {story?.timeToRead} min read
           </div>
         </div>
       </div>
-      <div className='style2-story-image'>
+      <div className={`style2-story-image fade-in`}>
         <img
-          // src={profileImageSrc.url}
           src={thumbnail}
           alt={'profile image'}
         ></img>
@@ -127,5 +105,3 @@ const StoryTileTwo = ({story}) => {
   );
 };
 export default StoryTileTwo;
-
-
