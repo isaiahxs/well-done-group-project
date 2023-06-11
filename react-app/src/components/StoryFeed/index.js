@@ -11,57 +11,105 @@ import StoryTileTwo from '../StoryTileTwo';
 import AuthorTile from '../AuthorTile';
 import StoryTileTwoSkeleton from '../StoryTileTwoSkeleton';
 
+
+
+
+const useFadeEffect = (dependencies) => {
+  const [shouldFade, setShouldFade] = useState(false);
+
+  useEffect(() => {
+    setShouldFade(true);
+    const timeoutId = setTimeout(() => setShouldFade(false), 1000);
+
+    return () => {
+      clearTimeout(timeoutId);
+    };
+  }, dependencies);
+
+  return shouldFade;
+};
+
+
+
+
 const StoryFeed = () => {
   const dispatch = useDispatch();
   const stories = useSelector((state) => state.story.stories);
   const userStories = useSelector((state) => state.story.userStories);
   const loaded = useSelector((state) => state.story.loaded);
-  const subscribedStories = useSelector((state) => state.session.subscribedStories);
+  const subscribedStories = useSelector(
+    (state) => state.session.subscribedStories
+  );
   const searchResults = useSelector((state) => state.session.search);
   const currentFeed = useSelector((state) => state.session.currentFeed);
   const subFeed = useSelector((state) => state.session.subFeed);
-  const user = useSelector(state=>state.session.user)
+  const user = useSelector((state) => state.session.user);
 
   const { searchInputRef } = useContext(WindowContext);
 
   const [feedContent, setFeedContent] = useState(null);
   const [showSubMenu, setShowSubMenu] = useState(false);
 
+  const [feedContentChangeCounter, setFeedContentChangeCounter] = useState(0);
+
+  const shouldFade = useFadeEffect([feedContentChangeCounter]);
+
+
+  useEffect(() => {
+    setFeedContentChangeCounter(feedContentChangeCounter + 1);
+  }, [feedContent, currentFeed, subFeed]);
+
   //handles showing subquery
   useEffect(() => {
     const updateFeedContent = () => {
-        if (currentFeed === 'for you') {
-            dispatch(sessionActions.setSubFeed(null));
-            setFeedContent(stories);
-        } else if (currentFeed === 'by you') {
-            dispatch(sessionActions.setSubFeed(null));
-            setFeedContent(userStories);
-        } else if (currentFeed === 'following') {
-            dispatch(sessionActions.setSubFeed(null));
-            console.log(subscribedStories);
-            setFeedContent(subscribedStories);
-        } else if (searchResults[currentFeed] && subFeed) {
-            setFeedContent(searchResults[currentFeed][subFeed]);
-        }
+      if (currentFeed === 'for you') {
+        dispatch(sessionActions.setSubFeed(null));
+        setFeedContent(stories);
+      } else if (currentFeed === 'by you') {
+        dispatch(sessionActions.setSubFeed(null));
+        setFeedContent(userStories);
+      } else if (currentFeed === 'following') {
+        dispatch(sessionActions.setSubFeed(null));
+        console.log(subscribedStories);
+        setFeedContent(subscribedStories);
+      } else if (searchResults[currentFeed] && subFeed) {
+        setFeedContent(searchResults[currentFeed][subFeed]);
+      }
     };
 
     if (currentFeed && searchResults[currentFeed]) {
-        setShowSubMenu(true);
+      setShowSubMenu(true);
     }
 
-    if (currentFeed === 'for you' || currentFeed === 'by you' || currentFeed === 'following') {
-        setShowSubMenu(false);
+    if (
+      currentFeed === 'for you' ||
+      currentFeed === 'by you' ||
+      currentFeed === 'following'
+    ) {
+      setShowSubMenu(false);
     }
 
     updateFeedContent();
-}, [currentFeed, subFeed, searchResults, stories, userStories, subscribedStories, dispatch]);
-
-
+  }, [
+    currentFeed,
+    subFeed,
+    searchResults,
+    stories,
+    userStories,
+    subscribedStories,
+    dispatch,
+  ]);
 
   console.log(searchResults);
   console.log(currentFeed);
-  console.log('currentFeed:',currentFeed,'subFeed:',subFeed,'feed content:',feedContent);
-
+  console.log(
+    'currentFeed:',
+    currentFeed,
+    'subFeed:',
+    subFeed,
+    'feed content:',
+    feedContent
+  );
 
   const handleSelectFeed = (feed) => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -69,12 +117,10 @@ const StoryFeed = () => {
     dispatch(sessionActions.setSubFeed('stories'));
   };
 
-
   const handleSelectSubFeed = (subFeed) => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
     dispatch(sessionActions.setSubFeed(subFeed));
   };
-
 
   const handleRemoveSearch = (e, searchQuery) => {
     e.preventDefault();
@@ -83,11 +129,10 @@ const StoryFeed = () => {
     dispatch(sessionActions.removeSearch(searchQuery));
   };
 
-console.log(subscribedStories);
+  console.log(subscribedStories);
 
   return (
     <div className="storyfeed-container">
-
       <nav className={`feed-nav flexcenter`}>
         <div className="feed-select-container">
           <div
@@ -110,20 +155,16 @@ console.log(subscribedStories);
             For you
           </div>
 
-
           <div
             className={`feed-select med memo-text flexcenter ${
               currentFeed === 'by you' ? 'selected' : ''
             }`}
             onClick={() => {
-              handleSelectFeed('by you')
-              dispatch(storyActions.getUserStories())
-
-          
-          }}
+              handleSelectFeed('by you');
+              dispatch(storyActions.getUserStories());
+            }}
           >
             By you
-            
           </div>
 
           <div
@@ -131,8 +172,8 @@ console.log(subscribedStories);
               currentFeed === 'following' ? 'selected' : ''
             }`}
             onClick={() => {
-              handleSelectFeed('following')
-              dispatch(storyActions.getSubscribedStories())
+              handleSelectFeed('following');
+              dispatch(storyActions.getSubscribedStories());
             }}
           >
             Following
@@ -203,20 +244,19 @@ console.log(subscribedStories);
         </div>
       )}
 
-      {loaded && subFeed === 'authors' &&
+      {loaded &&
+        subFeed === 'authors' &&
         currentFeed &&
         feedContent &&
-        feedContent.map((author) => <AuthorTile key={author.id} author={author} />
-      )}
+        feedContent.map((author) => (
+          <AuthorTile key={author.id} author={author} />
+        ))}
 
-      {loaded && subFeed !== 'authors' &&
+      {loaded &&
+        subFeed !== 'authors' &&
         currentFeed &&
         feedContent &&
-        feedContent.map((story, i) => <StoryTileTwo key={i} story={story} />
-      )}
-
-
-
+        feedContent.map((story, i) => <StoryTileTwo key={i} story={story} shouldFade={shouldFade} />)}
     </div>
   );
 };

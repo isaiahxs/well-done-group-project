@@ -43,6 +43,7 @@ const AuthorTile = ({ author }) => {
     
       if(author.profileImage){
         setProfileImageSrc(getProfileImageSrc(author.profileImage));
+
       }
       if(author.followers){
         setNumFollowers(author.followers.length);
@@ -52,6 +53,7 @@ const AuthorTile = ({ author }) => {
         setNumFollowers(author.authorInfo.followers.length);
         setName(`${author.authorInfo.firstName} ${author.authorInfo.lastName}`)
         setProfileImageSrc(getProfileImageSrc(author.authorInfo.profileImage));
+
     }
 
     setFollowing(()=> {
@@ -85,12 +87,17 @@ const AuthorTile = ({ author }) => {
       <div className="authortile-style1-container flex">
         <div className="style1-author-container">
           <div className="style1-profile-image">
-          {profileImageSrc && (
+
+
+   
+          { profileImageSrc && (
                 <img
                   src={profileImageSrc}
                   alt="author profile picture"
                 ></img>
-              )}
+          )}
+
+
           </div>
           <div 
           className="style1-author-name memo-text"

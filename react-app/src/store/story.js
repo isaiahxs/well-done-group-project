@@ -44,15 +44,18 @@ const createStoryAction = (data) => ({
 	payload: data
 });
 
-const followAuthorAction = (data) => ({
-	type: FOLLOW_AUTHOR,
-	payload: data
-});
-const unfollowAuthorAction = (data) => ({
-	type: UNFOLLOW_AUTHOR,
-	payload: data
-});
-
+const followAuthorAction = (data) => {
+	return {
+		type: FOLLOW_AUTHOR,
+		payload: data
+	};
+};
+const unfollowAuthorAction = (data) => {
+	return {
+		type: UNFOLLOW_AUTHOR,
+		payload: data
+	};
+};
 
 export const clapStoryAction = (data) => ({
 	type: CLAP_STORY,
@@ -440,8 +443,6 @@ export const addCommentClap = (commentId) => async (dispatch) => {
 		return ["An error occurred. Please try again."];
 	}
 };
-
-
 
 
 export const removeCommentClap = (commentId) => async (dispatch) => {

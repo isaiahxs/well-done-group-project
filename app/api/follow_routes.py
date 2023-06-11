@@ -21,7 +21,7 @@ def follow(id):
         db.session.add(new_follower)
         db.session.commit()
 
-        return jsonify({'message': 'successfully followed user'}), 201
+        return jsonify({'message': 'successfully followed user', 'authorId':id}), 201
     else:
         return jsonify({'message': "user could not be found"}), 404
 
@@ -43,7 +43,7 @@ def unfollow(id):
         if follower:
             db.session.delete(follower)
             db.session.commit()
-            return jsonify({'message': 'successfully unfollowed user'}), 201
+            return jsonify({'message': 'successfully unfollowed user', 'authorId':id}), 201
 
     return jsonify({'error': 'No releationship found'}), 400
 
@@ -53,7 +53,7 @@ def unfollow(id):
 
 @follow_routes.route('/<int:id>/following')
 @login_required
-def get__users_followings(id):
+def get_users_followings(id):
     """
     GET FOLLOWING LIST BY USER ID
     """

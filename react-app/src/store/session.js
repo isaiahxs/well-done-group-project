@@ -14,7 +14,15 @@ export const setUser = (user) => ({
 	payload: user,
 });
 
-
+console.log('here');
+console.log('here');
+console.log('here');
+console.log('here');
+console.log('here');
+console.log('here');
+console.log('here');
+console.log('here');
+console.log('here');
 
 
 const removeUser = () => ({
@@ -117,8 +125,6 @@ export const removeSearch = (searchQuery) => async (dispatch) => {
 };
 
 export const setFeed = (feed) => async (dispatch) => {
-	console.log(feed);
-
 	dispatch(setFeedAction(feed));
 };
 
@@ -168,13 +174,20 @@ export default function reducer(state = initialState, action) {
 	switch (action.type) {
 		case SET_USER:
 			return {...newState, user: action.payload.user, subscribedStories: action.payload.subscribedStories, userStories: action.payload.userStories, followedAuthorIds:action.payload.followedAuthorIds, };		
-		case FOLLOW_AUTHOR:
-				return {...newState, followedAuthorIds:action.payload.followedAuthorIds};		
-		case UNFOLLOW_AUTHOR:
-			return {...newState, followedAuthorIds:action.payload.followedAuthorIds};		
-			
-		
-			case REMOVE_USER:
+		case FOLLOW_AUTHOR: {
+				const {authorId} = action.payload;
+				let newFollowedAuthorIds = [...newState.followedAuthorIds];  
+				if(!newFollowedAuthorIds.includes(authorId)) {  
+					newFollowedAuthorIds.push(authorId);  
+				}
+				return {...newState, followedAuthorIds: newFollowedAuthorIds};
+		}
+		case UNFOLLOW_AUTHOR: {
+				const {authorId} = action.payload;
+				let newFollowedAuthorIds = newState.followedAuthorIds.filter(id => id !== authorId); 
+				return {...newState, followedAuthorIds: newFollowedAuthorIds};
+		}
+		case REMOVE_USER:
 			return initialState;
 		case NEW_SEARCH:
 			const newSearch = {...newState.search}
@@ -192,6 +205,7 @@ export default function reducer(state = initialState, action) {
 			return {...newState, subFeed: action.payload };		
 		}
 		case SUBSCRIBED_STORIES:
+			console.log('here');
 			return {...newState, subscribedStories: action.payload};		
 		
 

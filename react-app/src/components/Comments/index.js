@@ -12,8 +12,8 @@ const Comments = ({ userId, storyId, authorInfo }) => {
     const [editingCommentId, setEditingCommentId] = useState(null);
     const [editText, setEditText] = useState('');
     const dispatch = useDispatch();
-    const comments = useSelector(state => state.story.stories.find(story => story.id === storyId).comments)
-
+    // const comments = useSelector(state => state.story.stories.find(story => story.id === storyId).comments)
+    const comments = useSelector(state => state.story.currentStory.comments)
     const handleSubmit = (event) => {
       event.preventDefault();
       dispatch(postComment(storyId, commentText));
