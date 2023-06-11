@@ -18,7 +18,7 @@ const StoryPage = () => {
   const story = useSelector(state => state.story.currentStory);
   const [date, setDate] = useState('')
   const [sortedContent, setSortedContent] = useState([])
-  const [isCommentPanelOpen, setCommentPanelOpen] = useState(false);
+  const [showComments, setShowComments] = useState(false);
 
 
   const handleClapClick = async () => {
@@ -124,11 +124,9 @@ const StoryPage = () => {
             <button className='clap-button' onClick={handleClapClick}>Clap</button>
             <button className='unclap-button' onClick={handleUnclapClick}>Unclap</button>
             <button className='clap-count'>Claps {story.claps}</button>
-            <CommentPanel isOpen={isCommentPanelOpen} comments={story.comments} storyId={story.id} onClose={() => setCommentPanelOpen(false)} />
+            <CommentPanel showComments={showComments} setShowComments={setShowComments} story={story} />
 
-            {/* {isCommentPanelOpen && <div className="overlay" onClick={() => setCommentPanelOpen(false)}></div>} */}
-            
-            <div className={`overlay ${isCommentPanelOpen ? 'active' : ''}`} onClick={() => setCommentPanelOpen(false)}></div>
+            <div className={`overlay ${showComments ? 'active' : ''}`} onClick={() => setShowComments(!showComments)}></div>
 
           </div>
 
