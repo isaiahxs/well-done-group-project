@@ -1,13 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { connect, useDispatch, useSelector } from 'react-redux';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory, useParams, useLocation } from 'react-router-dom';
 import './CreateStoryPage.css';
 
 import * as storyActions from '../../store/story';
 
 
-const CreateStoryPage = ({story}) => {
-  const [blocks, setBlocks] = useState([]);
+  const CreateStoryPage = ({story}) => {
+    const location = useLocation();
+    const [blocks, setBlocks] = useState([]);
   const [titleText, setTitleText] = useState('');
   const [showLabel, setShowLabel] = useState('');
   const [storyTags, setStoryTags] = useState([{id:2, tag:"Programming"}]);
@@ -29,37 +30,25 @@ const CreateStoryPage = ({story}) => {
 
   useEffect(() => {
 
-    dispatch(storyActions.getStoryById(id))
+
+
+
+    if(id){
+      dispatch(storyActions.getStoryById(id))
+    }
    
   }, [id])
 
+  console.log(location.pathname);
+  useEffect(() => {
+
+    setBlocks([])
+    setTitleText('')
+   
+  }, [location])
 
 
-//   useEffect(()=>{
-//     if(story){
 
-//       let tempArr =  [];
-//       let lastPosition = 0;  
-
-//       story.images.forEach((image, i) => { 
- 
-//         let text = story.content.slice(lastPosition, image.position)
-        
-//         let img = image.url
-
-//         let altTag = image.altTag
-//         tempArr.push({text, image: img, altTag});
-//         lastPosition = image.position;  
-//       });
-//  // Check if there's remaining content
-//       if (lastPosition < story.content.length) { 
-//         let remainingText = story.content.slice(lastPosition); 
-//         tempArr.push({text: remainingText});  
-//       } 
-
-//       setSortedContent(tempArr);
-//     }
-//   }, [story]);
 
 useEffect(() => {
 
@@ -68,13 +57,13 @@ useEffect(() => {
     history.push('/create')
   } 
 
-
   if (currentStory && currentStory.authorId === user.id) {
 
-    console.log('yes');
     let tempArr =  [];
     let lastPosition = 0;  
     let blocksTemp = [];
+
+    setTitleText(currentStory.title)
 
     currentStory.images.forEach((image, i) => { 
       let text = currentStory.content.slice(lastPosition, image.position);
@@ -114,8 +103,6 @@ useEffect(() => {
   }
 
 
-
-
   const deleteBlock = (index) => {
     const newBlocks = [...blocks];
     newBlocks.splice(index, 1);
@@ -133,9 +120,9 @@ useEffect(() => {
 
   const handleSubmit = async (e) => {
 
-    console.log('submit');
 
     if(!user) return
+
     e.preventDefault();
     let createStoryObj = {};
 
@@ -166,9 +153,10 @@ useEffect(() => {
         });
       }
     });
+    console.log('submit');
 
 
-    let joinedContent = content.join(' ')
+    let joinedContent = content.join('')
     console.log(content);
 
     createStoryObj['content'] = joinedContent
@@ -182,12 +170,16 @@ useEffect(() => {
 
     console.log(createStoryObj);
 
-    
+    if(location.pathname === `/create/${id}/edit`){
+      // const response = await dispatch(storyActions.editStory(createStoryObj));
 
-
+    }
+    console.log('here');
     const response = await dispatch(storyActions.createStory(createStoryObj));
 
     if(response && response.id){
+
+      console.log('here');
 
       console.log(response);
       history.push(`/story/${response.id}`)
@@ -322,5 +314,3 @@ console.log(blocks);
 export default CreateStoryPage;
 
 
-
-// ok lets do this, if theres a story we need to iterate over the content and spearate it into these blocks using this add block method. we dont need to worry about the sorted content. we will simply iterate over the images, any text that comes before the image goe sinto a block labled text, and the image foes in a nother block and so forth until we get thru all the content. after all the images are done we check iof theres any content left over and if so we put that in the last text box

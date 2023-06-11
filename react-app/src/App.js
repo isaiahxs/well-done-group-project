@@ -88,7 +88,7 @@ function App() {
             <CreateStoryPage />
           </Route>
 
-          <Route path="/create/:id" exact>
+          <Route path="/create/:id/edit" exact>
             <CreateStoryPage />
           </Route>
 

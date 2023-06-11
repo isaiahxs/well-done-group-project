@@ -60,6 +60,8 @@ function Navigation() {
   const [profileImageSrc, setProfileImageSrc] = useState('');
   const [isTagUrl, setIsTagUrl] = useState(false);
   const [isLandingPage, setIsLandingPage] = useState(false);
+  const [showWriteButton, setShowWriteButton] = useState(true);
+
 
   useEffect(() => {
     const colors = colorScheme.current;
@@ -103,6 +105,12 @@ function Navigation() {
       } else {
         setButtonStylings('');
       }
+    }
+
+    if (location.pathname.slice(0,7) === '/create') {
+      setShowWriteButton(false);
+    } else {
+      setShowWriteButton(true);
     }
 
     setIsLoaded(true)
@@ -228,10 +236,10 @@ function Navigation() {
         
               </div>
               <div
-                className={`nav-write`}
+                className={`nav-write ${showWriteButton ? '' : 'hidden'}`}
                 onClick={handleWriteClick}
               >
-                <div className="write-icon-container">
+                <div className={`write-icon-container`} >
                   <img src={writeIcon} alt="write symbol"></img>
                 </div>
 

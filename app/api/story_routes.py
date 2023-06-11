@@ -322,6 +322,7 @@ def create_story_with_images():
     """
     Creates a new story with included images
     """
+    
     form = StoryForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     
