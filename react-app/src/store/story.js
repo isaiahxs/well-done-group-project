@@ -1,6 +1,7 @@
 // constants
 const GET_STORIES = "story/GET_STORIES";
 const GET_STORY_BY_ID = "story/GET_STORY_BY_ID";
+const DELETE_STORY = "story/DELETE_STORY";
 const GET_USER_STORIES = "story/GET_USER_STORIES";
 const INITIAL_LOAD = "story/INITIAL_LOAD";
 const CREATE_STORY = "story/CREATE_STORY";
@@ -20,6 +21,12 @@ const getStoriesAction = (stories) => ({
 	type: GET_STORIES,
 	payload: stories,
 });
+
+const deleteStoryAction = (id) => ({
+	type: DELETE_STORY,
+	payload: id,
+});
+
 const getUserStoriesAction = (stories) => ({
 	type: GET_USER_STORIES,
 	payload: stories,
@@ -183,6 +190,23 @@ export const getStories = () => async (dispatch) => {
 		return ["An error occurred. Please try again."];
 	}
 };
+
+export const deleteStory = (id) => async (dispatch) => {
+	const response = await fetch(`/api/story/${id}`, {
+		method: "DELETE",
+	});
+
+	if (response.ok) {
+		dispatch(deleteStoryAction(id));
+		return null;
+	} else {
+		const data = await response.json();
+		if (data.errors) {
+			return data.errors;
+		}
+	}
+	return ["An error occurred. Please try again."];
+}
 
 export const getUserStories = () => async (dispatch) => {
 	const response = await fetch("/api/story/curr", {
@@ -498,9 +522,19 @@ export default function reducer(state = initialState, action) {
 
 		case GET_USER_STORIES:
 			return {...newState, userStories: action.payload.stories };
+
 		case GET_STORY_BY_ID:
 			return {...newState, currentStory: action.payload };
-	
+
+		case DELETE_STORY:
+			//remove deleted story from the stories and userStories arrays.
+			//check if currentStory is the one being deleted, if so, set currentStory to null
+			return {
+				newState,
+				stories: newState.stories.filter((story) => story.id !== action.payload),
+				userStories: newState.userStories.filter((story) => story.id !== action.payload),
+				currentStory: newState.currentStory && newState.currentStory.id === action.payload ? null : newState.currentStory
+			}
 
 		case INITIAL_LOAD:
 			console.log(action.payload);
