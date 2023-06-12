@@ -28,7 +28,7 @@ const AuthorTile = ({ author }) => {
   const [following, setFollowing] = useState(false);
   const [authorData, setAuthorData] = useState(author)
   const followedAuthorIds = useSelector(state=>state.session.followedAuthorIds)
-  const currentUserId = useSelector(state=>state.session.user.id)
+  const currentUserId = useSelector(state=>state?.session?.user?.id)
 
   console.log("followedAuthorIds", followedAuthorIds);
 

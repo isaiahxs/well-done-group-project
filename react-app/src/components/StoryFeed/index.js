@@ -83,7 +83,7 @@ const StoryFeed = () => {
     dispatch(sessionActions.removeSearch(searchQuery));
   };
 
-console.log(subscribedStories);
+
 
   return (
     <div className="storyfeed-container">

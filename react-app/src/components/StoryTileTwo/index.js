@@ -60,6 +60,7 @@ console.log(fadeTrigger);
 
 
   return (
+
     <div className="story-tile-style2 fade-in">
       <div className="style2-content">
         <div className="style2-author-container">

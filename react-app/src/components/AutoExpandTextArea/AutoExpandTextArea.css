@@ -1,0 +1,30 @@
+.expandtextarea-container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.expandtextarea-flex {
+  flex-grow: 1;
+  position: relative;
+  padding: 8px;
+}
+
+.expandtextarea-text-display {
+  white-space: pre-wrap;
+  font-size: 14px;
+  height: fit-content;
+}
+
+.expandtextarea-textarea {
+  resize: none;
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  overflow: hidden;
+  font-family: inherit;
+  font-size: inherit;
+  padding: 0;
+  margin: 0;
+}

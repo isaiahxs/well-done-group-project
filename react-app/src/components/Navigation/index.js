@@ -17,6 +17,7 @@ import fountainPen from '../../public/fountain-pen.png';
 
 import writeIcon from '../../public/write-icon.svg';
 import bellIcon from '../../public/bell-icon.svg';
+import blackBellIcon from '../../public/black-bell.svg';
 
 const colorSchemes = {
   '/': ['nav-yellow', 'nav-white', 'button-black', 'button-green'],
@@ -148,11 +149,16 @@ function Navigation() {
   };
 
   const handleWriteClick = () => {
-    history.push('/create');
+    if(!user){
+      history.push('/write');
+    }
+    if(user){
+      history.push('/create');
+    }
   };
   
   const handleSigninClick = () => {
-    openModal('signup');
+    openModal('signin');
   };
  
   const handleSignupClick = () => {
@@ -201,7 +207,7 @@ function Navigation() {
               </div>
 
              
-                 <div className={`nav-search`}>
+                 <div className={`nav-search ${isLandingPage ? 'black' : ''}`}>
                  <div
                    className="maginfy-container"
                    onClick={newSearch}
@@ -218,7 +224,7 @@ function Navigation() {
                    <label>
                      <input
                        ref={searchInputRef}
-                       className='search-field'
+                       className={`search-field ${isLandingPage ? 'black' : ''}`}
                        type="search"
                        value={search}
                        onChange={(e) => setSearch(e.target.value)}
@@ -237,18 +243,22 @@ function Navigation() {
         
               </div>
               <div
-                className={`nav-write ${showWriteButton ? '' : 'hidden'}`}
+                className={`nav-write ${!showWriteButton || isLandingPage ? 'hidden' : ''} ${isLandingPage ? 'black' : ''}`}
                 onClick={handleWriteClick}
               >
                 <div className={`write-icon-container`} >
-                  <img src={writeIcon} alt="write symbol"></img>
+                <img className={`write-icon-container`} src={writeIcon} alt="write symbol"></img>
                 </div>
 
                 <div className=" memo-text ">Write</div>
 
               </div>
               <div className="bell-icon-container">
-                  <img src={bellIcon} alt="write symbol"></img>
+
+
+                  {!isLandingPage && showWriteButton && (<img src={bellIcon} alt="write symbol"></img>)}
+
+                  
                 </div>
               <div className={`nav-user-profile-div`} onClick={handleProfileClick}>
 
@@ -335,7 +345,13 @@ function Navigation() {
             <div className={`nav-user-buttons flex`}>
  
 
-              <div className={`nav-write`} onClick={handleWriteClick} >
+              <div className={`nav-write`} onClick={()=>{
+                if(!user){
+                  handleSignupClick()
+                }else {
+                  handleWriteClick()
+                }
+              }} >
 
                 <div className="write-icon-container">
                   <img src={writeIcon} alt="write symbol"></img>

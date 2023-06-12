@@ -9,6 +9,7 @@ import StoryTileTwo from '../StoryTileTwo';
 import StoryTileTwoSkeleton from '../StoryTileTwoSkeleton';
 import mediumLogoLarge from '../../public/medium-logo-with-cirlces.svg';
 import * as sessionActions from '../../store/session';
+import mediumLogoCircles from '../../public/medium-logo-circles.jpeg';
 
 const MainPageContent = () => {
   const { windowSize } = useContext(WindowContext);
@@ -37,9 +38,22 @@ const MainPageContent = () => {
     dispatch(sessionActions.setFeed(tag))
     dispatch(sessionActions.setSubFeed('taggedStories'))
     history.push('/home');
-
     return
   }
+
+
+  const navToOurStory = (tag) => {
+    history.push('/about');
+    return
+  }
+
+  const navToFeedStory = (tag) => {
+    dispatch(sessionActions.setFeed('for you'))
+    dispatch(sessionActions.setSubFeed(null))
+    history.push('/home');
+    return
+  }
+
 
 
  
@@ -63,7 +77,7 @@ const MainPageContent = () => {
                 </div>
 
                 {Array.from({ length: 40 }).map((_, i) => (
-                  <div key={i} className="skeleton-tag"></div>
+                  <div key={i} className="skeleton-tag shimmer"></div>
                 ))}
               </div>
 
@@ -114,6 +128,7 @@ const MainPageContent = () => {
                 >
                   Discover more of what matters to you
                 </div>
+<div className='main-page-tags-wrapper'>
 
                 <div
                   className={
@@ -121,9 +136,12 @@ const MainPageContent = () => {
                   }
                 >
                   {Array.from({ length: 40 }).map((_, i) => (
-                    <div key={i} className="skeleton-tag"></div>
+                    <div key={i} className="skeleton-tag shimmer"></div>
                   ))}
                 </div>
+
+</div>
+
                 <div
                   className="see-more-topics"
                   onClick={() => setIsExtended(!isExtended)}
@@ -200,13 +218,13 @@ const MainPageContent = () => {
 
               <div className="main-page-small-view-footer">
                 <div className="footer-logo" onClick={handleLogoClick}>
-                  <img src={mediumLogoLarge} alt="medium cirlce logo"></img>
+                  <img src={mediumLogoCircles} alt="medium cirlce logo"></img>
 
                 </div>
-                <div className="main-page-small-view-footer-item">About</div>
-                <div className="main-page-small-view-footer-item">Help</div>
-                <div className="main-page-small-view-footer-item">Terms</div>
-                <div className="main-page-small-view-footer-item">Privacy</div>
+                <div className="main-page-small-view-footer-item" onClick={navToOurStory}>About</div>
+                <div className="main-page-small-view-footer-item" onClick={navToOurStory}>Help</div>
+                <div className="main-page-small-view-footer-item" onClick={navToOurStory}>Terms</div>
+                <div className="main-page-small-view-footer-item" onClick={navToOurStory}>Privacy</div>
               </div>
             </div>
           ) : (
@@ -226,11 +244,6 @@ const MainPageContent = () => {
                   })}
               </div>
 
-              {/* <div className="main-page-wide-feed">
-                {stories && stories.map(story=>{
-                  return <StoryTileTwo className="main-page-feed-article" story={story}/>
-                })}
-            </div> */}
 
               <div className="main-page-footer-tags-container">
                 <div
@@ -241,9 +254,12 @@ const MainPageContent = () => {
                   Discover more of what matters to you
                 </div>
 
+
+                <div className='main-page-tags-wrapper loaded'>
+
                 <div
                   className={
-                    isExtended ? 'main-page-tags-extended' : 'main-page-tags'
+                    isExtended ? 'main-page-tags-extended loaded' : 'main-page-tags loaded'
                   }
                 >
                   {tags &&
@@ -253,6 +269,11 @@ const MainPageContent = () => {
                       );
                     })}
                 </div>
+                </div>
+
+
+
+
                 <div
                   className="see-more-topics"
                   onClick={() => setIsExtended(!isExtended)}
@@ -261,15 +282,14 @@ const MainPageContent = () => {
                 </div>
 
                 <div className="main-page-footer">
-                  <div className="main-page-footer-item">Help</div>
-                  <div className="main-page-footer-item">Status</div>
-                  <div className="main-page-footer-item">Writers</div>
-                  <div className="main-page-footer-item">Blog</div>
-                  <div className="main-page-footer-item">Careers</div>
-
-                  <div className="main-page-footer-item">Privacy</div>
-                  <div className="main-page-footer-item">Terms</div>
-                  <div className="main-page-footer-item">About</div>
+                  <div className="main-page-footer-item" onClick={navToOurStory}>Help</div>
+                  <div className="main-page-footer-item" onClick={navToOurStory}>Status</div>
+                  <div className="main-page-footer-item" onClick={navToOurStory}>Writers</div>
+                  <div className="main-page-footer-item" onClick={navToFeedStory}>Blog</div>
+                  <div className="main-page-footer-item" onClick={navToOurStory}>Careers</div>
+                  <div className="main-page-footer-item" onClick={navToOurStory}>Privacy</div>
+                  <div className="main-page-footer-item" onClick={navToOurStory}>Terms</div>
+                  <div className="main-page-footer-item" onClick={navToOurStory}>About</div>
                 </div>
               </div>
             </div>
