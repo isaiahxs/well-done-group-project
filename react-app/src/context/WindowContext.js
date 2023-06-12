@@ -6,6 +6,7 @@ export const WindowProvider = ({ children }) => {
   const [windowSize, setWindowSize] = useState(window.innerWidth);
   const [scrollPosition, setScrollPosition] = useState(window.scrollY);
   const searchInputRef = useRef();
+  const commentRef = useRef()
 
   useEffect(() => {
 
@@ -38,7 +39,7 @@ export const WindowProvider = ({ children }) => {
 
 
   return (
-    <WindowContext.Provider value={ {windowSize, scrollPosition, searchInputRef} }>
+    <WindowContext.Provider value={ {windowSize, scrollPosition, searchInputRef, commentRef} }>
       {children}
     </WindowContext.Provider>
   );

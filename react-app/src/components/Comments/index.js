@@ -1,28 +1,39 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {addCommentClap, postComment} from '../../store/story'
-import {editComment} from '../../store/story'
-import {deleteComment} from '../../store/story'
-import { removeCommentClap } from '../../store/story';
+import {addCommentClap, postComment, editComment, deleteComment, removeCommentClap} from '../../store/story'
 import './Comments.css'
+import { WindowContext } from '../../context/WindowContext';
 
 const Comments = ({ userId, storyId, authorInfo }) => {
-    // console.log('THIS IS OUR USER IDDDDDDDD', userId)
     const [commentText, setCommentText] = useState('');
     const [editingCommentId, setEditingCommentId] = useState(null);
     const [editText, setEditText] = useState('');
+    const [comments, setComments] = useState([]);
     const dispatch = useDispatch();
-    // const comments = useSelector(state => state.story.stories.find(story => story.id === storyId).comments)
-    // const comments = useSelector(state => {
-    //   const story = state.story.currentStory
-    // })
-    const comments = useSelector(state => state.story.currentStory.comments)
+    const story = useSelector(state => state.story.currentStory)
     const user = useSelector(state => state.session.user)
+    const {commentRef} = useContext(WindowContext)
+
+    useEffect(()=>{
+      if(story){
+        setComments(story.comments)
+      }
+    },[story])
 
     const handleSubmit = (event) => {
       event.preventDefault();
       dispatch(postComment(storyId, commentText));
+
+
       setCommentText('');
+
+
+
+      setTimeout(() => {
+        commentRef.current.scrollIntoView({ behavior: 'smooth' });
+      }, 500);
+
+
     };
 
     const handleEdit = (commentId, content) => {

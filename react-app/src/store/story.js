@@ -297,7 +297,6 @@ export const getStoryById = (id) => async (dispatch) => {
 	if (response.ok) {
 		const data = await response.json();
 		dispatch(getStoryByIdAction(data));
-		console.log(data);
 		return data;
 	} else if (response.status < 500) {
 		const data = await response.json();
@@ -344,7 +343,6 @@ export const clapStory = (id) => async (dispatch) => {
 	})
 	if (response.ok) {
 		const data = await response.json();
-		console.log(data);
 		dispatch(clapStoryAction({ id, claps: data.totalClaps }));
 		return null;
 	}
@@ -369,9 +367,6 @@ export const unclapStory = (id ) => async (dispatch) => {
 	})
 	if (response.ok) {
 		const data = await response.json();
-		console.log(data);
-
-
 		dispatch(unclapStoryAction({ id, claps: data.totalClaps }));
 		return null;
 	}
@@ -401,13 +396,7 @@ export const postComment = (storyId, comment) => async (dispatch) => {
 	})
 	if (response.ok) {
 		const data = await response.json();
-
-
-		console.log(data);
-  
 		dispatch(getStoryByIdAction(data));
-
-		// dispatch(postCommentAction(data)); //dispatch the action
 		return data;
 	} else {
 		const data = await response.json();
@@ -428,10 +417,7 @@ export const editComment = (storyId, commentId, comment) => async (dispatch) => 
 	})
 	if (response.ok) {
 		const data = await response.json();
-		console.log(data);
 		dispatch(getStoryByIdAction(data));
-
-		// dispatch(editCommentAction(data)); //dispatch the action
 		return data;
 	} else {
 		const data = await response.json();
@@ -453,8 +439,6 @@ export const deleteComment = (storyId, commentId) => async (dispatch) => {
 	if (response.ok) {
 	  const data = await response.json();
 		dispatch(getStoryByIdAction(data));
-
-		// dispatch(deleteCommentAction(commentId));
 		return commentId;
 	} else {
 		const data = await response.json();
