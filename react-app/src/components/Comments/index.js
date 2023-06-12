@@ -3,8 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import {addCommentClap, postComment, editComment, deleteComment, removeCommentClap} from '../../store/story'
 import './Comments.css'
 import { WindowContext } from '../../context/WindowContext';
+import { ModalContext } from '../../context/ModalContext';
 
-const Comments = ({ userId, storyId, authorInfo }) => {
+const Comments = ({ userId, storyId, authorInfo, setShowComments }) => {
     const [commentText, setCommentText] = useState('');
     const [editingCommentId, setEditingCommentId] = useState(null);
     const [editText, setEditText] = useState('');
@@ -13,12 +14,23 @@ const Comments = ({ userId, storyId, authorInfo }) => {
     const story = useSelector(state => state.story.currentStory)
     const user = useSelector(state => state.session.user)
     const {commentRef} = useContext(WindowContext)
+    const {openModal} = useContext(ModalContext)
+
+
+    const handleSigninClick = () => {
+
+      openModal('signin')
+      setShowComments(false)
+    }
+
 
     useEffect(()=>{
       if(story){
         setComments(story.comments)
       }
     },[story])
+
+
 
     const handleSubmit = (event) => {
       event.preventDefault();
@@ -88,7 +100,7 @@ const Comments = ({ userId, storyId, authorInfo }) => {
         }
 
         {!userId &&
-          <div className='signed-out'>Sign in to leave a comment!</div>
+          <div className='signed-out flex'><div onClick={handleSigninClick} className='comments-sign-in'>Sign in </div><div className='comments-to-leave'> to leave a comment!</div></div>
         }
 
         <div className='posted-comments'>

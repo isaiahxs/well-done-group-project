@@ -12,3 +12,18 @@
     margin: 5px;
 }
 
+.comments-sign-in{
+  cursor: pointer;
+}
+.comments-sign-in:hover{
+    text-decoration: underline;
+}
+
+.comments-to-leave{
+    left: 6px;
+    position: relative;
+}
+
+.signed-out{
+    width: 250px;
+}
