@@ -23,8 +23,17 @@
   border: none;
   outline: none;
   overflow: hidden;
-  font-family: inherit;
-  font-size: inherit;
+  font-size: 15px;
   padding: 0;
   margin: 0;
+  border: rgba(128, 128, 128, 0.264) dotted 1px;
+
+
+
+  color: #292929;
+  line-height: 28px;
+  font-family: source-serif-pro, Georgia, Cambria, "Times New Roman", Times, serif;
+  font-size: 20px;
+  font-weight: lighter;
+
 }

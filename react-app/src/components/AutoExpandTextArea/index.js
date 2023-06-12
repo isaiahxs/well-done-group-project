@@ -28,7 +28,7 @@ const AutoExpandTextArea = ({ text, onTextChange }) => {
   return (
     <div className="expandtextarea-container">
       <div className="expandtextarea-flex">
-        <div className="expandtextarea-text-display"></div>
+        <div className="expandtextarea-text-display memo-text"></div>
         <textarea
           ref={textareaRef}
           value={textareaText}

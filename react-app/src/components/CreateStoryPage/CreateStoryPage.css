@@ -27,6 +27,7 @@
   overflow-x:hidden;
 
   height: fit-content;
+
 }
 
 
@@ -228,8 +229,8 @@
   height: 27px;
   padding: 1px;
   border-radius: 15px;
-  position: absolute;
-  top: -55px;
+  position: fixed;
+  top: 15px;
   right: 120px;
   font-weight: 300;
   font-size: 14px;
