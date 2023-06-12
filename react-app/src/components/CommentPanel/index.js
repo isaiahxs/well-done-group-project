@@ -1,28 +1,24 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Comments from '../Comments';
 import { useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import './CommentPanel.css';  // CSS for sliding animation
+import './CommentPanel.css'; 
 
-const CommentPanel = ({ isOpen, comments, onClose, storyId }) => {
-    const {id} = useParams();
-    const [showComments, setShowComments] = useState(false);
-    const stories = useSelector(state => state.story.stories);
-    const story = stories.find(story => story.id === Number(storyId));
+const CommentPanel = ({ showComments, setShowComments, story}) => {
+
     const userId = useSelector(state => state.session.user?.id);
+    const [commentBtnText, setCommentBtnText] = useState('Comments')
 
-    useEffect(() => {
-        setShowComments(isOpen);
-    }, [isOpen])
+    useEffect(()=>{
+        setCommentBtnText(story.comments.length ? `Comments ${story.comments.length}` : 'Comments')
+        
+    }, [story])
 
     return (
         <div>
-            <button onClick={() => setShowComments(!showComments)}>Comments {story.comments.length}</button>            
-
-            {/* <button onClick={onClose}>Comments {story.comments.length}</button> */}
+            <button onClick={() => setShowComments(!showComments)}>{commentBtnText}</button> 
 
             <div className={`comment-panel ${showComments ? 'comment-panel-open' : 'comment-panel-closed'}`}>
-                <Comments storyId={story.id} comments={story.comments} authorInfo={story.authorInfo} userId={userId}/>
+                <Comments storyId={story.id} authorInfo={story.authorInfo} userId={userId}/>
             </div>
         </div>
     );

@@ -11,6 +11,8 @@ from app.models import Story
 class StoryForm(FlaskForm):
     title = StringField('title', validators=[DataRequired()])
     content = TextAreaField('content', validators=[DataRequired()])
+    sliced_intro = StringField('sliced_intro')
+    time_to_read = IntegerField('time_to_read')
     images = FieldList(FormField(StoryImageForm))
     tags = FieldList(FormField(StoryTagForm))
 

@@ -44,6 +44,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('story_id', sa.Integer(), nullable=False),
     sa.Column('url', sa.String(length=255), nullable=False),
+    sa.Column('file_name', sa.String(length=255), nullable=True),
     sa.Column('position', sa.Integer(), nullable=False),
     sa.Column('alt_tag', sa.String(), nullable=False),
     sa.Column('created_at', sa.DateTime(), nullable=True),

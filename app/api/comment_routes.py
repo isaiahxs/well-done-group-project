@@ -101,7 +101,10 @@ def create_comment_clap(id):
         new_clap = CommentClap(user_id=current_user.id, comment_id=id)
         db.session.add(new_clap)
         db.session.commit()
-        return new_clap.to_dict()
+        story = Story.query.get(comment.story_id)
+        return story.to_dict()
+        # return {"newClap": new_clap.to_dict(),
+        #         "commentId": id}
     else:
         return {"error": "You have already clapped for this comment"}, 403
     
@@ -120,6 +123,8 @@ def delete_comment_clap(id):
     if clap is not None:
         db.session.delete(clap)
         db.session.commit()
-        return {"message": "Clap deleted successfully"}
+        story = Story.query.get(comment.story_id)
+        return story.to_dict()
+        # return {"message": "Clap deleted successfully"}
     else:
         return {"error": "You have not clapped for this comment"}, 403

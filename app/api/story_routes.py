@@ -7,6 +7,7 @@ from app.forms import CommentForm
 from sqlalchemy.orm import joinedload
 from werkzeug.utils import secure_filename
 import os
+import json
 
 from ..aws3 import s3, bucket
 import boto3
@@ -30,17 +31,8 @@ def image_test():
     Query for a story by id and returns that story in a dictionary
     """
 
-    print('here')
-    print('here')
-    print('here')
-
-
     image_name = 'Render Logo.png'
-    image2_name = 'Render_Logo.png'
-    image3 = 'Screenshot 2023-06-10 at 10.39.11 AM.png'
-    
-    # image_name = 'https://well-done-proj.s3.us-east-2.amazonaws.com/Screenshot_2023-05-29_at_8.51.57_PM.png'
-    # image_name = 'https://well-done-proj.s3.us-east-2.amazonaws.com/Screenshot_2023-06-03_at_6.04.00_PM.png'
+
     # Generate the presigned URL for the image
     presigned_url = s3.generate_presigned_url(
         'get_object',
@@ -48,18 +40,11 @@ def image_test():
         ExpiresIn=3600  # The URL will be valid for 1 hour
     )
 
-    presigned_url2 = s3.generate_presigned_url(
-        'get_object',
-        Params={'Bucket': bucket, 'Key': image2_name},
-        ExpiresIn=3600  # The URL will be valid for 1 hour
-    )
-
     print('################')
     print(presigned_url)
     print('################')
 
-
-    return {'image':presigned_url, 'image2':presigned_url2}
+    return {'image':presigned_url}
 
 
 
@@ -127,9 +112,9 @@ def story(id):
     Query for a story by id and returns that story in a dictionary
     """
     story = Story.query.get(id)
+
     if story is None:
         return {"error": "Story not found"}, 404
-
     story_dict = story.to_dict()
     return story_dict
 
@@ -152,6 +137,73 @@ def delete_story(id):
     return {"message": "Story deleted successfully"}, 201
 
 
+
+@story_routes.route('/<int:id>/image', methods=['POST'])
+def create_story_image(id):
+    """
+    Creates a new story image
+    """
+
+    if 'images' in request.files:
+        files = request.files.getlist('images')
+        for file in files:
+            if file.filename == '':
+                return {"error": "No file selected"}, 400
+            filename = secure_filename(file.filename)
+            file.save(filename)
+            s3.upload_file(
+                Bucket='well-done-proj',
+                Filename=filename,
+                Key=filename
+            )
+            url = f"https://{bucket}.s3.us-east-2.amazonaws.com/{filename}"
+
+    if 'file' in request.files:
+            file = request.files['file']
+            if file.filename == '':
+                return {"error": "No file selected"}, 400
+
+            filename = secure_filename(file.filename)
+            file.save(filename)
+
+            s3.upload_file(
+                Bucket='well-done-proj',
+                Filename=filename,
+                Key=filename
+            )
+
+            url = f"https://{bucket}.s3.us-east-2.amazonaws.com/{filename}"
+
+    form = StoryImageForm()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if not form.validate_on_submit(): 
+
+      print(form.errors)
+
+
+    if form.validate_on_submit():
+      data = form.data
+      story = Story.query.get(id)
+
+      if story is None:
+          return {"error": "Story not found"}, 404
+      if current_user.id != story.author_id:
+          return {"error": "You do not have permission to edit this story"}, 403
+
+
+      new_story_image = StoryImage(
+          story_id=story.id,
+          url=data['url'],
+          position=data['position'],
+          alt_tag=data['alt_tag']
+      )
+      db.session.add(new_story_image)
+      db.session.commit()
+      # return new_story_image.to_dict()
+      return jsonify({**new_story_image.to_dict(), 'message': 'Story image successfully created'}), 201
+
+    if form.errors:
+      return {'error': "Bad Data"}
 
 
 @story_routes.route('/', methods=['POST'])
@@ -183,151 +235,66 @@ def create_story():
       return "Bad Data"
 
 
-
 @story_routes.route('/<int:id>', methods=['PUT'])
 @login_required
 def update_story(id):
-    """
-    Updates an existing story
-    """
     form = StoryForm()
     form['csrf_token'].data = request.cookies['csrf_token']
+    
     if form.validate_on_submit():
-      data = form.data
-      story = Story.query.get(id)
+        data = form.data
+        story = Story.query.get(id)
 
-      if story is None:
-          return {"error": "Story not found"}, 404
-      if current_user.id != story.author_id:
-          return {"error": "You do not have permission to edit this story"}, 403
-
-      story.author_id = current_user.id
-      story.title = data['title']
-      story.content = data['content']
-      db.session.commit()
-      return story.to_dict()
-
-    if form.errors:
-      return "Bad Data"  
+        if story is None:
+            return {"error": "Story not found"}, 404
+        if current_user.id != story.author_id:
+            return {"error": "You do not have permission to edit this story"}, 403
 
 
-@story_routes.route('/<int:id>/image', methods=['POST'])
-def create_story_image(id):
-    """
-    Creates a new story image
-    """
-    print('-=-=-*********=-=-')
-    print('-=-=-*********=-=-')
+        images_to_update = json.loads(request.form.get('imagesToUpdate')) 
+        print(images_to_update)
 
-    if 'images' in request.files:
+
+        id_to_position = {int(id): int(img['position']) for id, img in images_to_update.items()}
+
+        existing_images = StoryImage.query.filter_by(story_id=story.id).all()
+
+        for img in existing_images:
+            if img.id in id_to_position:
+                img.position = id_to_position[img.id]
+
         files = request.files.getlist('images')
-        for file in files:
-            if file.filename == '':
-                return {"error": "No file selected"}, 400
-            filename = secure_filename(file.filename)
-            file.save(filename)
-            s3.upload_file(
-                Bucket='well-done-proj',
-                Filename=filename,
-                Key=filename
-            )
-            url = f"https://{bucket}.s3.us-east-2.amazonaws.com/{filename}"
-            print('#################')
-            print(url)
-            print('#################')
 
-            print('=================')
-            print(file)
-            print('=================')
-
-
-    if 'file' in request.files:
-            file = request.files['file']
-            print('-=-=-=-=-')
-            print('-=-=-=-=-')
-            print(file)
-            print('-=-=-=-=-')
-            print('-=-=-=-=-')
-            print('-=-=-=-=-')
+        for i, file in enumerate(files):
             if file.filename == '':
                 return {"error": "No file selected"}, 400
 
             filename = secure_filename(file.filename)
             file.save(filename)
-
-            s3.upload_file(
-                Bucket='well-done-proj',
-                Filename=filename,
-                Key=filename
-            )
-
+            s3.upload_file(Bucket='well-done-proj', Filename=filename, Key=filename)
             url = f"https://{bucket}.s3.us-east-2.amazonaws.com/{filename}"
 
-            print(url)
+            new_story_image = StoryImage(
+                story_id=story.id,
+                url=url,
+                file_name=filename,
+                position=request.form.get(f'position{i}'),
+                alt_tag=request.form.get(f'altTag{i}')
+            )
+            db.session.add(new_story_image)
+
+        db.session.commit()
+
+        story.title = data['title']
+        story.content = data['content']
+        db.session.commit()
+
+        return story.to_dict()
+
+    else:
+        return {"error": "Bad Data"}, 400
 
 
-    print('-=-=-*****AFTER****=-=-')
-    print(filename)
-    print('-=-=-*****AFTER****=-=-')
- 
-
-
-    form = StoryImageForm()
-    form['csrf_token'].data = request.cookies['csrf_token']
-    if not form.validate_on_submit(): 
-
-      print(form.errors)
-
-    # if 'file' in request.files:
-    #         file = request.files['file']
-    #         print('-=-=-=-=-')
-    #         print('-=-=-=-=-')
-    #         print(file)
-    #         print('-=-=-=-=-')
-    #         print('-=-=-=-=-')
-    #         print('-=-=-=-=-')
-    #         if file.filename == '':
-    #             return {"error": "No file selected"}, 400
-
-    #         filename = secure_filename(file.filename)
-    #         file.save(filename)
-
-    #         s3.upload_file(
-    #             Bucket='well-done-proj',
-    #             Filename=filename,
-    #             Key=filename
-    #         )
-
-    #         url = f"https://{bucket}.s3.us-east-2.amazonaws.com/{filename}"
-
-    #         print(url)
-        
-    # take a look at this after, test validate form before and 
-
-
-    if form.validate_on_submit():
-      data = form.data
-      story = Story.query.get(id)
-
-      if story is None:
-          return {"error": "Story not found"}, 404
-      if current_user.id != story.author_id:
-          return {"error": "You do not have permission to edit this story"}, 403
-
-
-      new_story_image = StoryImage(
-          story_id=story.id,
-          url=data['url'],
-          position=data['position'],
-          alt_tag=data['alt_tag']
-      )
-      db.session.add(new_story_image)
-      db.session.commit()
-      # return new_story_image.to_dict()
-      return jsonify({**new_story_image.to_dict(), 'message': 'Story image successfully created'}), 201
-
-    if form.errors:
-      return {'error': "Bad Data"}
 
 
 
@@ -337,85 +304,70 @@ def create_story_with_images():
     """
     Creates a new story with included images
     """
-     # Create Story
+
     form = StoryForm()
     form['csrf_token'].data = request.cookies['csrf_token']
-    if not form.validate_on_submit(): 
-        print(form.errors)
-
-
-
-    if 'file' in request.files:
-            file = request.files['file']
-            if file.filename == '':
-                return {"error": "No file selected"}, 400
-
-            filename = secure_filename(file.filename)
-            file.save(filename)
-
-            s3.upload_file(
-                Bucket='well-done-proj',
-                Filename=filename,
-                Key=filename
-            )
-
-            url = f"https://{bucket}.s3.us-east-2.amazonaws.com/{filename}"
-        
-    # take a look at this after, test validate form before and 
-
+    
     if form.validate_on_submit():
         data = form.data
         new_story = Story(
             author_id=current_user.id,
             title=data['title'],
-            content=data['content']
+            content=request.form.get('content'),
+            time_to_read=request.form.get('time_to_read'),
+            sliced_intro=request.form.get('sliced_intro'),
         )
         db.session.add(new_story)
         db.session.commit()
 
-        story_id = new_story.id
+        # Handle story images
+        files = request.files.getlist('images')
 
+        for i, file in enumerate(files):
+            if file.filename == '':
+                return {"error": "No file selected"}, 400
 
-        incoming_data = request.get_json()
-        image_data_list = incoming_data.get('images', [])
-        tag_data_list = incoming_data.get('tags', [])
+            filename = secure_filename(file.filename)
+            file.save(filename)
+            s3.upload_file(
+                Bucket='well-done-proj',
+                Filename=filename,
+                Key=filename
+            )
+            url = f"https://{bucket}.s3.us-east-2.amazonaws.com/{filename}"
 
-    # handle story images
-        for image_data in image_data_list:
-
-            print(image_data)
+            alt_tag = request.form.get(f'altTag{i}')
+            position = request.form.get(f'position{i}')
 
             new_story_image = StoryImage(
-                story_id=story_id,
-                url=image_data['url'],
-                position=image_data['position'],
-                alt_tag=image_data['alt_tag']
+                story_id=new_story.id,
+                url=url,
+                file_name=filename,
+                position=position,
+                alt_tag=alt_tag
             )
             db.session.add(new_story_image)
             db.session.commit()
-        else:
-            print('errors')  
 
-
-    # handle story tags
-        for tag_data in tag_data_list:
-
-            print(tag_data)
-
+        # Handle story tags
+        tags = request.form.getlist('tags')
+        for tag in tags:
             new_story_tag = StoryTag(
-                story_id=story_id,
-                tag_id=tag_data['id'],
+                story_id=new_story.id,
+                tag_id=tag
             )
             db.session.add(new_story_tag)
             db.session.commit()
-        else:
-            print('errors')  
-         
-
 
         return new_story.to_dict()
+    else:
+        print(form.errors)
 
-    return "Bad Data"
+    return {"error": "Bad Data"}
+
+
+
+
 
 
 
@@ -513,6 +465,8 @@ def create_clap(id):
       "message": "clap clap",
       "totalClaps": len(story.claps),
     }
+
+
 
 @story_routes.route('/<int:id>/clap', methods=['DELETE'])
 @login_required

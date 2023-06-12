@@ -11,6 +11,7 @@ import StoryPage from './components/StoryPage';
 import SigninModal from './components/SigninModal';
 import SignupModal from './components/SignupModal';
 import ProfileButtonModal from './components/ProfileButtonModal';
+import StoryOptionsModal from './components/StoryOptionsModal';
 import CreateStoryPage from './components/CreateStoryPage';
 
 import * as storyActions from './store/story';
@@ -46,10 +47,12 @@ function App() {
     <>
       {(modal === 'signin' ||
         modal === 'signup' ||
-        modal === 'profileModal') && (
+        modal === 'profileModal' ||
+        modal === 'storyOptionsModal') && (
         <div
           className={
-            modal === 'profileModal'
+            modal === 'profileModal' ||
+            modal === 'storyOptionsModal'
               ? 'modal-container-transparent'
               : 'modal-container'
           }
@@ -57,6 +60,7 @@ function App() {
           {modal === 'signin' && <SigninModal />}
           {modal === 'signup' && <SignupModal />}
           {modal === 'profileModal' && <ProfileButtonModal />}
+          {modal === 'storyOptionsModal' && <StoryOptionsModal />}
         </div>
       )}
 
@@ -85,6 +89,10 @@ function App() {
 
 
           <Route path="/create" exact>
+            <CreateStoryPage />
+          </Route>
+
+          <Route path="/create/:id/edit" exact>
             <CreateStoryPage />
           </Route>
 

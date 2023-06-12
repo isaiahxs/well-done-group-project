@@ -26,9 +26,11 @@ const AuthorTile = ({ author }) => {
   const [profileImageSrc, setProfileImageSrc] = useState('');
   const [numFollowers, setNumFollowers] = useState(0);
   const [following, setFollowing] = useState(false);
+  const [authorData, setAuthorData] = useState(author)
   const followedAuthorIds = useSelector(state=>state.session.followedAuthorIds)
+  const currentUserId = useSelector(state=>state.session.user.id)
 
-  console.log(followedAuthorIds);
+  console.log("followedAuthorIds", followedAuthorIds);
 
   const getProfileImageSrc = (profileImage) => {
     return profileImages[profileImage] || profileImage;
@@ -55,20 +57,31 @@ const AuthorTile = ({ author }) => {
     }
 
     setFollowing(()=> {
-      return followedAuthorIds.find(id=>author.id===id)
+      if(followedAuthorIds){
+        return followedAuthorIds.find(id=>author.id===id)
+      } else {
+        return false
+      }
     } )
 
 
 
   },[author, followedAuthorIds]);
 
-  const handleFollow = () => {
+  const handleFollow = async () => {
     if(following){
-      dispatch(storyActions.unfollowAuthor(author.id))
-
+      await dispatch(storyActions.unfollowAuthor(author.id))
     }
     if(!following){
-      dispatch(storyActions.followAuthor(author.id))
+      await dispatch(storyActions.followAuthor(author.id))
+    }
+
+    //after following or unfollowing, fetch updated author data
+    const updatedAuthor = await dispatch(storyActions.getAuthorById(author.id))
+    // setAuthor(updatedAuthor) //save updated author in the state
+
+    if (updatedAuthor) {
+      setNumFollowers(updatedAuthor.followerCount);
     }
   }
 
@@ -100,9 +113,11 @@ const AuthorTile = ({ author }) => {
               <div className='authortile-style1-followers-header'>{numFollowers}</div>
             </div>
 
-            <div className='authortile-style1-followers-container'>
-              <div className='authortile-style1-follow-button' onClick={handleFollow}>{following ? 'Unfollow' : 'Follow'}</div>
-            </div>
+            {currentUserId !== author.id && (
+              <div className='authortile-style1-followers-container'>
+                <div className='authortile-style1-follow-button' onClick={handleFollow}>{following ? 'Unfollow' : 'Follow'}</div>
+              </div>
+            )}
 
       </div>
 

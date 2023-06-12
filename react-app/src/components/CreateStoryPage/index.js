@@ -1,15 +1,18 @@
-import React, { useState, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import { connect, useDispatch, useSelector } from 'react-redux';
+import { useHistory, useParams, useLocation } from 'react-router-dom';
 import './CreateStoryPage.css';
 
 import * as storyActions from '../../store/story';
 
 
-const CreateStoryPage = () => {
-  const [blocks, setBlocks] = useState([]);
+  const CreateStoryPage = ({story}) => {
+    const location = useLocation();
+    const [blocks, setBlocks] = useState([]);
   const [titleText, setTitleText] = useState('');
   const [showLabel, setShowLabel] = useState('');
+  const [storyTags, setStoryTags] = useState([{id:2, tag:"Programming"}]);
+  const [imagesToUpdate, setImagesToUpdate] = useState({})
 
   const fileInputRef = useRef(null);
 
@@ -18,68 +21,242 @@ const CreateStoryPage = () => {
 
   const user = useSelector((state) => state.session.user);
   const tags = useSelector((state) => state.story.tags);
+  const currentStory = useSelector((state) => state.story.currentStory);
+
+  const {id} = useParams()
+
+
+  useEffect(() => {
+
+    if(id){
+      dispatch(storyActions.getStoryById(id))
+    }
+   
+  }, [id])
+
+
+  useEffect(() => {
+
+    setBlocks([])
+    setTitleText('')
+   
+  }, [location])
 
 
 
-  const addBlock = (type) => {
-    const newBlock = { type, content: '', altTag: '' };
+
+useEffect(() => {
+
+
+  if (currentStory && currentStory.authorId !== user.id) {
+    history.push('/create')
+  } 
+
+  if (currentStory && currentStory.authorId === user.id) {
+
+    let tempArr =  [];
+    let lastPosition = 0;  
+    let blocksTemp = [];
+
+    setTitleText(currentStory.title)
+
+    currentStory.images.forEach((image, i) => { 
+
+      console.log(image);
+
+      imagesToUpdate[image.id] = image;
+      setImagesToUpdate({ ...imagesToUpdate });
+
+
+
+      let text = currentStory.content.slice(lastPosition, image.position);
+      let img = image.url;
+      let altTag = image.altTag;
+
+      // add text block if there is text before the image
+      if(image.position > 0) {
+        blocksTemp.push({type: 'text', content: text});
+      }
+
+      // add image block
+      blocksTemp.push({type: 'awsimage', content: img, altTag, id:image.id, position:image.position});
+      
+      lastPosition = image.position;  
+    });
+
+    // Check if there's remaining content
+    if (lastPosition < currentStory.content.length) { 
+      let remainingText = currentStory.content.slice(lastPosition); 
+      blocksTemp.push({type: 'text', content: remainingText});
+    } 
+
+    // set blocks for the current currentStory
+    setBlocks(blocksTemp);
+  }
+}, [currentStory]);
+
+console.log(imagesToUpdate);
+
+
+
+  const addBlock = (type, content = '', altTag = '') => {
+    const newBlock = { type, content, altTag };
     setBlocks([...blocks, newBlock]);
     if (type === 'image') {
       fileInputRef.current.click();
     }
   }
 
+
   const deleteBlock = (index) => {
+    //if this block contains an image that we need to update, handle the block in imagesToUpdate
+    if(imagesToUpdate[blocks[index].id]){
+      delete imagesToUpdate[blocks[index].id]
+      setImagesToUpdate({ ...imagesToUpdate });
+    }
+
     const newBlocks = [...blocks];
     newBlocks.splice(index, 1);
     setBlocks(newBlocks);
   }
 
+
+
   const handleFileSelect = (e) => {
-    const file = e.target.files[0];
-    if (file) {
+    let file = e.target.files[0];
+    let timestamp = Date.now();
+  
+    let filenameParts = file.name.split('.');
+    let extension = filenameParts.pop();
+    let filename = filenameParts.join('.');
+  
+    // Create a new file name with timestamp
+    let newFileName = `${filename}_${timestamp}.${extension}`;
+  
+    // Create a new file with the same content but with a new name
+    let newFile = new File([file], newFileName, {type: file.type});
+  
+    if (newFile) {
       const newBlocks = [...blocks];
-      newBlocks[blocks.length - 1].content = file; 
+      newBlocks[blocks.length - 1].content = newFile; 
       setBlocks(newBlocks);
     }
+
+    e.target.value = null;
   };
 
   const handleSubmit = async (e) => {
+
+
+    if(!user) return
+
     e.preventDefault();
     let createStoryObj = {};
+    let content = []
+    let storyImages = []
+    let lastPos = 0
+
+
+    createStoryObj['author'] = user.id
+    createStoryObj['title'] = titleText
+    createStoryObj['id'] = id
+    createStoryObj['timeToRead'] = Math.floor(Math.random() * (20) + 4)
+    createStoryObj['tags'] = storyTags
     
+    
+    if(location.pathname !== `/create/${id}/edit`){
+      
+      blocks.map((block) => {
+        console.log(lastPos);
+        if (block.type === 'text') {
+          content.push(block.content);
+          lastPos += block.content.length;
+        } 
+        
+        if (block.type === 'image') {
+          console.log(lastPos);
+          console.log(block.altTag);
+          storyImages.push({
+            
+            file: block.content,
+            altTag: block.altTag ? block.altTag : 'Story image',
+            position: lastPos
+          });
+        }
+      });
+      
+      let joinedContent = content.join('')
+      createStoryObj['slicedIntro'] = joinedContent.slice(0,130) + '...'
+      createStoryObj['content'] = joinedContent
+      createStoryObj['images'] = storyImages
+    }
 
-    const response = await dispatch(storyActions.createStory(createStoryObj));
+    if(location.pathname === `/create/${id}/edit`){
+      
+      blocks.map((block) => {
+        console.log(lastPos);
+        if (block.type === 'text') {
+          content.push(block.content);
+          lastPos += block.content.length;
+        } 
+
+
+        if (block.type === 'awsimage') {
+ 
+          // if the image is still at the position we delete the image from the imagesToUpdate obj
+          if(lastPos === imagesToUpdate[block.id].position){
+            delete imagesToUpdate[block.id]
+            setImagesToUpdate({ ...imagesToUpdate });
+          } 
+
+          // if the image is NOT at the position we update the image's position in the imagesToUpdate obj
+          else if(lastPos !== imagesToUpdate[block.id].position){
+            imagesToUpdate[block.id].position = lastPos
+            setImagesToUpdate({ ...imagesToUpdate });
+          }
+        } 
+
+        if (block.type === 'image') {
+          console.log(lastPos);
+          console.log(block.altTag);
+          storyImages.push({
+            
+            file: block.content,
+            altTag: block.altTag ? block.altTag : 'Story image',
+            position: lastPos
+          });
+        }
+      });
+      
+      let joinedContent = content.join('')
+      createStoryObj['slicedIntro'] = joinedContent.slice(0,130) + '...'
+      createStoryObj['content'] = joinedContent
+      createStoryObj['images'] = storyImages
+      createStoryObj['imagesToUpdate'] = imagesToUpdate
+
+    }
+
+
+    let response
+
+    if(location.pathname === `/create/${id}/edit`){
+      response = await dispatch(storyActions.updateStory(createStoryObj));
+    }
+
+    if(location.pathname !== `/create/${id}/edit`){
+      response = await dispatch(storyActions.createStory(createStoryObj));
+    }
+     
+    if(response && response.id){
+      history.push(`/story/${response.id}`)
+      return
+    }
   };
-
-  
-  
-  
-  // story{
-  //   content: '3241234  1324 12 34 123 412 34 1234'
-  //   storyImages [{url:'', position:6},{url:'', position:16}]
-  // }
-// if(story){
-// for iamge in storyImages
-//  content = {
-//   type:text,
-//   content:storyImages.slice(lastPosition,storyImage[i].position)
-//  } 
-//  content = {
-//   type:image,
-//   content: image.url
-//  }
-
-// }
-
-
-
-console.log(blocks);
-
+ 
 
   return (
     <div className="createstory-container">
-      <form className="article-container" onSubmit={handleSubmit}>
+      <form className="article-container" >
 
         <input
           type="file"
@@ -109,7 +286,7 @@ console.log(blocks);
           if (block.type === 'text') {
             return (
               <div className="text-wrapper" key={index}>
-                <button className="delete-button" onClick={() => deleteBlock(index)}>X</button>
+                <button type="button" className="delete-button" onClick={() => deleteBlock(index)}>X</button>
               <div className="text-container">
                 <textarea
                   className="text-input"
@@ -127,10 +304,31 @@ console.log(blocks);
           } else if (block.type === 'image') {
             return (
               <div className="image-wrapper" key={index}>
-                  <button className="delete-button" onClick={() => deleteBlock(index)}>X</button>
+                  <button type="button" className="delete-button" onClick={() => deleteBlock(index)}>X</button>
                 <div className="image-container">
                   {block.content ? 
                   <img className="story-image" src={URL.createObjectURL(block.content)} alt="" /> : 
+                  null}
+                  <input
+                    className="alt-text-input"
+                    value={block.altTag}
+                    onChange={(e) => {
+                      const newBlocks = [...blocks];
+                      newBlocks[index].altTag = e.target.value;
+                      setBlocks(newBlocks);
+                    }}
+                    placeholder='Add alt tag'
+                  />
+                </div>
+              </div>
+            );
+          } else if (block.type === 'awsimage') {
+            return (
+              <div className="image-wrapper" key={index}>
+                  <button type="button" className="delete-button" onClick={() => deleteBlock(index)}>X</button>
+                <div className="image-container">
+                  {block.content ? 
+                  <img className="story-image" src={block.content} alt="" /> : 
                   null}
                   <input
                     className="alt-text-input"
@@ -161,15 +359,17 @@ console.log(blocks);
 
 
         <div>
-          {blocks.length > 0 && blocks[blocks.length-1].type !== 'text' && <button className="add-button" onClick={() => addBlock('text')}>Add New Section</button>}
-          {blocks.length === 0 && <button className="add-button" onClick={() => addBlock('text')}>Add New Section</button>}
-          <button className="add-button" onClick={() => addBlock('image')}>Add Image</button>
+          {blocks.length > 0 && blocks[blocks.length-1].type !== 'text' && <button type="button" className="add-button" onClick={() => addBlock('text')}>Add New Section</button>}
+          {blocks.length === 0 && <button type="button" className="add-button" onClick={() => addBlock('text')}>Add New Section</button>}
+          <button type="button" className="add-button" onClick={() => addBlock('image')}>Add Image</button>
         </div>
 
-        <button type="submit">Submit</button>
+        <button type="submit" onClick={handleSubmit} >Submit</button>
       </form>
     </div>
   );
 };
 
 export default CreateStoryPage;
+
+

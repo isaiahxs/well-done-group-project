@@ -13,7 +13,7 @@ import parse from 'html-react-parser';
 const StoryTileThree = ({ story, index }) => {
   const history = useHistory();
   const [date, setDate] = useState('Dec 25, 2560')
-  const [readTime, setReadTime] = useState(4)
+
   const {windowSize} = useContext(WindowContext)
   const [thumbnail, setThumbnail] = useState('')
   const [profileImageSrc, setProfileImageSrc] = useState('');
@@ -58,7 +58,7 @@ const StoryTileThree = ({ story, index }) => {
 
 
     }
-    setReadTime(Math.floor(Math.random() * (20) + 4))
+   
 
 
 

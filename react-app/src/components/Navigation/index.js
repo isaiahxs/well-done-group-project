@@ -60,6 +60,8 @@ function Navigation() {
   const [profileImageSrc, setProfileImageSrc] = useState('');
   const [isTagUrl, setIsTagUrl] = useState(false);
   const [isLandingPage, setIsLandingPage] = useState(false);
+  const [showWriteButton, setShowWriteButton] = useState(true);
+
 
   useEffect(() => {
     const colors = colorScheme.current;
@@ -105,6 +107,12 @@ function Navigation() {
       }
     }
 
+    if (location.pathname.slice(0,7) === '/create') {
+      setShowWriteButton(false);
+    } else {
+      setShowWriteButton(true);
+    }
+
     setIsLoaded(true)
   }, [location.pathname, user]);
 
@@ -124,6 +132,8 @@ function Navigation() {
   const handleLogoClick = () => {
     colorScheme.current = colorSchemes['/'];
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    dispatch(sessionActions.setFeed('for you'))
+    dispatch(sessionActions.setSubFeed('stories'))
     if (user) {
       history.push('/home');
       return
@@ -140,10 +150,11 @@ function Navigation() {
   const handleWriteClick = () => {
     history.push('/create');
   };
-
+  
   const handleSigninClick = () => {
-    openModal('signin');
+    openModal('signup');
   };
+ 
   const handleSignupClick = () => {
     openModal('signup');
   };
@@ -226,10 +237,10 @@ function Navigation() {
         
               </div>
               <div
-                className={`nav-write`}
+                className={`nav-write ${showWriteButton ? '' : 'hidden'}`}
                 onClick={handleWriteClick}
               >
-                <div className="write-icon-container">
+                <div className={`write-icon-container`} >
                   <img src={writeIcon} alt="write symbol"></img>
                 </div>
 

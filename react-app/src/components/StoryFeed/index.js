@@ -9,12 +9,16 @@ import * as sessionActions from '../../store/session';
 import * as storyActions from '../../store/story';
 import StoryTileTwo from '../StoryTileTwo';
 import AuthorTile from '../AuthorTile';
-import StoryTileTwoSkeleton from '../StoryTileTwoSkeleton';
+import StoryTileFourSkeleton from '../StoryTileFourSkeleton';
+
+
+
+
 
 const StoryFeed = () => {
   const dispatch = useDispatch();
   const stories = useSelector((state) => state.story.stories);
-  const userStories = useSelector((state) => state.story.userStories);
+  const userStories = useSelector((state) => state.session.userStories);
   const loaded = useSelector((state) => state.story.loaded);
   const subscribedStories = useSelector((state) => state.session.subscribedStories);
   const searchResults = useSelector((state) => state.session.search);
@@ -24,44 +28,39 @@ const StoryFeed = () => {
 
   const { searchInputRef } = useContext(WindowContext);
 
-  const [selected, setSelected] = useState('stories');
   const [feedContent, setFeedContent] = useState(null);
   const [showSubMenu, setShowSubMenu] = useState(false);
 
+
   //handles showing subquery
   useEffect(() => {
-    const updateFeedContent = () => {
-        if (currentFeed === 'for you') {
-            dispatch(sessionActions.setSubFeed(null));
-            setFeedContent(stories);
-        } else if (currentFeed === 'by you') {
-            dispatch(sessionActions.setSubFeed(null));
-            setFeedContent(userStories);
-        } else if (currentFeed === 'following') {
-            dispatch(sessionActions.setSubFeed(null));
-            console.log(subscribedStories);
-            setFeedContent(subscribedStories);
-        } else if (searchResults[currentFeed] && subFeed) {
-            setFeedContent(searchResults[currentFeed][subFeed]);
-        }
-    };
+      const updateFeedContent = () => {
+          if (currentFeed === 'for you') {
+              dispatch(sessionActions.setSubFeed(null));
+              setFeedContent(stories);
+          } else if (currentFeed === 'by you') {
+              dispatch(sessionActions.setSubFeed(null));
+              setFeedContent(userStories);
+          } else if (currentFeed === 'following') {
+              dispatch(sessionActions.setSubFeed(null));
+              setFeedContent(subscribedStories);
+          } else if (searchResults[currentFeed] && subFeed) {
+              setFeedContent(searchResults[currentFeed][subFeed]);
+          }
+      };
 
-    if (currentFeed && searchResults[currentFeed]) {
-        setShowSubMenu(true);
-    }
+      if (currentFeed && searchResults[currentFeed]) {
+          setShowSubMenu(true);
+      }
 
-    if (currentFeed === 'for you' || currentFeed === 'by you' || currentFeed === 'following') {
-        setShowSubMenu(false);
-    }
-
-    updateFeedContent();
-}, [currentFeed, subFeed, searchResults, stories, userStories, subscribedStories, dispatch]);
+      if (currentFeed === 'for you' || currentFeed === 'by you' || currentFeed === 'following') {
+          setShowSubMenu(false);
+      }
 
 
+      updateFeedContent();
+  }, [currentFeed, subFeed, searchResults, stories, userStories, subscribedStories, dispatch]);
 
-  console.log(searchResults);
-  console.log(currentFeed);
-  console.log('currentFeed:',currentFeed,'subFeed:',subFeed,'feed content:',feedContent);
 
 
   const handleSelectFeed = (feed) => {
@@ -116,9 +115,15 @@ console.log(subscribedStories);
             className={`feed-select med memo-text flexcenter ${
               currentFeed === 'by you' ? 'selected' : ''
             }`}
-            onClick={() => handleSelectFeed('by you')}
+            onClick={() => {
+              handleSelectFeed('by you')
+              dispatch(storyActions.getUserStories())
+
+          
+          }}
           >
             By you
+            
           </div>
 
           <div
@@ -161,7 +166,11 @@ console.log(subscribedStories);
               className={`feed-select med memo-text flexcenter ${
                 subFeed === 'stories' ? 'selected' : ''
               }`}
-              onClick={() => handleSelectSubFeed('stories')}
+              onClick={() => {
+                handleSelectSubFeed('stories')
+                // setFadeTrigger(prevState => !prevState); 
+
+              }}
             >
               Stories
             </div>
@@ -177,7 +186,11 @@ console.log(subscribedStories);
               className={`feed-select large memo-text flexcenter ${
                 subFeed === 'taggedStories' ? 'selected' : ''
               }`}
-              onClick={() => handleSelectSubFeed('taggedStories')}
+              onClick={() => {
+                handleSelectSubFeed('taggedStories')
+                // setFadeTrigger(prevState => !prevState); 
+
+            }}
             >
               Tags
             </div>
@@ -187,14 +200,14 @@ console.log(subscribedStories);
 
       {!loaded && (
         <div>
-          <StoryTileTwoSkeleton />
-          <StoryTileTwoSkeleton />
-          <StoryTileTwoSkeleton />
-          <StoryTileTwoSkeleton />
-          <StoryTileTwoSkeleton />
-          <StoryTileTwoSkeleton />
-          <StoryTileTwoSkeleton />
-          <StoryTileTwoSkeleton />
+          <StoryTileFourSkeleton />
+          <StoryTileFourSkeleton />
+          <StoryTileFourSkeleton />
+          <StoryTileFourSkeleton />
+          <StoryTileFourSkeleton />
+          <StoryTileFourSkeleton />
+          <StoryTileFourSkeleton />
+          <StoryTileFourSkeleton />
         </div>
       )}
 
@@ -208,6 +221,9 @@ console.log(subscribedStories);
         currentFeed &&
         feedContent &&
         feedContent.map((story, i) => <StoryTileTwo key={i} story={story} />
+
+
+
       )}
 
 

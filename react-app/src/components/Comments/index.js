@@ -1,20 +1,22 @@
 import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {addCommentClap, postComment} from '../../store/story'
 import {editComment} from '../../store/story'
 import {deleteComment} from '../../store/story'
 import { removeCommentClap } from '../../store/story';
-import { useSelector } from 'react-redux';
 import './Comments.css'
 
-const Comments = ({ userId, storyId, comments, authorInfo }) => {
-    console.log('THIS IS OUR USER IDDDDDDDD', userId)
+const Comments = ({ userId, storyId, authorInfo }) => {
+    // console.log('THIS IS OUR USER IDDDDDDDD', userId)
     const [commentText, setCommentText] = useState('');
     const [editingCommentId, setEditingCommentId] = useState(null);
     const [editText, setEditText] = useState('');
     const dispatch = useDispatch();
-    const [date, setDate] = useState('')
     // const comments = useSelector(state => state.story.stories.find(story => story.id === storyId).comments)
+    // const comments = useSelector(state => {
+    //   const story = state.story.currentStory
+    // })
+    const comments = useSelector(state => state.story.currentStory.comments)
 
     const handleSubmit = (event) => {
       event.preventDefault();
@@ -60,7 +62,7 @@ const Comments = ({ userId, storyId, comments, authorInfo }) => {
 
     return (
       <div>
-        <h1 className='responses'>Responses ({comments.length})</h1>
+        <h1 className='responses'>Comments - {comments.length}</h1>
         <form className='new-comment' onSubmit={handleSubmit}>
           <input
             value={commentText}
@@ -73,14 +75,14 @@ const Comments = ({ userId, storyId, comments, authorInfo }) => {
         <div className='posted-comments'>
             <div className='most-relevant'>Most Relevant</div>
           {comments.map((comment) => (
-            console.log('THIS IS OUR COMMENT AUTHOR ID', comment.userId),
-            <div className='comment-tile'>
+            // console.log('THIS IS OUR COMMENT AUTHOR ID', comment.userId),
+            <div className='comment-tile' key={comment.id}>
                 <div>
                     <img src={comment.author.profileImage} alt='comment-author-image' className='comment-author-image'/>
-                    <p key={comment.id}>{comment.author.firstName} {comment.author.lastName}</p>
+                    <p>{comment.author.firstName} {comment.author.lastName}</p>
                     <p className='time'>{comment.createdAt.slice(0, 16)}</p>
                     {/* <p key={comment.id}>{comment.content}</p> */}
-                    <p key={comment.id}>
+                    <p>
                         {editingCommentId === comment.id ?
                             <form onSubmit={(e) => handleEditSubmit(e, comment.id)}>
                                 <input 

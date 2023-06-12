@@ -1,6 +1,6 @@
 
 // constants
-import {SUBSCRIBED_STORIES} from './story'
+import {SUBSCRIBED_STORIES, FOLLOW_AUTHOR, UNFOLLOW_AUTHOR} from './story'
 const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
 const NEW_SEARCH = "session/NEW_SEARCH";
@@ -43,7 +43,7 @@ const setSubFeedAction = (subFeed) => ({
 
 
 
-const initialState = { user: null, search: {}, currentFeed: 'for you', subFeed: null, subscribedStories: [] };
+const initialState = { user: null, search: {}, currentFeed: 'for you', subFeed: null, subscribedStories: [], followedAuthorIds: [] };
 
 export const authenticate = () => async (dispatch) => {
 	const response = await fetch("/api/auth/", {
@@ -168,7 +168,13 @@ export default function reducer(state = initialState, action) {
 	switch (action.type) {
 		case SET_USER:
 			return {...newState, user: action.payload.user, subscribedStories: action.payload.subscribedStories, userStories: action.payload.userStories, followedAuthorIds:action.payload.followedAuthorIds, };		
-		case REMOVE_USER:
+		case FOLLOW_AUTHOR:
+				return {...newState, followedAuthorIds:action.payload.followedAuthorIds};		
+		case UNFOLLOW_AUTHOR:
+			return {...newState, followedAuthorIds:action.payload.followedAuthorIds};		
+			
+		
+			case REMOVE_USER:
 			return initialState;
 		case NEW_SEARCH:
 			const newSearch = {...newState.search}

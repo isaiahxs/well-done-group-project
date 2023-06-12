@@ -9,6 +9,7 @@ const ModalProvider = ({ children }) => {
 
   const [updateObj, setUpdateObj] = useState(null);
   
+  // console.log("THIS IS OURRRR MODALLLL", modal)
 
   const openModal = (modalType) => {
     setModal(modalType);
@@ -32,5 +33,3 @@ const ModalProvider = ({ children }) => {
 };
 
 export { ModalContext, ModalProvider };
- 
-
