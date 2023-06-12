@@ -55,7 +55,7 @@ function ProfileButtonModal() {
       <div className="profile-dropdown">
         <div className="greeting">Hello, {user.firstName}</div>
         <button className="my-stories" onClick={handleMyStories}>My Stories</button>
-        <button className="profilemenu-logout-button" onClick={logout}>
+        <button className="profile-menu-logout-button" onClick={logout}>
           Sign out
         </button>
       </div>

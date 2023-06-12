@@ -23,6 +23,30 @@
   margin: 30px;
 }
 
+.profile-menu-logout-button{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 80%;
+  height: 30%;
+  bottom: 10%;
+  left: 0%;
+  background-color: rgb(74, 113, 186);
+  color: white;
+  font-weight: bold;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: .1s background-color;
+  font-size: 12px;
+  bottom: 1px;
+}
+
+.profile-menu-logout-button:hover {
+  background-color: red;
+}
+
 .ghost-button{
   position: absolute;
   display: flex;
@@ -88,8 +112,6 @@
   font-size: 20px;
 }
 
-
-
 .profile-email {
   position: absolute;
   width: fit-content;
@@ -118,31 +140,6 @@
   background-color: rgba(228, 228, 228, 0.2508);
 }
 
-.profilemenu-logout-button{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  width: 80%;
-  height: 30%;
-  bottom: 10%;
-  left: 0%;
-  background-color: rgb(74, 113, 186);
-  color: white;
-  font-weight: bold;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
-  transition: .1s background-color;
-  font-size: 12px;
-  bottom: 1px;
-}
-
-
-.profile-menu-logout-button:hover {
-  background-color: #3b75e2;
-
-}
 .profile-menu-logout-button:active {
   transform: scale(.95);
   background-color: rgb(74, 113, 186);

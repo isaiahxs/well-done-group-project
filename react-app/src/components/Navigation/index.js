@@ -375,7 +375,7 @@ function Navigation() {
 
 
 
-              <div className={`nav-user-profile-div`} onClick={handleProfileClick}>
+              <div className={`nav-user-profile-div`} onClick={handleSigninClick}>
                 {!user && userOutline && (
                   <div className={`profile-div`}  onClick={handleProfileClick}>
                     <img src={userOutline} alt="user profile picture" />
