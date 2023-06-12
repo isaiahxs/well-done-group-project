@@ -1,6 +1,6 @@
 import React, { useContext, useRef, useEffect } from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ModalContext } from '../../context/ModalContext';
 import * as sessionActions from '../../store/session';
 import * as storyActions from '../../store/story';
@@ -11,7 +11,9 @@ function StoryOptionsModal() {
     const dispatch = useDispatch();
     const { modal, openModal, closeModal, needsRerender, setNeedsRerender } = useContext(ModalContext);
     const formRef = useRef(null);
-    const {id} = useParams();
+    const currentStory = useSelector(state => state.story.currentStory);
+    // const {id} = useParams();
+
 
   
     useEffect(() => {
@@ -27,7 +29,7 @@ function StoryOptionsModal() {
     }, []);
   
     const deleteCurrentStory = (e) => {
-        dispatch(storyActions.deleteStory(id))
+        dispatch(storyActions.deleteStory(currentStory.id))
         history.push('/home')
         closeModal();
     }

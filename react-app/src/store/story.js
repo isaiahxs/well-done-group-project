@@ -535,14 +535,15 @@ export default function reducer(state = initialState, action) {
 			return {...newState, currentStory: action.payload };
 
 		case DELETE_STORY:
-			//remove deleted story from the stories and userStories arrays.
-			//check if currentStory is the one being deleted, if so, set currentStory to null
+			//create new object, spread current state and override properties
+			//check that newState.stories and newState.userStories exist before filtering
+			    //if they do not, use an empty array to prevent errors
 			return {
-				newState,
-				stories: newState.stories.filter((story) => story.id !== action.payload),
-				userStories: newState.userStories.filter((story) => story.id !== action.payload),
+				...newState,
+				stories: newState.stories ? newState.stories.filter((story) => story.id !== action.payload) : [],
+				userStories: newState.userStories ? newState.userStories.filter((story) => story.id !== action.payload) : [],
 				currentStory: newState.currentStory && newState.currentStory.id === action.payload ? null : newState.currentStory
-			}
+			  }
 
 		case INITIAL_LOAD:
 			console.log(action.payload);
