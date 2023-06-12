@@ -17,6 +17,7 @@ const Comments = ({ userId, storyId, authorInfo }) => {
     //   const story = state.story.currentStory
     // })
     const comments = useSelector(state => state.story.currentStory.comments)
+    const user = useSelector(state => state.session.user)
 
     const handleSubmit = (event) => {
       event.preventDefault();
@@ -62,15 +63,22 @@ const Comments = ({ userId, storyId, authorInfo }) => {
 
     return (
       <div>
-        <h1 className='responses'>Comments - {comments.length}</h1>
-        <form className='new-comment' onSubmit={handleSubmit}>
-          <input
-            value={commentText}
-            onChange={(e) => setCommentText(e.target.value)}
-            placeholder="Add a comment"
-          />
-          <button type="submit">Submit</button>
-        </form>
+        <h1 className='responses'>Responses ({comments.length})</h1>
+
+        {userId && userId !== authorInfo.id &&
+          <form className='new-comment' onSubmit={handleSubmit}>
+            <input
+              value={commentText}
+              onChange={(e) => setCommentText(e.target.value)}
+              placeholder="Add a comment"
+            />
+            <button type="submit">Submit</button>
+          </form>
+        }
+
+        {!userId &&
+          <div className='signed-out'>Sign in to leave a comment!</div>
+        }
 
         <div className='posted-comments'>
             <div className='most-relevant'>Most Relevant</div>
