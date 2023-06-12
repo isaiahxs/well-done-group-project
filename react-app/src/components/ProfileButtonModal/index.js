@@ -11,6 +11,7 @@ function ProfileButtonModal() {
   const dispatch = useDispatch();
   const { modal, openModal, closeModal, needsRerender, setNeedsRerender } = useContext(ModalContext);
   const formRef = useRef(null);
+  const user = useSelector(state => state.session.user);
 
 
 console.log('opening!');
@@ -41,12 +42,16 @@ console.log('opening!');
     
     
     <div className="profile-menu" ref={formRef}>
-      heloo
-      <div className="profilemenu-logout-button" onClick={logout}>
-        Sign out
+      <div className="profile-dropdown">
+        <div className="greeting">Hello, {user.firstName}</div>
+        <button className="my-stories">My Stories</button>
+        <button className="profilemenu-logout-button" onClick={logout}>
+          Sign out
+        </button>
       </div>
     </div>
-        
+
+    // settings
 
 
   );
