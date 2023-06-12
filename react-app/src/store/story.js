@@ -470,7 +470,14 @@ export const addCommentClap = (commentId) => async (dispatch) => {
 	});
 	if (response.ok) {
 		const data = await response.json();
-		dispatch(addCommentClapAction(data));
+		// console.log("THIS IS THE DATA AFTER CLAPPING A COMMENT", data);
+		// console.log("THIS IS THE DATA AFTER CLAPPING A COMMENT", data);
+		// console.log("THIS IS THE DATA AFTER CLAPPING A COMMENT", data);
+		// console.log("THIS IS THE DATA AFTER CLAPPING A COMMENT", data);
+		// console.log("THIS IS THE DATA AFTER CLAPPING A COMMENT", data);
+
+		//updates current story with new status
+		dispatch(getStoryByIdAction(data));
 		return null;
 	} else if (response.status < 500) {
 		const data = await response.json();
@@ -494,7 +501,8 @@ export const removeCommentClap = (commentId) => async (dispatch) => {
 	});
 	if (response.ok) {
 		const data = await response.json();
-		dispatch(removeCommentClapAction(data));
+		// dispatch(removeCommentClapAction(data));
+		dispatch(getStoryByIdAction(data));
 		return null;
 	} else if (response.status < 500) {
 		const data = await response.json();
