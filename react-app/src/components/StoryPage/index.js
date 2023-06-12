@@ -153,7 +153,9 @@ const StoryPage = () => {
                   <img src={claps} alt='claps' className='claps-icon'/>
                   {story.claps}
                 </button>
-                <button className='unclap-button' onClick={handleUnclapClick}>Unclap</button>
+                {story.hasClapped &&
+                  <button className='unclap-button' onClick={handleUnclapClick}>Unclap</button>
+                }
               </>
             )}
 
