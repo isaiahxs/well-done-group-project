@@ -12,6 +12,7 @@ import * as storyActions from '../../store/story';
   const [titleText, setTitleText] = useState('');
   const [showLabel, setShowLabel] = useState('');
   const [storyTags, setStoryTags] = useState([{id:2, tag:"Programming"}]);
+  const [imagesToUpdate, setImagesToUpdate] = useState({})
 
   const fileInputRef = useRef(null);
 
@@ -24,14 +25,8 @@ import * as storyActions from '../../store/story';
 
   const {id} = useParams()
 
-  console.log(id);
-  console.log(currentStory);
-
 
   useEffect(() => {
-
-
-
 
     if(id){
       dispatch(storyActions.getStoryById(id))
@@ -39,7 +34,7 @@ import * as storyActions from '../../store/story';
    
   }, [id])
 
-  console.log(location.pathname);
+
   useEffect(() => {
 
     setBlocks([])
@@ -66,17 +61,25 @@ useEffect(() => {
     setTitleText(currentStory.title)
 
     currentStory.images.forEach((image, i) => { 
+
+      console.log(image);
+
+      imagesToUpdate[image.id] = image;
+      setImagesToUpdate({ ...imagesToUpdate });
+
+
+
       let text = currentStory.content.slice(lastPosition, image.position);
       let img = image.url;
       let altTag = image.altTag;
 
       // add text block if there is text before the image
-      if(text.trim() !== '') {
+      if(image.position > 0) {
         blocksTemp.push({type: 'text', content: text});
       }
 
       // add image block
-      blocksTemp.push({type: 'awsimage', content: img, altTag});
+      blocksTemp.push({type: 'awsimage', content: img, altTag, id:image.id, position:image.position});
       
       lastPosition = image.position;  
     });
@@ -92,6 +95,8 @@ useEffect(() => {
   }
 }, [currentStory]);
 
+console.log(imagesToUpdate);
+
 
 
   const addBlock = (type, content = '', altTag = '') => {
@@ -104,18 +109,40 @@ useEffect(() => {
 
 
   const deleteBlock = (index) => {
+    //if this block contains an image that we need to update, handle the block in imagesToUpdate
+    if(imagesToUpdate[blocks[index].id]){
+      delete imagesToUpdate[blocks[index].id]
+      setImagesToUpdate({ ...imagesToUpdate });
+    }
+
     const newBlocks = [...blocks];
     newBlocks.splice(index, 1);
     setBlocks(newBlocks);
   }
 
+
+
   const handleFileSelect = (e) => {
-    const file = e.target.files[0];
-    if (file) {
+    let file = e.target.files[0];
+    let timestamp = Date.now();
+  
+    let filenameParts = file.name.split('.');
+    let extension = filenameParts.pop();
+    let filename = filenameParts.join('.');
+  
+    // Create a new file name with timestamp
+    let newFileName = `${filename}_${timestamp}.${extension}`;
+  
+    // Create a new file with the same content but with a new name
+    let newFile = new File([file], newFileName, {type: file.type});
+  
+    if (newFile) {
       const newBlocks = [...blocks];
-      newBlocks[blocks.length - 1].content = file; 
+      newBlocks[blocks.length - 1].content = newFile; 
       setBlocks(newBlocks);
     }
+
+    e.target.value = null;
   };
 
   const handleSubmit = async (e) => {
@@ -125,75 +152,107 @@ useEffect(() => {
 
     e.preventDefault();
     let createStoryObj = {};
+    let content = []
+    let storyImages = []
+    let lastPos = 0
 
 
     createStoryObj['author'] = user.id
     createStoryObj['title'] = titleText
-
-    let content = []
-    let storyImages = []
-
-    let lastPos = 0
-
-    blocks.map((block) => {
-      console.log(lastPos);
-      if (block.type === 'text') {
-        content.push(block.content);
-        lastPos += block.content.length;
-      } 
-      
-      if (block.type === 'image') {
-        console.log(lastPos);
-        console.log(block.altTag);
-        storyImages.push({
-          
-          file: block.content,
-          altTag: block.altTag ? block.altTag : 'Story image',
-          position: lastPos
-        });
-      }
-    });
-    console.log('submit');
-
-
-    let joinedContent = content.join('')
-    console.log(content);
-
-    createStoryObj['content'] = joinedContent
-    createStoryObj['images'] = storyImages
-    createStoryObj['tags'] = storyTags
-    createStoryObj['slicedIntro'] = joinedContent.slice(0,130) + '...'
+    createStoryObj['id'] = id
     createStoryObj['timeToRead'] = Math.floor(Math.random() * (20) + 4)
-
-
-    console.log(createStoryObj);
-
-    console.log(createStoryObj);
+    createStoryObj['tags'] = storyTags
+    
+    
+    if(location.pathname !== `/create/${id}/edit`){
+      
+      blocks.map((block) => {
+        console.log(lastPos);
+        if (block.type === 'text') {
+          content.push(block.content);
+          lastPos += block.content.length;
+        } 
+        
+        if (block.type === 'image') {
+          console.log(lastPos);
+          console.log(block.altTag);
+          storyImages.push({
+            
+            file: block.content,
+            altTag: block.altTag ? block.altTag : 'Story image',
+            position: lastPos
+          });
+        }
+      });
+      
+      let joinedContent = content.join('')
+      createStoryObj['slicedIntro'] = joinedContent.slice(0,130) + '...'
+      createStoryObj['content'] = joinedContent
+      createStoryObj['images'] = storyImages
+    }
 
     if(location.pathname === `/create/${id}/edit`){
-      // const response = await dispatch(storyActions.editStory(createStoryObj));
+      
+      blocks.map((block) => {
+        console.log(lastPos);
+        if (block.type === 'text') {
+          content.push(block.content);
+          lastPos += block.content.length;
+        } 
+
+
+        if (block.type === 'awsimage') {
+ 
+          // if the image is still at the position we delete the image from the imagesToUpdate obj
+          if(lastPos === imagesToUpdate[block.id].position){
+            delete imagesToUpdate[block.id]
+            setImagesToUpdate({ ...imagesToUpdate });
+          } 
+
+          // if the image is NOT at the position we update the image's position in the imagesToUpdate obj
+          else if(lastPos !== imagesToUpdate[block.id].position){
+            imagesToUpdate[block.id].position = lastPos
+            setImagesToUpdate({ ...imagesToUpdate });
+          }
+        } 
+
+        if (block.type === 'image') {
+          console.log(lastPos);
+          console.log(block.altTag);
+          storyImages.push({
+            
+            file: block.content,
+            altTag: block.altTag ? block.altTag : 'Story image',
+            position: lastPos
+          });
+        }
+      });
+      
+      let joinedContent = content.join('')
+      createStoryObj['slicedIntro'] = joinedContent.slice(0,130) + '...'
+      createStoryObj['content'] = joinedContent
+      createStoryObj['images'] = storyImages
+      createStoryObj['imagesToUpdate'] = imagesToUpdate
 
     }
-    console.log('here');
-    const response = await dispatch(storyActions.createStory(createStoryObj));
 
+
+    let response
+
+    if(location.pathname === `/create/${id}/edit`){
+      response = await dispatch(storyActions.updateStory(createStoryObj));
+    }
+
+    if(location.pathname !== `/create/${id}/edit`){
+      response = await dispatch(storyActions.createStory(createStoryObj));
+    }
+     
     if(response && response.id){
-
-      console.log('here');
-
-      console.log(response);
       history.push(`/story/${response.id}`)
+      return
     }
-    if(response.ok){
-    }
-    console.log(response);
   };
  
-  
-
-
-console.log(blocks);
-
 
   return (
     <div className="createstory-container">

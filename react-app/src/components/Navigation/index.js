@@ -150,10 +150,11 @@ function Navigation() {
   const handleWriteClick = () => {
     history.push('/create');
   };
-
+  
   const handleSigninClick = () => {
-    openModal('signin');
+    openModal('signup');
   };
+ 
   const handleSignupClick = () => {
     openModal('signup');
   };
