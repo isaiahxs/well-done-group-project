@@ -13,10 +13,10 @@ const Comments = ({ userId, storyId, authorInfo }) => {
     const [editText, setEditText] = useState('');
     const dispatch = useDispatch();
     // const comments = useSelector(state => state.story.stories.find(story => story.id === storyId).comments)
-    const comments = useSelector(state => {
-      const story = state.story.stories.find(story => story.id === storyId);
-      return story ? story.comments : [];
-    })
+    // const comments = useSelector(state => {
+    //   const story = state.story.currentStory
+    // })
+    const comments = useSelector(state => state.story.currentStory.comments)
 
     const handleSubmit = (event) => {
       event.preventDefault();
