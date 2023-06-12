@@ -33,11 +33,17 @@ function StoryOptionsModal() {
         history.push('/home')
         closeModal();
     }
+
+    const editCurrentStory = (e) => {
+        history.push(`/create/${currentStory.id}/edit`)
+        closeModal();
+    }
   
     return (
       <div className="story-options-menu" ref={formRef}>
-        <div className="story-options-button" onClick={deleteCurrentStory}>
-          Delete Story
+        <div className="story-options-buttons">
+            <button onClick={deleteCurrentStory}>Delete Story</button>
+            <button onClick={editCurrentStory}>Edit Story</button>
         </div>
       </div>
     );

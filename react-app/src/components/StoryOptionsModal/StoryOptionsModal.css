@@ -1,3 +1,8 @@
 /* .story-options-menu {
     background-color: black;
 } */
+
+.story-options-button {
+    background-color: black;
+    color: white;
+}
