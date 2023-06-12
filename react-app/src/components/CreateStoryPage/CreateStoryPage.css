@@ -226,8 +226,8 @@
   background-color: green;
   color: white;
   width: 70px;
-  height: 27px;
-  padding: 1px;
+  height: 20px;
+padding: 2px;
   border-radius: 15px;
   position: fixed;
   top: 15px;
@@ -235,4 +235,14 @@
   font-weight: 300;
   font-size: 14px;
   z-index: 100;
+  cursor: pointer;
+  user-select: none;
 } 
+
+.createstorypage-publish:hover{
+  background-color: rgb(0, 93, 0);
+} 
+.createstorypage-publish.disabled{
+  background-color: rgba(0, 128, 0, 0.214);
+
+}

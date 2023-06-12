@@ -14,7 +14,8 @@ const CreateStoryPage = ({ story }) => {
   const [titleText, setTitleText] = useState('');
   const [storyTags, setStoryTags] = useState([{ id: 2, tag: 'Programming' }]);
   const [imagesToUpdate, setImagesToUpdate] = useState({});
-
+  const [validationErrors, setValidationErrors] = useState({hasBlockContent:false, hasTitle:false});
+  const [buttonDisabled, setButtonDisabled] = useState(true)
   const fileInputRef = useRef(null);
 
 
@@ -88,7 +89,34 @@ const CreateStoryPage = ({ story }) => {
     }
   }, [currentStory]);
 
-  console.log(imagesToUpdate);
+
+
+  useEffect(() => {
+
+    const errors = {};
+    if (!titleText.length) errors['hasTitle'] = true;
+
+    if(blocks.length){
+      blocks.map(block=>{
+        if(block.type === 'text' && block.content.length > 0){
+          errors['hasBlockContent'] = false;
+        }
+      })
+    }
+
+    setValidationErrors(errors);
+  }, [blocks, titleText]);
+
+  useEffect(() => {
+    const hasFalseValue = obj => Object.values(obj).some(v => v === false);
+    if(hasFalseValue(validationErrors)) {
+      setButtonDisabled(false)
+    } else{
+      setButtonDisabled(true)
+    }
+
+  }, [validationErrors]);
+
 
   const addBlock = (type, content = '', altTag = '') => {
     if (type === 'image') {
@@ -106,9 +134,8 @@ const CreateStoryPage = ({ story }) => {
         });
       }, 1000);
     }
-
-
   };
+
 
   const deleteBlock = (index) => {
     //if this block contains an image that we need to update, handle the block in imagesToUpdate
@@ -121,8 +148,6 @@ const CreateStoryPage = ({ story }) => {
     newBlocks.splice(index, 1);
     setBlocks(newBlocks);
   };
-
-
 
   const handleFileSelect = (e) => {
 
@@ -157,9 +182,12 @@ const CreateStoryPage = ({ story }) => {
   };
 
 
-
   const handleSubmit = async (e) => {
+
     if (!user) return;
+    if(buttonDisabled) return;
+      
+    
 
     e.preventDefault();
     let createStoryObj = {};
@@ -253,6 +281,8 @@ const CreateStoryPage = ({ story }) => {
       return;
     }
   };
+
+
 
   return (
     <div className="createstory-container">
@@ -405,7 +435,11 @@ const CreateStoryPage = ({ story }) => {
           </button>
         </div>
 
-        <div className='createstorypage-publish memo-text flexcenter' type="submit" onClick={handleSubmit}>
+        <div 
+        className={`createstorypage-publish memo-text flexcenter ${buttonDisabled ? 'disabled' : ''}`}
+        type="submit" 
+        onClick={handleSubmit}
+        >
           Publish
         </div>
       </form>
