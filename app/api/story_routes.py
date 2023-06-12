@@ -25,34 +25,6 @@ def stories():
     return {'stories': [story.to_dict() for story in stories]}
 
 
-@story_routes.route('/imagetest')
-def image_test():
-    """
-    Query for a story by id and returns that story in a dictionary
-    """
-
-    image_name = 'Render Logo.png'
-
-    # Generate the presigned URL for the image
-    presigned_url = s3.generate_presigned_url(
-        'get_object',
-        Params={'Bucket': bucket, 'Key': image_name},
-        ExpiresIn=3600  # The URL will be valid for 1 hour
-    )
-
-    print('################')
-    print(presigned_url)
-    print('################')
-
-    return {'image':presigned_url}
-
-
-
-
-
-
-
-
 
 @story_routes.route('/initialize')
 def initial_load():
@@ -410,7 +382,8 @@ def create_comment(id):
       )
       db.session.add(new_comment)
       db.session.commit()
-      return new_comment.to_dict()
+      story = Story.query.get(comment.story_id)
+      return story.to_dict()
 
     if form.errors:
       return "Bad Data"
