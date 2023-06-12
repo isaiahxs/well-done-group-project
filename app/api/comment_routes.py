@@ -39,7 +39,8 @@ def create_comment(id):
 
         db.session.add(comment)
         db.session.commit()
-        return comment.to_dict()
+        story = Story.query.get(comment.story_id)
+        return story.to_dict()
     else:
         return {'error': form.errors}, 422
 
@@ -63,7 +64,8 @@ def update_comment(id):
     comment.story_id = comment.story_id
     comment.content = data['content']
     db.session.commit()
-    return comment.to_dict()
+    story = Story.query.get(comment.story_id)
+    return story.to_dict()
 
 
 
@@ -81,7 +83,8 @@ def delete_comment(id):
 
     db.session.delete(comment)
     db.session.commit()
-    return {"message": "Comment deleted successfully"}
+    story = Story.query.get(comment.story_id)
+    return story.to_dict()
 
 
 @comment_routes.route('/<int:id>/clap', methods=['POST'])
