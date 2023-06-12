@@ -5,6 +5,7 @@ const DELETE_STORY = "story/DELETE_STORY";
 const GET_USER_STORIES = "story/GET_USER_STORIES";
 const INITIAL_LOAD = "story/INITIAL_LOAD";
 const CREATE_STORY = "story/CREATE_STORY";
+const UPDATE_STORY = "story/UPDATE_STORY";
 export const FOLLOW_AUTHOR = "story/FOLLOW_AUTHOR";
 export const UNFOLLOW_AUTHOR = "story/UNFOLLOW_AUTHOR";
 const CLAP_STORY = "story/CLAP_STORY";
@@ -49,6 +50,11 @@ const initialLoadAction = (data) => ({
 
 const createStoryAction = (data) => ({
 	type: CREATE_STORY,
+	payload: data
+});
+
+const updateStoryAction = (data) => ({
+	type: UPDATE_STORY,
 	payload: data
 });
 
@@ -118,10 +124,10 @@ export const initialLoad = () => async (dispatch) => {
 	}
 };
 
+
+
 export const createStory = (createStoryObj) => async (dispatch) => {
 	
-	console.log(createStoryObj);
-	console.log('here');
     const { title, slicedIntro, timeToRead, images, tags, content, authorId } = createStoryObj
 		const formData = new FormData();
 
@@ -156,7 +162,6 @@ export const createStory = (createStoryObj) => async (dispatch) => {
 		console.log('yes ok');
 
 		const data = await response.json();
-		console.log(data);
 		dispatch(createStoryAction(data));
 		return data;
 	} else if (response.status < 500) {
@@ -168,6 +173,58 @@ export const createStory = (createStoryObj) => async (dispatch) => {
 		return ["An error occurred. Please try again."];
 	}
 };
+
+
+export const updateStory = (updateStoryObj) => async (dispatch) => {
+	console.log('here');
+	const { id, title, slicedIntro, timeToRead, images, tags, content, authorId, imagesToUpdate } = updateStoryObj;
+	const formData = new FormData();
+
+	if (images) {
+			for (let i = 0; i < images.length; i++) {
+					formData.append("images", images[i].file);
+					formData.append(`altTag${i}`, images[i].altTag);
+					formData.append(`position${i}`, images[i].position);
+			}
+	}
+	if (tags) {
+			for (let i = 0; i < tags.length; i++) {
+					formData.append("tags", tags[i].id);
+			}
+	}
+
+	formData.append('content', content)
+	formData.append('authorId', authorId)
+	formData.append('title', title)
+	formData.append('slicedIntro', slicedIntro)
+	formData.append('timeToRead', timeToRead)
+	formData.append('imagesToUpdate', JSON.stringify(imagesToUpdate))
+
+
+	const response = await fetch(`/api/story/${id}`, {
+			method: "PUT",
+			body: formData
+	});
+
+	console.log(response);
+
+	if (response.ok) {
+			const data = await response.json();
+			dispatch(updateStoryAction(data));
+			return data;
+	} else if (response.status < 500) {
+			const data = await response.json();
+			if (data.errors) {
+					return data.errors;
+			}
+	} else {
+			return ["An error occurred. Please try again."];
+	}
+};
+
+
+
+
 
 
 export const getStories = () => async (dispatch) => {
