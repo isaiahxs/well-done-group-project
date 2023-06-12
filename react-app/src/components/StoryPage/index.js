@@ -17,7 +17,7 @@ const StoryPage = () => {
   const dispatch = useDispatch();
   const { id } = useParams()
 
-  const story = useSelector(state => state.story.currentStory);
+  const story = useSelector(state => state?.story?.currentStory);
   const [date, setDate] = useState('')
   const [sortedContent, setSortedContent] = useState([])
   const [showComments, setShowComments] = useState(false);
@@ -117,7 +117,7 @@ const StoryPage = () => {
   }
 
   const renderTags = () => {
-    return story.tags.map(tag => (
+    return story?.tags?.map(tag => (
       <button onClick={()=>navToFeed(tag.tag)} key={tag.id} className='main-page-tag memo-text story-tag'>{tag.tag}</button>
     ))
   }
@@ -133,10 +133,10 @@ const StoryPage = () => {
           <h1 className="story-title">{story.title}</h1>
 
           <div className='author-section'>
-            <img src={story.authorInfo.profileImage} alt='author-image' className='author-image'/>
+            <img src={story?.authorInfo?.profileImage} alt='author-image' className='author-image'/>
             <div className='author-information'>
               <div className="story-author">
-                {story.authorInfo.firstName} {story.authorInfo.lastName} ·
+                {story?.authorInfo?.firstName} {story?.authorInfo?.lastName} ·
                 <a className='follow'> Follow</a>
                 <p className='time'>{story.timeToRead} min read · {date}</p>
               </div>
@@ -145,7 +145,7 @@ const StoryPage = () => {
 
           {/* changed original options bar to hide ability to clap/unclap your own stories + show ... only if you're the author of the story you're on */}
           <div className='options-bar'>
-            {currentUser?.id !== story.authorInfo.id && (
+            {currentUser?.id !== story?.authorInfo?.id && (
               <>
                 <button className='clap-button' onClick={handleClapClick}>Clap</button>
                 <button className='unclap-button' onClick={handleUnclapClick}>Unclap</button>
@@ -153,7 +153,7 @@ const StoryPage = () => {
             )}
             <button className='clap-count'>Claps {story.claps}</button>
             <CommentPanel showComments={showComments} setShowComments={setShowComments} story={story} />
-            {currentUser?.id === story.authorInfo.id && (
+            {currentUser?.id === story?.authorInfo?.id && (
               <button className='additional-options' onClick={() => openModal('storyOptionsModal')}>...</button>
               // <OpenModalButton
               //   modalComponent={<StoryOptionsModal onEdit={handleEditStory} onDelete={handleDeleteStory} />}
@@ -184,15 +184,15 @@ const StoryPage = () => {
           </div>
 
           <div className='options-bar'>
-            {currentUser?.id !== story.authorInfo.id && (
+            {currentUser?.id !== story?.authorInfo?.id && (
               <>
                 <button className='clap-button' onClick={handleClapClick}>Clap</button>
                 <button className='unclap-button' onClick={handleUnclapClick}>Unclap</button>
               </>
             )}
-            <button className='clap-count'>Claps {story.claps}</button>
+            <button className='clap-count'>Claps {story?.claps}</button>
             <CommentPanel showComments={showComments} setShowComments={setShowComments} story={story} />
-            {currentUser?.id === story.authorInfo.id && (
+            {currentUser?.id === story?.authorInfo?.id && (
               <button className='additional-options'>...</button>
             )}
             <div className={`overlay ${showComments ? 'active' : ''}`} onClick={() => setShowComments(!showComments)}></div>
@@ -200,12 +200,12 @@ const StoryPage = () => {
 
           <div className='footer'>
             <div className='author-section'>
-              <img src={story.authorInfo.profileImage} alt='author-image' className='author-image'/>
+              <img src={story?.authorInfo?.profileImage} alt='author-image' className='author-image'/>
               <div className='author-information'>
                 <div className="story-author">
-                  {story.authorInfo.firstName} {story.authorInfo.lastName} ·
+                  {story?.authorInfo?.firstName} {story?.authorInfo?.lastName} ·
                   <a className='follow'> Follow</a>
-                  <p className='time'>{story.timeToRead} min read · {date}</p>
+                  <p className='time'>{story?.timeToRead} min read · {date}</p>
                 </div>
               </div>
             </div>

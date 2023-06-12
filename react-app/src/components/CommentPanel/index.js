@@ -9,7 +9,7 @@ const CommentPanel = ({ showComments, setShowComments, story}) => {
     const [commentBtnText, setCommentBtnText] = useState('Comments')
 
     useEffect(()=>{
-        setCommentBtnText(story.comments.length ? `Comments ${story.comments.length}` : 'Comments')
+        setCommentBtnText(story?.comments?.length ? `Comments ${story?.comments?.length}` : 'Comments')
         
     }, [story])
 
@@ -18,7 +18,7 @@ const CommentPanel = ({ showComments, setShowComments, story}) => {
             <button onClick={() => setShowComments(!showComments)}>{commentBtnText}</button> 
 
             <div className={`comment-panel ${showComments ? 'comment-panel-open' : 'comment-panel-closed'}`}>
-                <Comments storyId={story.id} authorInfo={story.authorInfo} userId={userId}/>
+                <Comments storyId={story?.id} authorInfo={story?.authorInfo} userId={userId}/>
             </div>
         </div>
     );

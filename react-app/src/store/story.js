@@ -401,7 +401,13 @@ export const postComment = (storyId, comment) => async (dispatch) => {
 	})
 	if (response.ok) {
 		const data = await response.json();
-		dispatch(postCommentAction(data)); //dispatch the action
+
+
+		console.log(data);
+  
+		dispatch(getStoryByIdAction(data));
+
+		// dispatch(postCommentAction(data)); //dispatch the action
 		return data;
 	} else {
 		const data = await response.json();
@@ -422,7 +428,10 @@ export const editComment = (storyId, commentId, comment) => async (dispatch) => 
 	})
 	if (response.ok) {
 		const data = await response.json();
-		dispatch(editCommentAction(data)); //dispatch the action
+		console.log(data);
+		dispatch(getStoryByIdAction(data));
+
+		// dispatch(editCommentAction(data)); //dispatch the action
 		return data;
 	} else {
 		const data = await response.json();
@@ -442,7 +451,10 @@ export const deleteComment = (storyId, commentId) => async (dispatch) => {
 		},
 	})
 	if (response.ok) {
-		dispatch(deleteCommentAction(commentId));
+	  const data = await response.json();
+		dispatch(getStoryByIdAction(data));
+
+		// dispatch(deleteCommentAction(commentId));
 		return commentId;
 	} else {
 		const data = await response.json();
@@ -527,12 +539,6 @@ export const addCommentClap = (commentId) => async (dispatch) => {
 	});
 	if (response.ok) {
 		const data = await response.json();
-		// console.log("THIS IS THE DATA AFTER CLAPPING A COMMENT", data);
-		// console.log("THIS IS THE DATA AFTER CLAPPING A COMMENT", data);
-		// console.log("THIS IS THE DATA AFTER CLAPPING A COMMENT", data);
-		// console.log("THIS IS THE DATA AFTER CLAPPING A COMMENT", data);
-		// console.log("THIS IS THE DATA AFTER CLAPPING A COMMENT", data);
-
 		//updates current story with new status
 		dispatch(getStoryByIdAction(data));
 		return null;
