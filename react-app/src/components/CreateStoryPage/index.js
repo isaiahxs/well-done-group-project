@@ -29,10 +29,19 @@ const CreateStoryPage = ({ story }) => {
   const { id } = useParams();
 
   useEffect(() => {
-    if (id) {
-      dispatch(storyActions.getStoryById(id));
+
+
+    if (location.pathname === `/create/${id}/edit`) {
+      if (id) {
+        dispatch(storyActions.getStoryById(id));
+      }
     }
+
   }, [id]);
+
+
+
+
 
   useEffect(() => {
     setBlocks([]);

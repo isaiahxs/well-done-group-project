@@ -1,6 +1,7 @@
 // constants
 const GET_STORIES = "story/GET_STORIES";
-const GET_STORY_BY_ID = "story/GET_STORY_BY_ID";
+const SET_CURRENT_STORY = "story/SET_CURRENT_STORY";
+const REMOVE_CURRENT_STORY = "story/REMOVE_CURRENT_STORY";
 const DELETE_STORY = "story/DELETE_STORY";
 const GET_USER_STORIES = "story/GET_USER_STORIES";
 const INITIAL_LOAD = "story/INITIAL_LOAD";
@@ -38,8 +39,13 @@ const getSubscribedStoriesAction = (stories) => ({
 	payload: stories.subscribedStories,
 });
 
-const getStoryByIdAction = (story) => ({
-	type: GET_STORY_BY_ID,
+const setCurrentStoryAction = (story) => ({
+	type: SET_CURRENT_STORY,
+	payload: story,
+});
+
+const removeCurrentStoryAction = (story) => ({
+	type: REMOVE_CURRENT_STORY,
 	payload: story,
 });
 
@@ -92,6 +98,11 @@ const editCommentAction = (comment) => ({
 const deleteCommentAction = (commentId) => ({
 	type: DELETE_COMMENT,
 	payload: commentId,
+})
+
+const addCommentClapAction = (payload) => ({
+	type: ADD_COMMENT_CLAP,
+	payload,
 })
 
 const removeCommentClapAction = (payload) => ({
@@ -223,6 +234,10 @@ export const updateStory = (updateStoryObj) => async (dispatch) => {
 };
 
 
+export const removeCurrentStory = (updateStoryObj) => async (dispatch) => {
+	dispatch(removeCurrentStoryAction())
+};
+
 
 
 
@@ -296,7 +311,7 @@ export const getStoryById = (id) => async (dispatch) => {
 	});
 	if (response.ok) {
 		const data = await response.json();
-		dispatch(getStoryByIdAction(data));
+		dispatch(setCurrentStoryAction(data));
 		return data;
 	} else if (response.status < 500) {
 		const data = await response.json();
@@ -400,7 +415,7 @@ export const postComment = (storyId, comment) => async (dispatch) => {
 	})
 	if (response.ok) {
 		const data = await response.json();
-		dispatch(getStoryByIdAction(data));
+		dispatch(setCurrentStoryAction(data));
 		return data;
 	} else {
 		const data = await response.json();
@@ -421,7 +436,7 @@ export const editComment = (storyId, commentId, comment) => async (dispatch) => 
 	})
 	if (response.ok) {
 		const data = await response.json();
-		dispatch(getStoryByIdAction(data));
+		dispatch(setCurrentStoryAction(data));
 		return data;
 	} else {
 		const data = await response.json();
@@ -442,7 +457,7 @@ export const deleteComment = (storyId, commentId) => async (dispatch) => {
 	})
 	if (response.ok) {
 	  const data = await response.json();
-		dispatch(getStoryByIdAction(data));
+		dispatch(setCurrentStoryAction(data));
 		return commentId;
 	} else {
 		const data = await response.json();
@@ -511,11 +526,6 @@ export const unfollowAuthor = (id) => async (dispatch) => {
 };
 
 
-//create an action creator function
-const addCommentClapAction = (payload) => ({
-	type: ADD_COMMENT_CLAP,
-	payload,
-})
 
 export const addCommentClap = (commentId) => async (dispatch) => {
 
@@ -528,7 +538,7 @@ export const addCommentClap = (commentId) => async (dispatch) => {
 	if (response.ok) {
 		const data = await response.json();
 		//updates current story with new status
-		dispatch(getStoryByIdAction(data));
+		dispatch(setCurrentStoryAction(data));
 		return null;
 	} else if (response.status < 500) {
 		const data = await response.json();
@@ -553,7 +563,7 @@ export const removeCommentClap = (commentId) => async (dispatch) => {
 	if (response.ok) {
 		const data = await response.json();
 		// dispatch(removeCommentClapAction(data));
-		dispatch(getStoryByIdAction(data));
+		dispatch(setCurrentStoryAction(data));
 		return null;
 	} else if (response.status < 500) {
 		const data = await response.json();
@@ -582,8 +592,15 @@ export default function reducer(state = initialState, action) {
 		case GET_USER_STORIES:
 			return {...newState, userStories: action.payload.stories };
 
-		case GET_STORY_BY_ID:
+		case SET_CURRENT_STORY:
 			return {...newState, currentStory: action.payload };
+
+		case REMOVE_CURRENT_STORY:
+			console.log('removing');
+			return {...newState, currentStory: null};
+	
+
+			
 
 		case DELETE_STORY:
 			//create new object, spread current state and override properties

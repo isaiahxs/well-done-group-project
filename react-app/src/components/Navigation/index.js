@@ -7,6 +7,8 @@ import './Navigation.css';
 import { WindowContext } from '../../context/WindowContext';
 import { ModalContext } from '../../context/ModalContext';
 import * as sessionActions from '../../store/session';
+import * as storyActions from '../../store/story';
+
 import mediumLogoSmall from '../../public/medium-logo-circles-white.svg';
 import mediumLogoLarge from '../../public/medium-logo-with-cirlces.svg';
 
@@ -149,6 +151,8 @@ function Navigation() {
   };
 
   const handleWriteClick = () => {
+    dispatch(storyActions.removeCurrentStory());
+
     if(!user){
       history.push('/write');
     }
