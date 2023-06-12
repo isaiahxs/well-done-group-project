@@ -12,6 +12,17 @@
     overflow-y: scroll;
 }
 
+.comment-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: none;
+}
+
+.comment-icon {
+    margin-right: 3px;
+}
+
 .comment-panel-open {
     transform: translateX(0);
     transition: transform 0.6s ease-in-out;

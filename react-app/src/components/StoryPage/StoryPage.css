@@ -116,25 +116,36 @@
   font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
-.clap-button {
-  cursor: pointer;
-  background-color: rgb(234, 234, 234);
+.clap-count {
+  /* background-color: rgb(234, 234, 234); */
   border: none;
   border-radius: 20px;
   padding: 5px 10px;
   font-size: 16px;
+  background: none;
+}
+
+.clap-button {
+  cursor: pointer;
+  /* background-color: rgb(234, 234, 234); */
+  border: none;
+  /* border-radius: 20px; */
+  background: none;
+  padding: 5px 10px;
+  font-size: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.claps-icon {
+  cursor: pointer;
+  margin-right: 3px;
+  margin-bottom: 2px;
 }
 
 .unclap-button {
   cursor: pointer;
-  background-color: rgb(234, 234, 234);
-  border: none;
-  border-radius: 20px;
-  padding: 5px 10px;
-  font-size: 16px;
-}
-
-.clap-count {
   background-color: rgb(234, 234, 234);
   border: none;
   border-radius: 20px;

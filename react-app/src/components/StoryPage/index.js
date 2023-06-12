@@ -10,6 +10,8 @@ import { useModal } from '../../context/Modal';
 import * as sessionActions from '../../store/session';
 import * as storyActions from '../../store/story';
 import { ModalContext } from '../../context/ModalContext';
+import claps from '../../public/claps.svg';
+import comment from '../../public/comment.svg';
 
 
 const StoryPage = () => {
@@ -147,11 +149,16 @@ const StoryPage = () => {
           <div className='options-bar'>
             {currentUser?.id !== story?.authorInfo?.id && (
               <>
-                <button className='clap-button' onClick={handleClapClick}>Clap</button>
-                <button className='unclap-button' onClick={handleUnclapClick}>Unclap</button>
+                <button className='clap-button' onClick={handleClapClick}>
+                  <img src={claps} alt='claps' className='claps-icon'/>
+                  {story.claps}
+                </button>
+                {story.hasClapped &&
+                  <button className='unclap-button' onClick={handleUnclapClick}>Unclap</button>
+                }
               </>
             )}
-            <button className='clap-count'>Claps {story.claps}</button>
+
             <CommentPanel showComments={showComments} setShowComments={setShowComments} story={story} />
             {currentUser?.id === story?.authorInfo?.id && (
               <button className='additional-options' onClick={() => openModal('storyOptionsModal')}>...</button>

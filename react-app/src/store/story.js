@@ -343,7 +343,8 @@ export const clapStory = (id) => async (dispatch) => {
 	})
 	if (response.ok) {
 		const data = await response.json();
-		dispatch(clapStoryAction({ id, claps: data.totalClaps }));
+		console.log(data);
+		dispatch(clapStoryAction({ id, claps: data.totalClaps, hasClapped: data.hasClapped }));
 		return null;
 	}
 	if (response.status < 500) {
@@ -367,7 +368,10 @@ export const unclapStory = (id ) => async (dispatch) => {
 	})
 	if (response.ok) {
 		const data = await response.json();
-		dispatch(unclapStoryAction({ id, claps: data.totalClaps }));
+		console.log(data);
+
+
+		dispatch(unclapStoryAction({ id, claps: data.totalClaps, hasClapped: data.hasClapped }));
 		return null;
 	}
 		if (response.status < 500) {
@@ -598,9 +602,10 @@ export default function reducer(state = initialState, action) {
 
 		
 		case CLAP_STORY:
-				const { storyId, claps } = action.payload;
+				const { storyId, claps, hasClapped } = action.payload;
 				const updatedCurrentStory = newState.currentStory
 				updatedCurrentStory.claps = claps
+				updatedCurrentStory.hasClapped = hasClapped
 
 				return {
 					...state,
@@ -608,9 +613,10 @@ export default function reducer(state = initialState, action) {
 				};
 
 		case UNCLAP_STORY: {
-			const {storyId, claps} = action.payload;
+			const {storyId, claps, hasClapped} = action.payload;
 			const updatedCurrentStory = newState.currentStory
 			updatedCurrentStory.claps = claps
+			updatedCurrentStory.hasClapped = hasClapped
 				
 			return {
 				...state,
