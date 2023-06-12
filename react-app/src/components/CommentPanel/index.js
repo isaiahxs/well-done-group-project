@@ -7,6 +7,7 @@ import comment from '../../public/comment.svg';
 
 const CommentPanel = ({ showComments, setShowComments, story}) => {
 
+
     const userId = useSelector(state => state.session.user?.id);
     const [commentBtnText, setCommentBtnText] = useState('Comments')
     const {commentRef} = useContext(WindowContext)

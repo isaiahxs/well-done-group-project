@@ -18,7 +18,6 @@ const Comments = ({ userId, storyId, authorInfo, setShowComments }) => {
 
 
     const handleSigninClick = () => {
-
       openModal('signin')
       setShowComments(false)
     }
