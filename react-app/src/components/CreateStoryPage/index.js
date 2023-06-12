@@ -16,8 +16,11 @@ const CreateStoryPage = ({ story }) => {
   const [imagesToUpdate, setImagesToUpdate] = useState({});
   const [validationErrors, setValidationErrors] = useState({hasBlockContent:false, hasTitle:false});
   const [buttonDisabled, setButtonDisabled] = useState(true)
-  const fileInputRef = useRef(null);
+  const [showPublishButton, setShowPublishButton] = useState(false)
 
+
+  
+  const fileInputRef = useRef(null);
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -28,8 +31,8 @@ const CreateStoryPage = ({ story }) => {
 
   const { id } = useParams();
 
-  useEffect(() => {
 
+  useEffect(() => {
 
     if (location.pathname === `/create/${id}/edit`) {
       if (id) {
@@ -101,6 +104,11 @@ const CreateStoryPage = ({ story }) => {
 
 
   useEffect(() => {
+    setShowPublishButton(false)
+
+    if(blocks.length> 3){
+      setShowPublishButton(true)
+    }
 
     const errors = {};
     if (!titleText.length) errors['hasTitle'] = true;
@@ -184,7 +192,8 @@ const CreateStoryPage = ({ story }) => {
     e.target.value = null;
   };
 
-
+  console.log(document.body.scrollHeight);
+  
   const handleSubmit = async (e) => {
 
     if (!user) return;
@@ -290,6 +299,20 @@ const CreateStoryPage = ({ story }) => {
   return (
     <div className="createstory-container">
       <form className="article-container">
+
+<div className='flex publish-container'>
+
+      <div 
+        className={`createstorypage-publish memo-text flexcenter ${buttonDisabled ? 'disabled' : ''}`}
+        type="submit" 
+        onClick={handleSubmit}
+        >
+          Publish
+        </div>
+</div>
+
+
+
         <input
           type="file"
           ref={fileInputRef}
@@ -438,14 +461,19 @@ const CreateStoryPage = ({ story }) => {
           </button>
         </div>
 
-        <div 
-        className={`createstorypage-publish memo-text flexcenter ${buttonDisabled ? 'disabled' : ''}`}
-        type="submit" 
-        onClick={handleSubmit}
-        >
-          Publish
-        </div>
+        <div className='flex publish-container bottom'>
+
+
+</div>
+{showPublishButton&&(<div 
+  className={`createstorypage-publish memo-text flexcenter ${buttonDisabled ? 'disabled' : ''}`}
+  type="submit" 
+  onClick={handleSubmit}
+  >
+    Publish
+  </div>)}
       </form>
+      
     </div>
   );
 };
