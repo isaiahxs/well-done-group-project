@@ -73,21 +73,25 @@ console.log(fadeTrigger);
                 ></img>
               )}
           </div>
+
           <div 
           className="style2-author-name memo-text"
           onClick={() => history.push(`/author/${story.id}`)}>
             {name}
           </div>
         </div>
+
         <div className="style2-story-title-container">
-          <div className=" style2-story-title memo-text" onClick={() => history.push(`/story/${story.id}`)}>{story?.title}</div>
+          <div 
+            className=" style2-story-title memo-text" onClick={() => history.push(`/story/${story.id}`)}>{story?.title}
+          </div>
         </div>
 
         {windowSize > 699 && (<div className="style2-header-container flexbetween memo-text">
-          <div className="style2-header-content" onClick={() => history.push(`/story/${story.id}`)}>{story.slicedIntro}</div>
+          <div 
+            className="style2-header-content" onClick={() => history.push(`/story/${story.id}`)}>{story.slicedIntro}
+          </div>
         </div>)}
-
-     
 
         <div className="style2-date-read-time-container flexbetween memo-text">
           <div className="style2-date-content">{date}</div>
@@ -96,10 +100,9 @@ console.log(fadeTrigger);
             {story?.timeToRead} min read
           </div>
         </div>
-        {/* <div onClick={()=>{
-          history.push(`/create/${story.id}`)
-        }}>edit</div> */}
+
       </div>
+
       <div className={`style2-story-image`}>
         <img
           src={thumbnail}

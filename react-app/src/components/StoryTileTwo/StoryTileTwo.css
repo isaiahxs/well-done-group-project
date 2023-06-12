@@ -18,11 +18,11 @@
 }
 
 .style2-content{
-  height: 70px;
   margin-left: 20px;
 
   display: flex;
   flex-direction: column;
+  margin-right: 20px;
 }
 
 .style2-author-container{
@@ -140,7 +140,7 @@
 
   .style2-content {
     margin-left: 30px;
-    height: 130px;
+    height: auto;
   }
 
 
@@ -165,7 +165,9 @@
 
   .style2-header-content{
     margin-top: 3px;
+    /* margin-right: 30px; */
     color: #757575;
+    /* width: auto; */
 
   }
 
