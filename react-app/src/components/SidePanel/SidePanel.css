@@ -14,13 +14,24 @@
 
 }
 
+.see-more-topics {
+  font-family: sans-serif;
+  margin-left: -10px;
+  margin-top: 6px;
+  margin-bottom: 6px;
+}
+
+.main-page-footer-item {
+  font-family: sans-serif;
+}
 
 .sidepanel-staff-picks-header{
   height: 80px;
   width: 95%;
   margin-left: 5%;
   position: relative;
-  font-weight: 500;
+  font-weight: bolder;
+  font-size: 20px;
 }
 
 
@@ -73,8 +84,10 @@
   justify-content: center;
   font-size: 15px;
   font-weight: 500;
-  margin-top: 30px;
+  /* margin-top: 30px; */
   transition: all 0.5s;
+  font-weight: bolder;
+  /* font-size: 18px; */
 }
 
 .sidepanel-tag-header.extended {

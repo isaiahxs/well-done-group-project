@@ -11,8 +11,7 @@ import * as sessionActions from '../../store/session';
 import * as storyActions from '../../store/story';
 import { ModalContext } from '../../context/ModalContext';
 import claps from '../../public/claps.svg';
-import comment from '../../public/comment.svg';
-
+import shining_star from '../../public/shining_star.svg';
 
 const StoryPage = () => {
   const history = useHistory();
@@ -130,7 +129,10 @@ const StoryPage = () => {
     <div className="story-page">
       {story && (
         <>
-          <h4 className='member-only'>Member-only story</h4>
+          <h4 className='member-only'>
+            <img src={shining_star} alt='shining-star' className='shining-star'/>
+            Member-only story
+          </h4>
 
           <h1 className="story-title">{story.title}</h1>
 
@@ -193,14 +195,23 @@ const StoryPage = () => {
           <div className='options-bar'>
             {currentUser?.id !== story?.authorInfo?.id && (
               <>
-                <button className='clap-button' onClick={handleClapClick}>Clap</button>
-                <button className='unclap-button' onClick={handleUnclapClick}>Unclap</button>
+                <button className='clap-button' onClick={handleClapClick}>
+                  <img src={claps} alt='claps' className='claps-icon'/>
+                  {story.claps}
+                </button>
+                {story.hasClapped &&
+                  <button className='unclap-button' onClick={handleUnclapClick}>Unclap</button>
+                }
               </>
             )}
-            <button className='clap-count'>Claps {story?.claps}</button>
+
             <CommentPanel showComments={showComments} setShowComments={setShowComments} story={story} />
             {currentUser?.id === story?.authorInfo?.id && (
-              <button className='additional-options'>...</button>
+              <button className='additional-options' onClick={() => openModal('storyOptionsModal')}>...</button>
+              // <OpenModalButton
+              //   modalComponent={<StoryOptionsModal onEdit={handleEditStory} onDelete={handleDeleteStory} />}
+              //   buttonText='...'
+              // />
             )}
             <div className={`overlay ${showComments ? 'active' : ''}`} onClick={() => setShowComments(!showComments)}></div>
           </div>
