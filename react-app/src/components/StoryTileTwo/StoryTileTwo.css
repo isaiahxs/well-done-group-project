@@ -33,10 +33,11 @@
 }
 
 .style2-profile-image{
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   overflow: hidden;
+  border: 1px solid black;
 }
 
 
@@ -56,7 +57,10 @@
 
 
 .style2-story-title:hover,
-.style2-author-name:hover{
+.style2-author-name:hover,
+.style2-story-image:hover,
+.style2-header-content:hover,
+.style2-profile-image:hover{
   cursor: pointer;
 }
 
@@ -100,6 +104,7 @@
   width: 150px;
   right: 0px;
   overflow: hidden;
+  border: 1px solid black;
 }
 
 

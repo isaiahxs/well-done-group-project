@@ -64,7 +64,8 @@ console.log(fadeTrigger);
     <div className="story-tile-style2 fade-in">
       <div className="style2-content">
         <div className="style2-author-container">
-          <div className="style2-profile-image">
+          <div className="style2-profile-image"
+          onClick={() => history.push(`/author/${story.id}`)}>
           {story?.authorInfo?.profileImage && (
                 <img
                   src={story?.authorInfo.profileImage}
@@ -83,7 +84,7 @@ console.log(fadeTrigger);
         </div>
 
         {windowSize > 699 && (<div className="style2-header-container flexbetween memo-text">
-          <div className="style2-header-content">{story.slicedIntro}</div>
+          <div className="style2-header-content" onClick={() => history.push(`/story/${story.id}`)}>{story.slicedIntro}</div>
         </div>)}
 
      
@@ -95,14 +96,15 @@ console.log(fadeTrigger);
             {story?.timeToRead} min read
           </div>
         </div>
-        <div onClick={()=>{
+        {/* <div onClick={()=>{
           history.push(`/create/${story.id}`)
-        }}>edit</div>
+        }}>edit</div> */}
       </div>
       <div className={`style2-story-image`}>
         <img
           src={thumbnail}
           alt={'profile image'}
+          onClick={() => history.push(`/story/${story.id}`)}
         ></img>
       </div>
     </div>
