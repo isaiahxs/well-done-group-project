@@ -90,7 +90,7 @@ const Comments = ({ userId, storyId, authorInfo, setShowComments }) => {
       <div>
         <h1 className='responses'>Responses ({comments?.length})</h1>
 
-        {userId && userId !== authorInfo?.id &&
+        {userId && userId !== authorInfo?.id && !userHasCommented &&
           <form className='new-comment' onSubmit={handleSubmit}>
             <input
               className='comment-input'
