@@ -10,6 +10,7 @@ import * as storyActions from '../../store/story';
 import StoryTileTwo from '../StoryTileTwo';
 import AuthorTile from '../AuthorTile';
 import StoryTileFourSkeleton from '../StoryTileFourSkeleton';
+import magnifyGlass from '../../public/magnify-glass.svg';
 
 
 
@@ -83,7 +84,7 @@ const StoryFeed = () => {
     dispatch(sessionActions.removeSearch(searchQuery));
   };
 
-console.log(subscribedStories);
+
 
   return (
     <div className="storyfeed-container">
@@ -98,7 +99,8 @@ console.log(subscribedStories);
             }}
           >
             <div className="add-container flexcenter">
-              <i className="fa-solid fa-magnifying-glass"></i>
+              <img src={magnifyGlass} alt="medium cirlce logo" />
+
             </div>
           </div>
           <div

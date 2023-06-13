@@ -1,27 +1,50 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {addCommentClap, postComment} from '../../store/story'
-import {editComment} from '../../store/story'
-import {deleteComment} from '../../store/story'
-import { removeCommentClap } from '../../store/story';
+import {addCommentClap, postComment, editComment, deleteComment, removeCommentClap} from '../../store/story'
 import './Comments.css'
+import { WindowContext } from '../../context/WindowContext';
+import { ModalContext } from '../../context/ModalContext';
 
-const Comments = ({ userId, storyId, authorInfo }) => {
-    // console.log('THIS IS OUR USER IDDDDDDDD', userId)
+const Comments = ({ userId, storyId, authorInfo, setShowComments }) => {
     const [commentText, setCommentText] = useState('');
     const [editingCommentId, setEditingCommentId] = useState(null);
     const [editText, setEditText] = useState('');
+    const [comments, setComments] = useState([]);
     const dispatch = useDispatch();
-    // const comments = useSelector(state => state.story.stories.find(story => story.id === storyId).comments)
-    // const comments = useSelector(state => {
-    //   const story = state.story.currentStory
-    // })
-    const comments = useSelector(state => state.story.currentStory.comments)
+    const story = useSelector(state => state.story.currentStory)
+    const user = useSelector(state => state.session.user)
+    const {commentRef} = useContext(WindowContext)
+    const {openModal} = useContext(ModalContext)
+
+
+    const handleSigninClick = () => {
+      openModal('signin')
+      setShowComments(false)
+    }
+
+
+    useEffect(()=>{
+      if(story){
+        setComments(story.comments)
+      }
+    },[story])
+
+
 
     const handleSubmit = (event) => {
       event.preventDefault();
       dispatch(postComment(storyId, commentText));
+
+
       setCommentText('');
+
+
+
+      setTimeout(() => {
+        commentRef.current.scrollIntoView({ behavior: 'smooth' });
+      }, 500);
+
+
     };
 
     const handleEdit = (commentId, content) => {
@@ -62,29 +85,36 @@ const Comments = ({ userId, storyId, authorInfo }) => {
 
     return (
       <div>
-        <h1 className='responses'>Comments - {comments.length}</h1>
-        <form className='new-comment' onSubmit={handleSubmit}>
-          <input
-            value={commentText}
-            onChange={(e) => setCommentText(e.target.value)}
-            placeholder="Add a comment"
-          />
-          <button type="submit">Submit</button>
-        </form>
+        <h1 className='responses'>Responses ({comments?.length})</h1>
+
+        {userId && userId !== authorInfo?.id &&
+          <form className='new-comment' onSubmit={handleSubmit}>
+            <input
+              value={commentText}
+              onChange={(e) => setCommentText(e.target.value)}
+              placeholder="Add a comment"
+            />
+            <button type="submit">Submit</button>
+          </form>
+        }
+
+        {!userId &&
+          <div className='signed-out flex'><div onClick={handleSigninClick} className='comments-sign-in'>Sign in </div><div className='comments-to-leave'> to leave a comment!</div></div>
+        }
 
         <div className='posted-comments'>
             <div className='most-relevant'>Most Relevant</div>
-          {comments.map((comment) => (
+          {comments?.map((comment) => (
             // console.log('THIS IS OUR COMMENT AUTHOR ID', comment.userId),
-            <div className='comment-tile' key={comment.id}>
+            <div className='comment-tile' key={comment?.id}>
                 <div>
-                    <img src={comment.author.profileImage} alt='comment-author-image' className='comment-author-image'/>
-                    <p>{comment.author.firstName} {comment.author.lastName}</p>
-                    <p className='time'>{comment.createdAt.slice(0, 16)}</p>
+                    <img src={comment?.author?.profileImage} alt='comment-author-image' className='comment-author-image'/>
+                    <p>{comment?.author?.firstName} {comment?.author?.lastName}</p>
+                    <p className='time'>{comment?.createdAt.slice(0, 16)}</p>
                     {/* <p key={comment.id}>{comment.content}</p> */}
                     <p>
-                        {editingCommentId === comment.id ?
-                            <form onSubmit={(e) => handleEditSubmit(e, comment.id)}>
+                        {editingCommentId === comment?.id ?
+                            <form onSubmit={(e) => handleEditSubmit(e, comment?.id)}>
                                 <input 
                                 value={editText} 
                                 onChange={(e) => setEditText(e.target.value)} 
@@ -93,22 +123,22 @@ const Comments = ({ userId, storyId, authorInfo }) => {
                                 <button type="submit">Submit Edit</button>
                             </form>
                         :
-                        comment.content
+                        comment?.content
                         }
                     </p>
-                    <p>Claps: {comment.clapCount}</p> {/* Show clap count */}
-                    {userId && userId !== comment.userId &&
+                    <p>Claps: {comment?.clapCount}</p> {/* Show clap count */}
+                    {userId && userId !== comment?.userId &&
                       <div>
-                        <button onClick={() => handleClap(comment.id)}>Clap</button>
-                        <button onClick={() => handleUnclap(comment.id)}>Remove Clap</button>
+                        <button onClick={() => handleClap(comment?.id)}>Clap</button>
+                        <button onClick={() => handleUnclap(comment?.id)}>Remove Clap</button>
                       </div>
                     }
 
-                    {userId && userId === comment.userId && editingCommentId !== comment.id &&
+                    {userId && userId === comment?.userId && editingCommentId !== comment?.id &&
                         <div>
-                        <button onClick={() => handleEdit(comment.id, comment.content)}>Edit</button>
+                        <button onClick={() => handleEdit(comment?.id, comment?.content)}>Edit</button>
                     
-                        <button onClick={() => handleDelete(storyId, comment.id)}>Delete</button>
+                        <button onClick={() => handleDelete(storyId, comment?.id)}>Delete</button>
                         </div>
                     }
                 </div>

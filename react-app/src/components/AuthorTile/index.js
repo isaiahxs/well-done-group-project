@@ -28,7 +28,7 @@ const AuthorTile = ({ author }) => {
   const [following, setFollowing] = useState(false);
   const [authorData, setAuthorData] = useState(author)
   const followedAuthorIds = useSelector(state=>state.session.followedAuthorIds)
-  const currentUserId = useSelector(state=>state.session.user.id)
+  const currentUserId = useSelector(state=>state?.session?.user?.id)
 
   console.log("followedAuthorIds", followedAuthorIds);
 
@@ -96,6 +96,7 @@ const AuthorTile = ({ author }) => {
           <div className="style1-profile-image">
           {profileImageSrc && (
                 <img
+                  className='profile-picture'
                   src={profileImageSrc}
                   alt="author profile picture"
                 ></img>
@@ -109,8 +110,8 @@ const AuthorTile = ({ author }) => {
         </div>
 
             <div className='authortile-style1-followers-container'>
-              <div className='authortile-style1-followers-header'>Followers</div>
-              <div className='authortile-style1-followers-header'>{numFollowers}</div>
+              <div className='authortile-style1-followers-header'>Followers: {numFollowers}</div>
+              {/* <div className='authortile-style1-followers-header'>{numFollowers}</div> */}
             </div>
 
             {currentUserId !== author.id && (

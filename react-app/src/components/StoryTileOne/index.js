@@ -8,8 +8,12 @@ import openBook from '../../public/open-book.png';
 import quill from '../../public/quill.png';
 import userOutline from '../../public/user-outline.png';
 import fountainPen from '../../public/fountain-pen.png';
+import * as sessionActions from '../../store/session'
+
+
 const StoryTileOne = ({ story, index }) => {
   const history = useHistory();
+  const dispatch = useDispatch();
   const [date, setDate] = useState('Dec 25, 2560')
   const {windowSize} = useContext(WindowContext)
   const isMobileView = windowSize <= 900;
@@ -44,6 +48,15 @@ const StoryTileOne = ({ story, index }) => {
   },[story])
 
 
+  const navToFeed = (search, subFeed) => {
+    dispatch(sessionActions.search(search))
+    dispatch(sessionActions.setFeed(search))
+    dispatch(sessionActions.setSubFeed(subFeed))
+    history.push('/home');
+    return
+  }
+
+
 
   return (
     <>
@@ -64,7 +77,7 @@ const StoryTileOne = ({ story, index }) => {
               </div>
               <div
                 className="style1-author-name memo-text"
-                onClick={() => history.push(`/author/${story.id}`)}
+                onClick={() => navToFeed(`${story?.authorInfo.firstName} ${story?.authorInfo.lastName}`, 'authors')}
               >
                 {story?.authorInfo.firstName} {story?.authorInfo.lastName}
               </div>
@@ -106,7 +119,7 @@ const StoryTileOne = ({ story, index }) => {
               </div>
               <div
                 className="style1-author-name memo-text"
-                onClick={() => history.push(`/author/${story.id}`)}
+                onClick={() => navToFeed(`${story?.authorInfo.firstName} ${story?.authorInfo.lastName}`, 'authors')}
               >
                 {story?.authorInfo.firstName} {story?.authorInfo.lastName}
               </div>

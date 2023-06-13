@@ -25,34 +25,6 @@ def stories():
     return {'stories': [story.to_dict() for story in stories]}
 
 
-@story_routes.route('/imagetest')
-def image_test():
-    """
-    Query for a story by id and returns that story in a dictionary
-    """
-
-    image_name = 'Render Logo.png'
-
-    # Generate the presigned URL for the image
-    presigned_url = s3.generate_presigned_url(
-        'get_object',
-        Params={'Bucket': bucket, 'Key': image_name},
-        ExpiresIn=3600  # The URL will be valid for 1 hour
-    )
-
-    print('################')
-    print(presigned_url)
-    print('################')
-
-    return {'image':presigned_url}
-
-
-
-
-
-
-
-
 
 @story_routes.route('/initialize')
 def initial_load():
@@ -115,7 +87,14 @@ def story(id):
 
     if story is None:
         return {"error": "Story not found"}, 404
+    
+    #we need to check if current user has clapped this story if we want to hide Unclap button
+    has_clapped = False
+    if current_user.is_authenticated:
+        has_clapped = Clap.query.filter_by(user_id=current_user.id, story_id=story.id).first() is not None
+
     story_dict = story.to_dict()
+    story_dict['hasClapped'] = has_clapped
     return story_dict
 
 
@@ -403,7 +382,8 @@ def create_comment(id):
       )
       db.session.add(new_comment)
       db.session.commit()
-      return new_comment.to_dict()
+      story = Story.query.get(comment.story_id)
+      return story.to_dict()
 
     if form.errors:
       return "Bad Data"
@@ -464,6 +444,7 @@ def create_clap(id):
     return {
       "message": "clap clap",
       "totalClaps": len(story.claps),
+      "hasClapped": True
     }
 
 
@@ -488,7 +469,10 @@ def remove_clap(id):
     db.session.delete(clap_to_remove)
     db.session.commit()
 
+    has_clapped = Clap.query.filter_by(user_id=current_user.id, story_id=id).first() is not None
+
     return {
         "message": "clap removed",
         "totalClaps": len(story.claps),
+        "hasClapped": has_clapped
     }
