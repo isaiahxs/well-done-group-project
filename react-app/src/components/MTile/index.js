@@ -13,7 +13,7 @@ const MTile = () => {
     let timer;
 
     // After first effect, set an interval for the next effects
-    timer = Math.random() * 6000 + 1500;
+    timer = Math.random() * 6000 + 2500;
 
     intervalId = setInterval(() => {
       setCanToggle(Math.random() * 10000 > 4000 ? true : false);
