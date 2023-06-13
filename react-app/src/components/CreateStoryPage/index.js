@@ -32,6 +32,16 @@ const CreateStoryPage = ({ story }) => {
   const { id } = useParams();
 
 
+
+  useEffect(() => {
+
+    if (!user) {
+      history.push('/home')
+    }
+
+  }, [user]);
+
+
   useEffect(() => {
 
     if (location.pathname === `/create/${id}/edit`) {

@@ -51,6 +51,7 @@ function Navigation() {
   const user = useSelector((state) => state.session.user);
   // const searchResults = useSelector((state) => state.session.search);
 
+
   const { scrollPosition, windowSize, searchInputRef } =
     useContext(WindowContext);
 
@@ -63,24 +64,34 @@ function Navigation() {
   // const [isTagUrl, setIsTagUrl] = useState(false);
   const [isLandingPage, setIsLandingPage] = useState(false);
   const [isWritePage, setIsWritePage] = useState(false);
+  const [isHomePage, setIsHomePage] = useState(false);
   const [showWriteButton, setShowWriteButton] = useState(true);
 
   useEffect(() => {
     const colors = colorScheme.current;
-    if (scrollPosition <= 370) {
-      setNavColor(colors[0]);
-      setButtonStyle(colors[2]);
+
+    if(!isHomePage){
+
+      if (scrollPosition <= 370) {
+        setNavColor(colors[0]);
+        setButtonStyle(colors[2]);
+      }
+      if (scrollPosition > 370) {
+        setNavColor(colors[1]);
+        setButtonStyle(colors[3]);
+      }
     }
-    if (scrollPosition > 370) {
-      setNavColor(colors[1]);
-      setButtonStyle(colors[3]);
-    }
+
+
+
+
   }, [scrollPosition]);
 
   useEffect(() => {
     setIsLoaded(false);
     setIsLandingPage(false);
     setIsWritePage(false);
+    setIsHomePage(false);
 
 
     if (location.pathname === '/') {
@@ -89,6 +100,12 @@ function Navigation() {
     if (location.pathname === '/write') {
       setIsWritePage(true);
     }
+    if (location.pathname === '/home') {
+      setIsHomePage(true);
+    }
+
+  console.log(navColor);
+
 
     // Initialize with the default color scheme
     let newColorScheme =
@@ -204,9 +221,7 @@ function Navigation() {
       {/* // For user logged in */}
       {user && (
         <nav
-          className={`nav-bar ${
-            location.pathname === '/home' ? 'logged' : ''
-          } flexcenter ${navColor}`}
+          className={`nav-bar ${isHomePage ? 'logged' : ''} flexcenter ${navColor}`}
         >
           <div className={`nav-buttons memo-text ${buttonStylings}`}>
             <div className="flexcenter">
@@ -352,6 +367,13 @@ function Navigation() {
         </nav>
       )}
 
+
+
+
+
+
+      
+
       {/* // For no user and on any page other than landing */}
 
       {!user && !isLandingPage && (
@@ -463,52 +485,6 @@ function Navigation() {
                 </div>
               </div>
             )}
-            {/* <div className={`nav-user-buttons flex`}>
-              <div
-                className={`nav-write`}
-                onClick={() => {
-                  if (!user) {
-                    handleSignupClick();
-                  } else {
-                    handleWriteClick();
-                  }
-                }}
-              >
-                <div className="write-icon-container">
-                  <img src={writeIcon} alt="write symbol"></img>
-                </div>
-                <div className=" memo-text ">Write</div>
-              </div>
-
-              <div className="signup-button-container flexcenter">
-                <div
-                  className="signup-button flexcenter"
-                  onClick={handleSignupClick}
-                >
-                  Sign up
-                </div>
-              </div>
-
-              <div className="signin-button-container flexcenter">
-                <div
-                  className="signin-button flexcenter"
-                  onClick={handleSigninClick}
-                >
-                  Sign In
-                </div>
-              </div>
-
-              <div
-                className={`nav-user-profile-div`}
-                onClick={handleSigninClick}
-              >
-                {!user && userOutline && (
-                  <div className={`profile-div`} onClick={handleProfileClick}>
-                    <img src={userOutline} alt="user profile picture" />
-                  </div>
-                )}
-              </div>
-            </div> */}
           </div>
         </nav>
       )}

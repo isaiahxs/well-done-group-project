@@ -39,6 +39,7 @@
   border-radius: 50%;
   border: black solid 1px;
   overflow: hidden;
+  cursor: pointer;
 }
 
 /* .style1-profile-image img {

@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import './StoryTileThree.css';
 // import mediumLogoCircles from '../../public/medium-logo-circles.jpeg';
 import { WindowContext } from '../../context/WindowContext';
@@ -9,8 +9,13 @@ import quill from '../../public/quill.png';
 import userOutline from '../../public/user-outline.png';
 import fountainPen from '../../public/fountain-pen.png';
 import parse from 'html-react-parser';
+import * as sessionActions from '../../store/session'
 
-const StoryTileThree = ({ story }) => {
+
+  
+  
+  const StoryTileThree = ({ story }) => {
+  const dispatch = useDispatch();
   const history = useHistory();
   const [date, setDate] = useState('Dec 25, 2560')
 
@@ -58,12 +63,18 @@ const StoryTileThree = ({ story }) => {
 
 
     }
-   
-
-
-
-
+  
   },[story])
+
+  const navToFeed = (search, subFeed) => {
+    dispatch(sessionActions.search(search))
+    dispatch(sessionActions.setFeed(search))
+    dispatch(sessionActions.setSubFeed(subFeed))
+    history.push('/home');
+    return
+  }
+  
+  
 
 
   return (
@@ -75,12 +86,13 @@ const StoryTileThree = ({ story }) => {
                 <img
                   src={story?.authorInfo.profileImage}
                   alt="author profile icon"
+                  onClick={()=>navToFeed(`${story?.authorInfo?.firstName} ${story?.authorInfo?.lastName}`, 'authors')}
                 ></img>
               )}
           </div>
           <div 
           className="style3-author-name memo-text"
-          onClick={() => history.push(`/author/${story.id}`)}>
+          onClick={()=>navToFeed(`${story?.authorInfo?.firstName} ${story?.authorInfo?.lastName}`, 'authors')}>
             {story?.authorInfo.firstName} {story?.authorInfo.lastName}
           </div>
         </div>

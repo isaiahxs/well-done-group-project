@@ -445,11 +445,7 @@ def create_clap(id):
     db.session.add(new_clap)
     db.session.commit()
 
-    return {
-      "message": "clap clap",
-      "totalClaps": len(story.claps),
-      "hasClapped": True
-    }
+    return story.to_dict()
 
 
 
@@ -475,8 +471,4 @@ def remove_clap(id):
 
     has_clapped = Clap.query.filter_by(user_id=current_user.id, story_id=id).first() is not None
 
-    return {
-        "message": "clap removed",
-        "totalClaps": len(story.claps),
-        "hasClapped": has_clapped
-    }
+    return story.to_dict()
