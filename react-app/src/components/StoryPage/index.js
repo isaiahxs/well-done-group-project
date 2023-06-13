@@ -12,6 +12,7 @@ import * as storyActions from '../../store/story';
 import { ModalContext } from '../../context/ModalContext';
 import claps from '../../public/claps.svg';
 import shining_star from '../../public/shining_star.svg';
+import triple_dots_icon from '../../public/triple_dots_icon.svg';
 
 const StoryPage = () => {
   const { modal, openModal, closeModal, needsRerender, setNeedsRerender } = useContext(ModalContext);
@@ -181,7 +182,8 @@ const StoryPage = () => {
 
             <CommentPanel showComments={showComments} setShowComments={setShowComments} story={story} />
             {user?.id === story?.authorInfo?.id && (
-              <button className='additional-options' onClick={() => openModal('storyOptionsModal')}>...</button>
+              <img src={triple_dots_icon} alt='triple-dots-icon' className='triple-dots-icon' onClick={() => openModal('storyOptionsModal')}/>
+              // <button className='additional-options' onClick={() => openModal('storyOptionsModal')}>...</button>
               // <OpenModalButton
               //   modalComponent={<StoryOptionsModal onEdit={handleEditStory} onDelete={handleDeleteStory} />}
               //   buttonText='...'
@@ -251,7 +253,8 @@ const StoryPage = () => {
 
             <CommentPanel showComments={showComments} setShowComments={setShowComments} story={story} />
             {user?.id === story?.authorInfo?.id && (
-              <button className='additional-options' onClick={() => openModal('storyOptionsModal')}>...</button>
+              <img src={triple_dots_icon} alt='triple-dots-icon' className='triple-dots-icon' onClick={() => openModal('storyOptionsModal')}/>
+              // <button className='additional-options' onClick={() => openModal('storyOptionsModal')}>...</button>
               // <OpenModalButton
               //   modalComponent={<StoryOptionsModal onEdit={handleEditStory} onDelete={handleDeleteStory} />}
               //   buttonText='...'

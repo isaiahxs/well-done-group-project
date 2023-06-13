@@ -22,7 +22,9 @@
   padding: 70px;
 }
 
-
+.triple-dots-icon {
+  cursor: pointer;
+}
 
 .overlay {
   position: fixed;
