@@ -14,16 +14,16 @@ import claps from '../../public/claps.svg';
 import shining_star from '../../public/shining_star.svg';
 
 const StoryPage = () => {
+  const { modal, openModal, closeModal, needsRerender, setNeedsRerender } = useContext(ModalContext);
   const history = useHistory();
   const dispatch = useDispatch();
   const { id } = useParams()
 
-  const story = useSelector(state => state?.story?.currentStory);
   const [date, setDate] = useState('')
   const [sortedContent, setSortedContent] = useState([])
   const [showComments, setShowComments] = useState(false);
-  const currentUser = useSelector(state => state.session.user);
-  const { modal, openModal, closeModal, needsRerender, setNeedsRerender } = useContext(ModalContext);
+  const story = useSelector(state => state.story.currentStory);
+  const user = useSelector(state => state.session.user);
 
 
   console.log(story?.claps);
@@ -141,7 +141,7 @@ const StoryPage = () => {
             <div className='author-information'>
               <div className="story-author">
                 {story?.authorInfo?.firstName} {story?.authorInfo?.lastName}
-                {currentUser?.id !== story?.authorInfo?.id && (
+                {user?.id !== story?.authorInfo?.id && (
                 <a className='follow'> · Follow</a>
                 )}
                 <p className='time'>{story.timeToRead} min read · {date}</p>
@@ -151,7 +151,11 @@ const StoryPage = () => {
 
           {/* changed original options bar to hide ability to clap/unclap your own stories + show ... only if you're the author of the story you're on */}
           <div className='options-bar'>
-            {currentUser?.id !== story?.authorInfo?.id && (
+
+
+
+{/* 
+            {user?.id !== story?.authorInfo?.id && (
               <>
                 <button className='clap-button' onClick={handleClapClick}>
                   <img src={claps} alt='claps' className='claps-icon'/>
@@ -161,10 +165,22 @@ const StoryPage = () => {
                   <button className='unclap-button' onClick={handleUnclapClick}>Unclap</button>
                 }
               </>
-            )}
+            )} */}
+
+{user?.id !== story?.authorInfo?.id && (
+    <div className='clap-container'>
+        <button className='unclap-button' onClick={handleUnclapClick}>-</button>
+        <div className='clap-content'>
+            <img src={claps} alt='claps' className='claps-icon'/>
+            <div className='claps-count'>{story.claps}</div>
+        </div>
+        <button className='clap-button' onClick={handleClapClick}>+</button>
+    </div>
+)}
+
 
             <CommentPanel showComments={showComments} setShowComments={setShowComments} story={story} />
-            {currentUser?.id === story?.authorInfo?.id && (
+            {user?.id === story?.authorInfo?.id && (
               <button className='additional-options' onClick={() => openModal('storyOptionsModal')}>...</button>
               // <OpenModalButton
               //   modalComponent={<StoryOptionsModal onEdit={handleEditStory} onDelete={handleDeleteStory} />}
@@ -195,20 +211,19 @@ const StoryPage = () => {
           </div>
 
           <div className='options-bar'>
-            {currentUser?.id !== story?.authorInfo?.id && (
-              <>
-                <button className='clap-button' onClick={handleClapClick}>
-                  <img src={claps} alt='claps' className='claps-icon'/>
-                  {story.claps}
-                </button>
-                {story.hasClapped &&
-                  <button className='unclap-button' onClick={handleUnclapClick}>Unclap</button>
-                }
-              </>
+          {user?.id !== story?.authorInfo?.id && (
+                <div className='clap-container'>
+                    <button className='unclap-button' onClick={handleUnclapClick}>-</button>
+                    <div className='clap-content'>
+                        <img src={claps} alt='claps' className='claps-icon'/>
+                        <div className='claps-count'>{story.claps}</div>
+                    </div>
+                    <button className='clap-button' onClick={handleClapClick}>+</button>
+                </div>
             )}
 
             <CommentPanel showComments={showComments} setShowComments={setShowComments} story={story} />
-            {currentUser?.id === story?.authorInfo?.id && (
+            {user?.id === story?.authorInfo?.id && (
               <button className='additional-options' onClick={() => openModal('storyOptionsModal')}>...</button>
               // <OpenModalButton
               //   modalComponent={<StoryOptionsModal onEdit={handleEditStory} onDelete={handleDeleteStory} />}
@@ -224,7 +239,7 @@ const StoryPage = () => {
               <div className='author-information'>
                 <div className="story-author">
                   {story?.authorInfo?.firstName} {story?.authorInfo?.lastName}
-                  {currentUser?.id !== story?.authorInfo?.id && (
+                  {user?.id !== story?.authorInfo?.id && (
                   <a className='follow'> · Follow</a>
                   )}
                   <p className='time'>{story.timeToRead} min read · {date}</p>
