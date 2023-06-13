@@ -26,6 +26,11 @@ const StoryPage = () => {
   const story = useSelector(state => state.story.currentStory);
   const user = useSelector(state => state.session.user);
   const followedAuthorIds = useSelector(state => state.session.followedAuthorIds);
+  const currentUserId = useSelector(state => state.session.user?.id);
+
+  const [following, setFollowing] = useState(false);
+  
+  const author = useSelector(state => state.story.currentStory?.authorInfo);
 
   const isFollowingAuthor= () => {
     //check if followedAuthorIds includes the authorId of the story
@@ -67,6 +72,16 @@ const StoryPage = () => {
     }
   }
 
+  useEffect(() => {
+    setFollowing(() => {
+      if(followedAuthorIds) {
+        // return followedAuthorIds.find(id => currentUserId === id)
+        return followedAuthorIds.includes(author?.id)
+      } else {
+        return false
+      }
+    })
+  }, [author])
 
   useEffect(() => {
 
@@ -133,7 +148,23 @@ const StoryPage = () => {
     ))
   }
 
- 
+
+  const handleFollow = async () => {
+    if(following) {
+      await dispatch(storyActions.unfollowAuthor(author.id))
+    } else {
+      await dispatch(storyActions.followAuthor(author.id))
+    }
+
+    const updatedAuthor = await dispatch(storyActions.getAuthorById(author.id))
+
+    // if (updatedAuthor) {
+    //   setAuthorData(updatedAuthor)
+    // }
+    setFollowing(!following)
+  }
+
+
   return (
     <>
     <div className="story-page">
@@ -155,9 +186,12 @@ const StoryPage = () => {
                 // <a className='follow'> · Follow</a>
                 // <button className='follow-author' onClick={handleFollowClick}>Follow</button>
                 // <button className='unfollow-author' onClick={handleUnfollowClick}>Unfollow</button>
-                <a>
-                  {isFollowingAuthor() ? " · Unfollow" : " · Follow"}
-                </a>
+
+                // <a>
+                //   {isFollowingAuthor() ? " · Unfollow" : " · Follow"}
+                // </a>
+
+                <button onClick={handleFollow}>{following ? 'Unfollow' : 'Follow'}</button>
                 )}
                 <p className='time'>{story.timeToRead} min read · {date}</p>
               </div>
