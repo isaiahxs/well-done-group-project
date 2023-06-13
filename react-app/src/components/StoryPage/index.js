@@ -152,7 +152,7 @@ const StoryPage = () => {
           {/* changed original options bar to hide ability to clap/unclap your own stories + show ... only if you're the author of the story you're on */}
           <div className='options-bar'>
 
-
+{/* temp */}
 
 {/* 
             {user?.id !== story?.authorInfo?.id && (
