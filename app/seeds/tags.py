@@ -33,6 +33,47 @@ def seed_tags():
     db.session.commit()
 
 
+tags = {
+'Sports': 1,
+'Programming': 2,
+'Data Science': 3,
+'Technology': 4,
+'Self Improvement': 5,
+'Writing': 6,
+'Relationships': 7,
+'Machine Learning': 8,
+'Productivity': 9,
+'Web Development': 10,
+'JavaScript': 11,
+'Python': 12,
+'Software Development': 13,
+'Health': 14,
+'Lifestyle': 15,
+'Travel': 16,
+'Education': 17,
+'Business': 18,
+'Science': 19,
+'History': 20,
+'Music': 21,
+'Books': 22,
+'Entertainment': 23,
+'Politics': 24,
+'Design': 25,
+'Art': 26,
+'Photography': 27,
+'Cooking': 28,
+'Environment': 29,
+'Psychology': 30,
+'Economics': 31,
+'Philosophy': 32,
+'Culture': 33,
+'Fashion': 34,
+'Personal Development': 35,
+'Architecture': 36,
+'Film': 37,
+'Biology': 38,
+'Sociology': 39
+} 
 
 # Uses a raw SQL query to TRUNCATE or DELETE the tags table. SQLAlchemy doesn't
 # have a built in function to do this. With postgres in production TRUNCATE
