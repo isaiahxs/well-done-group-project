@@ -260,7 +260,11 @@ def update_story(id):
                 alt_tag=request.form.get(f'altTag{i}')
             )
             db.session.add(new_story_image)
-            
+            try:
+                os.remove(filename)
+            except Exception as e:
+                print(f"Error occurred while deleting file: {e}")
+
 
         db.session.commit()
 

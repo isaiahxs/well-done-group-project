@@ -173,7 +173,7 @@ const CreateStoryPage = ({ story }) => {
           top: document.body.scrollHeight,
           behavior: 'smooth',
         });
-      }, 1000);
+      }, 500);
     }
   };
 
@@ -217,7 +217,7 @@ const CreateStoryPage = ({ story }) => {
         top: document.body.scrollHeight,
         behavior: 'smooth',
       });
-    }, 1000);
+    }, 500);
 
     e.target.value = null;
   };
