@@ -112,7 +112,7 @@ const AuthorTile = ({ author }) => {
 
             <div className='authortile-style1-followers-container'>
               {/* <div className='authortile-style1-followers-header'>Followers: {numFollowers}</div> */}
-              <div className='authortile-style1-followers-header'>Created: {author.createdAt.slice(0, 16)}</div>
+              <div className='authortile-style1-followers-header'>Member since: {author.createdAt.slice(0, 16)}</div>
               {/* <div className='authortile-style1-followers-header'>{numFollowers}</div> */}
             </div>
 

@@ -80,6 +80,8 @@ function Navigation() {
   useEffect(() => {
     setIsLoaded(false);
     setIsLandingPage(false);
+    setIsWritePage(false);
+
 
     if (location.pathname === '/') {
       setIsLandingPage(true);

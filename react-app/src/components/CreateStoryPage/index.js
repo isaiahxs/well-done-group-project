@@ -43,15 +43,19 @@ const CreateStoryPage = ({ story }) => {
   }, [id]);
 
 
-
-
-
   useEffect(() => {
     setBlocks([]);
     setTitleText('');
   }, [location]);
 
+
   useEffect(() => {
+
+    if (location.pathname !== `/create/${id}/edit`) {
+      return
+    }
+
+
     if (currentStory && currentStory.authorId !== user.id) {
       history.push('/create');
     }
@@ -104,35 +108,45 @@ const CreateStoryPage = ({ story }) => {
 
 
   useEffect(() => {
+    setButtonDisabled(true)
+  
     setShowPublishButton(false)
-
-    if(blocks.length> 3){
+  
+    if(blocks.length > 3){
       setShowPublishButton(true)
     }
-
+  
     const errors = {};
-    if (!titleText.length) errors['hasTitle'] = true;
-
-    if(blocks.length){
-      blocks.map(block=>{
-        if(block.type === 'text' && block.content.length > 0){
-          errors['hasBlockContent'] = false;
-        }
-      })
+    
+    if (!titleText.length){ 
+      errors['hasTitle'] = true;
+      setButtonDisabled(true)
+    } else {
+      errors['hasTitle'] = false;
     }
 
+    if(!blocks.length){
+      errors['hasBlock'] = true;
+    }
+  
+    if(blocks.length){
+      errors['hasBlockContent'] = !blocks.some(block=> block.type === 'text' && block.content.length > 0);
+    }
+  
     setValidationErrors(errors);
   }, [blocks, titleText]);
 
-  useEffect(() => {
-    const hasFalseValue = obj => Object.values(obj).some(v => v === false);
-    if(hasFalseValue(validationErrors)) {
-      setButtonDisabled(false)
-    } else{
-      setButtonDisabled(true)
-    }
+  
 
-  }, [validationErrors]);
+  useEffect(() => {
+    const hasTrueValue = obj => Object.values(obj).some(v => v === true);
+    if(hasTrueValue(validationErrors)) {
+      setButtonDisabled(true)
+    } else{
+      setButtonDisabled(false)
+    }
+  
+  }, [validationErrors, blocks, titleText]);
 
 
   const addBlock = (type, content = '', altTag = '') => {
@@ -150,8 +164,6 @@ const CreateStoryPage = ({ story }) => {
           behavior: 'smooth',
         });
       }, 1000);
-
-
     }
   };
 
