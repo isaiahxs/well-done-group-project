@@ -1,5 +1,53 @@
 /* margin-top 75 px so that everything is under the nav bar and not being covered*/
 
+
+.storypageskeleton-story-title {
+  font-size: 30px;
+  font-weight: bold;
+  color: #292929;
+  font-family: sans-serif;
+  width: 500px;
+  height: 40px;
+}
+
+.storypageskeleton-authorname{
+  width: 120px;
+}
+
+
+.storypageskeleton-time {
+  color: #757575;
+  font-family: sans-serif;
+  font-weight: lighter;
+  font-size: 14px; 
+  margin-top: 3px;
+  width: 50px;
+  height: 18px;
+}
+
+
+.storypageskeleton-story-content {
+  color: #757575;
+  margin-top: 3px;
+  width: 50px;
+  height: 18px;
+}
+
+.storypageskeleton-story-content.large {
+  width: 100%;
+
+}
+
+.storypageskeleton-story-content.med {
+  width: 50%;
+}
+
+.storypageskeleton-story-content.small {
+  width: 25%;
+}
+
+
+
 .member-only {
   color: #757575;
   font-family: sans-serif;
@@ -44,12 +92,7 @@
   visibility: visible;
 }
 
-.story-title {
-  font-size: 30px;
-  font-weight: bold;
-  color: #292929;
-  font-family: sans-serif;
-}
+
 
 .author-section {
   display: flex;
@@ -85,6 +128,7 @@
 }
 
 
+
 .story-author {
   font-size: 16px;
   font-weight: lighter;
@@ -103,13 +147,7 @@
   border: none;
 }
 
-.time {
-  color: #757575;
-  font-family: sans-serif;
-  font-weight: lighter;
-  font-size: 14px; 
-  margin-top: 3px;
-}
+
 
 .options-bar {
   display: flex;
@@ -126,7 +164,6 @@
 
 .comment-button {
   cursor: pointer;
-  background-color: rgb(234, 234, 234);
   border: none;
   border-radius: 20px;
   padding: 5px 10px;
