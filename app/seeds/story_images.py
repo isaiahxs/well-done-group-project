@@ -104,7 +104,7 @@ def seed_story_images():
     story_image65 = StoryImage(story_id=33, url='https://media.istockphoto.com/id/1347628652/photo/heartbeat-line-on-red-apple-and-stethoscope-healthy-heart-diet-concept.webp?b=1&s=170667a&w=0&k=20&c=wujdoAMyZvyZL0YJ5CHnKwcRlr1lYNofZ5QNxpT73bI=', position=0, alt_tag='lifestyle choices')
     story_image66 = StoryImage(story_id=33, url='https://media.istockphoto.com/id/628504820/photo/they-keep-each-other-going.webp?b=1&s=170667a&w=0&k=20&c=vTa0zP-PpYCOMfEpKESbpfXz69Y8CUDg2LnauTP5WIw=', position=55555, alt_tag='healthy living')
 
-    story_image67 = StoryImage(story_id=34, url='https://images.unsplash.com/photo-1620662736427-b8a198f52a4d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cGhpbG9zb3BoeXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60', position=0, alt_tag='philosophical thoughts')
+    story_image67 = StoryImage(story_id=34, url='https://images.unsplash.com/photo-1506126613408-eca07ce68773?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8eW9nYXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=900&q=60', position=0, alt_tag='philosophical thoughts')
     story_image68 = StoryImage(story_id=34, url='https://images.unsplash.com/photo-1604931668626-ab49cb27d952?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NHx8cGhpbG9zb3BoeXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60', position=55555, alt_tag='deep thinking')
 
     story_image69 = StoryImage(story_id=35, url='https://images.unsplash.com/photo-1502700807168-484a3e7889d0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8NXx8cGhpbG9zb3BoeXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=800&q=60', position=0, alt_tag='creative photography')

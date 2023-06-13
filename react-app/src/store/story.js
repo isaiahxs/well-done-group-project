@@ -74,41 +74,6 @@ const unfollowAuthorAction = (data) => ({
 });
 
 
-export const clapStoryAction = (data) => ({
-	type: CLAP_STORY,
-	payload: data,
-})
-
-const unclapStoryAction = (payload) => ({
-	type: UNCLAP_STORY,
-	payload,
-})
-
-// const postCommentAction = (comment) => ({
-// 	type: POST_COMMENT,
-// 	payload: comment,
-// })
-
-// const editCommentAction = (comment) => ({
-// 	type: EDIT_COMMENT,
-// 	payload: comment,
-// })
-
-
-// const deleteCommentAction = (commentId) => ({
-// 	type: DELETE_COMMENT,
-// 	payload: commentId,
-// })
-
-// const addCommentClapAction = (payload) => ({
-// 	type: ADD_COMMENT_CLAP,
-// 	payload,
-// })
-
-// const removeCommentClapAction = (payload) => ({
-// 	type: REMOVE_COMMENT_CLAP,
-// 	payload,
-// })
 
 const initialState = { stories: [], tags: [], loaded: false, currentStory: null};
 
@@ -358,8 +323,8 @@ export const clapStory = (id) => async (dispatch) => {
 	})
 	if (response.ok) {
 		const data = await response.json();
-		// console.log(data);
-		dispatch(clapStoryAction({ id, claps: data.totalClaps, hasClapped: data.hasClapped }));
+		dispatch(setCurrentStoryAction(data));
+		
 		return null;
 	}
 	if (response.status < 500) {
@@ -383,10 +348,7 @@ export const unclapStory = (id ) => async (dispatch) => {
 	})
 	if (response.ok) {
 		const data = await response.json();
-		// console.log(data);
-
-
-		dispatch(unclapStoryAction({ id, claps: data.totalClaps, hasClapped: data.hasClapped }));
+		dispatch(setCurrentStoryAction(data));
 		return null;
 	}
 		if (response.status < 500) {
@@ -581,9 +543,6 @@ export default function reducer(state = initialState, action) {
 	const newState = {...state}
 	switch (action.type) {
 
-		
-
-
 		case GET_STORIES:
 			return {...newState, stories: action.payload.stories };
 
@@ -598,8 +557,6 @@ export default function reducer(state = initialState, action) {
 			return {...newState, currentStory: null};
 	
 
-			
-
 		case DELETE_STORY:
 			//create new object, spread current state and override properties
 			//check that newState.stories and newState.userStories exist before filtering
@@ -612,32 +569,8 @@ export default function reducer(state = initialState, action) {
 			  }
 
 		case INITIAL_LOAD:
-			// console.log(action.payload);
 			return {stories: action.payload.stories, userStories: action.payload.userStories, tags: action.payload.tags, loaded: true };
 
-		
-		case CLAP_STORY:
-				const { claps, hasClapped } = action.payload;
-				const updatedCurrentStory = newState.currentStory
-				updatedCurrentStory.claps = claps
-				updatedCurrentStory.hasClapped = hasClapped
-
-				return {
-					...state,
-					currentStory: updatedCurrentStory
-				};
-
-		case UNCLAP_STORY: {
-			const { claps, hasClapped } = action.payload;
-			const updatedCurrentStory = newState.currentStory
-			updatedCurrentStory.claps = claps
-			updatedCurrentStory.hasClapped = hasClapped
-				
-			return {
-				...state,
-				currentStory: updatedCurrentStory
-			};
-		}
 		case POST_COMMENT: {
 			const newComment = action.payload;
 			const updatedStories = state.stories.map((story) => {

@@ -38,10 +38,11 @@ const StoryPage = () => {
   // }
 
 
-  // console.log(story?.claps);
+  // console.log(story?.claps);hasClapped
 
 
   const handleClapClick = async () => {
+    console.log('here');
     const response = await dispatch(storyActions.clapStory(id)) //dispatching the action to update the clap count
 
     if (response && response.error) {
