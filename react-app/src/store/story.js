@@ -475,8 +475,12 @@ export const followAuthor = (id) => async (dispatch) => {
 	});
 	if (response.ok) {
 		const data = await response.json();
-		// console.log('THIS IS OUR DATATATATATATA', data)
 		dispatch(followAuthorAction(data));
+		console.log('THIS IS OUR FOLLOW DATA', data)
+		console.log('THIS IS OUR FOLLOW DATA', data)
+		console.log('THIS IS OUR FOLLOW DATA', data)
+		console.log('THIS IS OUR FOLLOW DATA', data)
+		console.log('THIS IS OUR FOLLOW DATA', data)
 		return null;
 	} else if (response.status < 500) {
 		const data = await response.json();
@@ -498,6 +502,10 @@ export const unfollowAuthor = (id) => async (dispatch) => {
 	if (response.ok) {
 		const data = await response.json();
 		dispatch(unfollowAuthorAction(data));
+		console.log('THIS IS OUR UNFOLLOW DATA', data)
+		console.log('THIS IS OUR UNFOLLOW DATA', data)
+		console.log('THIS IS OUR UNFOLLOW DATA', data)
+		console.log('THIS IS OUR UNFOLLOW DATA', data)
 
 		return null;
 	} else if (response.status < 500) {
