@@ -243,13 +243,18 @@
   z-index: 100000;
   width: 10px;
   height: 10px;
-
 }
 
-.fa-magnifying-glass{
+.magnify-container img {
+  object-fit: cover;
   width: 100%;
   height: 100%;
-  z-index: 100000;
+  position: relative;
+}
+.scaled-down{
+  transform: scale(.03);
+  width: 10px;
+  height: 10px;
 }
 
 

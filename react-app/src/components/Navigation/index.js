@@ -19,6 +19,7 @@ import writeIcon from '../../public/write-icon.svg';
 import bellIcon from '../../public/bell-icon.svg';
 import blackBellIcon from '../../public/black-bell.svg';
 import magnifyGlass from '../../public/magnify-glass.svg';
+import magnifyGlassBlack from '../../public/magnify-glass-black.svg';
 
 const colorSchemes = {
   '/': ['nav-yellow', 'nav-white', 'button-black', 'button-green'],
@@ -159,7 +160,12 @@ function Navigation() {
     openModal('signup');
   };
   const handleProfileClick = () => {
-    openModal('profileModal');
+    if(!user){
+      openModal('signup');
+    }
+    if(user){
+      openModal('profileModal');
+    }
   };
 
   const demoUser = async (e) => {
@@ -239,19 +245,13 @@ function Navigation() {
                  onClick={handleWriteClick}
                >
                  <div className={`write-icon-container`}>
-                   <img
-                     className={`write-icon`}
-                     src={writeIcon}
-                     alt="write symbol"
-                   ></img>
+                 
                  </div>
 
-                 <div className=" memo-text ">Write</div>
+                 <div className=" memo-text "></div>
                </div>
                <div className="bell-icon-container">
-                 {showWriteButton && (
-                   <img src={bellIcon} alt="write symbol"></img>
-                 )}
+ 
                </div>
 
                <div
@@ -341,11 +341,30 @@ function Navigation() {
               </div>
 
               {windowSize > 700 && (
-                <div className={`nav-search`}>
-                  <div className="maginfy-container" onClick={newSearch}>
-                    <img src={magnifyGlass} alt="medium cirlce logo" />
+                <div className={`nav-search ${location.pathname === '/write' ? 'black' : ''}`}>
 
+
+
+
+
+                  {location.pathname === '/write' && (
+                  <div className="maginfy-container scaled-down" onClick={newSearch}>
+                  
+                  <img src={magnifyGlassBlack} alt="medium cirlce logo" />
                   </div>
+                  
+                  
+                  )}
+                  {location.pathname !== '/write' && (
+                                    <div className="maginfy-container" onClick={newSearch}>
+                                      <img className='' src={magnifyGlass} alt="medium cirlce logo" />
+                                    </div>
+                  
+                  
+                  )}
+
+
+
                   <form
                     onSubmit={(e) => {
                       e.preventDefault();
@@ -356,7 +375,7 @@ function Navigation() {
                     <label>
                       <input
                         ref={searchInputRef}
-                        className="search-field"
+                        className={`search-field ${location.pathname === '/write' ? 'black' : ''}`}
                         type="search"
                         value={search}
                         onChange={(e) => setSearch(e.target.value)}
@@ -368,8 +387,75 @@ function Navigation() {
                 </div>
               )}
             </div>
+            {location.pathname === '/write' ? (
+               <div className={`nav-user-buttons `}>
+               <div className={`nav-bell`} onClick={demoUser}></div>
+               <div
+                 className={`nav-write ${!showWriteButton ? 'hidden' : ''} ${
+                   location.pathname === '/write' ? 'black' : ''
+                 }`}
+                 onClick={handleWriteClick}
+               >
+                 <div className={`write-icon-container`}>
+      
+                 </div>
 
-            <div className={`nav-user-buttons flex`}>
+                 <div className=" memo-text "></div>
+               </div>
+               <div className="bell-icon-container">
+           
+               </div>
+
+               <div
+                 className={`nav-user-profile-div`}
+                 onClick={handleProfileClick}
+               >
+                
+                   <div className={`profile-div`} onClick={handleProfileClick}>
+                     <img src={userOutline} alt="user profile picture" />
+                   </div>
+                
+
+               </div>
+             </div>
+            ) : (
+              <div className={`nav-user-buttons `}>
+                <div className={`nav-bell`} onClick={demoUser}></div>
+                <div
+                  className={`nav-write ${!showWriteButton ? 'hidden' : ''} ${
+                    location.pathname === '/write' ? 'black' : ''
+                  }`}
+                  onClick={handleWriteClick}
+                >
+                  <div className={`write-icon-container`}>
+                    <img
+                      className={`write-icon`}
+                      src={writeIcon}
+                      alt="write symbol"
+                    ></img>
+                  </div>
+
+                  <div className=" memo-text ">Write</div>
+                </div>
+                <div className="bell-icon-container">
+                  {showWriteButton && (
+                    <img src={bellIcon} alt="write symbol"></img>
+                  )}
+                </div>
+
+                <div
+                  className={`nav-user-profile-div`}
+                  onClick={handleProfileClick}
+                >
+                    <div className={`profile-div`} onClick={handleProfileClick}>
+                      <img src={userOutline} alt="user profile picture" />
+                    </div>
+
+                
+                </div>
+              </div>
+            )}
+            {/* <div className={`nav-user-buttons flex`}>
               <div
                 className={`nav-write`}
                 onClick={() => {
@@ -414,7 +500,7 @@ function Navigation() {
                   </div>
                 )}
               </div>
-            </div>
+            </div> */}
           </div>
         </nav>
       )}
