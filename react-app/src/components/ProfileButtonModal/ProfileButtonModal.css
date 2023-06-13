@@ -24,8 +24,23 @@
   margin-bottom: 10px;
 }
 
-.my-stories {
+.my-stories,
+.profile-menu-logout-button {
   margin-bottom: 10px;
+  background-color: #f0f0f0;
+  /* background-color: #f2f2f2; */
+  border-radius: 20px;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-family: sans-serif;
+}
+
+.my-stories:hover,
+.profile-menu-logout-button:hover {
+  transition: all 0.2s;
+  /* background-color: #f2f2f2; */
+  background-color: #e6e6e6
 }
 
 .profile-dropdown {
