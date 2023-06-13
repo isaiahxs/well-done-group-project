@@ -53,7 +53,7 @@
 
 .author-section {
   display: flex;
-  align-items: center;
+
   margin-top: 30px;
 
 }
@@ -70,12 +70,18 @@
 }
 
 .author-information {
-  width: 50%;
+  width: fit-content;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+
+  align-items: left;
   cursor: pointer;
+  flex-direction: column;
   
+}
+
+.author-name-and-follow{
+  display: flex;
+  flex-direction: row;
 }
 
 .story-author {

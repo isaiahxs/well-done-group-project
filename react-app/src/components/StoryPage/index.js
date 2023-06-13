@@ -150,16 +150,19 @@ const StoryPage = () => {
 
             <h1 className="story-title">{story.title}</h1>
 
-            <div className="author-section">
+            <div className="author-section flex">
               <img
                 src={story?.authorInfo?.profileImage}
                 alt="author profile icon"
                 className="author-image"
                 onClick={()=>navToFeed(`${story?.authorInfo?.firstName} ${story?.authorInfo?.lastName}`, 'authors')}
               />
-              <div className="author-information">
-                <div onClick={()=>navToFeed(`${story?.authorInfo?.firstName} ${story?.authorInfo?.lastName}`, 'authors')} className="story-author">
-                  {story?.authorInfo?.firstName} {story?.authorInfo?.lastName}
+              <div className="author-information memo-text">
+                <div className='author-name-and-follow'>
+                  <div onClick={()=>navToFeed(`${story?.authorInfo?.firstName} ${story?.authorInfo?.lastName}`, 'authors')}>
+                    {story?.authorInfo?.firstName} {story?.authorInfo?.lastName}
+                  </div>
+
                   {user && user?.id !== story?.authorInfo?.id && (
                     <button
                       className="follow-unfollow-button"
@@ -168,9 +171,17 @@ const StoryPage = () => {
                       {following ? ' · Unfollow' : ' · Follow'}
                     </button>
                   )}
+
+                </div>
+                <div>
+                <div className="story-author">
+
+
                   <p className="time">
                     {story.timeToRead} min read · {date}
                   </p>
+                </div>
+
                 </div>
               </div>
             </div>
@@ -279,29 +290,38 @@ const StoryPage = () => {
               ></div>
             </div>
 
-            <div className="author-section">
+            <div className="author-section flex">
               <img
                 src={story?.authorInfo?.profileImage}
                 alt="author profile icon"
                 className="author-image"
                 onClick={()=>navToFeed(`${story?.authorInfo?.firstName} ${story?.authorInfo?.lastName}`, 'authors')}
               />
-              <div className="author-information">
-                <div 
-                className="story-author"
-                onClick={()=>navToFeed(`${story?.authorInfo?.firstName} ${story?.authorInfo?.lastName}`, 'authors')}>
-                  {story?.authorInfo?.firstName} {story?.authorInfo?.lastName}
+              <div className="author-information memo-text">
+                <div className='author-name-and-follow'>
+                  <div onClick={()=>navToFeed(`${story?.authorInfo?.firstName} ${story?.authorInfo?.lastName}`, 'authors')}>
+                    {story?.authorInfo?.firstName} {story?.authorInfo?.lastName}
+                  </div>
+
                   {user && user?.id !== story?.authorInfo?.id && (
                     <button
                       className="follow-unfollow-button"
                       onClick={handleFollow}
                     >
-                      {following ? '· Unfollow' : '· Follow'}
+                      {following ? ' · Unfollow' : ' · Follow'}
                     </button>
                   )}
+
+                </div>
+                <div>
+                <div className="story-author">
+
+
                   <p className="time">
                     {story.timeToRead} min read · {date}
                   </p>
+                </div>
+
                 </div>
               </div>
             </div>
