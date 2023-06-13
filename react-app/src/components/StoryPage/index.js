@@ -10,6 +10,7 @@ import { ModalContext } from '../../context/ModalContext';
 import claps from '../../public/claps.svg';
 import shining_star from '../../public/shining_star.svg';
 import triple_dots_icon from '../../public/triple_dots_icon.svg';
+import StoryPageSkeleton from '../StoryPageSkeleton';
 
 const StoryPage = () => {
   const { openModal } = useContext(ModalContext);
@@ -18,6 +19,7 @@ const StoryPage = () => {
   const { id } = useParams();
 
   const [date, setDate] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
   const [sortedContent, setSortedContent] = useState([]);
   const [showComments, setShowComments] = useState(false);
   const story = useSelector((state) => state.story.currentStory);
@@ -32,7 +34,6 @@ const StoryPage = () => {
   const author = useSelector((state) => state.story.currentStory?.authorInfo);
 
   const handleClapClick = async () => {
-    console.log('here');
     const response = await dispatch(storyActions.clapStory(id)); //dispatching the action to update the clap count
 
     if (response && response.error) {
@@ -52,15 +53,32 @@ const StoryPage = () => {
     setFollowing(followedAuthorIds.includes(author?.id));
   }, [author]);
 
+
+
+
   useEffect(() => {
     if (!story) {
       dispatch(storyActions.getStoryById(id));
     }
-
+    
     if (story) {
+      setIsLoading(false);
       setDate(story?.createdAt.slice(0, 16));
     }
   }, [story, id]);
+
+  
+  useEffect(() => {
+    const loadStory = async () => {
+      setIsLoading(true);
+      await dispatch(storyActions.getStoryById(id));
+      setIsLoading(false);
+    };
+    loadStory();
+  }, [id, dispatch]);
+
+
+
 
   useEffect(() => {
     dispatch(storyActions.getStoryById(id));
@@ -134,10 +152,15 @@ const StoryPage = () => {
 
   return (
     <>
-      {!story && <div className="loading-message">Loading...</div>}
+      {!story || isLoading && (
+      <div>
+        <StoryPageSkeleton/>
+      </div>
+      )}
 
       <div className="story-page">
         {story && (
+        // {1==2 && (
           <>
             <h4 className="member-only">
               <img

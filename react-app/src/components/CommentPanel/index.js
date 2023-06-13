@@ -14,7 +14,7 @@ const CommentPanel = ({ showComments, setShowComments, story}) => {
 
     useEffect(()=>{
         // setCommentBtnText(story.comments.length ? `Comments ${story.comments.length}` : 'Comments')
-        setCommentBtnText(story.comments.length)
+        setCommentBtnText(story?.comments?.length)
     }, [story])
 
     return (
