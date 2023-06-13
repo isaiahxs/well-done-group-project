@@ -427,20 +427,7 @@ export const deleteComment = (storyId, commentId) => async (dispatch) => {
 	}
 }
 
-export const getAuthorById = (id) => async (dispatch) => {
-	const response = await fetch(`/api/follow/${id}/followers`);
-	if (response.ok) {
-	  const data = await response.json();
-	  return data;
-	} else if (response.status < 500) {
-	  const data = await response.json();
-	  if (data.errors) {
-		return data.errors;
-	  }
-	} else {
-	  return ["An error occurred. Please try again."];
-	}
-  };
+
 
 export const followAuthor = (id) => async (dispatch) => {
 	const response = await fetch(`/api/follow/${id}`, {

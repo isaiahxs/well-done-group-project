@@ -13,10 +13,10 @@ const MTile = () => {
     let timer;
 
     // After first effect, set an interval for the next effects
-    timer = Math.random() * 6000 + 1500;
+    timer = Math.random() * 6000 + 3500;
 
     intervalId = setInterval(() => {
-      setCanToggle(Math.random() * 10000 > 4000 ? true : false);
+      // setCanToggle(Math.random() * 10000 > 4000 ? true : false);
       if(canToggle){
         setCanBeVis(Math.random() * 10000 > 2000 ? true : false);
         setIsVisible(prev => !prev);
