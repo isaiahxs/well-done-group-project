@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-// import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import './SidePanel.css';
@@ -13,7 +13,7 @@ import StoryTileTwoSkeleton from '../StoryTileTwoSkeleton';
 
 const SidePanel = () => {
   const dispatch = useDispatch()
-  // const history = useHistory();
+  const history = useHistory();
   const [showTags, setShowtags] = useState(false);
   const tags = useSelector((state) => state.story.tags);
   const stories = useSelector(state=>state.story.stories)
@@ -27,6 +27,20 @@ const SidePanel = () => {
     dispatch(sessionActions.setFeed(tag))
     dispatch(sessionActions.setSubFeed('taggedStories'))
   }
+
+
+  const navToOurStory = (tag) => {
+    history.push('/about');
+    return
+  }
+
+  const navToFeedStory = (tag) => {
+    dispatch(sessionActions.setFeed('for you'))
+    dispatch(sessionActions.setSubFeed(null))
+    history.push('/home');
+    return
+  }
+
 
 
 
@@ -80,14 +94,14 @@ const SidePanel = () => {
 
 
     <div className="sidepanel-footer">
-      <div className="main-page-footer-item">Help</div>
-      <div className="main-page-footer-item">Status</div>
-      <div className="main-page-footer-item">Writers</div>
-      <div className="main-page-footer-item">Blog</div>
-      <div className="main-page-footer-item">Careers</div>
-      <div className="main-page-footer-item">Privacy</div>
-      <div className="main-page-footer-item">Terms</div>
-      <div className="main-page-footer-item">About</div>
+      <div className="main-page-footer-item" onClick={navToOurStory}>Help</div>
+      <div className="main-page-footer-item" onClick={navToOurStory}>Status</div>
+      <div className="main-page-footer-item" onClick={navToFeedStory}>Writers</div>
+      <div className="main-page-footer-item" onClick={navToFeedStory}>Blog</div>
+      <div className="main-page-footer-item" onClick={navToOurStory}>Careers</div>
+      <div className="main-page-footer-item" onClick={navToOurStory}>Privacy</div>
+      <div className="main-page-footer-item" onClick={navToOurStory}>Terms</div>
+      <div className="main-page-footer-item" onClick={navToOurStory}>About</div>
     </div>
 
   </div>
@@ -142,14 +156,14 @@ const SidePanel = () => {
 
 
     <div className="sidepanel-footer">
-      <div className="main-page-footer-item">Help</div>
-      <div className="main-page-footer-item">Status</div>
-      <div className="main-page-footer-item">Writers</div>
-      <div className="main-page-footer-item">Blog</div>
-      <div className="main-page-footer-item">Careers</div>
-      <div className="main-page-footer-item">Privacy</div>
-      <div className="main-page-footer-item">Terms</div>
-      <div className="main-page-footer-item">About</div>
+      <div className="main-page-footer-item" onClick={navToOurStory}>Help</div>
+      <div className="main-page-footer-item" onClick={navToOurStory}>Status</div>
+      <div className="main-page-footer-item" onClick={navToFeedStory}>Writers</div>
+      <div className="main-page-footer-item" onClick={navToFeedStory}>Blog</div>
+      <div className="main-page-footer-item" onClick={navToOurStory}>Careers</div>
+      <div className="main-page-footer-item" onClick={navToOurStory}>Privacy</div>
+      <div className="main-page-footer-item" onClick={navToOurStory}>Terms</div>
+      <div className="main-page-footer-item" onClick={navToOurStory}>About</div>
     </div>
 
   </div>

@@ -1,18 +1,18 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-// import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import './StoryTileTwo.css';
-// import mediumLogoCircles from '../../public/medium-logo-circles.jpeg';
 import { WindowContext } from '../../context/WindowContext';
+import * as sessionActions from '../../store/session'
 
 const StoryTileTwo = ({story}) => {
   const history = useHistory();
+  const dispatch = useDispatch();
   const [date, setDate] = useState('Dec 25, 2560')
   const {windowSize} = useContext(WindowContext)
   const [thumbnail, setThumbnail] = useState('')
   const [name, setName] = useState('')
 
-  // const [loaded, setLoaded] = useState(false)
   const [fadeTrigger, setFadeTrigger] = useState(false);
 
 
@@ -57,6 +57,16 @@ const StoryTileTwo = ({story}) => {
 
   },[story])
 
+  const navToFeed = (search, subFeed) => {
+    dispatch(sessionActions.search(search))
+    dispatch(sessionActions.setFeed(search))
+    dispatch(sessionActions.setSubFeed(subFeed))
+    history.push('/home');
+    return
+  }
+  
+  
+
 
 
   return (
@@ -64,19 +74,23 @@ const StoryTileTwo = ({story}) => {
     <div className="story-tile-style2 fade-in">
       <div className="style2-content">
         <div className="style2-author-container">
-          <div className="style2-profile-image"
-          onClick={() => history.push(`/author/${story.id}`)}>
+          <div 
+          className="style2-profile-image"
+          onClick={()=>navToFeed(`${story?.authorInfo?.firstName} ${story?.authorInfo?.lastName}`, 'authors')}
+          >
           {story?.authorInfo?.profileImage && (
                 <img
                   src={story?.authorInfo.profileImage}
                   alt="author profile picture"
+                  onClick={()=>navToFeed(`${story?.authorInfo?.firstName} ${story?.authorInfo?.lastName}`, 'authors')}
                 ></img>
               )}
           </div>
 
           <div 
           className="style2-author-name memo-text"
-          onClick={() => history.push(`/author/${story.id}`)}>
+          onClick={()=>navToFeed(`${story?.authorInfo?.firstName} ${story?.authorInfo?.lastName}`, 'authors')}
+          >
             {name}
           </div>
         </div>

@@ -70,7 +70,7 @@ const StoryTileOne = ({ story, index }) => {
 {story?.authorInfo?.profileImage && (
                 <img
                   src={story?.authorInfo.profileImage}
-                  // src={mediumLogoCircles}
+                  onClick={()=>navToFeed(`${story?.authorInfo?.firstName} ${story?.authorInfo?.lastName}`, 'authors')}
                   alt="author profile icon"
                 ></img>
                 )}
@@ -114,6 +114,7 @@ const StoryTileOne = ({ story, index }) => {
                 <img
                   src={story?.authorInfo.profileImage}
                   alt="author profile icon"
+                  onClick={()=>navToFeed(`${story?.authorInfo?.firstName} ${story?.authorInfo?.lastName}`, 'authors')}
                 ></img>
               )}
               </div>
