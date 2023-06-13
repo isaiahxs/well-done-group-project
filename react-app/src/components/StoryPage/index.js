@@ -25,9 +25,18 @@ const StoryPage = () => {
   const [showComments, setShowComments] = useState(false);
   const story = useSelector(state => state.story.currentStory);
   const user = useSelector(state => state.session.user);
+  const followedAuthorIds = useSelector(state => state.session.followedAuthorIds);
+
+  const isFollowingAuthor= () => {
+    //check if followedAuthorIds includes the authorId of the story
+    if (followedAuthorIds?.includes(story?.authorId)) {
+      return true;
+  }
+  return false;
+  }
 
 
-  console.log(story?.claps);
+  // console.log(story?.claps);
 
 
   const handleClapClick = async () => {
@@ -143,7 +152,12 @@ const StoryPage = () => {
               <div className="story-author">
                 {story?.authorInfo?.firstName} {story?.authorInfo?.lastName}
                 {user?.id !== story?.authorInfo?.id && (
-                <a className='follow'> · Follow</a>
+                // <a className='follow'> · Follow</a>
+                // <button className='follow-author' onClick={handleFollowClick}>Follow</button>
+                // <button className='unfollow-author' onClick={handleUnfollowClick}>Unfollow</button>
+                <a>
+                  {isFollowingAuthor() ? " · Unfollow" : " · Follow"}
+                </a>
                 )}
                 <p className='time'>{story.timeToRead} min read · {date}</p>
               </div>
