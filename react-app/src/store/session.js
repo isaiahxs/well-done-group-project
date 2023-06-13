@@ -117,20 +117,20 @@ export const removeSearch = (searchQuery) => async (dispatch) => {
 };
 
 export const setFeed = (feed) => async (dispatch) => {
-	console.log(feed);
+	// console.log(feed);
 
 	dispatch(setFeedAction(feed));
 };
 
 export const setSubFeed = (subFeed) => async (dispatch) => {
-	console.log(subFeed);
+	// console.log(subFeed);
 	dispatch(setSubFeedAction(subFeed));
 };
 
 export const signUp = (credentials) => async (dispatch) => {
 	const {email, password, firstName, lastName, profileImage, username} = credentials
 
-	console.log(email, password, firstName, lastName, profileImage, username);
+	// console.log(email, password, firstName, lastName, profileImage, username);
 	const response = await fetch("/api/auth/signup", {
 		method: "POST",
 		headers: {
@@ -146,7 +146,7 @@ export const signUp = (credentials) => async (dispatch) => {
 		}),
 	});
  
-	console.log(response);
+	// console.log(response);
 
 	if (response.ok) {
 		const data = await response.json();

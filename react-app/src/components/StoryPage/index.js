@@ -62,7 +62,7 @@ const StoryPage = () => {
 
   const handleEditStory = () => {
     // history.push(`/stories/${id}/edit`)
-    console.log('hi')
+    // console.log('hi')
   }
 
   const handleDeleteStory = async () => {
@@ -133,7 +133,7 @@ const StoryPage = () => {
   }, [story]);
 
   const navToFeed = (tag) => {
-    console.log(tag);
+    // console.log(tag);
     dispatch(sessionActions.search(tag))
     dispatch(sessionActions.setFeed(tag))
     dispatch(sessionActions.setSubFeed('taggedStories'))
@@ -181,7 +181,7 @@ const StoryPage = () => {
             <img src={story?.authorInfo?.profileImage} alt='author-image' className='author-image'/>
             <div className='author-information'>
               <div className="story-author">
-                {story?.authorInfo?.firstName} {story?.authorInfo?.lastName}
+                {story?.authorInfo?.firstName} {story?.authorInfo?.lastName} ·
                 {user?.id !== story?.authorInfo?.id && (
                 // <a className='follow'> · Follow</a>
                 // <button className='follow-author' onClick={handleFollowClick}>Follow</button>
@@ -191,7 +191,7 @@ const StoryPage = () => {
                 //   {isFollowingAuthor() ? " · Unfollow" : " · Follow"}
                 // </a>
 
-                <button onClick={handleFollow}>{following ? 'Unfollow' : 'Follow'}</button>
+                <button className='follow-unfollow-button' onClick={handleFollow}>{following ? 'Unfollow' : 'Follow'}</button>
                 )}
                 <p className='time'>{story.timeToRead} min read · {date}</p>
               </div>

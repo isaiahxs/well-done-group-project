@@ -18,7 +18,7 @@ const StoryTileTwo = ({story}) => {
 
 
 
-console.log(fadeTrigger);
+// console.log(fadeTrigger);
 
   useEffect(()=>{
 

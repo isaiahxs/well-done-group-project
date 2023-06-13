@@ -96,7 +96,7 @@ function Navigation() {
       newColorScheme = colorSchemes[location.pathname];
     }
 
-    console.log(newColorScheme);
+    // console.log(newColorScheme);
 
     colorScheme.current = newColorScheme;
     setNavColor(newColorScheme[0]);
