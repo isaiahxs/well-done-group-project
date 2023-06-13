@@ -1,15 +1,8 @@
+/* PAGE WIDE STYLINGS */
+
 .writepage {
   width: 100%;
 }
-
-/* MOBILE STYLINGS */
-
-/* .header-text {
-  width: fit-content;
-  text-align: center;
-  line-height: 1;
-  font-size: 60px;
-} */
 
 .small-text{
   font-size: 10px;
@@ -17,55 +10,60 @@
   color: white;
 }
 
-/* .quote-text {
-  font-family: Arial, sans-serif;
-  font-size: 20px;
-  font-weight: lighter;
-}
-
-.align-left {
-  text-align: left;
-  justify-content: left;
-} */
-
 .spaced{
   letter-spacing: 5px; 
 }
 
-/*  DIV 1 stylings */
-
-.writepage-mobile-container1 {
+.writepage-mobile-container4-wrapper,
+.writepage-mobile-container6-wrapper,
+.writepage-mobile-container5-wrapper,
+.writepage-mobile-container2-wrapper,
+.writepage-mobile-container1-wrapper {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding-top: 90px;
-  text-align: left;
+}
+
+.writepage-mobile-container5-container,
+.writepage-mobile-container6-container,
+.writepage-mobile-container4-container,
+.writepage-mobile-container2-container,
+.writepage-mobile-container1-container {
+  margin-left: 30px;
+  margin-right: 20px;
+}
+
+
+
+
+
+
+/*  DIV 1 stylings */
+
+.writepage-mobile-container1-wrapper {
   background-color: #f24d2d;
-  
-  
+  padding-top: 50px;
 }
 
 .writepage-container1-header {
   margin-top: 50px;
-  margin-left: 30px;
-  
 }
 
 .writepage-container1-header2{
+  line-height: .9;
   font-size: 60px;
   margin-top: 15px;
 }
 
 .writepage-container1-header3{
+  font-weight: 300;
   font-size: 20px;
   margin-top: 40px;
-  margin-left: 30px;
   width: 90%;
 }
 
 .writepage-container1-button-container{
   margin-top: 22px;
-  margin-left: 30px;
   margin-bottom: 30px;
 }
 
@@ -84,7 +82,7 @@
 }
 
 .writepage-started-button:hover {
-  background-color: #f24d2d;
+  background-color: #357720;
   color: #ffffff;
   transition: all .5s;
 
@@ -93,7 +91,10 @@
 
 
 /*  DIV 2 stylings */
+.writepage-mobile-container2-wrapper {
 
+  background-color: #000000;
+}
 
 .writepage-mobile-container2 {
   display: flex;
@@ -104,8 +105,9 @@
 }
 
 .writepage-container2-header{
+
   color: white;
-  font-size: 13vw;
+  font-size: 11vw;
   margin-top: 25px;
   margin-bottom: 40px;
 }
@@ -141,22 +143,93 @@
 
 /*  DIV 4 stylings */
 
-.writepage-mobile-container4 {
+.writepage-mobile-container4-wrapper {
   display: flex;
   flex-direction: column;
   text-align: left;
   background-color: #ffd1b8;
-  min-height: 500px;
+  min-height: 400px;
+  border-bottom: 1px solid black;
+}
+
+.writepage-mobile-container4-container {
+  margin-top: 30px;
+  margin-bottom: 30px;
 }
 
 .writepage-container4-header{
+  line-height: .9;
   font-size: 12vw;
-  width: 60%;
+  width: 100%;
 }
 
 .writepage-container4-header2{
+  font-weight: 300;
   font-size: 22px ;
-  width: 60%;
-  margin-left: 30px;
+  min-width: 300px;
+  width: 40%;
   margin-top: 30px;
+}
+
+
+/*  DIV 5 stylings */
+
+.writepage-mobile-container5-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 400px;
+  border-bottom: 1px solid black;
+
+}
+
+.writepage-mobile-container5-container {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.writepage-container5-header{
+  justify-content: center;
+  font-size: 12vw;
+  width: 80%;
+  line-height: .9;
+}
+
+.writepage-container5-header2{
+  font-weight: 300;
+  font-size: 22px ;
+  width: 90%;
+  margin-top: 30px;
+}
+
+/*  DIV 6 stylings */
+
+.writepage-mobile-container6-wrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 150px;
+  border-bottom: 1px solid black;
+
+}
+
+.writepage-mobile-container6-container {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.writepage-container6-header{
+  font-size: 6vw;
+  width: 100%;
+}
+
+.writepage-container6-header2{
+  font-weight: 300;
+
+  font-size: 17px ;
+  width: 90%;
+  margin-top: 30px;
+}
+
+.ourstorypage-footer-note{
+  font-size: 15px;
+  margin-top: 40px;
 }
