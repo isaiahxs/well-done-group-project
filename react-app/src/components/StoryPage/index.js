@@ -187,6 +187,16 @@ const StoryPage = () => {
               //   buttonText='...'
               // />
             )}
+
+            {/* test to have modal appear closer to ...*/}
+            {/* <CommentPanel showComments={showComments} setShowComments={setShowComments} story={story} />
+            {currentUser?.id === story?.authorInfo?.id && (
+            <div className='options-button-container'>
+              <button className='additional-options' onClick={() => openModal('storyOptionsModal')}>...</button>
+              {modal === 'storyOptionsModal' && <StoryOptionsModal />}
+            </div>
+            )} */}
+
             <div className={`overlay ${showComments ? 'active' : ''}`} onClick={() => setShowComments(!showComments)}></div>
           </div>
 
@@ -222,6 +232,23 @@ const StoryPage = () => {
                 </div>
             )}
 
+            {/* <CommentPanel showComments={showComments} setShowComments={setShowComments} story={story} />
+            {currentUser?.id === story?.authorInfo?.id && (
+              <button className='additional-options' onClick={() => openModal('storyOptionsModal')}>...</button>
+              // <OpenModalButton
+              //   modalComponent={<StoryOptionsModal onEdit={handleEditStory} onDelete={handleDeleteStory} />}
+              //   buttonText='...'
+              // />
+            )} */}
+
+            {/* <CommentPanel showComments={showComments} setShowComments={setShowComments} story={story} />
+            {currentUser?.id === story?.authorInfo?.id && (
+            <div className='options-button-container'>
+              <button className='additional-options' onClick={() => openModal('storyOptionsModal')}>...</button>
+              {modal === 'storyOptionsModal' && <StoryOptionsModal />}
+            </div>
+            )} */}
+
             <CommentPanel showComments={showComments} setShowComments={setShowComments} story={story} />
             {user?.id === story?.authorInfo?.id && (
               <button className='additional-options' onClick={() => openModal('storyOptionsModal')}>...</button>
@@ -230,6 +257,7 @@ const StoryPage = () => {
               //   buttonText='...'
               // />
             )}
+
             <div className={`overlay ${showComments ? 'active' : ''}`} onClick={() => setShowComments(!showComments)}></div>
           </div>
 
