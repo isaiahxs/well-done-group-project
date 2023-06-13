@@ -9,6 +9,16 @@ import readUnlimited from '../../public/svgexport-6.svg';
 import mediumLogoCircles from '../../public/medium-logo-circles.jpeg';
 import spinningCube from '../../public/spinning-cube.png';
 import spinningSphere from '../../public/spinning-sphere.png';
+import CreatorTile from '../CreatorTile';
+
+const creators = [
+  {
+    id:1, name: 'Donovan Crader', username:'Dcraderdev', imageUrl: 'https://avatars.githubusercontent.com/u/90993510?v=4', url:'https://github.com/dcraderdev'
+  },
+  { 
+    id:2, name: 'Isaiah Sinnathamby', username:'isaiahxs', imageUrl: 'https://avatars.githubusercontent.com/u/107521578?v=4',url:'https://github.com/isaiahxs'
+  }
+]
 
 const OurStoryPage = () => {
 
@@ -95,8 +105,9 @@ const navToWrite = () => {
 
 
       <div className="ourstorypage-creators-container">
-        <div className="ourstorypage-creator-tile">Creators tile</div>
-        <div className="ourstorypage-creator-tile">Creators tile</div>
+        {creators.map(creator => (
+            <CreatorTile key={creator.id} creator={creator} />
+          ))}
       </div>
 
       {/* DIV 5 Stylings */}
