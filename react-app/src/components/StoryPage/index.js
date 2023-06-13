@@ -168,16 +168,20 @@ const StoryPage = () => {
               </>
             )} */}
 
-{user?.id !== story?.authorInfo?.id && (
-    <div className='clap-container'>
-        <button className='unclap-button' onClick={handleUnclapClick}>-</button>
-        <div className='clap-content'>
-            <img src={claps} alt='claps' className='claps-icon'/>
-            <div className='claps-count'>{story.claps}</div>
-        </div>
-        <button className='clap-button' onClick={handleClapClick}>+</button>
-    </div>
-)}
+            {/* {user?.id !== story?.authorInfo?.id && ( */}
+                <div className='clap-container'>
+                    {user?.id !== story?.authorInfo?.id && (
+                    <button className='unclap-button' onClick={handleUnclapClick}>-</button>
+                    )}
+                    <div className='clap-content'>
+                        <img src={claps} alt='claps' className='claps-icon'/>
+                        <div className='claps-count'>{story.claps}</div>
+                    </div>
+                    {user?.id !== story?.authorInfo?.id && (
+                    <button className='clap-button' onClick={handleClapClick}>+</button>
+                    )}
+                </div>
+            {/* )} */}
 
 
             <CommentPanel showComments={showComments} setShowComments={setShowComments} story={story} />
