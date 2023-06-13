@@ -17,7 +17,7 @@ const EDIT_COMMENT = "story/EDIT_COMMENT";
 const DELETE_COMMENT = "story/DELETE_COMMENT";
 const REMOVE_COMMENT_CLAP = "story/REMOVE_COMMENT_CLAP";
 export const SUBSCRIBED_STORIES = "story/SUBSCRIBED_STORIES";
-const GET_AUTHOR = "story/GET_AUTHOR";
+// const GET_AUTHOR = "story/GET_AUTHOR";
 
 const getStoriesAction = (stories) => ({
 	type: GET_STORIES,
@@ -84,31 +84,31 @@ const unclapStoryAction = (payload) => ({
 	payload,
 })
 
-const postCommentAction = (comment) => ({
-	type: POST_COMMENT,
-	payload: comment,
-})
+// const postCommentAction = (comment) => ({
+// 	type: POST_COMMENT,
+// 	payload: comment,
+// })
 
-const editCommentAction = (comment) => ({
-	type: EDIT_COMMENT,
-	payload: comment,
-})
+// const editCommentAction = (comment) => ({
+// 	type: EDIT_COMMENT,
+// 	payload: comment,
+// })
 
 
-const deleteCommentAction = (commentId) => ({
-	type: DELETE_COMMENT,
-	payload: commentId,
-})
+// const deleteCommentAction = (commentId) => ({
+// 	type: DELETE_COMMENT,
+// 	payload: commentId,
+// })
 
-const addCommentClapAction = (payload) => ({
-	type: ADD_COMMENT_CLAP,
-	payload,
-})
+// const addCommentClapAction = (payload) => ({
+// 	type: ADD_COMMENT_CLAP,
+// 	payload,
+// })
 
-const removeCommentClapAction = (payload) => ({
-	type: REMOVE_COMMENT_CLAP,
-	payload,
-})
+// const removeCommentClapAction = (payload) => ({
+// 	type: REMOVE_COMMENT_CLAP,
+// 	payload,
+// })
 
 const initialState = { stories: [], tags: [], loaded: false, currentStory: null};
 
@@ -617,7 +617,7 @@ export default function reducer(state = initialState, action) {
 
 		
 		case CLAP_STORY:
-				const { storyId, claps, hasClapped } = action.payload;
+				const { claps, hasClapped } = action.payload;
 				const updatedCurrentStory = newState.currentStory
 				updatedCurrentStory.claps = claps
 				updatedCurrentStory.hasClapped = hasClapped
@@ -628,7 +628,7 @@ export default function reducer(state = initialState, action) {
 				};
 
 		case UNCLAP_STORY: {
-			const {storyId, claps, hasClapped} = action.payload;
+			const { claps, hasClapped } = action.payload;
 			const updatedCurrentStory = newState.currentStory
 			updatedCurrentStory.claps = claps
 			updatedCurrentStory.hasClapped = hasClapped

@@ -60,7 +60,7 @@ function Navigation() {
   const [navColor, setNavColor] = useState(colorScheme[0]);
   const [buttonStyle, setButtonStyle] = useState(colorScheme[2]);
   const [profileImageSrc, setProfileImageSrc] = useState('');
-  const [isTagUrl, setIsTagUrl] = useState(false);
+  // const [isTagUrl, setIsTagUrl] = useState(false);
   const [isLandingPage, setIsLandingPage] = useState(false);
   const [isWritePage, setIsWritePage] = useState(false);
   const [showWriteButton, setShowWriteButton] = useState(true);

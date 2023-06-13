@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import './OurStoryPage.css';
 import mobileViewPhoto from '../../public/creator-find-points-iphones.png';
 import playStoreBtn from '../../public/PlayStore_2x.png';
@@ -183,7 +183,7 @@ const navToWrite = () => {
           <div className="ourstorypage-read-reward-image">
             <img
               src={supportWriters}
-              alt="mobile view example image"
+              alt="mobile view example"
               className="ourstorypage-take-medium-image"
             />
           </div>
@@ -198,7 +198,7 @@ const navToWrite = () => {
           <div className="ourstorypage-read-reward-image">
             <img
               src={readUnlimited}
-              alt="mobile view example image"
+              alt="mobile view example"
               className="ourstorypage-take-medium-image"
             />
           </div>
@@ -225,7 +225,7 @@ const navToWrite = () => {
             <div className="ourstorypage-apple-store-button">
               <img
                 src={appleStoreBtn}
-                alt="mobile view example image"
+                alt="mobile view example"
                 className="ourstorypage-take-medium-image"
               />
             </div>
@@ -233,7 +233,7 @@ const navToWrite = () => {
               {' '}
               <img
                 src={playStoreBtn}
-                alt="mobile view example image"
+                alt="mobile view example"
                 className="ourstorypage-take-medium-image"
               />
             </div>
@@ -243,7 +243,7 @@ const navToWrite = () => {
         <div className="ourstorypage-take-medium-image-container">
           <img
             src={mobileViewPhoto}
-            alt="mobile view example image"
+            alt="mobile view example"
             className="ourstorypage-take-medium-image"
           />
         </div>

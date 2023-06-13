@@ -178,7 +178,7 @@ const StoryPage = () => {
             <img src={story?.authorInfo?.profileImage} alt='author profile icon' className='author-image'/>
             <div className='author-information'>
               <div className="story-author">
-                {story?.authorInfo?.firstName} {story?.authorInfo?.lastName} ·
+                {story?.authorInfo?.firstName} {story?.authorInfo?.lastName}
                 {user?.id !== story?.authorInfo?.id && (
                 // <a className='follow'> · Follow</a>
                 // <button className='follow-author' onClick={handleFollowClick}>Follow</button>
@@ -188,7 +188,7 @@ const StoryPage = () => {
                 //   {isFollowingAuthor() ? " · Unfollow" : " · Follow"}
                 // </a>
 
-                <button className='follow-unfollow-button' onClick={handleFollow}>{following ? 'Unfollow' : 'Follow'}</button>
+                <button className='follow-unfollow-button' onClick={handleFollow}>{following ? ' · Unfollow' : ' · Follow'}</button>
                 )}
                 <p className='time'>{story.timeToRead} min read · {date}</p>
               </div>
@@ -197,22 +197,6 @@ const StoryPage = () => {
 
           {/* changed original options bar to hide ability to clap/unclap your own stories + show ... only if you're the author of the story you're on */}
           <div className='options-bar'>
-
-
-
-{/* 
-            {user?.id !== story?.authorInfo?.id && (
-              <>
-                <button className='clap-button' onClick={handleClapClick}>
-                  <img src={claps} alt='claps' className='claps-icon'/>
-                  {story.claps}
-                </button>
-                {story.hasClapped &&
-                  <button className='unclap-button' onClick={handleUnclapClick}>Unclap</button>
-                }
-              </>
-            )} */}
-
             {/* {user?.id !== story?.authorInfo?.id && ( */}
                 <div className='clap-container'>
                     {user?.id !== story?.authorInfo?.id && (
@@ -227,7 +211,6 @@ const StoryPage = () => {
                     )}
                 </div>
             {/* )} */}
-
 
             <CommentPanel showComments={showComments} setShowComments={setShowComments} story={story} />
             {user?.id === story?.authorInfo?.id && (
@@ -272,44 +255,25 @@ const StoryPage = () => {
           </div>
 
           <div className='options-bar'>
-          {user?.id !== story?.authorInfo?.id && (
+
                 <div className='clap-container'>
+                    {user?.id !== story?.authorInfo?.id && (
                     <button className='unclap-button' onClick={handleUnclapClick}>-</button>
+                    )}
                     <div className='clap-content'>
                         <img src={claps} alt='claps' className='claps-icon'/>
                         <div className='claps-count'>{story.claps}</div>
                     </div>
+                    {user?.id !== story?.authorInfo?.id && (
                     <button className='clap-button' onClick={handleClapClick}>+</button>
+                    )}
                 </div>
-            )}
-
-            {/* <CommentPanel showComments={showComments} setShowComments={setShowComments} story={story} />
-            {currentUser?.id === story?.authorInfo?.id && (
-              <button className='additional-options' onClick={() => openModal('storyOptionsModal')}>...</button>
-              // <OpenModalButton
-              //   modalComponent={<StoryOptionsModal onEdit={handleEditStory} onDelete={handleDeleteStory} />}
-              //   buttonText='...'
-              // />
-            )} */}
-
-            {/* <CommentPanel showComments={showComments} setShowComments={setShowComments} story={story} />
-            {currentUser?.id === story?.authorInfo?.id && (
-            <div className='options-button-container'>
-              <button className='additional-options' onClick={() => openModal('storyOptionsModal')}>...</button>
-              {modal === 'storyOptionsModal' && <StoryOptionsModal />}
-            </div>
-            )} */}
+            {/* )} */}
 
             <CommentPanel showComments={showComments} setShowComments={setShowComments} story={story} />
             {user?.id === story?.authorInfo?.id && (
               <img src={triple_dots_icon} alt='triple-dots-icon' className='triple-dots-icon' onClick={() => openModal('storyOptionsModal')}/>
-              // <button className='additional-options' onClick={() => openModal('storyOptionsModal')}>...</button>
-              // <OpenModalButton
-              //   modalComponent={<StoryOptionsModal onEdit={handleEditStory} onDelete={handleDeleteStory} />}
-              //   buttonText='...'
-              // />
             )}
-
             <div className={`overlay ${showComments ? 'active' : ''}`} onClick={() => setShowComments(!showComments)}></div>
           </div>
 
@@ -317,17 +281,9 @@ const StoryPage = () => {
             <img src={story?.authorInfo?.profileImage} alt='author profile icon' className='author-image'/>
             <div className='author-information'>
               <div className="story-author">
-                {story?.authorInfo?.firstName} {story?.authorInfo?.lastName} ·
+                {story?.authorInfo?.firstName} {story?.authorInfo?.lastName}
                 {user?.id !== story?.authorInfo?.id && (
-                // <a className='follow'> · Follow</a>
-                // <button className='follow-author' onClick={handleFollowClick}>Follow</button>
-                // <button className='unfollow-author' onClick={handleUnfollowClick}>Unfollow</button>
-
-                // <a>
-                //   {isFollowingAuthor() ? " · Unfollow" : " · Follow"}
-                // </a>
-
-                <button className='follow-unfollow-button' onClick={handleFollow}>{following ? 'Unfollow' : 'Follow'}</button>
+                <button className='follow-unfollow-button' onClick={handleFollow}>{following ? '· Unfollow' : '· Follow'}</button>
                 )}
                 <p className='time'>{story.timeToRead} min read · {date}</p>
               </div>

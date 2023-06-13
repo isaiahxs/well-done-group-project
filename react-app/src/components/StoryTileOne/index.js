@@ -71,7 +71,7 @@ const StoryTileOne = ({ story, index }) => {
                 <img
                   src={story?.authorInfo.profileImage}
                   // src={mediumLogoCircles}
-                  alt="author profile picture"
+                  alt="author profile icon"
                 ></img>
                 )}
               </div>
@@ -113,7 +113,7 @@ const StoryTileOne = ({ story, index }) => {
               {story?.authorInfo?.profileImage && (
                 <img
                   src={story?.authorInfo.profileImage}
-                  alt="author profile picture"
+                  alt="author profile icon"
                 ></img>
               )}
               </div>
