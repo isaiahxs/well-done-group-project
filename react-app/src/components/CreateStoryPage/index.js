@@ -143,6 +143,14 @@ const CreateStoryPage = ({ story }) => {
       
       const newBlock = { type:'text', content, altTag };
       setBlocks([...blocks, newBlock]);
+      
+      setTimeout(() => {
+        window.scrollTo({
+          top: document.body.scrollHeight,
+          behavior: 'smooth',
+        });
+      }, 1000);
+
 
     }
   };
