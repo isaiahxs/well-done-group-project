@@ -23,8 +23,15 @@ function StoryOptionsModal() {
         }
       };
       document.addEventListener('mousedown', handleClickOutside);
+
+      //so we can disable background scrolling
+      document.body.style.overflow = 'hidden';
+
       return () => {
         document.removeEventListener('mousedown', handleClickOutside);
+
+        //so we can enable background scrolling
+        document.body.style.overflow = 'unset';
       };
     }, []);
   
@@ -40,12 +47,15 @@ function StoryOptionsModal() {
     }
   
     return (
-      <div className="story-options-menu" ref={formRef}>
-        <div className="story-options-buttons">
-            <button onClick={deleteCurrentStory}>Delete Story</button>
-            <button onClick={editCurrentStory}>Edit Story</button>
+      <>
+        <div className="backdrop" onClick={closeModal}></div>
+        <div className="story-options-menu" ref={formRef}>
+          <div className="story-options-buttons">
+              <button className='edit-story-button' onClick={editCurrentStory}>Edit Story</button>
+              <button className='delete-story-button' onClick={deleteCurrentStory}>Delete Story</button>
+          </div>
         </div>
-      </div>
+      </>
     );
   }
   
