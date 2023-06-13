@@ -15,6 +15,7 @@ const Comments = ({ userId, storyId, authorInfo, setShowComments }) => {
     // const user = useSelector(state => state.session.user)
     const {commentRef} = useContext(WindowContext)
     const {openModal} = useContext(ModalContext)
+    const [userHasCommented, setUserHasCommented] = useState(false)
 
 
     const handleSigninClick = () => {
@@ -26,8 +27,10 @@ const Comments = ({ userId, storyId, authorInfo, setShowComments }) => {
     useEffect(()=>{
       if(story){
         setComments(story.comments)
+        const userComment = story.comments.find(comment => comment.userId === userId)
+        setUserHasCommented(!!userComment)
       }
-    },[story])
+    }, [story, userId])
 
 
 
