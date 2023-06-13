@@ -6,17 +6,9 @@ import playStoreBtn from '../../public/PlayStore_2x.png';
 import appleStoreBtn from '../../public/AppleStore_2x.png';
 import supportWriters from '../../public/svgexport-5.svg';
 import readUnlimited from '../../public/svgexport-6.svg';
-import { WindowContext } from '../../context/WindowContext';
 
 const WritePage = () => {
   const history = useHistory();
-
-  const {scrollPosition, windowSize} = useContext(WindowContext)
-  console.log(scrollPosition);
-  console.log(windowSize);
-
-  const isMobileView = windowSize <= 765;
-
 
 
 
@@ -34,7 +26,7 @@ const WritePage = () => {
     <>
     
     {/*  DIV 1 stylings */}
-      {isMobileView && (
+   
         <div className="writepage">
       <div className="writepage-mobile-container1 align-left">
           <div className="writepage-container1-header small-text spaced">
@@ -103,7 +95,7 @@ const WritePage = () => {
 
 
         </div>        
-      )}
+   
 
 
 
@@ -116,41 +108,6 @@ const WritePage = () => {
 
 
 
-
-
-
-
-    {!isMobileView && (
-      <div className="writepage">
-
-          <div className="writepage-banner-container">
-            <div className="writepage-banner-section">
-              <div className="writepage-banner-header-small">
-                START A BLOG FOR FREE
-              </div>
-              <div className="writepage-banner-header-container">
-                <div className="header-text">
-                  Publish, grow, and earn, all in one placeeeeeeee.
-                </div>
-              </div>
-              <div className="writepage-banner-content">
-                <div className="quote-text">
-                  If you have a story to tell, knowledge to share, or a perspective
-                  to offer — welcome home. Sign up for free so your writing can
-                  thrive in a network supported by millions of readers — not ads.
-                </div>
-              </div>
-
-              <div className="writepage-started-button flexcenter">Get started</div>
-            </div>
-
-            <div className="writepage-expand-section-right">
-              <div className="writepage-box-container">Spinning box</div>
-            </div>
-          </div>
-          </div>
-
-      )}
 
 </>
 

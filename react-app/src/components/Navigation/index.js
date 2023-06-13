@@ -7,8 +7,6 @@ import './Navigation.css';
 import { WindowContext } from '../../context/WindowContext';
 import { ModalContext } from '../../context/ModalContext';
 import * as sessionActions from '../../store/session';
-import * as storyActions from '../../store/story';
-
 import mediumLogoSmall from '../../public/medium-logo-circles-white.svg';
 import mediumLogoLarge from '../../public/medium-logo-with-cirlces.svg';
 
@@ -20,24 +18,22 @@ import fountainPen from '../../public/fountain-pen.png';
 import writeIcon from '../../public/write-icon.svg';
 import bellIcon from '../../public/bell-icon.svg';
 import blackBellIcon from '../../public/black-bell.svg';
+import magnifyGlass from '../../public/magnify-glass.svg';
 
 const colorSchemes = {
   '/': ['nav-yellow', 'nav-white', 'button-black', 'button-green'],
-  '/home': ['nav-yellow', 'nav-white', 'button-black', 'button-green'],
+  '/home': ['nav-white', 'nav-white', 'button-black', 'button-green'],
   '/write': ['nav-red', 'nav-white', 'button-black', 'button-black'],
   '/about': ['nav-white', 'nav-white', 'button-black', 'button-black'],
   default: ['nav-white', 'nav-white', 'button-black', 'button-black'],
 };
 
-
-
 const profileImages = {
-  'quill': quill,
+  quill: quill,
   'user-outline': userOutline,
   'open-book': openBook,
   'fountain-pen': fountainPen,
-}
-
+};
 
 function Navigation() {
   const { modal, openModal, closeModal, updateObj, setUpdateObj } =
@@ -54,17 +50,18 @@ function Navigation() {
   const user = useSelector((state) => state.session.user);
   const searchResults = useSelector((state) => state.session.search);
 
-  const { scrollPosition, windowSize, searchInputRef } = useContext(WindowContext);
+  const { scrollPosition, windowSize, searchInputRef } =
+    useContext(WindowContext);
 
-
-  const colorScheme = useRef(colorSchemes[location.pathname] || colorSchemes.default);
+  const colorScheme = useRef(
+    colorSchemes[location.pathname] || colorSchemes.default
+  );
   const [navColor, setNavColor] = useState(colorScheme[0]);
   const [buttonStyle, setButtonStyle] = useState(colorScheme[2]);
   const [profileImageSrc, setProfileImageSrc] = useState('');
   const [isTagUrl, setIsTagUrl] = useState(false);
   const [isLandingPage, setIsLandingPage] = useState(false);
   const [showWriteButton, setShowWriteButton] = useState(true);
-
 
   useEffect(() => {
     const colors = colorScheme.current;
@@ -78,25 +75,23 @@ function Navigation() {
     }
   }, [scrollPosition]);
 
-
-
-
   useEffect(() => {
-    setIsLoaded(false)
-    setIsLandingPage(false)
+    setIsLoaded(false);
+    setIsLandingPage(false);
 
- 
-    if(location.pathname === '/' ) {  
-      setIsLandingPage(true)
+    if (location.pathname === '/') {
+      setIsLandingPage(true);
     }
 
     // Initialize with the default color scheme
-    let newColorScheme = colorSchemes[location.pathname] || colorSchemes.default
+    let newColorScheme =
+      colorSchemes[location.pathname] || colorSchemes.default;
 
-    
     if (colorSchemes[location.pathname]) {
       newColorScheme = colorSchemes[location.pathname];
     }
+
+    console.log(newColorScheme);
 
     colorScheme.current = newColorScheme;
     setNavColor(newColorScheme[0]);
@@ -110,39 +105,36 @@ function Navigation() {
       }
     }
 
-    if (location.pathname.slice(0,7) === '/create') {
+    if (location.pathname.slice(0, 7) === '/create') {
       setShowWriteButton(false);
     } else {
       setShowWriteButton(true);
     }
 
-    setIsLoaded(true)
+    setIsLoaded(true);
   }, [location.pathname, user]);
-
 
   const getProfileImageSrc = (profileImage) => {
     return profileImages[profileImage] || profileImage;
   };
 
   useEffect(() => {
-      if (user) {
-          setProfileImageSrc(getProfileImageSrc(user.profileImage));
-      }
+    if (user) {
+      setProfileImageSrc(getProfileImageSrc(user.profileImage));
+    }
   }, [user]);
-
-
 
   const handleLogoClick = () => {
     colorScheme.current = colorSchemes['/'];
     window.scrollTo({ top: 0, behavior: 'smooth' });
-    dispatch(sessionActions.setFeed('for you'))
-    dispatch(sessionActions.setSubFeed('stories'))
+    dispatch(sessionActions.setFeed('for you'));
+    dispatch(sessionActions.setSubFeed('stories'));
     if (user) {
       history.push('/home');
-      return
+      return;
     }
     history.push('/');
-    return
+    return;
   };
 
   const handleStoryClick = () => {
@@ -151,27 +143,25 @@ function Navigation() {
   };
 
   const handleWriteClick = () => {
-    dispatch(storyActions.removeCurrentStory());
-
-    if(!user){
+    if (!user) {
       history.push('/write');
     }
-    if(user){
+    if (user) {
       history.push('/create');
     }
   };
-  
+
   const handleSigninClick = () => {
     openModal('signin');
   };
- 
+
   const handleSignupClick = () => {
     openModal('signup');
   };
   const handleProfileClick = () => {
     openModal('profileModal');
   };
-  
+
   const demoUser = async (e) => {
     e.preventDefault();
     const response = await dispatch(
@@ -185,128 +175,164 @@ function Navigation() {
   };
 
   const newSearch = async () => {
-    dispatch(sessionActions.search(search))
-    dispatch(sessionActions.setFeed(search))
-    dispatch(sessionActions.setSubFeed('stories'))
-    if(location.pathname !== '/home'){
-      history.push(`/home`)
+    dispatch(sessionActions.search(search));
+    dispatch(sessionActions.setFeed(search));
+    dispatch(sessionActions.setSubFeed('stories'));
+    if (location.pathname !== '/home') {
+      history.push(`/home`);
     }
-  }
-
+  };
 
   if (!isLoaded) {
-    return null
+    return null;
   }
 
   return (
-     
     <>
       {/* // For user logged in */}
       {user && (
-        <nav className={`nav-bar ${location.pathname === '/home' ? 'logged' : ''} flexcenter ${navColor}`}>
+        <nav
+          className={`nav-bar ${
+            location.pathname === '/home' ? 'logged' : ''
+          } flexcenter ${navColor}`}
+        >
           <div className={`nav-buttons memo-text ${buttonStylings}`}>
             <div className="flexcenter">
               <div className="logo small" onClick={handleLogoClick}>
                 <img src={mediumLogoSmall} alt="medium cirlce logo" />
               </div>
-
-             
-                 <div className={`nav-search ${isLandingPage ? 'black' : ''}`}>
-                 <div
-                   className="maginfy-container"
-                   onClick={newSearch}
-                 >
-                   <i className="fa-solid fa-magnifying-glass"></i>
-                 </div>
-                 <form
-                   onSubmit={(e) => {
-                     e.preventDefault();
-                     newSearch()
-                     setSearch('');
-                   }}
-                 >
-                   <label>
-                     <input
-                       ref={searchInputRef}
-                       className={`search-field ${isLandingPage ? 'black' : ''}`}
-                       type="search"
-                       value={search}
-                       onChange={(e) => setSearch(e.target.value)}
-                       required
-                       placeholder={'Search Medium'}
-                     />
-                   </label>
-                 </form>
-               </div>
-            
               
+              <div className={`nav-search ${isLandingPage ? 'black' : ''}`}>
+                <div className="maginfy-container" onClick={newSearch}>
+                  <img src={magnifyGlass} alt="medium cirlce logo" />
+
+                </div>
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    newSearch();
+                    setSearch('');
+                  }}
+                >
+                  <label>
+                    <input
+                      ref={searchInputRef}
+                      className={`search-field ${isLandingPage ? 'black' : ''}`}
+                      type="search"
+                      value={search}
+                      onChange={(e) => setSearch(e.target.value)}
+                      required
+                      placeholder={'Search Medium'}
+                    />
+                  </label>
+                </form>
+              </div>
             </div>
 
-            <div className={`nav-user-buttons `}>
-              <div className={`nav-bell`} onClick={demoUser}>
-        
-              </div>
-              <div
-                className={`nav-write ${!showWriteButton || isLandingPage ? 'hidden' : ''} ${isLandingPage ? 'black' : ''}`}
-                onClick={handleWriteClick}
-              >
-                <div className={`write-icon-container`} >
-                <img className={`write-icon-container`} src={writeIcon} alt="write symbol"></img>
+            {location.pathname === '/write' ? (
+               <div className={`nav-user-buttons `}>
+               <div className={`nav-bell`} onClick={demoUser}></div>
+               <div
+                 className={`nav-write ${!showWriteButton ? 'hidden' : ''} ${
+                   location.pathname === '/write' ? 'black' : ''
+                 }`}
+                 onClick={handleWriteClick}
+               >
+                 <div className={`write-icon-container`}>
+                   <img
+                     className={`write-icon`}
+                     src={writeIcon}
+                     alt="write symbol"
+                   ></img>
+                 </div>
+
+                 <div className=" memo-text ">Write</div>
+               </div>
+               <div className="bell-icon-container">
+                 {showWriteButton && (
+                   <img src={bellIcon} alt="write symbol"></img>
+                 )}
+               </div>
+
+               <div
+                 className={`nav-user-profile-div`}
+                 onClick={handleProfileClick}
+               >
+                 {user && user.profileImage && (
+                   <div className={`profile-div`} onClick={handleProfileClick}>
+                     <img src={profileImageSrc} alt="user profile picture" />
+                   </div>
+                 )}
+
+                 {user && !user.profileImage && (
+                   <div className={`profile-div`} onClick={handleProfileClick}>
+                     <img src={quill} alt="user profile picture" />
+                   </div>
+                 )}
+
+                 {!user && (
+                   <div className={`profile-div`} onClick={userOutline}>
+                     <img src={profileImageSrc} alt="user profile picture" />
+                   </div>
+                 )}
+               </div>
+             </div>
+            ) : (
+              <div className={`nav-user-buttons `}>
+                <div className={`nav-bell`} onClick={demoUser}></div>
+                <div
+                  className={`nav-write ${!showWriteButton ? 'hidden' : ''} ${
+                    location.pathname === '/write' ? 'black' : ''
+                  }`}
+                  onClick={handleWriteClick}
+                >
+                  <div className={`write-icon-container`}>
+                    <img
+                      className={`write-icon`}
+                      src={writeIcon}
+                      alt="write symbol"
+                    ></img>
+                  </div>
+
+                  <div className=" memo-text ">Write</div>
+                </div>
+                <div className="bell-icon-container">
+                  {showWriteButton && (
+                    <img src={bellIcon} alt="write symbol"></img>
+                  )}
                 </div>
 
-                <div className=" memo-text ">Write</div>
+                <div
+                  className={`nav-user-profile-div`}
+                  onClick={handleProfileClick}
+                >
+                  {user && user.profileImage && (
+                    <div className={`profile-div`} onClick={handleProfileClick}>
+                      <img src={profileImageSrc} alt="user profile picture" />
+                    </div>
+                  )}
 
-              </div>
-              <div className="bell-icon-container">
+                  {user && !user.profileImage && (
+                    <div className={`profile-div`} onClick={handleProfileClick}>
+                      <img src={quill} alt="user profile picture" />
+                    </div>
+                  )}
 
-
-                  {!isLandingPage && showWriteButton && (<img src={bellIcon} alt="write symbol"></img>)}
-
-                  
+                  {!user && (
+                    <div className={`profile-div`} onClick={userOutline}>
+                      <img src={profileImageSrc} alt="user profile picture" />
+                    </div>
+                  )}
                 </div>
-              <div className={`nav-user-profile-div`} onClick={handleProfileClick}>
-
-
-
-                {user && user.profileImage && (
-                  <div className={`profile-div`}  onClick={handleProfileClick}>
-                    <img src={profileImageSrc} alt="user profile picture" />
-                  </div>
-                )}
-
-
-                {user && !user.profileImage && (
-                  <div
-                    className={`profile-div`}
-                    onClick={handleProfileClick}
-                  >
-                    <img src={quill} alt="user profile picture" />
-                  </div>
-                )}
-
-
-                {!user && (
-                  <div className={`profile-div`}  onClick={userOutline}>
-                    <img src={profileImageSrc} alt="user profile picture" />
-                  </div>
-                )}
               </div>
-            </div>
+            )}
           </div>
         </nav>
       )}
 
+      {/* // For no user and on any page other than landing */}
 
-
-
-
-
-
-
-
-{/* // For no user and on any page other than landing */}
-
-  {!user && !isLandingPage && (
+      {!user && !isLandingPage && (
         <nav className={`nav-bar logged flexcenter ${navColor}`}>
           <div className={`nav-buttons memo-text ${buttonStylings}`}>
             <div className="flexcenter">
@@ -314,74 +340,76 @@ function Navigation() {
                 <img src={mediumLogoSmall} alt="medium cirlce logo" />
               </div>
 
-             
-{ windowSize > 700 && (               <div className={`nav-search`}>
-                 <div
-                   className="maginfy-container"
-                   onClick={newSearch}
-                 >
-                   <i className="fa-solid fa-magnifying-glass"></i>
-                 </div>
-                 <form
-                   onSubmit={(e) => {
-                     e.preventDefault();
-                     newSearch()
-                     setSearch('');
-                   }}
-                 >
-                   <label>
-                     <input
-                       ref={searchInputRef}
-                       className="search-field"
-                       type="search"
-                       value={search}
-                       onChange={(e) => setSearch(e.target.value)}
-                       required
-                       placeholder={'Search Medium'}
-                     />
-                   </label>
-                 </form>
-               </div>)}
-            
-              
+              {windowSize > 700 && (
+                <div className={`nav-search`}>
+                  <div className="maginfy-container" onClick={newSearch}>
+                    <img src={magnifyGlass} alt="medium cirlce logo" />
+
+                  </div>
+                  <form
+                    onSubmit={(e) => {
+                      e.preventDefault();
+                      newSearch();
+                      setSearch('');
+                    }}
+                  >
+                    <label>
+                      <input
+                        ref={searchInputRef}
+                        className="search-field"
+                        type="search"
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                        required
+                        placeholder={'Search Medium'}
+                      />
+                    </label>
+                  </form>
+                </div>
+              )}
             </div>
 
             <div className={`nav-user-buttons flex`}>
- 
-
-              <div className={`nav-write`} onClick={()=>{
-                if(!user){
-                  handleSignupClick()
-                }else {
-                  handleWriteClick()
-                }
-              }} >
-
+              <div
+                className={`nav-write`}
+                onClick={() => {
+                  if (!user) {
+                    handleSignupClick();
+                  } else {
+                    handleWriteClick();
+                  }
+                }}
+              >
                 <div className="write-icon-container">
                   <img src={writeIcon} alt="write symbol"></img>
                 </div>
                 <div className=" memo-text ">Write</div>
+              </div>
 
-              </div>
-                   
               <div className="signup-button-container flexcenter">
-              <div className="signup-button flexcenter" onClick={handleSignupClick}>
+                <div
+                  className="signup-button flexcenter"
+                  onClick={handleSignupClick}
+                >
                   Sign up
-              </div>
+                </div>
               </div>
 
               <div className="signin-button-container flexcenter">
-              <div className="signin-button flexcenter"  onClick={handleSigninClick}>
+                <div
+                  className="signin-button flexcenter"
+                  onClick={handleSigninClick}
+                >
                   Sign In
+                </div>
               </div>
-              </div>
 
-
-
-
-              <div className={`nav-user-profile-div`} onClick={handleSigninClick}>
+              <div
+                className={`nav-user-profile-div`}
+                onClick={handleSigninClick}
+              >
                 {!user && userOutline && (
-                  <div className={`profile-div`}  onClick={handleProfileClick}>
+                  <div className={`profile-div`} onClick={handleProfileClick}>
                     <img src={userOutline} alt="user profile picture" />
                   </div>
                 )}
@@ -391,15 +419,13 @@ function Navigation() {
         </nav>
       )}
 
-
-{/* // For no user and at landing page */}
+      {/* // For no user and at landing page */}
       {!user && isLandingPage && (
         <nav className={`nav-bar flexcenter ${navColor}`}>
           <div className={`nav-buttons memo-text ${buttonStylings}`}>
             <div className="logo large" onClick={handleLogoClick}>
               <img src={mediumLogoLarge} alt="medium cirlce logo"></img>
             </div>
-
 
             <div className={`nav-link-buttons ${buttonStylings}`}>
               <div
@@ -436,12 +462,7 @@ function Navigation() {
           </div>
         </nav>
       )}
-
-
-
-
-
-      </>
+    </>
   );
 }
 
