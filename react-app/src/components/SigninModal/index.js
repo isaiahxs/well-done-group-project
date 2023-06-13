@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, NavLink, Redirect, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import './SigninModal.css';
 import { ModalContext } from '../../context/ModalContext';
 import * as sessionActions from '../../store/session';
@@ -9,8 +9,8 @@ import * as sessionActions from '../../store/session';
 function SigninModal() {
 
 
-  const { modal, openModal, closeModal, updateObj, setUpdateObj} = useContext(ModalContext);
-  const user = useSelector((state) => state.session.user);
+  const { openModal, closeModal, updateObj, setUpdateObj } = useContext(ModalContext);
+  // const user = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
   const history = useHistory();
   const formRef = useRef(null);

@@ -1,9 +1,9 @@
-import React, { useEffect, useContext, useState } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import './AuthorTile.css';
-import mediumLogoCircles from '../../public/medium-logo-circles.jpeg';
-import { WindowContext } from '../../context/WindowContext';
+// import mediumLogoCircles from '../../public/medium-logo-circles.jpeg';
+// import { WindowContext } from '../../context/WindowContext';
 import openBook from '../../public/open-book.png';
 import quill from '../../public/quill.png';
 import userOutline from '../../public/user-outline.png';
@@ -99,7 +99,7 @@ const AuthorTile = ({ author }) => {
                 <img
                   className='profile-picture'
                   src={profileImageSrc}
-                  alt="author profile picture"
+                  alt="author profile icon"
                 ></img>
               )}
           </div>

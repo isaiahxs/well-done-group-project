@@ -1,10 +1,10 @@
-import React, { useEffect, useRef, useContext, useState } from 'react';
-import { useHistory, useLocation, NavLink } from 'react-router-dom';
+import React, { useState } from 'react';
+// import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import './SidePanel.css';
-import { WindowContext } from '../../context/WindowContext';
-import { ModalContext } from '../../context/ModalContext';
+// import { WindowContext } from '../../context/WindowContext';
+// import { ModalContext } from '../../context/ModalContext';
 import * as sessionActions from '../../store/session';
 
 import StoryTileThree from '../StoryTileThree';
@@ -13,7 +13,7 @@ import StoryTileTwoSkeleton from '../StoryTileTwoSkeleton';
 
 const SidePanel = () => {
   const dispatch = useDispatch()
-  const history = useHistory();
+  // const history = useHistory();
   const [showTags, setShowtags] = useState(false);
   const tags = useSelector((state) => state.story.tags);
   const stories = useSelector(state=>state.story.stories)
