@@ -208,7 +208,6 @@ def create_story():
       db.session.add(new_story)
       db.session.commit()
       return new_story.to_dict()
-      return redirect("/story/<int:id>")
 
     if form.errors:
       return "Bad Data"
@@ -261,6 +260,7 @@ def update_story(id):
                 alt_tag=request.form.get(f'altTag{i}')
             )
             db.session.add(new_story_image)
+            
 
         db.session.commit()
 
@@ -327,6 +327,10 @@ def create_story_with_images():
             )
             db.session.add(new_story_image)
             db.session.commit()
+            try:
+                os.remove(filename)
+            except Exception as e:
+                print(f"Error occurred while deleting file: {e}")
 
         # Handle story tags
         tags = request.form.getlist('tags')
