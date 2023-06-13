@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useContext, useState } from 'react';
-import { useHistory, useLocation, NavLink } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useEffect, useContext } from 'react';
+// import { useHistory, useLocation } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import './FeedPage.css' 
 import StoryFeed from '../StoryFeed';
 import SidePanel from '../SidePanel';
@@ -12,12 +12,12 @@ import * as storyActions from '../../store/story';
 
 
 const FeedPage = () => {
-  const history = useHistory()
-  const location = useLocation();
+  // const history = useHistory()
+  // const location = useLocation();
   const dispatch = useDispatch();
 
-  const { scrollPosition, windowSize } = useContext(WindowContext);
-  const user = useSelector(state=>state.session.user)
+  const { windowSize } = useContext(WindowContext);
+  // const user = useSelector(state=>state.session.user)
 
 
   useEffect(() => {

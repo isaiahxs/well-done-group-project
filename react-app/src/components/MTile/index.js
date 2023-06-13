@@ -25,7 +25,7 @@ const MTile = () => {
 
     // Clean up effect when component unmounts
     return () => clearInterval(intervalId);
-  }, []);
+  });
 
 
   return (

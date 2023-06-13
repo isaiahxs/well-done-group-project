@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState, useContext } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, NavLink, Redirect, useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import './SignupModal.css';
 import { ModalContext } from '../../context/ModalContext';
 import * as sessionActions from '../../store/session';
@@ -8,9 +8,9 @@ import profileImages from './profileImages';
 
 
 function SignupModal() {
-  const { modal, openModal, closeModal, updateObj, setUpdateObj } =
+  const { openModal, closeModal, updateObj } =
     useContext(ModalContext);
-  const user = useSelector((state) => state.session.user);
+  // const user = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
   const history = useHistory();
   const formRef = useRef(null);
@@ -35,10 +35,10 @@ function SignupModal() {
 
 
 
-  const handleForgotPassword = () => {
-    closeModal();
-    history.push('/forgotPassword');
-  };
+  // const handleForgotPassword = () => {
+  //   closeModal();
+  //   history.push('/forgotPassword');
+  // };
 
   const handleSignIn = () => {
     closeModal();
@@ -107,7 +107,7 @@ function SignupModal() {
       // console.log('here');
       // console.log(response);
 
-      if (response.status == 401) {
+      if (response.status === 401) {
         if (response.errors && response.errors[0].slice(0, 5) === 'email') {
           // console.log('yes');
           setCredential('The provided email is invalid');

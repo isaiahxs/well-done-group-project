@@ -1,12 +1,9 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { useSelector, useDispatch} from 'react-redux';
-import { useHistory, useLocation, useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import './StoryPage.css';
 import parse from 'html-react-parser';
 import CommentPanel from '../CommentPanel';
-import OpenModalButton from '../OpenModalButton';
-import StoryOptionsModal from '../StoryOptionsModal';
-import { useModal } from '../../context/Modal';
 import * as sessionActions from '../../store/session';
 import * as storyActions from '../../store/story';
 import { ModalContext } from '../../context/ModalContext';
@@ -15,7 +12,7 @@ import shining_star from '../../public/shining_star.svg';
 import triple_dots_icon from '../../public/triple_dots_icon.svg';
 
 const StoryPage = () => {
-  const { modal, openModal, closeModal, needsRerender, setNeedsRerender } = useContext(ModalContext);
+  const { openModal } = useContext(ModalContext);
   const history = useHistory();
   const dispatch = useDispatch();
   const { id } = useParams()
@@ -26,19 +23,19 @@ const StoryPage = () => {
   const story = useSelector(state => state.story.currentStory);
   const user = useSelector(state => state.session.user);
   const followedAuthorIds = useSelector(state => state.session.followedAuthorIds);
-  const currentUserId = useSelector(state => state.session.user?.id);
+  // const currentUserId = useSelector(state => state.session.user?.id);
 
   const [following, setFollowing] = useState(false);
   
   const author = useSelector(state => state.story.currentStory?.authorInfo);
 
-  const isFollowingAuthor= () => {
-    //check if followedAuthorIds includes the authorId of the story
-    if (followedAuthorIds?.includes(story?.authorId)) {
-      return true;
-  }
-  return false;
-  }
+  // const isFollowingAuthor= () => {
+  //   //check if followedAuthorIds includes the authorId of the story
+  //   if (followedAuthorIds?.includes(story?.authorId)) {
+  //     return true;
+  // }
+  // return false;
+  // }
 
 
   // console.log(story?.claps);
@@ -60,17 +57,17 @@ const StoryPage = () => {
     }
   }
 
-  const handleEditStory = () => {
-    // history.push(`/stories/${id}/edit`)
-    // console.log('hi')
-  }
+  // const handleEditStory = () => {
+  //   // history.push(`/stories/${id}/edit`)
+  //   // console.log('hi')
+  // }
 
-  const handleDeleteStory = async () => {
-    const result = await dispatch(storyActions.deleteStory(id));
-    if (result && result.message) {
-      history.push('/home');
-    }
-  }
+  // const handleDeleteStory = async () => {
+  //   const result = await dispatch(storyActions.deleteStory(id));
+  //   if (result && result.message) {
+  //     history.push('/home');
+  //   }
+  // }
 
   useEffect(() => {
     setFollowing(() => {
@@ -156,7 +153,7 @@ const StoryPage = () => {
       await dispatch(storyActions.followAuthor(author.id))
     }
 
-    const updatedAuthor = await dispatch(storyActions.getAuthorById(author.id))
+    // const updatedAuthor = await dispatch(storyActions.getAuthorById(author.id))
 
     // if (updatedAuthor) {
     //   setAuthorData(updatedAuthor)
@@ -178,7 +175,7 @@ const StoryPage = () => {
           <h1 className="story-title">{story.title}</h1>
 
           <div className='author-section'>
-            <img src={story?.authorInfo?.profileImage} alt='author-image' className='author-image'/>
+            <img src={story?.authorInfo?.profileImage} alt='author profile icon' className='author-image'/>
             <div className='author-information'>
               <div className="story-author">
                 {story?.authorInfo?.firstName} {story?.authorInfo?.lastName} ·
@@ -316,17 +313,23 @@ const StoryPage = () => {
             <div className={`overlay ${showComments ? 'active' : ''}`} onClick={() => setShowComments(!showComments)}></div>
           </div>
 
-          <div className='footer'>
-            <div className='author-section'>
-              <img src={story?.authorInfo?.profileImage} alt='author-image' className='author-image'/>
-              <div className='author-information'>
-                <div className="story-author">
-                  {story?.authorInfo?.firstName} {story?.authorInfo?.lastName}
-                  {user?.id !== story?.authorInfo?.id && (
-                  <a className='follow'> · Follow</a>
-                  )}
-                  <p className='time'>{story.timeToRead} min read · {date}</p>
-                </div>
+          <div className='author-section'>
+            <img src={story?.authorInfo?.profileImage} alt='author profile icon' className='author-image'/>
+            <div className='author-information'>
+              <div className="story-author">
+                {story?.authorInfo?.firstName} {story?.authorInfo?.lastName} ·
+                {user?.id !== story?.authorInfo?.id && (
+                // <a className='follow'> · Follow</a>
+                // <button className='follow-author' onClick={handleFollowClick}>Follow</button>
+                // <button className='unfollow-author' onClick={handleUnfollowClick}>Unfollow</button>
+
+                // <a>
+                //   {isFollowingAuthor() ? " · Unfollow" : " · Follow"}
+                // </a>
+
+                <button className='follow-unfollow-button' onClick={handleFollow}>{following ? 'Unfollow' : 'Follow'}</button>
+                )}
+                <p className='time'>{story.timeToRead} min read · {date}</p>
               </div>
             </div>
           </div>

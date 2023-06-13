@@ -1,6 +1,6 @@
 // frontend/src/components/Navigation/index.js
 import React, { useEffect, useRef, useContext, useState } from 'react';
-import { useHistory, useLocation, NavLink } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import './Navigation.css';
@@ -17,7 +17,7 @@ import fountainPen from '../../public/fountain-pen.png';
 
 import writeIcon from '../../public/write-icon.svg';
 import bellIcon from '../../public/bell-icon.svg';
-import blackBellIcon from '../../public/black-bell.svg';
+// import blackBellIcon from '../../public/black-bell.svg';
 import magnifyGlass from '../../public/magnify-glass.svg';
 import magnifyGlassBlack from '../../public/magnify-glass-black.svg';
 
@@ -37,7 +37,7 @@ const profileImages = {
 };
 
 function Navigation() {
-  const { modal, openModal, closeModal, updateObj, setUpdateObj } =
+  const { openModal, closeModal, setUpdateObj } =
     useContext(ModalContext);
 
   const history = useHistory();
@@ -47,9 +47,9 @@ function Navigation() {
   const [search, setSearch] = useState('');
   const [isLoaded, setIsLoaded] = useState(false);
 
-  const state = useSelector((state) => state);
+  // const state = useSelector((state) => state);
   const user = useSelector((state) => state.session.user);
-  const searchResults = useSelector((state) => state.session.search);
+  // const searchResults = useSelector((state) => state.session.search);
 
   const { scrollPosition, windowSize, searchInputRef } =
     useContext(WindowContext);
@@ -280,19 +280,19 @@ function Navigation() {
                 >
                   {user && user.profileImage && (
                     <div className={`profile-div`} onClick={handleProfileClick}>
-                      <img src={profileImageSrc} alt="user profile picture" />
+                      <img src={profileImageSrc} alt="user profile icon" />
                     </div>
                   )}
 
                   {user && !user.profileImage && (
                     <div className={`profile-div`} onClick={handleProfileClick}>
-                      <img src={quill} alt="user profile picture" />
+                      <img src={quill} alt="user profile icon" />
                     </div>
                   )}
 
                   {!user && (
                     <div className={`profile-div`} onClick={userOutline}>
-                      <img src={profileImageSrc} alt="user profile picture" />
+                      <img src={profileImageSrc} alt="user profile icon" />
                     </div>
                   )}
                 </div>
@@ -328,19 +328,19 @@ function Navigation() {
                 >
                   {user && user.profileImage && (
                     <div className={`profile-div`} onClick={handleProfileClick}>
-                      <img src={profileImageSrc} alt="user profile picture" />
+                      <img src={profileImageSrc} alt="user profile icon" />
                     </div>
                   )}
 
                   {user && !user.profileImage && (
                     <div className={`profile-div`} onClick={handleProfileClick}>
-                      <img src={quill} alt="user profile picture" />
+                      <img src={quill} alt="user profile icon" />
                     </div>
                   )}
 
                   {!user && (
                     <div className={`profile-div`} onClick={userOutline}>
-                      <img src={profileImageSrc} alt="user profile picture" />
+                      <img src={profileImageSrc} alt="user profile icon" />
                     </div>
                   )}
                 </div>
@@ -422,7 +422,7 @@ function Navigation() {
                   onClick={handleProfileClick}
                 >
                   <div className={`profile-div`} onClick={handleProfileClick}>
-                    <img src={userOutline} alt="user profile picture" />
+                    <img src={userOutline} alt="user profile icon" />
                   </div>
                 </div>
               </div>
@@ -456,7 +456,7 @@ function Navigation() {
                   onClick={handleProfileClick}
                 >
                   <div className={`profile-div`} onClick={handleProfileClick}>
-                    <img src={userOutline} alt="user profile picture" />
+                    <img src={userOutline} alt="user profile icon" />
                   </div>
                 </div>
               </div>
