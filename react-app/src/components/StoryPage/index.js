@@ -140,8 +140,10 @@ const StoryPage = () => {
             <img src={story?.authorInfo?.profileImage} alt='author-image' className='author-image'/>
             <div className='author-information'>
               <div className="story-author">
-                {story?.authorInfo?.firstName} {story?.authorInfo?.lastName} ·
-                <a className='follow'> Follow</a>
+                {story?.authorInfo?.firstName} {story?.authorInfo?.lastName}
+                {currentUser?.id !== story?.authorInfo?.id && (
+                <a className='follow'> · Follow</a>
+                )}
                 <p className='time'>{story.timeToRead} min read · {date}</p>
               </div>
             </div>
@@ -221,9 +223,11 @@ const StoryPage = () => {
               <img src={story?.authorInfo?.profileImage} alt='author-image' className='author-image'/>
               <div className='author-information'>
                 <div className="story-author">
-                  {story?.authorInfo?.firstName} {story?.authorInfo?.lastName} ·
-                  <a className='follow'> Follow</a>
-                  <p className='time'>{story?.timeToRead} min read · {date}</p>
+                  {story?.authorInfo?.firstName} {story?.authorInfo?.lastName}
+                  {currentUser?.id !== story?.authorInfo?.id && (
+                  <a className='follow'> · Follow</a>
+                  )}
+                  <p className='time'>{story.timeToRead} min read · {date}</p>
                 </div>
               </div>
             </div>
