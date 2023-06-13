@@ -59,6 +59,46 @@ def seed_comments():
     comment52 = Comment(user_id=1, content='Im eagerly awaiting your next story!', story_id=24)
     comment53 = Comment(user_id=2, content='This story has touched my soul.', story_id=25)
     comment54 = Comment(user_id=1, content='Im eagerly awaiting your next story!', story_id=25)
+    comment55 = Comment(user_id=6, content='Great insights!', story_id=26)
+    comment56 = Comment(user_id=7, content='Inspiring!', story_id=26)
+    comment57 = Comment(user_id=8, content='Well said!', story_id=27)
+    comment58 = Comment(user_id=9, content='Love it!', story_id=27)
+    comment59 = Comment(user_id=10, content='Informative!', story_id=28)
+    comment60 = Comment(user_id=11, content='Short and sweet!', story_id=28)
+    comment61 = Comment(user_id=12, content='Motivating!', story_id=29)
+    comment62 = Comment(user_id=13, content='Excellent points!', story_id=29)
+    comment63 = Comment(user_id=14, content='Interesting read!', story_id=30)
+    comment64 = Comment(user_id=15, content='Well done!', story_id=30)
+    comment65 = Comment(user_id=6, content='Great tips!', story_id=31)
+    comment66 = Comment(user_id=7, content='Useful information!', story_id=31)
+    comment67 = Comment(user_id=8, content='Amazing destinations!', story_id=32)
+    comment68 = Comment(user_id=9, content='Travel goals!', story_id=32)
+    comment69 = Comment(user_id=10, content='Healthy habits!', story_id=33)
+    comment70 = Comment(user_id=11, content='Good advice!', story_id=33)
+    comment71 = Comment(user_id=12, content='Inspiring story!', story_id=34)
+    comment72 = Comment(user_id=13, content='Great message!', story_id=34)
+    comment73 = Comment(user_id=14, content='Interesting insights!', story_id=35)
+    comment74 = Comment(user_id=15, content='Well written!', story_id=35)
+    comment75 = Comment(user_id=6, content='Impressive shots!', story_id=36)
+    comment76 = Comment(user_id=7, content='Great composition!', story_id=36)
+    comment77 = Comment(user_id=8, content='Deep thoughts!', story_id=37)
+    comment78 = Comment(user_id=9, content='Philosophical insights!', story_id=37)
+    comment79 = Comment(user_id=10, content='Stylish design!', story_id=38)
+    comment80 = Comment(user_id=11, content='Innovative ideas!', story_id=38)
+    comment81 = Comment(user_id=12, content='Inspiring lifestyle!', story_id=39)
+    comment82 = Comment(user_id=13, content='Thought-provoking!', story_id=39)
+    comment83 = Comment(user_id=14, content='Creative designs!', story_id=40)
+    comment84 = Comment(user_id=15, content='Well-crafted!', story_id=40)
+    comment85 = Comment(user_id=6, content='Great storytelling!', story_id=41)
+    comment86 = Comment(user_id=7, content='Engaging narrative!', story_id=41)
+    comment87 = Comment(user_id=8, content='Thought-provoking insights!', story_id=42)
+    comment88 = Comment(user_id=9, content='Important topic!', story_id=42)
+    comment89 = Comment(user_id=10, content='Creative writing!', story_id=43)
+    comment90 = Comment(user_id=11, content='Impressive analysis!', story_id=43)
+    comment91 = Comment(user_id=12, content='Informative piece!', story_id=44)
+    comment92 = Comment(user_id=13, content='Insightful perspectives!', story_id=44)
+    comment93 = Comment(user_id=14, content='Thoughtful writing!', story_id=45)
+    comment94 = Comment(user_id=15, content='Well-argued points!', story_id=45)
 
     comment_list = [
         comment1, comment2, comment3, comment4, comment5, comment6, comment7, comment8, comment9, comment10,
@@ -66,7 +106,13 @@ def seed_comments():
         comment21, comment22, comment23, comment24, comment25, comment26, comment27, comment28, comment29, comment30,
         comment31, comment32, comment33, comment34, comment35, comment36, comment37, comment38, comment39, comment40,
         comment41, comment42, comment43, comment44, comment45, comment46, comment47, comment48, comment49, comment50,
-        comment51, comment52, comment53, comment54
+        comment51, comment52, comment53, comment54, comment55, comment56, comment57, comment58, comment59, comment60,
+        comment61,
+        comment62, comment63, comment64, comment65, comment66, comment67, comment68,
+        comment69, comment70, comment71, comment72, comment73, comment74, comment75,
+        comment76, comment77, comment78, comment79, comment80, comment81, comment82,
+        comment83, comment84, comment85, comment86, comment87, comment88, comment89,
+        comment90, comment91, comment92, comment93, comment94
     ]
 
     for comment_item in comment_list:

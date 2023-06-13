@@ -181,13 +181,267 @@ def seed_stories():
         time_to_read=9,
         sliced_intro="""Interviews can sometimes throw unexpected curveballs, testing our ability to think on our feet and approach problems creatively..."""
         )
+    story26 = Story(
+        author_id=7,
+        title="The Winning Shot",
+        content="""John stood on the basketball court, sweat pouring down his face. With seconds left on the clock and his team down by one point, everything hinged on this shot. The crowd held their breath as he dribbled the ball, his heart pounding in his chest. He took a deep breath, eyes focused on the hoop, and launched the ball towards the net. Time seemed to slow down as the ball arced through the air, and then... swish! The crowd erupted in cheers as the buzzer sounded. John had made the winning shot, leading his team to victory. It was a moment he would never forget, the culmination of years of hard work and dedication to the sport he loved.""",
+        time_to_read=3,
+        sliced_intro="John stood on the basketball court, sweat pouring down his face. With seconds left on the clock and his team down by one point..."
+    )
+
+    story27 = Story(
+        author_id=8,
+        title="The Underdog's Triumph",
+        content="""Emily had always been underestimated on the tennis court. Being smaller and less experienced than her opponents, she often found herself facing doubt and skepticism. But she refused to let it stop her. Determined to prove herself, she trained relentlessly, honing her skills and improving her game. The day of the championship arrived, and Emily found herself facing the reigning champion. Despite the odds stacked against her, she fought with every ounce of strength and determination she possessed. Swing after swing, she returned each ball with precision and finesse. The crowd watched in awe as she defied expectations, winning point after point. In the end, Emily emerged victorious, the underdog who had triumphed against all odds.""",
+        time_to_read=4,
+        sliced_intro="Emily had always been underestimated on the tennis court. Being smaller and less experienced than her opponents, she often found herself facing doubt and skepticism..."
+    )
+    story28 = Story(
+        author_id=9,
+        title="The Marathon of Endurance",
+        content="""Mike had dreamt of running a marathon ever since he was a child. The idea of pushing his body to the limit, racing against time, and accomplishing something extraordinary excited him. He dedicated months to intense training, gradually building up his stamina and endurance. The day of the marathon arrived, and Mike stood among hundreds of runners at the starting line. As the race began, he settled into his pace, focusing on his breathing and keeping his mind clear. Every step was a test of his willpower, but he persisted. With each passing mile, his legs grew heavier, but his determination remained unwavering. As he crossed the finish line, exhausted but elated, he knew he had achieved his dream. The marathon had taught him the power of perseverance and the incredible things one can accomplish with discipline and a strong mind.""",
+        time_to_read=5,
+        sliced_intro="Mike had dreamt of running a marathon ever since he was a child. The idea of pushing his body to the limit, racing against time..."
+    )
+
+    story29 = Story(
+        author_id=10,
+        title="The Unbreakable Team Spirit",
+        content="""The team had faced a challenging season, filled with setbacks and disappointments. They were on the verge of giving up, their spirits crushed by consecutive losses. But in the face of adversity, they found strength within themselves and their teammates. They came together, determined to turn their season around. With each practice, they pushed themselves harder, honing their skills and building their team chemistry. As they stepped onto the field for the final game, their hearts were filled with resilience and determination. The match was intense, but they fought as a cohesive unit, supporting and encouraging each other through every play. In the end, they emerged victorious, not only in the score but also in the transformation of their team spirit. They had learned that true success is not just about winning but about the bonds forged and the growth achieved together.""",
+        time_to_read=4,
+        sliced_intro="The team had faced a challenging season, filled with setbacks and disappointments. They were on the verge of giving up, their spirits crushed by consecutive losses..."
+    )
+
+    story30 = Story(
+        author_id=11,
+        title="The Dance of Grace and Strength",
+        content="""Sarah was a passionate ballet dancer, captivated by the elegance and beauty of the art form. However, she yearned to combine her love for ballet with her admiration for strength and athleticism. She discovered rhythmic gymnastics, a sport that blended the grace of dance with incredible displays of strength and flexibility. Sarah immersed herself in the sport, spending hours perfecting her routines, practicing every movement until it became second nature. Her hard work paid off when she earned a spot on the national team. As she stood on the competition floor, the music began, and Sarah executed her routine flawlessly, seamlessly transitioning from one breathtaking move to another. The audience was mesmerized by her skill and artistry. Sarah had found her calling, a perfect harmony of grace and strength, and she would continue to inspire others with her performances.""",
+        time_to_read=6,
+        sliced_intro="Sarah was a passionate ballet dancer, captivated by the elegance and beauty of the art form. However, she yearned to combine her love for ballet with her admiration for strength and athleticism..."
+    )   
+
+    story31 = Story(
+        author_id=6,
+        title="Journey to Wellness",
+        content="""Lisa had always been passionate about both travel and wellness. She believed that exploring new places and taking care of her health went hand in hand. On her latest adventure, she embarked on a trip to a serene wellness retreat nestled in the mountains. The retreat offered a variety of activities to rejuvenate the mind, body, and soul. From early morning hikes to refreshing yoga sessions, and nourishing organic meals, every aspect of the retreat was designed to promote well-being. As Lisa immersed herself in the natural surroundings and embraced the holistic practices, she discovered a renewed sense of balance and inner peace. The journey not only took her to a new destination but also led her to a deeper understanding of self-care and the importance of prioritizing her health even during her travels.""",
+        time_to_read=5,
+        sliced_intro="Lisa had always been passionate about both travel and wellness. She believed that exploring new places and taking care of her health went hand in hand..."
+    )
+
+    story32 = Story(
+        author_id=7,
+        title="The Healing Trail",
+        content="""John, an avid hiker, set off on a solo journey to explore a remote mountain range known for its healing energy. The challenging terrain and breathtaking vistas provided the perfect backdrop for self-reflection and rejuvenation. As John hiked through rugged trails and crossed gushing streams, he felt a deep connection with nature and its ability to heal. Each step he took seemed to wash away the stress and worries of everyday life. The sound of birds chirping and leaves rustling in the wind became his soundtrack for serenity. When John reached the summit, he stood in awe of the panoramic view before him, feeling a sense of accomplishment and inner calm. The healing power of the trail had left an indelible mark on his heart, reminding him of the importance of immersing oneself in nature's embrace for both physical and mental well-being.""",
+        time_to_read=6,
+        sliced_intro="John, an avid hiker, set off on a solo journey to explore a remote mountain range known for its healing energy. The challenging terrain and breathtaking vistas..."
+    )
+
+    story33 = Story(
+        author_id=8,
+        title="A Culinary Adventure",
+        content="""Sophie had always been intrigued by the connection between food and health. She embarked on a culinary adventure, traveling to different countries to explore their unique cuisines and the impact on well-being. In Thailand, she indulged in vibrant street food bursting with flavors and ingredients known for their medicinal properties. In Italy, she savored the simplicity of fresh, locally sourced ingredients that formed the foundation of their healthy Mediterranean diet. From Japan's nourishing sushi to India's aromatic spices, Sophie discovered a world of culinary delights that promoted both physical and mental wellness. Along her journey, she not only satisfied her taste buds but also gained invaluable knowledge about the role of nutrition in leading a healthy and fulfilling life. Her culinary adventure became a transformative experience, inspiring her to create her own healthy recipes and share her passion for food and well-being with others.""",
+        time_to_read=7,
+        sliced_intro="Sophie had always been intrigued by the connection between food and health. She embarked on a culinary adventure, traveling to different countries to explore their unique cuisines..."
+    )
+
+    story34 = Story(
+        author_id=9,
+        title="The Yoga Retreat",
+        content="""Mark, feeling overwhelmed by the demands of his fast-paced life, decided to escape to a tranquil yoga retreat in the heart of a tropical paradise. Surrounded by lush greenery and the soothing sound of waves, he embarked on a journey of self-discovery and rejuvenation. Each day, he immersed himself in yoga and meditation sessions, learning to quiet his mind and embrace the present moment. The retreat provided a sanctuary for introspection, allowing Mark to let go of stress and find inner peace. As he connected with fellow retreat participants and shared stories of personal growth, Mark realized that the practice of yoga was not just about physical postures but also about cultivating a balanced and harmonious life. When it was time to leave, Mark returned home with a newfound sense of clarity and a commitment to incorporating mindfulness and self-care into his daily routine.""",
+        time_to_read=5,
+        sliced_intro="Mark, feeling overwhelmed by the demands of his fast-paced life, decided to escape to a tranquil yoga retreat in the heart of a tropical paradise..."
+    )
+
+    story35 = Story(
+        author_id=10,
+        title="The Healing Waters",
+        content="""Emma sought solace and healing in the thermal springs of a picturesque destination known for its geothermal activity. As she submerged herself in the warm, mineral-rich waters, she could feel her muscles relax and tension melt away. The healing properties of the springs were renowned, attracting visitors from all over the world. Emma embraced the therapeutic power of the water, allowing it to rejuvenate her body and calm her mind. Surrounded by stunning natural landscapes, she found a sense of tranquility that had eluded her in the hustle and bustle of everyday life. Each day spent in the healing waters brought her closer to a state of well-being, reminding her of the importance of self-care and taking the time to recharge in order to lead a healthy and fulfilling life.""",
+        time_to_read=4,
+        sliced_intro="Emma sought solace and healing in the thermal springs of a picturesque destination known for its geothermal activity. As she submerged herself in the warm, mineral-rich waters..."
+    )
+    story36 = Story(
+        author_id=11,
+        title="The Lens of Perception",
+        content="""Oliver, a passionate photographer, believed that every photograph had a story to tell. Through his lens, he sought to capture not just images but the essence of the world around him. He saw photography as a medium for exploring the depths of human perception and the interconnectedness of all things. With his camera in hand, Oliver ventured into bustling city streets, serene landscapes, and bustling markets. As he framed each shot, he pondered the profound questions of existence and the fleeting nature of time. Through his photographs, Oliver invited viewers to see the world through his eyes, to pause and reflect on the beauty and complexity of life. For him, photography was not just an art form but a way to provoke philosophical contemplation and encourage a deeper appreciation for the present moment.""",
+        time_to_read=6,
+        sliced_intro="Oliver, a passionate photographer, believed that every photograph had a story to tell. Through his lens, he sought to capture not just images but the essence of the world around him..."
+    )
+
+    story37 = Story(
+        author_id=12,
+        title="The Ephemeral Frame",
+        content="""Sophia, an aspiring photographer, had a fascination with the transient nature of life. She believed that photographs had the power to capture fleeting moments and preserve them for eternity. In her quest to freeze time, she explored various genres of photography, from portrait to landscape, experimenting with light, shadows, and composition. Each click of the shutter felt like a tiny victory, a brief pause in the ceaseless flow of existence. Through her lens, Sophia sought to convey the beauty and impermanence of life, reminding viewers to cherish every passing moment. Her photographs became visual poems, evoking emotions and sparking contemplation. For Sophia, photography was a way to embrace the ephemeral and find meaning in the transient nature of our existence.""",
+        time_to_read=5,
+        sliced_intro="Sophia, an aspiring photographer, had a fascination with the transient nature of life. She believed that photographs had the power to capture fleeting moments and preserve them for eternity..."
+    )
+
+    story38 = Story(
+        author_id=13,
+        title="The Abstract Perspective",
+        content="""Daniel, a visionary photographer, saw the world as an endless canvas of shapes, lines, and colors. He delved into abstract photography, capturing fragments of reality that often went unnoticed. Through his lens, he transformed everyday objects into mesmerizing patterns and textures. Daniel believed that abstract photography had the power to awaken viewers' imagination and challenge their preconceived notions of reality. Each photograph was an invitation to explore the boundaries of perception and embrace the beauty in the unconventional. For Daniel, photography was not about capturing the world as it is, but about unveiling the hidden layers of meaning and inviting viewers to see beyond the surface.""",
+        time_to_read=4,
+        sliced_intro="Daniel, a visionary photographer, saw the world as an endless canvas of shapes, lines, and colors. He delved into abstract photography, capturing fragments of reality that often went unnoticed..."
+    )
+
+    story39 = Story(
+        author_id=14,
+        title="The Soul of Portraits",
+        content="""Emma had a deep appreciation for the art of portraiture. Through her lens, she sought to capture the essence and emotions of her subjects. She believed that portraits were not mere representations but glimpses into the human soul. Emma approached each photoshoot as an intimate exchange, connecting with her subjects on a profound level. She believed that the most powerful portraits were the ones that revealed vulnerability, strength, and authenticity. With each click of the shutter, Emma aimed to immortalize the stories and experiences etched on the faces before her. Through her portraits, she created a tapestry of humanity, reminding viewers of the beauty and complexity that resides within each individual.""",
+        time_to_read=3,
+        sliced_intro="Emma had a deep appreciation for the art of portraiture. Through her lens, she sought to capture the essence and emotions of her subjects..."
+    )
+
+    story40 = Story(
+        author_id=15,
+        title="The Philosophy of Light",
+        content="""Alex, a dedicated photographer, believed that light was the essence of photography. He saw light as a metaphor for life, illuminating the world and revealing its true beauty. With his camera, Alex chased the perfect light, waking up before dawn and staying out until sunset. He experimented with different types of lighting, harnessing the interplay between shadows and highlights. Through his photographs, Alex conveyed the transformative power of light, both literally and metaphorically. He believed that photography was a testament to the ever-changing nature of existence, where light could be gentle and ethereal or bold and dramatic. For Alex, capturing the dance of light was not just a technical skill but a profound exploration of the human experience and the ephemeral nature of reality.""",
+        time_to_read=4,
+        sliced_intro="Alex, a dedicated photographer, believed that light was the essence of photography. He saw light as a metaphor for life, illuminating the world and revealing its true beauty..."
+    )
+    story41 = Story(
+    author_id=6,
+    title="Writing Democracies",
+    content="""In a world where democracy was created by ink and paper, Victor, an esteemed political writer, held a pen mightier than any sword. His writings became manifestos, sparking revolutions and forging constitutions. As he wrote, nations listened. But power bred adversaries, and soon he found himself targeted by those whose corrupt practices were threatened by his words. The story unfolds, describing his resilience against these forces and his ultimate triumph in maintaining the spirit of democracy through the power of writing.""",
+    time_to_read=3,
+    sliced_intro="""In a world where democracy was created by ink and paper, Victor, an esteemed political writer..."""
+    )
+
+    story42 = Story(
+    author_id=10,
+    title="Ink Trails and Campaign Trails",
+    content="""Following the journey of Alex, a speech writer for an aspiring presidential candidate, this story interweaves the realms of writing and politics like never before. Alex's words serve as the voice of the candidate, shaping public opinion and determining the fate of the campaign. From drafting compelling speeches to dodging political underhanded tactics, this tale uncovers the power and pressure that comes with writing in politics.""",
+    time_to_read=6,
+    sliced_intro="""Following the journey of Alex, a speech writer for an aspiring presidential candidate..."""
+    )
+
+    story43 = Story(
+    author_id=14,
+    title="The Politics of Prose",
+    content="""'The Politics of Prose' delves into the life of Emma, an investigative journalist and author who uses her writing to expose political misconduct. Her tenacious search for truth uncovers a deep-rooted political scandal that she must navigate with words as her primary weapon. An exploration of bravery and truth, this story serves as a testament to the enduring power of the written word.""",
+    time_to_read=7,
+    sliced_intro="""'The Politics of Prose' delves into the life of Emma, an investigative journalist and author..."""
+    )
+
+    story44 = Story(
+    author_id=18,
+    title="Speeches, Scandals, and Scriveners",
+    content="""Set in the tumultuous era of early 20th-century politics, this story revolves around William, a gifted writer swept up in the world of political propaganda. William struggles to reconcile his love for writing with the moral complications of his job, questioning the ethics of his role in molding public opinion. His journey of self-discovery and moral courage forms the crux of this fascinating narrative.""",
+    time_to_read=5,
+    sliced_intro="""Set in the tumultuous era of early 20th-century politics, this story revolves around William..."""
+    )
+
+    story45 = Story(
+    author_id=22,
+    title="Dystopia: The Power of a Pen",
+    content="""This dystopian novel takes place in a society where political power lies solely in the hands of those who control information. The protagonist, a rebel writer named Lydia, risks her life to write the truth, challenging the oppressive government regime. As the narrative unfolds, Lydia's written words spark a movement, demonstrating how the pen can indeed be mightier than the sword.""",
+    time_to_read=8,
+    sliced_intro="""This dystopian novel takes place in a society where political power lies solely in the hands..."""
+    )
+    story46 = Story(
+    author_id=22,
+    title="Exploring the Frontiers of Data Science",
+    content="""In this story, we delve into the exciting world of data science, exploring its applications, methodologies, and impact on various industries. From predicting customer behavior to analyzing complex datasets, data science has revolutionized the way we extract insights and make informed decisions. Join us on this journey as we uncover the power of data and its role in shaping our data-driven future.""",
+    time_to_read=6,
+    sliced_intro="""In this story, we delve into the exciting world of data science, exploring its applications, methodologies, and impact on various industries."""
+    )
+
+    story47 = Story(
+    author_id=22,
+    title="The Art of Machine Learning",
+    content="""Machine learning is at the forefront of technological advancements, enabling computers to learn from data and make accurate predictions. In this story, we demystify the complex field of machine learning, discussing its algorithms, techniques, and real-world applications. Join us as we unravel the intricacies of machine learning and discover its transformative potential.""",
+    time_to_read=5,
+    sliced_intro="""Machine learning is at the forefront of technological advancements, enabling computers to learn from data and make accurate predictions."""
+    )
+
+    story48 = Story(
+    author_id=22,
+    title="JavaScript vs. Python: A Battle of Titans",
+    content="""JavaScript and Python are two of the most popular programming languages, each with its own strengths and use cases. In this story, we compare and contrast JavaScript and Python, exploring their features, ecosystems, and practical applications. Whether you're a front-end developer or a data scientist, join us as we navigate the similarities and differences between these programming powerhouses.""",
+    time_to_read=7,
+    sliced_intro="""JavaScript and Python are two of the most popular programming languages, each with its own strengths and use cases."""
+    )
+
+    story49 = Story(
+    author_id=22,
+    title="Unraveling the Wonders of Science",
+    content="""Science is a gateway to understanding the natural world, from the smallest particles to the vastness of the cosmos. In this story, we embark on a journey through the wonders of science, exploring breakthrough discoveries, mind-boggling theories, and the relentless quest for knowledge. Join us as we unravel the mysteries of the universe and celebrate the beauty of scientific exploration.""",
+    time_to_read=8,
+    sliced_intro="""Science is a gateway to understanding the natural world, from the smallest particles to the vastness of the cosmos."""
+    )
+
+    story50 = Story(
+    author_id=22,
+    title="Echoes of History: Unforgettable Moments",
+    content="""History is not just a collection of dates and events; it is a tapestry woven with stories of triumphs, tragedies, and pivotal moments that have shaped our world. In this story, we delve into the annals of history, recounting unforgettable moments that have left an indelible mark on society. Join us as we journey through time and relive the echoes of history.""",
+    time_to_read=7,
+    sliced_intro="""History is not just a collection of dates and events; it is a tapestry woven with stories of triumphs, tragedies, and pivotal moments that have shaped our world."""
+    )
+
+    story51 = Story(
+    author_id=22,
+    title="Exploring the Wonders of Biology",
+    content="""Biology is the study of life, from the smallest microorganisms to complex ecosystems. In this story, we dive into the fascinating world of biology, uncovering the intricacies of living organisms, evolutionary processes, and the interconnectedness of life on Earth. Join us as we explore the wonders of biology and gain a deeper appreciation for the diversity and complexity of the natural world.""",
+    time_to_read=6,
+    sliced_intro="""Biology is the study of life, from the smallest microorganisms to complex ecosystems."""
+    )
+
+    story52 = Story(
+    author_id=22,
+    title="Sociology: Understanding Human Society",
+    content="""Sociology is the scientific study of human society, social relationships, and the factors that shape individual and group behavior. In this story, we delve into the field of sociology, examining concepts such as social structures, culture, inequality, and social change. Join us as we unravel the dynamics of human society and gain insights into the complexities of the social world.""",
+    time_to_read=7,
+    sliced_intro="""Sociology is the scientific study of human society, social relationships, and the factors that shape individual and group behavior."""
+    )
+
+    story53 = Story(
+    author_id=22,
+    title="The World of Entertainment: Beyond the Silver Screen",
+    content="""Entertainment is an integral part of our lives, captivating our attention and providing an escape from reality. In this story, we explore the diverse realms of entertainment, from movies and television to music, art, and literature. Join us as we dive into the world of entertainment, celebrating its impact on culture, society, and our collective imagination.""",
+    time_to_read=6,
+    sliced_intro="""Entertainment is an integral part of our lives, captivating our attention and providing an escape from reality."""
+    )
+
+    story54 = Story(
+    author_id=22,
+    title="The Art of Culinary Delights: Exploring the World of Cooking",
+    content="""Cooking is more than a mere necessity; it is an art form that engages our senses, nourishes our bodies, and brings people together. In this story, we embark on a culinary journey, discovering the cultural richness, techniques, and flavors that define cuisines around the world. Join us as we explore the art of cooking and unlock the secrets to creating delectable dishes in your own kitchen.""",
+    time_to_read=5,
+    sliced_intro="""Cooking is more than a mere necessity; it is an art form that engages our senses, nourishes our bodies, and brings people together."""
+    )
+
+    story55 = Story(
+    author_id=22,
+    title="Fashion: The Intersection of Style and Culture",
+    content="""Fashion is not just about clothing; it is a reflection of identity, culture, and societal norms. In this story, we delve into the world of fashion, exploring its historical roots, current trends, and the impact of fashion on self-expression and society. Join us as we unravel the intricate threads of fashion and celebrate the creativity, diversity, and artistry that define the fashion industry.""",
+    time_to_read=7,
+    sliced_intro="""Fashion is not just about clothing; it is a reflection of identity, culture, and societal norms."""
+    )
+
+    story56 = Story(
+    author_id=22,
+    title="Architectural Marvels: Where Design Meets Function",
+    content="""Architecture is the art and science of designing structures that harmonize with their environment while serving functional purposes. In this story, we explore the world of architecture, delving into iconic buildings, architectural styles, and the principles that shape the built environment. Join us as we appreciate the beauty, innovation, and impact of architectural marvels around the globe.""",
+    time_to_read=8,
+    sliced_intro="""Architecture is the art and science of designing structures that harmonize with their environment while serving functional purposes."""
+    )
+
+# stories 26 - 30 sports / self improvement / lifestyle / Personal Development
+# stories 31 - 35 health / traveling / lifestyle / Personal Development
+# stories 36 - 40 photography / philosophy / lifestyle / design
+# stories 41 - 45 writing / politics
 
 
     story_list = [
         story1, story2, story3, story4, story5, story6, story7, story8, story9, story10,
         story11, story12, story13, story14, story15, story16, story17, story18, story19, story20,
-        story21, story22, story23, story24, story25
+        story21, story22, story23, story24, story25, story26, story27, story28, story29, story30,
+        story31, story32, story33, story34, story35, story36, story37, story38, story39, story40,
+        story41, story42, story43, story44, story45, story46, story47, story48, story49, story50,
+        story51, story52, story53, story54, story55, story56
     ]
+
+
+
 
     for story_item in story_list:
         db.session.add(story_item)
