@@ -49,8 +49,6 @@ function ProfileButtonModal() {
 
 
   return (
-    
-    
     <div className="profile-menu" ref={formRef}>
       <div className="profile-dropdown">
         <div className="greeting">Hello, {user.firstName}</div>
@@ -60,10 +58,7 @@ function ProfileButtonModal() {
         </button>
       </div>
     </div>
-
     // settings
-
-
   );
 }
 

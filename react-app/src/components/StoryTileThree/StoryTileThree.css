@@ -26,13 +26,16 @@
   align-items: center;
   width: 240px;
   height: 30px;
+  margin-bottom: 4px;
 }
 
 .style3-profile-image{
-  width: 20px;
-  height: 20px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   overflow: hidden;
+  border: 1px solid black;
+  cursor: pointer;
 }
 
 

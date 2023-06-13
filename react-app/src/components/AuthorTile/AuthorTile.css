@@ -2,10 +2,45 @@
   border: black solid 1px;
   height: 60px;
   margin-bottom: 5px;
+  font-family: sans-serif;
+  font-size: 14px;
+}
+
+.authortile-style1-container {
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+  margin-left: 10px;
+}
+
+.authortile-style1-followers-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* height: 100%;
+  width: 100%; */
+  margin-right: 10px;
 }
 
 .authortile-style1-follow-button{
-  width: 150px;
+  width: 100px;
   height: 40px;
-  border: black solid 1px;
+  /* border: black solid 1px; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: green;
+  cursor: pointer;
+}
+
+.style1-profile-image img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  position: relative;
+}
+
+.profile-picture {
+  height: 30px;
+  width: 30px;
 }

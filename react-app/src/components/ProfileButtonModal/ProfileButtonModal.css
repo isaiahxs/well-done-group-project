@@ -1,18 +1,46 @@
 .profile-menu {
   /* cursor: pointer; */
   position: fixed;
-  top: 50px;
+  top: 60px;
   right: 25px;
   transform: scale(1);
   border: 1px solid rgb(0, 0, 0,0.1);
-  background-color: rgb(183, 130, 130);
+  /* background-color: rgb(183, 130, 130); */
   border-radius: 5px;
   box-shadow: rgba(127, 127, 127, 0.9) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
-  width: 170px;
-  height: 170px;
+  width: 140px;
+  height: 140px;
   display: flex;
   flex-direction: column;
   z-index: 411;
+  background-color: white;
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+}
+
+.greeting {
+  font-family: sans-serif;
+  margin-bottom: 10px;
+}
+
+.my-stories,
+.profile-menu-logout-button {
+  margin-bottom: 10px;
+  background-color: #f0f0f0;
+  /* background-color: #f2f2f2; */
+  border-radius: 20px;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-family: sans-serif;
+}
+
+.my-stories:hover,
+.profile-menu-logout-button:hover {
+  transition: all 0.2s;
+  /* background-color: #f2f2f2; */
+  background-color: #e6e6e6
 }
 
 .profile-dropdown {
@@ -20,10 +48,10 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin: 30px;
+  /* margin: 30px; */
 }
 
-.profile-menu-logout-button{
+/* .profile-menu-logout-button{
   display: flex;
   justify-content: center;
   align-items: center;
@@ -41,11 +69,11 @@
   transition: .1s background-color;
   font-size: 12px;
   bottom: 1px;
-}
+} */
 
-.profile-menu-logout-button:hover {
+/* .profile-menu-logout-button:hover {
   background-color: red;
-}
+} */
 
 .ghost-button{
   position: absolute;

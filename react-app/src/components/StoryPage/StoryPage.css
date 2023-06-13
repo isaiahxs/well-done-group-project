@@ -2,10 +2,18 @@
 
 .member-only {
   color: #757575;
-  font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: sans-serif;
   font-weight: lighter;
   margin-top: 30px;
   font-size: 14px; 
+  display: flex;
+  /* justify-content: center; */
+  align-items: center;
+}
+
+.shining-star {
+  margin-right: 2px;
+  margin-bottom: 2px;
 }
 
 .story-page {
@@ -47,7 +55,7 @@
   font-size: 30px;
   font-weight: bold;
   color: #292929;
-  font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: sans-serif;
 }
 
 .author-section {
@@ -86,20 +94,20 @@
   margin-bottom: 0px;
   /* text-align: center; */
   color: #292929;
-  font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: sans-serif;
 }
 
 .follow {
   color: #479275;
   font-size: 16px;
-  font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: sans-serif;
   cursor: pointer;
   /* margin-left: 10px */
 }
 
 .time {
   color: #757575;
-  font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: sans-serif;
   font-weight: lighter;
   font-size: 14px; 
   margin-top: 3px;
@@ -113,7 +121,7 @@
   border-top: 1px solid rgb(242, 242, 242);
   border-bottom: 1px solid rgb(242, 242, 242);
   padding: 8px 3px;
-  font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: sans-serif;
 }
 
 .clap-count {
@@ -163,7 +171,7 @@
 }
 
 .alt-options{
-  font-family: sohne, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: sans-serif;
 }
 
 .alt-options button {
@@ -187,7 +195,7 @@
   /* text-align: center; */
   color: #292929;
   line-height: 28px;
-  font-family: source-serif-pro, Georgia, Cambria, "Times New Roman", Times, serif;
+  font-family: serif;
   font-size: 20px;
   font-weight: lighter;
 }
