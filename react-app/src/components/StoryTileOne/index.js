@@ -1,8 +1,8 @@
 import React, { useEffect, useContext, useState } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import './StoryTileOne.css';
-import mediumLogoCircles from '../../public/medium-logo-circles.jpeg';
+// import mediumLogoCircles from '../../public/medium-logo-circles.jpeg';
 import { WindowContext } from '../../context/WindowContext';
 import openBook from '../../public/open-book.png';
 import quill from '../../public/quill.png';

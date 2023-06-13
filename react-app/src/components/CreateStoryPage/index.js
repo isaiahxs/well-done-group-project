@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams, useLocation } from 'react-router-dom';
 import './CreateStoryPage.css';
 import addContent from '../../public/add-content.svg';
-import textIcon from '../../public/text-icon.svg';
+// import textIcon from '../../public/text-icon.svg';
 
 import * as storyActions from '../../store/story';
 import AutoExpandTextArea from '../AutoExpandTextArea';
@@ -26,7 +26,7 @@ const CreateStoryPage = ({ story }) => {
   const history = useHistory();
 
   const user = useSelector((state) => state.session.user);
-  const tags = useSelector((state) => state.story.tags);
+  // const tags = useSelector((state) => state.story.tags);
   const currentStory = useSelector((state) => state.story.currentStory);
 
   const { id } = useParams();
@@ -57,7 +57,7 @@ const CreateStoryPage = ({ story }) => {
     }
 
     if (currentStory && currentStory.authorId === user.id) {
-      let tempArr = [];
+      // let tempArr = [];
       let lastPosition = 0;
       let blocksTemp = [];
 

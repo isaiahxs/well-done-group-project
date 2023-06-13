@@ -12,7 +12,7 @@ const Comments = ({ userId, storyId, authorInfo, setShowComments }) => {
     const [comments, setComments] = useState([]);
     const dispatch = useDispatch();
     const story = useSelector(state => state.story.currentStory)
-    const user = useSelector(state => state.session.user)
+    // const user = useSelector(state => state.session.user)
     const {commentRef} = useContext(WindowContext)
     const {openModal} = useContext(ModalContext)
 
@@ -110,7 +110,7 @@ const Comments = ({ userId, storyId, authorInfo, setShowComments }) => {
             <div className='comment-tile' key={comment?.id}>
                 <div>
                   <div className='comment-panel-author-info'>
-                    <img src={comment?.author?.profileImage} alt='comment-author-image' className='comment-author-image'/>
+                    <img src={comment?.author?.profileImage} alt='comment-author-icon' className='comment-author-image'/>
                     <div className='author-name-created'>
                       <p>{comment?.author?.firstName} {comment?.author?.lastName}</p>
                       <p className='time comment-panel-time'>{comment?.createdAt.slice(0, 16)}</p>

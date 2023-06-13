@@ -1,15 +1,15 @@
 import React, { useContext, useRef, useEffect } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { ModalContext } from '../../context/ModalContext';
-import * as sessionActions from '../../store/session';
+// import * as sessionActions from '../../store/session';
 import * as storyActions from '../../store/story';
 import './StoryOptionsModal.css';
 
 function StoryOptionsModal() {
     const history = useHistory();
     const dispatch = useDispatch();
-    const { modal, openModal, closeModal, needsRerender, setNeedsRerender } = useContext(ModalContext);
+    const { closeModal } = useContext(ModalContext);
     const formRef = useRef(null);
     const currentStory = useSelector(state => state.story.currentStory);
     // const {id} = useParams();
@@ -33,7 +33,7 @@ function StoryOptionsModal() {
         //so we can enable background scrolling
         document.body.style.overflow = 'unset';
       };
-    }, []);
+    });
   
     const deleteCurrentStory = (e) => {
         dispatch(storyActions.deleteStory(currentStory.id))
