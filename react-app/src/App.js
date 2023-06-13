@@ -1,6 +1,6 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { React, useState, useEffect, useContext } from 'react';
-import { Route, Router, Switch, NavLink, useLocation } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import { authenticate } from './store/session';
 import Navigation from './components/Navigation';
@@ -15,21 +15,20 @@ import StoryOptionsModal from './components/StoryOptionsModal';
 import CreateStoryPage from './components/CreateStoryPage';
 
 import * as storyActions from './store/story';
-import * as sessionActions from './store/session';
 import { ModalContext } from './context/ModalContext';
 import FeedPage from './components/FeedPage';
 
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
-  const state = useSelector((state) => state);
-  const search = useSelector((state) => state.session.search);
-  const user = useSelector((state) => state.session.user);
-  const { modal, openModal, closeModal, setUpdateObj } =
+  // const state = useSelector((state) => state);
+  // const search = useSelector((state) => state.session.search);
+  // const user = useSelector((state) => state.session.user);
+  const { modal } =
     useContext(ModalContext);
 
-  console.log(state);
-  console.log(search);
+  // console.log(state);
+  // console.log(search);
 
 
 

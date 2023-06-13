@@ -9,12 +9,17 @@
 
 .comment-tile {
     display: flex;
-    margin: 5px;
+    margin: 10px 0;
+    /* padding: 10px; */
+    /* background-color: #dadada; */
+    /* border-radius: 10px; */
 }
 
 .comments-sign-in{
   cursor: pointer;
+  text-decoration: underline;
 }
+
 .comments-sign-in:hover{
     text-decoration: underline;
 }
@@ -27,3 +32,88 @@
 .signed-out{
     width: 250px;
 }
+
+.comment-panel-author-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.author-name-created {
+    display: flex;
+    flex-direction: column;
+}
+
+.comment-panel-time {
+    margin-top: -8px;
+}
+
+.comment-input {
+    /* width: 100%; */
+    /* height: 50px; */
+    /* border: none; */
+    border: 1px solid black;
+    border-radius: 15px;
+    padding: 10px;
+    font-family: sans-serif;
+    font-size: 16px;
+    resize: none;
+    outline: none;
+    margin-bottom: 10px;
+}
+
+.clap-comment-button,
+.unclap-comment-button,
+.edit-comment-button,
+.delete-comment-button,
+.submit-comment {
+    /* display: flex; */
+    /* align-items: center; */
+    background: none;
+    background-color: #f2f2f2;
+    border: none;
+    cursor: pointer;
+    margin-right: 10px;
+    border-radius: 15px;
+    padding: 5px 10px;
+    font-size: 14px;
+}
+
+.comment-content {
+    margin-top: -5px;
+}
+
+.clap-comment-button:hover,
+.unclap-comment-button:hover,
+.edit-comment-button:hover,
+.delete-comment-button:hover,
+.submit-comment {
+    background-color: #e6e6e6;
+    transition: 0.3s all ease;
+}
+
+.number-of-comment-claps {
+    margin-top: -5px;
+}
+
+.comment-claps-buttons {
+    margin-top: -5px;
+}
+
+/* .unclap-comment-button {
+    background: none;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.edit-comment-button {
+    background: none;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.delete-comment-button {
+    background: none;
+    cursor: pointer;
+    margin-right: 10px;
+} */

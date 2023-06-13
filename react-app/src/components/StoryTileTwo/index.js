@@ -1,8 +1,8 @@
 import React, { useEffect, useContext, useState } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+// import { useSelector, useDispatch } from 'react-redux';
 import './StoryTileTwo.css';
-import mediumLogoCircles from '../../public/medium-logo-circles.jpeg';
+// import mediumLogoCircles from '../../public/medium-logo-circles.jpeg';
 import { WindowContext } from '../../context/WindowContext';
 
 const StoryTileTwo = ({story}) => {
@@ -12,13 +12,13 @@ const StoryTileTwo = ({story}) => {
   const [thumbnail, setThumbnail] = useState('')
   const [name, setName] = useState('')
 
-  const [loaded, setLoaded] = useState(false)
+  // const [loaded, setLoaded] = useState(false)
   const [fadeTrigger, setFadeTrigger] = useState(false);
 
 
 
 
-console.log(fadeTrigger);
+// console.log(fadeTrigger);
 
   useEffect(()=>{
 

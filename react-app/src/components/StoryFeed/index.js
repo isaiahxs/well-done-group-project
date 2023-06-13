@@ -1,10 +1,10 @@
-import React, { useEffect, useRef, useContext, useState } from 'react';
-import { useHistory, useLocation, NavLink } from 'react-router-dom';
+import React, { useEffect, useContext, useState } from 'react';
+// import { useHistory, useLocation, NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
 import './StoryFeed.css';
 import { WindowContext } from '../../context/WindowContext';
-import { ModalContext } from '../../context/ModalContext';
+// import { ModalContext } from '../../context/ModalContext';
 import * as sessionActions from '../../store/session';
 import * as storyActions from '../../store/story';
 import StoryTileTwo from '../StoryTileTwo';
@@ -25,7 +25,7 @@ const StoryFeed = () => {
   const searchResults = useSelector((state) => state.session.search);
   const currentFeed = useSelector((state) => state.session.currentFeed);
   const subFeed = useSelector((state) => state.session.subFeed);
-  const user = useSelector(state=>state.session.user)
+  // const user = useSelector(state=>state.session.user)
 
   const { searchInputRef } = useContext(WindowContext);
 

@@ -1,8 +1,8 @@
 import React, { useEffect, useContext, useState } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import './StoryTileThree.css';
-import mediumLogoCircles from '../../public/medium-logo-circles.jpeg';
+// import mediumLogoCircles from '../../public/medium-logo-circles.jpeg';
 import { WindowContext } from '../../context/WindowContext';
 import openBook from '../../public/open-book.png';
 import quill from '../../public/quill.png';
@@ -10,7 +10,7 @@ import userOutline from '../../public/user-outline.png';
 import fountainPen from '../../public/fountain-pen.png';
 import parse from 'html-react-parser';
 
-const StoryTileThree = ({ story, index }) => {
+const StoryTileThree = ({ story }) => {
   const history = useHistory();
   const [date, setDate] = useState('Dec 25, 2560')
 
@@ -74,7 +74,7 @@ const StoryTileThree = ({ story, index }) => {
           {story?.authorInfo?.profileImage && (
                 <img
                   src={story?.authorInfo.profileImage}
-                  alt="author profile picture"
+                  alt="author profile icon"
                 ></img>
               )}
           </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -33,7 +33,7 @@ const MainPageContent = () => {
 
 
   const navToFeed = (tag) => {
-    console.log(tag);
+    // console.log(tag);
     dispatch(sessionActions.search(tag))
     dispatch(sessionActions.setFeed(tag))
     dispatch(sessionActions.setSubFeed('taggedStories'))
@@ -189,7 +189,7 @@ const MainPageContent = () => {
                     key={i} 
                     className="main-page-tag memo-text" 
                     onClick={()=>{
-                      console.log('click');
+                      // console.log('click');
                       navToFeed(tag)
                     }}>{tag} </div>;
                   })}

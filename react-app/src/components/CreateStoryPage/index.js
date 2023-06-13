@@ -1,9 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams, useLocation } from 'react-router-dom';
 import './CreateStoryPage.css';
 import addContent from '../../public/add-content.svg';
-import textIcon from '../../public/text-icon.svg';
+// import textIcon from '../../public/text-icon.svg';
 
 import * as storyActions from '../../store/story';
 import AutoExpandTextArea from '../AutoExpandTextArea';
@@ -26,7 +26,7 @@ const CreateStoryPage = ({ story }) => {
   const history = useHistory();
 
   const user = useSelector((state) => state.session.user);
-  const tags = useSelector((state) => state.story.tags);
+  // const tags = useSelector((state) => state.story.tags);
   const currentStory = useSelector((state) => state.story.currentStory);
 
   const { id } = useParams();
@@ -43,28 +43,32 @@ const CreateStoryPage = ({ story }) => {
   }, [id]);
 
 
-
-
-
   useEffect(() => {
     setBlocks([]);
     setTitleText('');
   }, [location]);
 
+
   useEffect(() => {
+
+    if (location.pathname !== `/create/${id}/edit`) {
+      return
+    }
+
+
     if (currentStory && currentStory.authorId !== user.id) {
       history.push('/create');
     }
 
     if (currentStory && currentStory.authorId === user.id) {
-      let tempArr = [];
+      // let tempArr = [];
       let lastPosition = 0;
       let blocksTemp = [];
 
       setTitleText(currentStory.title);
 
       currentStory.images.forEach((image, i) => {
-        console.log(image);
+        // console.log(image);
 
         imagesToUpdate[image.id] = image;
         setImagesToUpdate({ ...imagesToUpdate });
@@ -104,35 +108,45 @@ const CreateStoryPage = ({ story }) => {
 
 
   useEffect(() => {
+    setButtonDisabled(true)
+  
     setShowPublishButton(false)
-
-    if(blocks.length> 3){
+  
+    if(blocks.length > 3){
       setShowPublishButton(true)
     }
-
+  
     const errors = {};
-    if (!titleText.length) errors['hasTitle'] = true;
-
-    if(blocks.length){
-      blocks.map(block=>{
-        if(block.type === 'text' && block.content.length > 0){
-          errors['hasBlockContent'] = false;
-        }
-      })
+    
+    if (!titleText.length){ 
+      errors['hasTitle'] = true;
+      setButtonDisabled(true)
+    } else {
+      errors['hasTitle'] = false;
     }
 
+    if(!blocks.length){
+      errors['hasBlock'] = true;
+    }
+  
+    if(blocks.length){
+      errors['hasBlockContent'] = !blocks.some(block=> block.type === 'text' && block.content.length > 0);
+    }
+  
     setValidationErrors(errors);
   }, [blocks, titleText]);
 
-  useEffect(() => {
-    const hasFalseValue = obj => Object.values(obj).some(v => v === false);
-    if(hasFalseValue(validationErrors)) {
-      setButtonDisabled(false)
-    } else{
-      setButtonDisabled(true)
-    }
+  
 
-  }, [validationErrors]);
+  useEffect(() => {
+    const hasTrueValue = obj => Object.values(obj).some(v => v === true);
+    if(hasTrueValue(validationErrors)) {
+      setButtonDisabled(true)
+    } else{
+      setButtonDisabled(false)
+    }
+  
+  }, [validationErrors, blocks, titleText]);
 
 
   const addBlock = (type, content = '', altTag = '') => {
@@ -150,8 +164,6 @@ const CreateStoryPage = ({ story }) => {
           behavior: 'smooth',
         });
       }, 1000);
-
-
     }
   };
 
@@ -200,7 +212,7 @@ const CreateStoryPage = ({ story }) => {
     e.target.value = null;
   };
 
-  console.log(document.body.scrollHeight);
+  // console.log(document.body.scrollHeight);
   
   const handleSubmit = async (e) => {
 
@@ -223,15 +235,15 @@ const CreateStoryPage = ({ story }) => {
 
     if (location.pathname !== `/create/${id}/edit`) {
       blocks.map((block) => {
-        console.log(lastPos);
+        // console.log(lastPos);
         if (block.type === 'text') {
           content.push(block.content);
           lastPos += block.content.length;
         }
 
         if (block.type === 'image') {
-          console.log(lastPos);
-          console.log(block.altTag);
+          // console.log(lastPos);
+          // console.log(block.altTag);
           storyImages.push({
             file: block.content,
             altTag: block.altTag ? block.altTag : 'Story image',
@@ -248,7 +260,7 @@ const CreateStoryPage = ({ story }) => {
 
     if (location.pathname === `/create/${id}/edit`) {
       blocks.map((block) => {
-        console.log(lastPos);
+        // console.log(lastPos);
         if (block.type === 'text') {
           content.push(block.content);
           lastPos += block.content.length;
@@ -269,8 +281,8 @@ const CreateStoryPage = ({ story }) => {
         }
 
         if (block.type === 'image') {
-          console.log(lastPos);
-          console.log(block.altTag);
+          // console.log(lastPos);
+          // console.log(block.altTag);
           storyImages.push({
             file: block.content,
             altTag: block.altTag ? block.altTag : 'Story image',

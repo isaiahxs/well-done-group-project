@@ -1,9 +1,9 @@
-import React, { useEffect, useContext, useState } from 'react';
-import { useHistory, useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import './AuthorTile.css';
-import mediumLogoCircles from '../../public/medium-logo-circles.jpeg';
-import { WindowContext } from '../../context/WindowContext';
+// import mediumLogoCircles from '../../public/medium-logo-circles.jpeg';
+// import { WindowContext } from '../../context/WindowContext';
 import openBook from '../../public/open-book.png';
 import quill from '../../public/quill.png';
 import userOutline from '../../public/user-outline.png';
@@ -29,15 +29,16 @@ const AuthorTile = ({ author }) => {
   const [authorData, setAuthorData] = useState(author)
   const followedAuthorIds = useSelector(state=>state.session.followedAuthorIds)
   const currentUserId = useSelector(state=>state?.session?.user?.id)
+  const authors = useSelector(state => state?.session?.authors?.id)
 
-  console.log("followedAuthorIds", followedAuthorIds);
+  // console.log("followedAuthorIds", followedAuthorIds);
 
   const getProfileImageSrc = (profileImage) => {
     return profileImages[profileImage] || profileImage;
   };
  
   useEffect(()=>{
-    console.log(author);
+    // console.log(author);
 
       if(author.firstName){
         setName(`${author.firstName} ${author.lastName}`)
@@ -93,12 +94,12 @@ const AuthorTile = ({ author }) => {
     <div className="authortile-style1-wrapper">
       <div className="authortile-style1-container flex">
         <div className="style1-author-container">
-          <div className="style1-profile-image">
+        <div className="style1-profile-image">
           {profileImageSrc && (
                 <img
                   className='profile-picture'
                   src={profileImageSrc}
-                  alt="author profile picture"
+                  alt="author profile icon"
                 ></img>
               )}
           </div>
@@ -110,7 +111,8 @@ const AuthorTile = ({ author }) => {
         </div>
 
             <div className='authortile-style1-followers-container'>
-              <div className='authortile-style1-followers-header'>Followers: {numFollowers}</div>
+              {/* <div className='authortile-style1-followers-header'>Followers: {numFollowers}</div> */}
+              <div className='authortile-style1-followers-header'>Member since: {author.createdAt.slice(0, 16)}</div>
               {/* <div className='authortile-style1-followers-header'>{numFollowers}</div> */}
             </div>
 

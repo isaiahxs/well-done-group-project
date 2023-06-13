@@ -1,18 +1,16 @@
 import React, { useEffect, useRef, useState, useContext } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Link, NavLink, Redirect, useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import './SignupModal.css';
 import { ModalContext } from '../../context/ModalContext';
 import * as sessionActions from '../../store/session';
-import openBook from '../../public/open-book.png';
-import quill from '../../public/quill.png';
-import userOutline from '../../public/user-outline.png';
-import fountainPen from '../../public/fountain-pen.png';
+import profileImages from './profileImages';
+
 
 function SignupModal() {
-  const { modal, openModal, closeModal, updateObj, setUpdateObj } =
+  const { openModal, closeModal, updateObj } =
     useContext(ModalContext);
-  const user = useSelector((state) => state.session.user);
+  // const user = useSelector((state) => state.session.user);
   const dispatch = useDispatch();
   const history = useHistory();
   const formRef = useRef(null);
@@ -35,10 +33,12 @@ function SignupModal() {
   const [buttonText, setButtonText] = useState('Sign Up');
   const [glowing, setGlowing] = useState(false);
 
-  const handleForgotPassword = () => {
-    closeModal();
-    history.push('/forgotPassword');
-  };
+
+
+  // const handleForgotPassword = () => {
+  //   closeModal();
+  //   history.push('/forgotPassword');
+  // };
 
   const handleSignIn = () => {
     closeModal();
@@ -87,13 +87,13 @@ function SignupModal() {
     }
   }, [signupErrors]);
 
-  console.log(typeof profileImage.url);
+  // console.log(typeof profileImage.url);
 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(profileImage.url);
+    // console.log(profileImage.url);
     let credentials = {
       email: credential,
       password,
@@ -104,12 +104,12 @@ function SignupModal() {
     };
     try {
       const response = await dispatch(sessionActions.signUp(credentials));
-      console.log('here');
-      console.log(response);
+      // console.log('here');
+      // console.log(response);
 
-      if (response.status == 401) {
+      if (response.status === 401) {
         if (response.errors && response.errors[0].slice(0, 5) === 'email') {
-          console.log('yes');
+          // console.log('yes');
           setCredential('The provided email is invalid');
           setEmailClass('email-field-invalid');
 
@@ -131,7 +131,7 @@ function SignupModal() {
         history.push('/home');
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
@@ -218,82 +218,37 @@ function SignupModal() {
             placeholder={validationErrors['lastName'] || ''}
           />
         </label>
-        {openBook && fountainPen && userOutline && quill &&(<div className="profile-image-buttons-container">
-          <div className="profile-image-buttons-header align-left">
-            Select a Profile Image{' '}
-            <div className="profile-image-buttons-header-note">
-              (you can update this later in your settings)
+        {profileImages && (
+          <div className="profile-image-buttons-container">
+            <div className="profile-image-buttons-header align-left">
+              Select a Profile Image{' '}
+
+            </div>
+
+            <div className="profile-image-buttons">
+              {profileImages.map((image, index) => (
+                <div
+                  key={index}
+                  className={`signup-profile-image-button ${glowing ? 'glowing' : ''} ${
+                    profileImage.url === image ? 'icon-selected' : ''
+                  }`}
+                  onClick={() => {
+                    setProfileImage({ url: image, alt: `profileImage${index}` });
+                    setGlowing(false);
+                  }}
+                >
+
+                  <img
+                    src={image}
+                    alt={`profileImage${index}`}
+                  ></img>
+                </div>
+              ))}
             </div>
           </div>
+        )}
 
-          <div className="profile-image-buttons">
-            <div
-              className={`profile-image-button ${glowing ? 'glowing' : ''} ${
-                profileImage.alt === 'openBook' ? 'icon-selected' : ''
-              }`}
-              onClick={() =>{
-                setProfileImage({ url: 'open-book', alt: 'openBook' })
-                setGlowing(false)
-
-              }}
-            >
-              <img
-                className="profile-image-button-img"
-                src={openBook}
-                alt="openBook"
-              ></img>
-            </div>
-            
-            <div
-              className={`profile-image-button ${glowing ? 'glowing' : ''} ${
-                profileImage.alt === 'quill' ? 'icon-selected' : ''
-              }`}
-              onClick={() =>{ 
-                setProfileImage({ url: 'quill', alt: 'quill' })
-                setGlowing(false)
-
-            }}
-            >
-              <img
-                className="profile-image-button-img"
-                src={quill}
-                alt="quill"
-              ></img>
-            </div>
-            <div
-              className={`profile-image-button ${glowing ? 'glowing' : ''} ${
-                profileImage.alt === 'user-outline' ? 'icon-selected' : ''
-              }`}
-              onClick={() =>{
-                setProfileImage({ url: 'user-outline', alt: 'user-outline' })
-                setGlowing(false)
-
-              }}
-            >
-              <img
-                className="profile-image-button-img"
-                src={userOutline}
-                alt="userOutline"
-              ></img>
-            </div>
-          <div
-            className={`profile-image-button ${glowing ? 'glowing' : ''} ${
-              profileImage.alt === 'fountain-pen' ? 'icon-selected' : ''
-            }`}
-            onClick={() =>{
-              setProfileImage({ url: 'fountain-pen', alt: 'fountain-pen' })
-              setGlowing(false)
-            
-            }}
-            >
-            <img
-            className="profile-image-button-img"
-            src={fountainPen}
-            alt="fountainPen"
-            ></img>
-          </div>
-          </div>
-        </div>)}
+       
         <div onMouseEnter={handleSubmitEnter}>
           <button
             type="submit"
@@ -317,14 +272,6 @@ function SignupModal() {
     </div>
   );
 }
-
-// npm install react-html-parser
-
-// import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
-
-// const string = 'This is a <b>bold</b> text';
-
-// return <div>{ReactHtmlParser(string)}</div>;
 
 
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useContext, useState } from 'react';
+import React, { useEffect, useRef, useContext } from 'react';
 import { useHistory} from 'react-router-dom';
 import { useDispatch, useSelector  } from 'react-redux';
 import { ModalContext } from '../../context/ModalContext';
@@ -10,10 +10,10 @@ import './ProfileButtonModal.css';
 function ProfileButtonModal() {
   const history = useHistory();
   const dispatch = useDispatch();
-  const { modal, openModal, closeModal, needsRerender, setNeedsRerender } = useContext(ModalContext);
+  const { closeModal } = useContext(ModalContext);
   const formRef = useRef(null);
   const user = useSelector(state => state.session.user);
-  const currentFeed = useSelector((state) => state.session.currentFeed);
+  // const currentFeed = useSelector((state) => state.session.currentFeed);
 
 
 
@@ -29,7 +29,7 @@ function ProfileButtonModal() {
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, []);
+  });
 
   const logout = (e) => {
 
@@ -54,7 +54,7 @@ function ProfileButtonModal() {
         <div className="greeting">Hello, {user.firstName}</div>
         <button className="my-stories" onClick={handleMyStories}>My Stories</button>
         <button className="profile-menu-logout-button" onClick={logout}>
-          Sign out
+          Sign Out
         </button>
       </div>
     </div>

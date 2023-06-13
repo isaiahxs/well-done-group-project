@@ -1,16 +1,15 @@
-import { React, useState, useEffect, useContext } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { React, useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import './TrendingBanner.css';
 import StoryTileOne from '../StoryTileOne';
 import StoryTileOneSkeleton from '../StoryTileOneSkeleton';
 import stonks from '../../public/svgexport-3.svg';
-import * as storyActions from '../../store/story';
 
 const TrendingBanner = () => {
   const stories = useSelector((state) => state.story.stories);
   const loaded = useSelector((state) => state.story.loaded);
 
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
   // const [loaded, isLoaded] = useState(false);
   const [trendingStories, setTrendingStories] = useState([]);
 

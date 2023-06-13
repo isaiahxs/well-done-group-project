@@ -1,32 +1,44 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { useSelector, useDispatch} from 'react-redux';
-import { useHistory, useLocation, useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import './StoryPage.css';
 import parse from 'html-react-parser';
 import CommentPanel from '../CommentPanel';
-import OpenModalButton from '../OpenModalButton';
-import StoryOptionsModal from '../StoryOptionsModal';
-import { useModal } from '../../context/Modal';
 import * as sessionActions from '../../store/session';
 import * as storyActions from '../../store/story';
 import { ModalContext } from '../../context/ModalContext';
 import claps from '../../public/claps.svg';
 import shining_star from '../../public/shining_star.svg';
+import triple_dots_icon from '../../public/triple_dots_icon.svg';
 
 const StoryPage = () => {
+  const { openModal } = useContext(ModalContext);
   const history = useHistory();
   const dispatch = useDispatch();
   const { id } = useParams()
 
-  const story = useSelector(state => state?.story?.currentStory);
   const [date, setDate] = useState('')
   const [sortedContent, setSortedContent] = useState([])
   const [showComments, setShowComments] = useState(false);
-  const currentUser = useSelector(state => state.session.user);
-  const { modal, openModal, closeModal, needsRerender, setNeedsRerender } = useContext(ModalContext);
+  const story = useSelector(state => state.story.currentStory);
+  const user = useSelector(state => state.session.user);
+  const followedAuthorIds = useSelector(state => state.session.followedAuthorIds);
+  // const currentUserId = useSelector(state => state.session.user?.id);
+
+  const [following, setFollowing] = useState(false);
+  
+  const author = useSelector(state => state.story.currentStory?.authorInfo);
+
+  // const isFollowingAuthor= () => {
+  //   //check if followedAuthorIds includes the authorId of the story
+  //   if (followedAuthorIds?.includes(story?.authorId)) {
+  //     return true;
+  // }
+  // return false;
+  // }
 
 
-  console.log(story?.claps);
+  // console.log(story?.claps);
 
 
   const handleClapClick = async () => {
@@ -45,18 +57,28 @@ const StoryPage = () => {
     }
   }
 
-  const handleEditStory = () => {
-    // history.push(`/stories/${id}/edit`)
-    console.log('hi')
-  }
+  // const handleEditStory = () => {
+  //   // history.push(`/stories/${id}/edit`)
+  //   // console.log('hi')
+  // }
 
-  const handleDeleteStory = async () => {
-    const result = await dispatch(storyActions.deleteStory(id));
-    if (result && result.message) {
-      history.push('/home');
-    }
-  }
+  // const handleDeleteStory = async () => {
+  //   const result = await dispatch(storyActions.deleteStory(id));
+  //   if (result && result.message) {
+  //     history.push('/home');
+  //   }
+  // }
 
+  useEffect(() => {
+    setFollowing(() => {
+      if(followedAuthorIds) {
+        // return followedAuthorIds.find(id => currentUserId === id)
+        return followedAuthorIds.includes(author?.id)
+      } else {
+        return false
+      }
+    })
+  }, [author])
 
   useEffect(() => {
 
@@ -108,7 +130,7 @@ const StoryPage = () => {
   }, [story]);
 
   const navToFeed = (tag) => {
-    console.log(tag);
+    // console.log(tag);
     dispatch(sessionActions.search(tag))
     dispatch(sessionActions.setFeed(tag))
     dispatch(sessionActions.setSubFeed('taggedStories'))
@@ -123,7 +145,23 @@ const StoryPage = () => {
     ))
   }
 
- 
+
+  const handleFollow = async () => {
+    if(following) {
+      await dispatch(storyActions.unfollowAuthor(author.id))
+    } else {
+      await dispatch(storyActions.followAuthor(author.id))
+    }
+
+    // const updatedAuthor = await dispatch(storyActions.getAuthorById(author.id))
+
+    // if (updatedAuthor) {
+    //   setAuthorData(updatedAuthor)
+    // }
+    setFollowing(!following)
+  }
+
+
   return (
     <>
     <div className="story-page">
@@ -137,12 +175,20 @@ const StoryPage = () => {
           <h1 className="story-title">{story.title}</h1>
 
           <div className='author-section'>
-            <img src={story?.authorInfo?.profileImage} alt='author-image' className='author-image'/>
+            <img src={story?.authorInfo?.profileImage} alt='author profile icon' className='author-image'/>
             <div className='author-information'>
               <div className="story-author">
                 {story?.authorInfo?.firstName} {story?.authorInfo?.lastName}
-                {currentUser?.id !== story?.authorInfo?.id && (
-                <a className='follow'> · Follow</a>
+                {user?.id !== story?.authorInfo?.id && (
+                // <a className='follow'> · Follow</a>
+                // <button className='follow-author' onClick={handleFollowClick}>Follow</button>
+                // <button className='unfollow-author' onClick={handleUnfollowClick}>Unfollow</button>
+
+                // <a>
+                //   {isFollowingAuthor() ? " · Unfollow" : " · Follow"}
+                // </a>
+
+                <button className='follow-unfollow-button' onClick={handleFollow}>{following ? ' · Unfollow' : ' · Follow'}</button>
                 )}
                 <p className='time'>{story.timeToRead} min read · {date}</p>
               </div>
@@ -151,26 +197,40 @@ const StoryPage = () => {
 
           {/* changed original options bar to hide ability to clap/unclap your own stories + show ... only if you're the author of the story you're on */}
           <div className='options-bar'>
-            {currentUser?.id !== story?.authorInfo?.id && (
-              <>
-                <button className='clap-button' onClick={handleClapClick}>
-                  <img src={claps} alt='claps' className='claps-icon'/>
-                  {story.claps}
-                </button>
-                {story.hasClapped &&
-                  <button className='unclap-button' onClick={handleUnclapClick}>Unclap</button>
-                }
-              </>
-            )}
+            {/* {user?.id !== story?.authorInfo?.id && ( */}
+                <div className='clap-container'>
+                    {user?.id !== story?.authorInfo?.id && (
+                    <button className='unclap-button' onClick={handleUnclapClick}>-</button>
+                    )}
+                    <div className='clap-content'>
+                        <img src={claps} alt='claps' className='claps-icon'/>
+                        <div className='claps-count'>{story.claps}</div>
+                    </div>
+                    {user?.id !== story?.authorInfo?.id && (
+                    <button className='clap-button' onClick={handleClapClick}>+</button>
+                    )}
+                </div>
+            {/* )} */}
 
             <CommentPanel showComments={showComments} setShowComments={setShowComments} story={story} />
-            {currentUser?.id === story?.authorInfo?.id && (
-              <button className='additional-options' onClick={() => openModal('storyOptionsModal')}>...</button>
+            {user?.id === story?.authorInfo?.id && (
+              <img src={triple_dots_icon} alt='triple-dots-icon' className='triple-dots-icon' onClick={() => openModal('storyOptionsModal')}/>
+              // <button className='additional-options' onClick={() => openModal('storyOptionsModal')}>...</button>
               // <OpenModalButton
               //   modalComponent={<StoryOptionsModal onEdit={handleEditStory} onDelete={handleDeleteStory} />}
               //   buttonText='...'
               // />
             )}
+
+            {/* test to have modal appear closer to ...*/}
+            {/* <CommentPanel showComments={showComments} setShowComments={setShowComments} story={story} />
+            {currentUser?.id === story?.authorInfo?.id && (
+            <div className='options-button-container'>
+              <button className='additional-options' onClick={() => openModal('storyOptionsModal')}>...</button>
+              {modal === 'storyOptionsModal' && <StoryOptionsModal />}
+            </div>
+            )} */}
+
             <div className={`overlay ${showComments ? 'active' : ''}`} onClick={() => setShowComments(!showComments)}></div>
           </div>
 
@@ -195,40 +255,37 @@ const StoryPage = () => {
           </div>
 
           <div className='options-bar'>
-            {currentUser?.id !== story?.authorInfo?.id && (
-              <>
-                <button className='clap-button' onClick={handleClapClick}>
-                  <img src={claps} alt='claps' className='claps-icon'/>
-                  {story.claps}
-                </button>
-                {story.hasClapped &&
-                  <button className='unclap-button' onClick={handleUnclapClick}>Unclap</button>
-                }
-              </>
-            )}
+
+                <div className='clap-container'>
+                    {user?.id !== story?.authorInfo?.id && (
+                    <button className='unclap-button' onClick={handleUnclapClick}>-</button>
+                    )}
+                    <div className='clap-content'>
+                        <img src={claps} alt='claps' className='claps-icon'/>
+                        <div className='claps-count'>{story.claps}</div>
+                    </div>
+                    {user?.id !== story?.authorInfo?.id && (
+                    <button className='clap-button' onClick={handleClapClick}>+</button>
+                    )}
+                </div>
+            {/* )} */}
 
             <CommentPanel showComments={showComments} setShowComments={setShowComments} story={story} />
-            {currentUser?.id === story?.authorInfo?.id && (
-              <button className='additional-options' onClick={() => openModal('storyOptionsModal')}>...</button>
-              // <OpenModalButton
-              //   modalComponent={<StoryOptionsModal onEdit={handleEditStory} onDelete={handleDeleteStory} />}
-              //   buttonText='...'
-              // />
+            {user?.id === story?.authorInfo?.id && (
+              <img src={triple_dots_icon} alt='triple-dots-icon' className='triple-dots-icon' onClick={() => openModal('storyOptionsModal')}/>
             )}
             <div className={`overlay ${showComments ? 'active' : ''}`} onClick={() => setShowComments(!showComments)}></div>
           </div>
 
-          <div className='footer'>
-            <div className='author-section'>
-              <img src={story?.authorInfo?.profileImage} alt='author-image' className='author-image'/>
-              <div className='author-information'>
-                <div className="story-author">
-                  {story?.authorInfo?.firstName} {story?.authorInfo?.lastName}
-                  {currentUser?.id !== story?.authorInfo?.id && (
-                  <a className='follow'> · Follow</a>
-                  )}
-                  <p className='time'>{story.timeToRead} min read · {date}</p>
-                </div>
+          <div className='author-section'>
+            <img src={story?.authorInfo?.profileImage} alt='author profile icon' className='author-image'/>
+            <div className='author-information'>
+              <div className="story-author">
+                {story?.authorInfo?.firstName} {story?.authorInfo?.lastName}
+                {user?.id !== story?.authorInfo?.id && (
+                <button className='follow-unfollow-button' onClick={handleFollow}>{following ? '· Unfollow' : '· Follow'}</button>
+                )}
+                <p className='time'>{story.timeToRead} min read · {date}</p>
               </div>
             </div>
           </div>
