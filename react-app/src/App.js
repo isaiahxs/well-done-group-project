@@ -28,8 +28,8 @@ function App() {
   const { modal, openModal, closeModal, setUpdateObj } =
     useContext(ModalContext);
 
-  console.log(state);
-  console.log(search);
+  // console.log(state);
+  // console.log(search);
 
 
 

@@ -87,13 +87,13 @@ function SignupModal() {
     }
   }, [signupErrors]);
 
-  console.log(typeof profileImage.url);
+  // console.log(typeof profileImage.url);
 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(profileImage.url);
+    // console.log(profileImage.url);
     let credentials = {
       email: credential,
       password,
@@ -104,12 +104,12 @@ function SignupModal() {
     };
     try {
       const response = await dispatch(sessionActions.signUp(credentials));
-      console.log('here');
-      console.log(response);
+      // console.log('here');
+      // console.log(response);
 
       if (response.status == 401) {
         if (response.errors && response.errors[0].slice(0, 5) === 'email') {
-          console.log('yes');
+          // console.log('yes');
           setCredential('The provided email is invalid');
           setEmailClass('email-field-invalid');
 
@@ -131,7 +131,7 @@ function SignupModal() {
         history.push('/home');
       }
     } catch (error) {
-      console.log(error);
+      // console.log(error);
     }
   };
 
