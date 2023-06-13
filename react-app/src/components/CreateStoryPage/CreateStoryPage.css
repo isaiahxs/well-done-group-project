@@ -123,15 +123,15 @@
 
 
 
-.story-image {
+/* .story-image {
   display: flex;
   margin: 0 auto;
   max-width: 70%;
   height: auto;
   width: 70%;
-  /* border-radius: 20px; */
+  border-radius: 20px;
   border: 1px solid black;
-}
+} */
 
 
 

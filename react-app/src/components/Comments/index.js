@@ -90,11 +90,12 @@ const Comments = ({ userId, storyId, authorInfo, setShowComments }) => {
         {userId && userId !== authorInfo?.id &&
           <form className='new-comment' onSubmit={handleSubmit}>
             <input
+              className='comment-input'
               value={commentText}
               onChange={(e) => setCommentText(e.target.value)}
               placeholder="Add a comment"
             />
-            <button type="submit">Submit</button>
+            <button className='submit-comment' type="submit">Submit</button>
           </form>
         }
 
@@ -108,37 +109,42 @@ const Comments = ({ userId, storyId, authorInfo, setShowComments }) => {
             // console.log('THIS IS OUR COMMENT AUTHOR ID', comment.userId),
             <div className='comment-tile' key={comment?.id}>
                 <div>
+                  <div className='comment-panel-author-info'>
                     <img src={comment?.author?.profileImage} alt='comment-author-image' className='comment-author-image'/>
-                    <p>{comment?.author?.firstName} {comment?.author?.lastName}</p>
-                    <p className='time'>{comment?.createdAt.slice(0, 16)}</p>
-                    {/* <p key={comment.id}>{comment.content}</p> */}
-                    <p>
+                    <div className='author-name-created'>
+                      <p>{comment?.author?.firstName} {comment?.author?.lastName}</p>
+                      <p className='time comment-panel-time'>{comment?.createdAt.slice(0, 16)}</p>
+                      {/* <p key={comment.id}>{comment.content}</p> */}
+                    </div>
+                  </div>
+                    <p className='comment-content'>
                         {editingCommentId === comment?.id ?
                             <form onSubmit={(e) => handleEditSubmit(e, comment?.id)}>
                                 <input 
+                                className='comment-input'
                                 value={editText} 
                                 onChange={(e) => setEditText(e.target.value)} 
                                 required
                                 />
-                                <button type="submit">Submit Edit</button>
+                                <button className='submit-comment' type="submit">Submit Edit</button>
                             </form>
                         :
                         comment?.content
                         }
                     </p>
-                    <p>Claps: {comment?.clapCount}</p> {/* Show clap count */}
+                    <p className='number-of-comment-claps'>Claps: {comment?.clapCount}</p> {/* Show clap count */}
                     {userId && userId !== comment?.userId &&
-                      <div>
-                        <button onClick={() => handleClap(comment?.id)}>Clap</button>
-                        <button onClick={() => handleUnclap(comment?.id)}>Remove Clap</button>
+                      <div className='comment-claps-buttons'>
+                        <button className='clap-comment-button' onClick={() => handleClap(comment?.id)}>Clap</button>
+                        <button className='unclap-comment-button' onClick={() => handleUnclap(comment?.id)}>Remove Clap</button>
                       </div>
                     }
 
                     {userId && userId === comment?.userId && editingCommentId !== comment?.id &&
                         <div>
-                        <button onClick={() => handleEdit(comment?.id, comment?.content)}>Edit</button>
+                        <button className='edit-comment-button' onClick={() => handleEdit(comment?.id, comment?.content)}>Edit</button>
                     
-                        <button onClick={() => handleDelete(storyId, comment?.id)}>Delete</button>
+                        <button className='delete-comment-button' onClick={() => handleDelete(storyId, comment?.id)}>Delete</button>
                         </div>
                     }
                 </div>

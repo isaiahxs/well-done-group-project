@@ -167,10 +167,10 @@ export const createStory = (createStoryObj) => async (dispatch) => {
 			body: formData
 	});
 
-	console.log(response);
+	// console.log(response);
 
 	if (response.ok) {
-		console.log('yes ok');
+		// console.log('yes ok');
 
 		const data = await response.json();
 		dispatch(createStoryAction(data));
@@ -187,7 +187,7 @@ export const createStory = (createStoryObj) => async (dispatch) => {
 
 
 export const updateStory = (updateStoryObj) => async (dispatch) => {
-	console.log('here');
+	// console.log('here');
 	const { id, title, slicedIntro, timeToRead, images, tags, content, authorId, imagesToUpdate } = updateStoryObj;
 	const formData = new FormData();
 
@@ -217,7 +217,7 @@ export const updateStory = (updateStoryObj) => async (dispatch) => {
 			body: formData
 	});
 
-	console.log(response);
+	// console.log(response);
 
 	if (response.ok) {
 			const data = await response.json();
@@ -358,7 +358,7 @@ export const clapStory = (id) => async (dispatch) => {
 	})
 	if (response.ok) {
 		const data = await response.json();
-		console.log(data);
+		// console.log(data);
 		dispatch(clapStoryAction({ id, claps: data.totalClaps, hasClapped: data.hasClapped }));
 		return null;
 	}
@@ -383,7 +383,7 @@ export const unclapStory = (id ) => async (dispatch) => {
 	})
 	if (response.ok) {
 		const data = await response.json();
-		console.log(data);
+		// console.log(data);
 
 
 		dispatch(unclapStoryAction({ id, claps: data.totalClaps, hasClapped: data.hasClapped }));
@@ -594,7 +594,7 @@ export default function reducer(state = initialState, action) {
 			return {...newState, currentStory: action.payload };
 
 		case REMOVE_CURRENT_STORY:
-			console.log('removing');
+			// console.log('removing');
 			return {...newState, currentStory: null};
 	
 
@@ -612,7 +612,7 @@ export default function reducer(state = initialState, action) {
 			  }
 
 		case INITIAL_LOAD:
-			console.log(action.payload);
+			// console.log(action.payload);
 			return {stories: action.payload.stories, userStories: action.payload.userStories, tags: action.payload.tags, loaded: true };
 
 		

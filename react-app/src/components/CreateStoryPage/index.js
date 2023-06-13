@@ -64,7 +64,7 @@ const CreateStoryPage = ({ story }) => {
       setTitleText(currentStory.title);
 
       currentStory.images.forEach((image, i) => {
-        console.log(image);
+        // console.log(image);
 
         imagesToUpdate[image.id] = image;
         setImagesToUpdate({ ...imagesToUpdate });
@@ -200,7 +200,7 @@ const CreateStoryPage = ({ story }) => {
     e.target.value = null;
   };
 
-  console.log(document.body.scrollHeight);
+  // console.log(document.body.scrollHeight);
   
   const handleSubmit = async (e) => {
 
@@ -223,15 +223,15 @@ const CreateStoryPage = ({ story }) => {
 
     if (location.pathname !== `/create/${id}/edit`) {
       blocks.map((block) => {
-        console.log(lastPos);
+        // console.log(lastPos);
         if (block.type === 'text') {
           content.push(block.content);
           lastPos += block.content.length;
         }
 
         if (block.type === 'image') {
-          console.log(lastPos);
-          console.log(block.altTag);
+          // console.log(lastPos);
+          // console.log(block.altTag);
           storyImages.push({
             file: block.content,
             altTag: block.altTag ? block.altTag : 'Story image',
@@ -248,7 +248,7 @@ const CreateStoryPage = ({ story }) => {
 
     if (location.pathname === `/create/${id}/edit`) {
       blocks.map((block) => {
-        console.log(lastPos);
+        // console.log(lastPos);
         if (block.type === 'text') {
           content.push(block.content);
           lastPos += block.content.length;
@@ -269,8 +269,8 @@ const CreateStoryPage = ({ story }) => {
         }
 
         if (block.type === 'image') {
-          console.log(lastPos);
-          console.log(block.altTag);
+          // console.log(lastPos);
+          // console.log(block.altTag);
           storyImages.push({
             file: block.content,
             altTag: block.altTag ? block.altTag : 'Story image',

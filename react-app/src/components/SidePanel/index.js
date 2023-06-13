@@ -20,7 +20,7 @@ const SidePanel = () => {
   const loaded = useSelector(state=>state.story.loaded)
 
   const searchTag = (tag) => {
-    console.log(tag);
+    // console.log(tag);
     window.scrollTo({ top: 0, behavior: 'smooth' });
 
     dispatch(sessionActions.search(tag))

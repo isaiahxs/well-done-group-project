@@ -22,7 +22,9 @@
   padding: 70px;
 }
 
-
+.triple-dots-icon {
+  cursor: pointer;
+}
 
 .overlay {
   position: fixed;
@@ -81,11 +83,13 @@
   font-family: sans-serif;
 }
 
-.follow {
+.follow-unfollow-button {
   color: #479275;
   font-size: 16px;
   font-family: sans-serif;
   cursor: pointer;
+  background: none;
+  border: none;
 }
 
 .time {
@@ -155,15 +159,15 @@
 
 .story-image {
   display: flex;
-  margin: 0 auto;
+  margin: 20px auto;
   max-width: 70%;
-  min-height: 70px;
+  /* min-height: 70px; */
   height: auto;
-  /* margin-top: 25px; */
-  /* margin-bottom: -10px; */
+  /* margin-top: 10px;
+  margin-bottom: 10px; */
   width: 70%;
   /* border-radius: 20px; */
-  /* border: 1px solid black; */
+  border: 1px solid black;
   /* box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 1); */
 
 }
@@ -199,7 +203,7 @@
   border: none;
   font-size: 1em;
   cursor: pointer;
-  margin: 0 20px; 
+  margin: 0 5px; 
   position: relative;
   transition: color 0.3s ease;
   border: rgb(255, 255, 255) solid 1px;
@@ -235,13 +239,17 @@
 }
 
 .claps-icon {
-  width: 20px; 
-  height: 20px; 
+  width: 24px; 
+  height: 24px; 
 }
 
 .claps-count {
+  margin-left: 5px;
+}
+
+/* .claps-count {
   position: absolute;
   right: -15px; 
   top: -15px;
   font-size: 13px;
-}
+} */
