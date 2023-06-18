@@ -52,7 +52,7 @@ def unfollow(id):
             return jsonify({'message': 'successfully unfollowed user', 'followedAuthorIds': followed_author_ids}), 201
             # return jsonify({'message': 'successfully unfollowed user'}), 201
 
-    return jsonify({'error': 'No reletionship found'}), 400
+    return jsonify({'error': 'No relationship found'}), 400
 
 
 
