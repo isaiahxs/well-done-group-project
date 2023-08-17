@@ -1,6 +1,8 @@
-# Well-Done
+# <a href="https://well-done.onrender.com/" target="_blank">Well-Done</a>
 
-Well-Done is a collaborative and dynamic story-sharing social media application inspired by Medium. It offers users a platform to create, view, update, and delete stories, along with engaging features such as comments, likes, and follows. With personalized story feeds based on user follows and selected tags, Well-Done provides a tailored storytelling experience.
+Well-Done is a collaborative and dynamic story-sharing social media application inspired by Medium. It offers users a platform to create, view, update, and delete stories, along with engaging features such as comments, likes, and follows. With personalized story feeds based on user follows and selected tags, Well-Done provides a tailored storytelling experience. The live site can be found <a href="https://well-done.onrender.com/" target="_blank">here</a>.
+
+![WD-Home-1](https://github.com/isaiahxs/well-done-group-project/assets/107521578/527f7675-0535-4a18-bccf-6ede4df560af)
 
 ## Table of Contents
 - [Technologies Used](#technologies-used)
@@ -42,11 +44,15 @@ Well-Done is a collaborative and dynamic story-sharing social media application 
 ### Asynchronous Data Handling
 Handling asynchronous data fetching and updating the application state was a challenge. We used Redux combined with Redux Thunk to manage the global state and asynchronous actions. This allowed us to efficiently update the state after data was retrieved from the API.
 
+![WD-Home-2](https://github.com/isaiahxs/well-done-group-project/assets/107521578/df60412c-2bee-4206-97ed-341b06b0763a)
+
 ### User Feed Personalization
 Creating personalized story feeds based on user follows and selected tags required thoughtful design. We implemented a system to track user follows and preferences, allowing us to dynamically generate user-specific feeds.
 
 ### Secure Image Upload with AWS S3
 Integrating AWS S3 for secure and efficient image upload added complexity. We ensured secure image handling by properly configuring AWS credentials and utilizing pre-signed URLs for image uploads.
+
+![WD-Create-Story](https://github.com/isaiahxs/well-done-group-project/assets/107521578/2eb8e081-5ff8-4ef1-9218-0d0a21c4ecce)
 
 ### User Authentication and Authorization
 Implementing secure user authentication and authorization was a critical aspect. We used Flask-Login for backend session management and Redux for frontend user sessions, adding layers of security like hashed passwords and input validation.
@@ -61,6 +67,8 @@ Maintaining data persistence across user sessions was crucial. We employed techn
 #### Clap Section with Conditional Rendering
 
 This section allows users to interact with the story's claps. It renders different buttons based on whether the current user is the author of the story or not. Users are also allowed to clap more than once on a story.
+
+![WD-Story-Details](https://github.com/isaiahxs/well-done-group-project/assets/107521578/3136ab45-9598-4d2a-a7c5-1ed7860557f8)
 
 ```
 <div className="clap-container">
@@ -83,9 +91,11 @@ This section allows users to interact with the story's claps. It renders differe
 </div>
 ```
 
-#### Author follow and unfollow
+#### Author following and unfollowing
 
 This section displays the author's information and provides functionality to follow or unfollow them. The feed of the current user will be tailored based on who they follow. We can also see approximately how much time it takes to read an article based on what the author's estimation.
+
+![WD-Following](https://github.com/isaiahxs/well-done-group-project/assets/107521578/a6bed925-aae0-4c90-b4bf-5b3b4c7a8fd5)
 
 ```
 <div className="author-section flex">
@@ -154,6 +164,8 @@ This section renders the story's content, both text and images, using the sorted
 ## Contributors
 - [Donovan Crader](https://github.com/dcraderdev)
 - [Isaiah Sinnathamby](https://github.com/isaiahxs)
+
+![WD-Start-Writing](https://github.com/isaiahxs/well-done-group-project/assets/107521578/aeda5d49-d368-471f-884b-dac9883639d0)
 
 ## License
 This project is licensed under the [MIT License](LICENSE).
