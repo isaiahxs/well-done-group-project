@@ -13,10 +13,10 @@ import CreatorTile from '../CreatorTile';
 
 const creators = [
   {
-    id:1, name: 'Donovan Crader', username:'Dcraderdev', imageUrl: 'https://avatars.githubusercontent.com/u/90993510?v=4', url:'https://github.com/dcraderdev'
+    id: 1, name: 'Donovan Crader', username: 'Dcraderdev', imageUrl: 'https://avatars.githubusercontent.com/u/90993510?v=4', github_url: 'https://github.com/dcraderdev', linkedin_url: 'https://www.linkedin.com/in/donovan-crader-898413242/'
   },
-  { 
-    id:2, name: 'Isaiah Sinnathamby', username:'isaiahxs', imageUrl: 'https://avatars.githubusercontent.com/u/107521578?v=4',url:'https://github.com/isaiahxs'
+  {
+    id: 2, name: 'Isaiah Sinnathamby', username: 'isaiahxs', imageUrl: 'https://avatars.githubusercontent.com/u/107521578?v=4', github_url: 'https://github.com/isaiahxs', linkedin_url: 'https://www.linkedin.com/in/isaiahxs/'
   }
 ]
 
@@ -29,13 +29,13 @@ const OurStoryPage = () => {
   }, []);
 
 
-const handleLogoClick = () => {
-  history.push('/');
-};
+  const handleLogoClick = () => {
+    history.push('/');
+  };
 
-const navToWrite = () => {
-  history.push('/write');
-};
+  const navToWrite = () => {
+    history.push('/write');
+  };
 
 
   return (
@@ -106,8 +106,8 @@ const navToWrite = () => {
 
       <div className="ourstorypage-creators-container">
         {creators.map(creator => (
-            <CreatorTile key={creator.id} creator={creator} />
-          ))}
+          <CreatorTile key={creator.id} creator={creator} />
+        ))}
       </div>
 
       {/* DIV 5 Stylings */}
@@ -122,17 +122,17 @@ const navToWrite = () => {
         <div className="ourstorypage-100-million-section right">
           <div className="ourstorypage-quote-image-container">
             <div className="ourstorypage-quote-image">
-              
 
 
 
 
-            
-            <img
-              src={mediumLogoCircles}
-              alt="Medium circle logo"
-              className="ourstorypage-medium-logo-circle"
-            />
+
+
+              <img
+                src={mediumLogoCircles}
+                alt="Medium circle logo"
+                className="ourstorypage-medium-logo-circle"
+              />
 
 
             </div>
@@ -309,7 +309,7 @@ const navToWrite = () => {
       <div className="ourstorypage-expand-container">
         <div className="ourstorypage-expand-section-left flexcenter">
           <div className="ourstorypage-box-container flexcenter">
-            
+
 
             <img
               src={spinningCube}
@@ -327,7 +327,7 @@ const navToWrite = () => {
               Read, write, and expand your world.
             </div>
           </div>
-          <div className="ourstorypage-started-button flexcenter"  onClick={navToWrite}>
+          <div className="ourstorypage-started-button flexcenter" onClick={navToWrite}>
             Get started
           </div>
         </div>

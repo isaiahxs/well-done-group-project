@@ -54,7 +54,7 @@ function SigninModal() {
     setSignInErrors(loginErrors);
   }, [credential, password]);
 
-  
+
   useEffect(() => {
     if (Object.keys(signInErrors).length > 0) {
       setButtonClass('signin-div-button disabled disabled2');
@@ -68,9 +68,9 @@ function SigninModal() {
   const handleSubmit = async (e) => {
 
     e.preventDefault();
-    let credentials = {email:credential, password}
+    let credentials = { email: credential, password }
     try {
-      const  response = await dispatch(
+      const response = await dispatch(
         sessionActions.signin(credentials)
       );
 
@@ -97,27 +97,27 @@ function SigninModal() {
   const demoUser = async (e) => {
     e.preventDefault();
     const response = await dispatch(
-      sessionActions.signin({ email:'demo@aa.io', password:'password' })
+      sessionActions.signin({ email: 'demo@aa.io', password: 'password' })
     );
-    if (response.status===200) {
+    if (response.status === 200) {
       setUpdateObj(null)
       closeModal()
       history.push('/home')
     };
   };
-  
+
   useEffect(() => {
-    if(updateObj !== 'noUser'){
-    const handleClickOutside = (event) => {
-      if (formRef.current && !formRef.current.contains(event.target)) {
-        closeModal();
-      }
-    };
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }
+    if (updateObj !== 'noUser') {
+      const handleClickOutside = (event) => {
+        if (formRef.current && !formRef.current.contains(event.target)) {
+          closeModal();
+        }
+      };
+      document.addEventListener('mousedown', handleClickOutside);
+      return () => {
+        document.removeEventListener('mousedown', handleClickOutside);
+      };
+    }
   }, [updateObj]);
 
 
@@ -127,7 +127,7 @@ function SigninModal() {
         <div className="signin-header header-text">Welcome back.</div>
       </div>
       <div className="signin-close-button" onClick={closeModal}>
-      <i className="fa-solid fa-x"></i>
+        <i className="fa-solid fa-x"></i>
       </div>
 
       <form onSubmit={handleSubmit} className="signin-div">
@@ -166,9 +166,9 @@ function SigninModal() {
 
         <div className='signin-no-account-container flexcenter'>
           <div className='flexcenter memo-text'>
-            No account?<div onClick={handleSignUp} className='create-one'>Create One</div>  
+            No account?<div onClick={handleSignUp} className='create-one'>Create One</div>
           </div>
-          
+
         </div>
 
 
@@ -179,15 +179,15 @@ function SigninModal() {
           <div className="signin-forgot-password-link link" onClick={handleForgotPassword}>
             Get help.
           </div>
-          
+
         </div>
 
-    
 
 
 
 
-        <div className='signin-demo-container memo-text demo-user-singin link' onClick={demoUser}> 
+
+        <div className='signin-demo-container memo-text demo-user-signin link' onClick={demoUser}>
           Demo User
         </div>
 
