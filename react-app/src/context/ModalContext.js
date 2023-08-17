@@ -8,8 +8,6 @@ const ModalProvider = ({ children }) => {
   const [needsRerender, setNeedsRerender] = useState(false);
 
   const [updateObj, setUpdateObj] = useState(null);
-  
-  // console.log("THIS IS OURRRR MODALLLL", modal)
 
   const openModal = (modalType) => {
     setModal(modalType);

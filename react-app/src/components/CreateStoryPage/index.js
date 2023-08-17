@@ -14,12 +14,12 @@ const CreateStoryPage = ({ story }) => {
   const [titleText, setTitleText] = useState('');
   const [storyTags, setStoryTags] = useState([{ id: 2, tag: 'Programming' }]);
   const [imagesToUpdate, setImagesToUpdate] = useState({});
-  const [validationErrors, setValidationErrors] = useState({hasBlockContent:false, hasTitle:false});
+  const [validationErrors, setValidationErrors] = useState({ hasBlockContent: false, hasTitle: false });
   const [buttonDisabled, setButtonDisabled] = useState(true)
   const [showPublishButton, setShowPublishButton] = useState(false)
 
 
-  
+
   const fileInputRef = useRef(null);
 
   const dispatch = useDispatch();
@@ -78,7 +78,6 @@ const CreateStoryPage = ({ story }) => {
       setTitleText(currentStory.title);
 
       currentStory.images.forEach((image, i) => {
-        // console.log(image);
 
         imagesToUpdate[image.id] = image;
         setImagesToUpdate({ ...imagesToUpdate });
@@ -119,43 +118,43 @@ const CreateStoryPage = ({ story }) => {
 
   useEffect(() => {
     setButtonDisabled(true)
-  
+
     setShowPublishButton(false)
-  
-    if(blocks.length > 3){
+
+    if (blocks.length > 3) {
       setShowPublishButton(true)
     }
-  
+
     const errors = {};
-    
-    if (!titleText.length){ 
+
+    if (!titleText.length) {
       errors['hasTitle'] = true;
       setButtonDisabled(true)
     } else {
       errors['hasTitle'] = false;
     }
 
-    if(!blocks.length){
+    if (!blocks.length) {
       errors['hasBlock'] = true;
     }
-  
-    if(blocks.length){
-      errors['hasBlockContent'] = !blocks.some(block=> block.type === 'text' && block.content.length > 0);
+
+    if (blocks.length) {
+      errors['hasBlockContent'] = !blocks.some(block => block.type === 'text' && block.content.length > 0);
     }
-  
+
     setValidationErrors(errors);
   }, [blocks, titleText]);
 
-  
+
 
   useEffect(() => {
     const hasTrueValue = obj => Object.values(obj).some(v => v === true);
-    if(hasTrueValue(validationErrors)) {
+    if (hasTrueValue(validationErrors)) {
       setButtonDisabled(true)
-    } else{
+    } else {
       setButtonDisabled(false)
     }
-  
+
   }, [validationErrors, blocks, titleText]);
 
 
@@ -164,10 +163,10 @@ const CreateStoryPage = ({ story }) => {
       fileInputRef.current.click();
     }
     if (type === 'text') {
-      
-      const newBlock = { type:'text', content, altTag };
+
+      const newBlock = { type: 'text', content, altTag };
       setBlocks([...blocks, newBlock]);
-      
+
       setTimeout(() => {
         window.scrollTo({
           top: document.body.scrollHeight,
@@ -192,26 +191,26 @@ const CreateStoryPage = ({ story }) => {
 
   const handleFileSelect = (e) => {
 
-    
+
     let file = e.target.files[0];
     let timestamp = Date.now();
-    
+
     let filenameParts = file.name.split('.');
     let extension = filenameParts.pop();
     let filename = filenameParts.join('.');
-    
+
     // Create a new file name with timestamp
     let newFileName = `${filename}_${timestamp}.${extension}`;
-    
+
     // Create a new file with the same content but with a new name
     let newFile = new File([file], newFileName, { type: file.type });
-    
+
     if (newFile) {
-      const newBlock = { type:'image', content: newFile, altTag:'' };
+      const newBlock = { type: 'image', content: newFile, altTag: '' };
       setBlocks(prevBlocks => [...prevBlocks, newBlock]);
     }
 
-   
+
     setTimeout(() => {
       window.scrollTo({
         top: document.body.scrollHeight,
@@ -222,14 +221,12 @@ const CreateStoryPage = ({ story }) => {
     e.target.value = null;
   };
 
-  // console.log(document.body.scrollHeight);
-  
   const handleSubmit = async (e) => {
 
     if (!user) return;
-    if(buttonDisabled) return;
-      
-    
+    if (buttonDisabled) return;
+
+
 
     e.preventDefault();
     let createStoryObj = {};
@@ -245,15 +242,12 @@ const CreateStoryPage = ({ story }) => {
 
     if (location.pathname !== `/create/${id}/edit`) {
       blocks.map((block) => {
-        // console.log(lastPos);
         if (block.type === 'text') {
           content.push(block.content);
           lastPos += block.content.length;
         }
 
         if (block.type === 'image') {
-          // console.log(lastPos);
-          // console.log(block.altTag);
           storyImages.push({
             file: block.content,
             altTag: block.altTag ? block.altTag : 'Story image',
@@ -270,7 +264,6 @@ const CreateStoryPage = ({ story }) => {
 
     if (location.pathname === `/create/${id}/edit`) {
       blocks.map((block) => {
-        // console.log(lastPos);
         if (block.type === 'text') {
           content.push(block.content);
           lastPos += block.content.length;
@@ -291,8 +284,6 @@ const CreateStoryPage = ({ story }) => {
         }
 
         if (block.type === 'image') {
-          // console.log(lastPos);
-          // console.log(block.altTag);
           storyImages.push({
             file: block.content,
             altTag: block.altTag ? block.altTag : 'Story image',
@@ -330,16 +321,16 @@ const CreateStoryPage = ({ story }) => {
     <div className="createstory-container">
       <form className="article-container">
 
-<div className='flex publish-container'>
+        <div className='flex publish-container'>
 
-      <div 
-        className={`createstorypage-publish memo-text flexcenter ${buttonDisabled ? 'disabled' : ''}`}
-        type="submit" 
-        onClick={handleSubmit}
-        >
-          Publish
+          <div
+            className={`createstorypage-publish memo-text flexcenter ${buttonDisabled ? 'disabled' : ''}`}
+            type="submit"
+            onClick={handleSubmit}
+          >
+            Publish
+          </div>
         </div>
-</div>
 
 
 
@@ -374,7 +365,7 @@ const CreateStoryPage = ({ story }) => {
                 >
                   X
                 </button>
-              
+
                 <div className="text-container memo-text">
                   <AutoExpandTextArea
                     text={block.content}
@@ -383,7 +374,7 @@ const CreateStoryPage = ({ story }) => {
                       newBlocks[index].content = value;
                       setBlocks(newBlocks);
                     }}
-      
+
                   />
                 </div>
 
@@ -468,7 +459,7 @@ const CreateStoryPage = ({ story }) => {
               className="add-button"
               onClick={() => addBlock('text')}
             >
-            <i className="fa-solid fa-font"></i>
+              <i className="fa-solid fa-font"></i>
 
             </button>
           )}
@@ -478,7 +469,7 @@ const CreateStoryPage = ({ story }) => {
               className="add-button"
               onClick={() => addBlock('text')}
             >
-           <i className="fa-solid fa-font"></i>
+              <i className="fa-solid fa-font"></i>
 
             </button>
           )}
@@ -494,16 +485,16 @@ const CreateStoryPage = ({ story }) => {
         <div className='flex publish-container bottom'>
 
 
-</div>
-{showPublishButton&&(<div 
-  className={`createstorypage-publish memo-text flexcenter ${buttonDisabled ? 'disabled' : ''}`}
-  type="submit" 
-  onClick={handleSubmit}
-  >
-    Publish
-  </div>)}
+        </div>
+        {showPublishButton && (<div
+          className={`createstorypage-publish memo-text flexcenter ${buttonDisabled ? 'disabled' : ''}`}
+          type="submit"
+          onClick={handleSubmit}
+        >
+          Publish
+        </div>)}
       </form>
-      
+
     </div>
   );
 };

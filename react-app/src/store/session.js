@@ -1,6 +1,6 @@
 
 // constants
-import {SUBSCRIBED_STORIES, FOLLOW_AUTHOR, UNFOLLOW_AUTHOR} from './story'
+import { SUBSCRIBED_STORIES, FOLLOW_AUTHOR, UNFOLLOW_AUTHOR } from './story'
 const SET_USER = "session/SET_USER";
 const REMOVE_USER = "session/REMOVE_USER";
 const NEW_SEARCH = "session/NEW_SEARCH";
@@ -117,36 +117,30 @@ export const removeSearch = (searchQuery) => async (dispatch) => {
 };
 
 export const setFeed = (feed) => async (dispatch) => {
-	// console.log(feed);
-
 	dispatch(setFeedAction(feed));
 };
 
 export const setSubFeed = (subFeed) => async (dispatch) => {
-	// console.log(subFeed);
 	dispatch(setSubFeedAction(subFeed));
 };
 
 export const signUp = (credentials) => async (dispatch) => {
-	const {email, password, firstName, lastName, profileImage, username} = credentials
+	const { email, password, firstName, lastName, profileImage, username } = credentials
 
-	// console.log(email, password, firstName, lastName, profileImage, username);
 	const response = await fetch("/api/auth/signup", {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
-		}, 
+		},
 		body: JSON.stringify({
 			username,
 			email,
 			password,
-			first_name:firstName,
-			last_name:lastName,
-			profile_image:profileImage
+			first_name: firstName,
+			last_name: lastName,
+			profile_image: profileImage
 		}),
 	});
- 
-	// console.log(response);
 
 	if (response.ok) {
 		const data = await response.json();
@@ -164,36 +158,36 @@ export const signUp = (credentials) => async (dispatch) => {
 };
 
 export default function reducer(state = initialState, action) {
-	const newState = {...state}
+	const newState = { ...state }
 	switch (action.type) {
 		case SET_USER:
-			return {...newState, user: action.payload.user, subscribedStories: action.payload.subscribedStories, userStories: action.payload.userStories, followedAuthorIds:action.payload.followedAuthorIds, };		
+			return { ...newState, user: action.payload.user, subscribedStories: action.payload.subscribedStories, userStories: action.payload.userStories, followedAuthorIds: action.payload.followedAuthorIds, };
 		case FOLLOW_AUTHOR:
-				return {...newState, followedAuthorIds:action.payload.followedAuthorIds};		
+			return { ...newState, followedAuthorIds: action.payload.followedAuthorIds };
 		case UNFOLLOW_AUTHOR:
-			return {...newState, followedAuthorIds:action.payload.followedAuthorIds};		
-			
-		
-			case REMOVE_USER:
+			return { ...newState, followedAuthorIds: action.payload.followedAuthorIds };
+
+
+		case REMOVE_USER:
 			return initialState;
 		case NEW_SEARCH:
-			const newSearch = {...newState.search}
+			const newSearch = { ...newState.search }
 			newSearch[action.payload.search] = action.payload
-			return {...newState, search: newSearch};		
-		case REMOVE_SEARCH:{
-			const newSearch = {...newState.search}
+			return { ...newState, search: newSearch };
+		case REMOVE_SEARCH: {
+			const newSearch = { ...newState.search }
 			delete newSearch[action.payload]
-			return {...newState, search: newSearch };		
+			return { ...newState, search: newSearch };
 		}
-		case SET_FEED:{
-			return {...newState, currentFeed: action.payload };		
+		case SET_FEED: {
+			return { ...newState, currentFeed: action.payload };
 		}
-		case SET_SUB_FEED:{
-			return {...newState, subFeed: action.payload };		
+		case SET_SUB_FEED: {
+			return { ...newState, subFeed: action.payload };
 		}
 		case SUBSCRIBED_STORIES:
-			return {...newState, subscribedStories: action.payload};		
-		
+			return { ...newState, subscribedStories: action.payload };
+
 
 		default:
 			return newState;

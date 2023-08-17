@@ -27,11 +27,6 @@ function App() {
   const { modal } =
     useContext(ModalContext);
 
-  // console.log(state);
-  // console.log(search);
-
-
-
   useEffect(() => {
     dispatch(authenticate())
       .then(() => {
@@ -48,20 +43,20 @@ function App() {
         modal === 'signup' ||
         modal === 'profileModal' ||
         modal === 'storyOptionsModal') && (
-        <div
-          className={
-            modal === 'profileModal' ||
-            modal === 'storyOptionsModal'
-              ? 'modal-container-transparent'
-              : 'modal-container'
-          }
-        >
-          {modal === 'signin' && <SigninModal />}
-          {modal === 'signup' && <SignupModal />}
-          {modal === 'profileModal' && <ProfileButtonModal />}
-          {modal === 'storyOptionsModal' && <StoryOptionsModal />}
-        </div>
-      )}
+          <div
+            className={
+              modal === 'profileModal' ||
+                modal === 'storyOptionsModal'
+                ? 'modal-container-transparent'
+                : 'modal-container'
+            }
+          >
+            {modal === 'signin' && <SigninModal />}
+            {modal === 'signup' && <SignupModal />}
+            {modal === 'profileModal' && <ProfileButtonModal />}
+            {modal === 'storyOptionsModal' && <StoryOptionsModal />}
+          </div>
+        )}
 
       {isLoaded && <Navigation />}
       {isLoaded && (
@@ -96,7 +91,7 @@ function App() {
           </Route>
 
           <Route path="/" exact>
-            <HomePage/>
+            <HomePage />
           </Route>
         </Switch>
       )}
