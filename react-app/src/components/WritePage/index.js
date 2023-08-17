@@ -5,10 +5,10 @@ import CreatorTile from '../CreatorTile';
 
 const creators = [
   {
-    id:1, name: 'Donovan Crader', username:'Dcraderdev', imageUrl: 'https://avatars.githubusercontent.com/u/90993510?v=4', url:'https://github.com/dcraderdev'
+    id: 1, name: 'Donovan Crader', username: 'Dcraderdev', imageUrl: 'https://avatars.githubusercontent.com/u/90993510?v=4', github_url: 'https://github.com/dcraderdev', linkedin_url: 'https://www.linkedin.com/in/donovan-crader-898413242/'
   },
-  { 
-    id:2, name: 'Isaiah Sinnathamby', username:'isaiahxs', imageUrl: 'https://avatars.githubusercontent.com/u/107521578?v=4',url:'https://github.com/isaiahxs'
+  {
+    id: 2, name: 'Isaiah Sinnathamby', username: 'isaiahxs', imageUrl: 'https://avatars.githubusercontent.com/u/107521578?v=4', github_url: 'https://github.com/isaiahxs', linkedin_url: 'https://www.linkedin.com/in/isaiahxs/'
   }
 ]
 
@@ -63,11 +63,11 @@ const WritePage = () => {
         {/*  DIV 3 stylings */}
 
         <div className="writepage-container3-wrapper">
-        <div className="writepage-container3-container">
-          {creators.map(creator => (
-            <CreatorTile key={creator.id} creator={creator} />
-          ))}
-        </div>
+          <div className="writepage-container3-container">
+            {creators.map(creator => (
+              <CreatorTile key={creator.id} creator={creator} />
+            ))}
+          </div>
         </div>
 
         {/*  DIV 4 stylings */}
