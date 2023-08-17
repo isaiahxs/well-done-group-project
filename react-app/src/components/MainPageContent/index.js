@@ -25,7 +25,7 @@ const MainPageContent = () => {
 
 
   const handleLogoClick = () => {
-    if(user){
+    if (user) {
       history.push('/home');
     }
     history.push('/');
@@ -33,7 +33,6 @@ const MainPageContent = () => {
 
 
   const navToFeed = (tag) => {
-    // console.log(tag);
     dispatch(sessionActions.search(tag))
     dispatch(sessionActions.setFeed(tag))
     dispatch(sessionActions.setSubFeed('taggedStories'))
@@ -56,7 +55,7 @@ const MainPageContent = () => {
 
 
 
- 
+
   return (
     <>
       {!loaded && (
@@ -122,25 +121,24 @@ const MainPageContent = () => {
 
               <div className="main-page-footer-tags-container">
                 <div
-                  className={`main-page-tag-header  memo-text ${
-                    isExtended ? 'extended' : ''
-                  }`}
+                  className={`main-page-tag-header  memo-text ${isExtended ? 'extended' : ''
+                    }`}
                 >
                   Discover more of what matters to you
                 </div>
-<div className='main-page-tags-wrapper'>
+                <div className='main-page-tags-wrapper'>
 
-                <div
-                  className={
-                    isExtended ? 'main-page-tags-extended' : 'main-page-tags'
-                  }
-                >
-                  {Array.from({ length: 40 }).map((_, i) => (
-                    <div key={i} className="skeleton-tag shimmer"></div>
-                  ))}
+                  <div
+                    className={
+                      isExtended ? 'main-page-tags-extended' : 'main-page-tags'
+                    }
+                  >
+                    {Array.from({ length: 40 }).map((_, i) => (
+                      <div key={i} className="skeleton-tag shimmer"></div>
+                    ))}
+                  </div>
+
                 </div>
-
-</div>
 
                 <div
                   className="see-more-topics"
@@ -184,13 +182,12 @@ const MainPageContent = () => {
 
                 {tags &&
                   tags.map((tag, i) => {
-                    return <div 
-                    key={i} 
-                    className="main-page-tag memo-text" 
-                    onClick={()=>{
-                      // console.log('click');
-                      navToFeed(tag)
-                    }}>{tag} </div>;
+                    return <div
+                      key={i}
+                      className="main-page-tag memo-text"
+                      onClick={() => {
+                        navToFeed(tag)
+                      }}>{tag} </div>;
                   })}
               </div>
               <div
@@ -232,7 +229,7 @@ const MainPageContent = () => {
 
               <div className="main-page-wide-feed">
                 {stories &&
-                  stories.map((story,i) => {
+                  stories.map((story, i) => {
                     return (
                       <StoryTileTwo
                         key={i}
@@ -246,9 +243,8 @@ const MainPageContent = () => {
 
               <div className="main-page-footer-tags-container">
                 <div
-                  className={`main-page-tag-header  memo-text ${
-                    isExtended ? 'extended' : ''
-                  }`}
+                  className={`main-page-tag-header  memo-text ${isExtended ? 'extended' : ''
+                    }`}
                 >
                   Discover more of what matters to you
                 </div>
@@ -256,18 +252,18 @@ const MainPageContent = () => {
 
                 <div className='main-page-tags-wrapper loaded'>
 
-                <div
-                  className={
-                    isExtended ? 'main-page-tags-extended loaded' : 'main-page-tags loaded'
-                  }
-                >
-                  {tags &&
-                    tags.map((tag, i) => {
-                      return (
-                        <div key={i} className="main-page-tag memo-text" onClick={()=>navToFeed(tag)}>{tag}</div>
-                      );
-                    })}
-                </div>
+                  <div
+                    className={
+                      isExtended ? 'main-page-tags-extended loaded' : 'main-page-tags loaded'
+                    }
+                  >
+                    {tags &&
+                      tags.map((tag, i) => {
+                        return (
+                          <div key={i} className="main-page-tag memo-text" onClick={() => navToFeed(tag)}>{tag}</div>
+                        );
+                      })}
+                  </div>
                 </div>
 
 

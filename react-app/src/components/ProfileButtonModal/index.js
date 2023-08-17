@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useContext } from 'react';
-import { useHistory} from 'react-router-dom';
-import { useDispatch, useSelector  } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import { ModalContext } from '../../context/ModalContext';
 import * as sessionActions from '../../store/session';
 import * as storyActions from '../../store/story';
@@ -14,10 +14,6 @@ function ProfileButtonModal() {
   const formRef = useRef(null);
   const user = useSelector(state => state.session.user);
   // const currentFeed = useSelector((state) => state.session.currentFeed);
-
-
-
-// console.log('opening!');
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -45,7 +41,7 @@ function ProfileButtonModal() {
     closeModal();
   };
 
-  
+
 
 
   return (

@@ -70,7 +70,7 @@ function Navigation() {
   useEffect(() => {
     const colors = colorScheme.current;
 
-    if(!isHomePage){
+    if (!isHomePage) {
 
       if (scrollPosition <= 370) {
         setNavColor(colors[0]);
@@ -104,9 +104,6 @@ function Navigation() {
       setIsHomePage(true);
     }
 
-  console.log(navColor);
-
-
     // Initialize with the default color scheme
     let newColorScheme =
       colorSchemes[location.pathname] || colorSchemes.default;
@@ -114,8 +111,6 @@ function Navigation() {
     if (colorSchemes[location.pathname]) {
       newColorScheme = colorSchemes[location.pathname];
     }
-
-    // console.log(newColorScheme);
 
     colorScheme.current = newColorScheme;
     setNavColor(newColorScheme[0]);
@@ -230,9 +225,8 @@ function Navigation() {
               </div>
 
               <div
-                className={`nav-search ${
-                  isLandingPage || isWritePage ? 'black' : ''
-                }`}
+                className={`nav-search ${isLandingPage || isWritePage ? 'black' : ''
+                  }`}
               >
                 {isWritePage && (
                   <div
@@ -262,9 +256,8 @@ function Navigation() {
                   <label>
                     <input
                       ref={searchInputRef}
-                      className={`search-field ${
-                        isLandingPage || isWritePage ? 'black' : ''
-                      }`}
+                      className={`search-field ${isLandingPage || isWritePage ? 'black' : ''
+                        }`}
                       type="search"
                       value={search}
                       onChange={(e) => setSearch(e.target.value)}
@@ -280,9 +273,8 @@ function Navigation() {
               <div className={`nav-user-buttons `}>
                 <div className={`nav-bell`} onClick={demoUser}></div>
                 <div
-                  className={`nav-write ${!showWriteButton ? 'hidden' : ''} ${
-                    isWritePage ? 'black' : ''
-                  }`}
+                  className={`nav-write ${!showWriteButton ? 'hidden' : ''} ${isWritePage ? 'black' : ''
+                    }`}
                   onClick={handleWriteClick}
                 >
                   <div className={`write-icon-container`}></div>
@@ -318,9 +310,8 @@ function Navigation() {
               <div className={`nav-user-buttons `}>
                 <div className={`nav-bell`} onClick={demoUser}></div>
                 <div
-                  className={`nav-write ${!showWriteButton ? 'hidden' : ''} ${
-                    isWritePage ? 'black' : ''
-                  }`}
+                  className={`nav-write ${!showWriteButton ? 'hidden' : ''} ${isWritePage ? 'black' : ''
+                    }`}
                   onClick={handleWriteClick}
                 >
                   <div className={`write-icon-container`}>
@@ -372,7 +363,7 @@ function Navigation() {
 
 
 
-      
+
 
       {/* // For no user and on any page other than landing */}
 
@@ -430,9 +421,8 @@ function Navigation() {
               <div className={`nav-user-buttons `}>
                 <div className={`nav-bell`} onClick={demoUser}></div>
                 <div
-                  className={`nav-write ${!showWriteButton ? 'hidden' : ''} ${
-                    isWritePage ? 'black' : ''
-                  }`}
+                  className={`nav-write ${!showWriteButton ? 'hidden' : ''} ${isWritePage ? 'black' : ''
+                    }`}
                   onClick={handleWriteClick}
                 >
                   <div className={`write-icon-container`}></div>
@@ -454,9 +444,8 @@ function Navigation() {
               <div className={`nav-user-buttons `}>
                 <div className={`nav-bell`} onClick={demoUser}></div>
                 <div
-                  className={`nav-write ${!showWriteButton ? 'hidden' : ''} ${
-                    isWritePage ? 'black' : ''
-                  }`}
+                  className={`nav-write ${!showWriteButton ? 'hidden' : ''} ${isWritePage ? 'black' : ''
+                    }`}
                   onClick={handleWriteClick}
                 >
                   <div className={`write-icon-container`}>

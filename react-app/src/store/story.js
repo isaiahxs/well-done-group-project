@@ -75,7 +75,7 @@ const unfollowAuthorAction = (data) => ({
 
 
 
-const initialState = { stories: [], tags: [], loaded: false, currentStory: null};
+const initialState = { stories: [], tags: [], loaded: false, currentStory: null };
 
 export const initialLoad = () => async (dispatch) => {
 	const response = await fetch("/api/story/initialize", {
@@ -103,39 +103,36 @@ export const initialLoad = () => async (dispatch) => {
 
 
 export const createStory = (createStoryObj) => async (dispatch) => {
-	
-    const { title, slicedIntro, timeToRead, images, tags, content, authorId } = createStoryObj
-		const formData = new FormData();
 
-    if (images) {
-			for (let i = 0; i < images.length; i++) {
-					formData.append("images", images[i].file);
-					formData.append(`altTag${i}`, images[i].altTag);
-					formData.append(`position${i}`, images[i].position);
-			}
+	const { title, slicedIntro, timeToRead, images, tags, content, authorId } = createStoryObj
+	const formData = new FormData();
+
+	if (images) {
+		for (let i = 0; i < images.length; i++) {
+			formData.append("images", images[i].file);
+			formData.append(`altTag${i}`, images[i].altTag);
+			formData.append(`position${i}`, images[i].position);
 		}
-    if (tags) {
-			for (let i = 0; i < tags.length; i++) {
-					formData.append("tags", tags[i].id);
-			}
+	}
+	if (tags) {
+		for (let i = 0; i < tags.length; i++) {
+			formData.append("tags", tags[i].id);
 		}
+	}
 
-		formData.append('content', content)
-		formData.append('authorId', authorId)
-		formData.append('title', title)
-		formData.append('slicedIntro', slicedIntro)
-		formData.append('timeToRead', timeToRead)
+	formData.append('content', content)
+	formData.append('authorId', authorId)
+	formData.append('title', title)
+	formData.append('slicedIntro', slicedIntro)
+	formData.append('timeToRead', timeToRead)
 
 
-		const response = await fetch("/api/story/create", {
-			method: "POST",
-			body: formData
+	const response = await fetch("/api/story/create", {
+		method: "POST",
+		body: formData
 	});
 
-	// console.log(response);
-
 	if (response.ok) {
-		// console.log('yes ok');
 
 		const data = await response.json();
 		dispatch(createStoryAction(data));
@@ -152,21 +149,20 @@ export const createStory = (createStoryObj) => async (dispatch) => {
 
 
 export const updateStory = (updateStoryObj) => async (dispatch) => {
-	// console.log('here');
 	const { id, title, slicedIntro, timeToRead, images, tags, content, authorId, imagesToUpdate } = updateStoryObj;
 	const formData = new FormData();
 
 	if (images) {
-			for (let i = 0; i < images.length; i++) {
-					formData.append("images", images[i].file);
-					formData.append(`altTag${i}`, images[i].altTag);
-					formData.append(`position${i}`, images[i].position);
-			}
+		for (let i = 0; i < images.length; i++) {
+			formData.append("images", images[i].file);
+			formData.append(`altTag${i}`, images[i].altTag);
+			formData.append(`position${i}`, images[i].position);
+		}
 	}
 	if (tags) {
-			for (let i = 0; i < tags.length; i++) {
-					formData.append("tags", tags[i].id);
-			}
+		for (let i = 0; i < tags.length; i++) {
+			formData.append("tags", tags[i].id);
+		}
 	}
 
 	formData.append('content', content)
@@ -178,23 +174,21 @@ export const updateStory = (updateStoryObj) => async (dispatch) => {
 
 
 	const response = await fetch(`/api/story/${id}`, {
-			method: "PUT",
-			body: formData
+		method: "PUT",
+		body: formData
 	});
 
-	// console.log(response);
-
 	if (response.ok) {
-			const data = await response.json();
-			dispatch(updateStoryAction(data));
-			return data;
+		const data = await response.json();
+		dispatch(updateStoryAction(data));
+		return data;
 	} else if (response.status < 500) {
-			const data = await response.json();
-			if (data.errors) {
-					return data.errors;
-			}
+		const data = await response.json();
+		if (data.errors) {
+			return data.errors;
+		}
 	} else {
-			return ["An error occurred. Please try again."];
+		return ["An error occurred. Please try again."];
 	}
 };
 
@@ -324,7 +318,7 @@ export const clapStory = (id) => async (dispatch) => {
 	if (response.ok) {
 		const data = await response.json();
 		dispatch(setCurrentStoryAction(data));
-		
+
 		return null;
 	}
 	if (response.status < 500) {
@@ -339,7 +333,7 @@ export const clapStory = (id) => async (dispatch) => {
 }
 
 
-export const unclapStory = (id ) => async (dispatch) => {
+export const unclapStory = (id) => async (dispatch) => {
 	const response = await fetch(`/api/story/${id}/clap`, {
 		method: "DELETE",
 		headers: {
@@ -351,12 +345,12 @@ export const unclapStory = (id ) => async (dispatch) => {
 		dispatch(setCurrentStoryAction(data));
 		return null;
 	}
-		if (response.status < 500) {
-			const data = await response.json();
-			if (data.errors) {
-				return data.errors;
-			}
-	
+	if (response.status < 500) {
+		const data = await response.json();
+		if (data.errors) {
+			return data.errors;
+		}
+
 	} else {
 		const data = await response.json();
 		return data;
@@ -393,7 +387,7 @@ export const editComment = (storyId, commentId, comment) => async (dispatch) => 
 		method: "PUT",
 		headers: {
 			"Content-Type": "application/json",
-			},
+		},
 		body: JSON.stringify({ content: comment })
 	})
 	if (response.ok) {
@@ -418,7 +412,7 @@ export const deleteComment = (storyId, commentId) => async (dispatch) => {
 		},
 	})
 	if (response.ok) {
-	  const data = await response.json();
+		const data = await response.json();
 		dispatch(setCurrentStoryAction(data));
 		return commentId;
 	} else {
@@ -527,36 +521,35 @@ export const removeCommentClap = (commentId) => async (dispatch) => {
 
 //first version
 export default function reducer(state = initialState, action) {
-	const newState = {...state}
+	const newState = { ...state }
 	switch (action.type) {
 
 		case GET_STORIES:
-			return {...newState, stories: action.payload.stories };
+			return { ...newState, stories: action.payload.stories };
 
 		case GET_USER_STORIES:
-			return {...newState, userStories: action.payload.stories };
+			return { ...newState, userStories: action.payload.stories };
 
 		case SET_CURRENT_STORY:
-			return {...newState, currentStory: action.payload };
+			return { ...newState, currentStory: action.payload };
 
 		case REMOVE_CURRENT_STORY:
-			// console.log('removing');
-			return {...newState, currentStory: null};
-	
+			return { ...newState, currentStory: null };
+
 
 		case DELETE_STORY:
 			//create new object, spread current state and override properties
 			//check that newState.stories and newState.userStories exist before filtering
-			    //if they do not, use an empty array to prevent errors
+			//if they do not, use an empty array to prevent errors
 			return {
 				...newState,
 				stories: newState.stories ? newState.stories.filter((story) => story.id !== action.payload) : [],
 				userStories: newState.userStories ? newState.userStories.filter((story) => story.id !== action.payload) : [],
 				currentStory: newState.currentStory && newState.currentStory.id === action.payload ? null : newState.currentStory
-			  }
+			}
 
 		case INITIAL_LOAD:
-			return {stories: action.payload.stories, userStories: action.payload.userStories, tags: action.payload.tags, loaded: true };
+			return { stories: action.payload.stories, userStories: action.payload.userStories, tags: action.payload.tags, loaded: true };
 
 		case POST_COMMENT: {
 			const newComment = action.payload;
@@ -600,7 +593,7 @@ export default function reducer(state = initialState, action) {
 				//filter out comments we want to delete
 				return {
 					...story,
-					comments:story.comments.filter(
+					comments: story.comments.filter(
 						(comment) => comment.id !== commentIdToDelete
 					)
 				}
@@ -612,7 +605,7 @@ export default function reducer(state = initialState, action) {
 		}
 
 		case ADD_COMMENT_CLAP: {
-			const {commentId, claps} = action.payload;
+			const { commentId, claps } = action.payload;
 			const updatedStories = state.stories.map((story) => {
 				return {
 					...story,
@@ -634,7 +627,7 @@ export default function reducer(state = initialState, action) {
 		}
 
 		case REMOVE_COMMENT_CLAP: {
-			const {commentId, claps} = action.payload;
+			const { commentId, claps } = action.payload;
 			const updatedStories = state.stories.map((story) => {
 				return {
 					...story,
@@ -654,7 +647,7 @@ export default function reducer(state = initialState, action) {
 				stories: updatedStories
 			}
 		}
-		
+
 		default:
 			return state;
 	}

@@ -87,29 +87,22 @@ function SignupModal() {
     }
   }, [signupErrors]);
 
-  // console.log(typeof profileImage.url);
-
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // console.log(profileImage.url);
     let credentials = {
       email: credential,
       password,
       firstName,
       lastName,
-      profileImage:profileImage.url,
+      profileImage: profileImage.url,
       username: `${firstName + '#' + Math.floor(Math.random() * 1000)} `,
     };
     try {
       const response = await dispatch(sessionActions.signUp(credentials));
-      // console.log('here');
-      // console.log(response);
 
       if (response.status === 401) {
         if (response.errors && response.errors[0].slice(0, 5) === 'email') {
-          // console.log('yes');
           setCredential('The provided email is invalid');
           setEmailClass('email-field-invalid');
 
@@ -229,9 +222,8 @@ function SignupModal() {
               {profileImages.map((image, index) => (
                 <div
                   key={index}
-                  className={`signup-profile-image-button ${glowing ? 'glowing' : ''} ${
-                    profileImage.url === image ? 'icon-selected' : ''
-                  }`}
+                  className={`signup-profile-image-button ${glowing ? 'glowing' : ''} ${profileImage.url === image ? 'icon-selected' : ''
+                    }`}
                   onClick={() => {
                     setProfileImage({ url: image, alt: `profileImage${index}` });
                     setGlowing(false);
@@ -248,7 +240,7 @@ function SignupModal() {
           </div>
         )}
 
-       
+
         <div onMouseEnter={handleSubmitEnter}>
           <button
             type="submit"
