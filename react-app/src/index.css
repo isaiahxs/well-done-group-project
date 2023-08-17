@@ -1,12 +1,12 @@
 /* TODO Add site wide styles */
 
-.flexcenter{
+.flexcenter {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.flexbetween{
+.flexbetween {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -19,7 +19,8 @@
 }
 
 
-html, body {
+html,
+body {
   height: 100%;
   width: 100%;
   margin: 0;
@@ -41,11 +42,9 @@ body {
   font-family: sans-serif;
 }
 
-.flex{
+.flex {
   display: flex;
 }
-
-
 
 .modal-container {
   display: flex;
@@ -80,6 +79,7 @@ body {
   0% {
     background-position: -200px 0;
   }
+
   100% {
     background-position: calc(200px + 100%) 0;
   }
@@ -95,4 +95,3 @@ body {
   animation: shimmer 8s infinite linear;
   z-index: 2;
 }
-

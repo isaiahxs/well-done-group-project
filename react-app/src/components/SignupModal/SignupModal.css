@@ -47,7 +47,7 @@
   width: fit-content;
   /* width: 400px; */
   margin: 0 auto;
-  margin-top: 30px;
+  margin-top: 10px;
 }
 
 
@@ -138,7 +138,7 @@
 }
 
 .create-one {
-  color: #33a245;
+  color: #1A8917;
   font-weight: 800;
   font-size: 16px;
   position: relative;
@@ -147,14 +147,12 @@
 }
 
 .create-one:hover {
-  color: #2b8a3b;
+  color: rgb(36, 117, 49);
   font-weight: 800;
   font-size: 16px;
   position: relative;
   left: 2px
 }
-
-
 
 .signup-demo-container {
   color: #757575;
@@ -169,7 +167,7 @@
   padding: 0 10px;
 }
 
-.demo-user-singin {
+.demo-user-signin {
   color: #757575;
   text-decoration: underline;
   cursor: pointer;
@@ -189,7 +187,7 @@
 
 
 
-.demo-user-singin {
+.demo-user-signin {
   left: 14px;
   display: block;
   margin-top: 30px;
