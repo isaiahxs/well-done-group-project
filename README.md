@@ -1,6 +1,167 @@
-# Flask React Project
+# Well-Done
 
-This is the starter for the Flask React project.
+Well-Done is a collaborative and dynamic story-sharing social media application inspired by Medium. It offers users a platform to create, view, update, and delete stories, along with engaging features such as comments, likes, and follows. With personalized story feeds based on user follows and selected tags, Well-Done provides a tailored storytelling experience.
+
+## Table of Contents
+- [Technologies Used](#technologies-used)
+- [Features](#features)
+- [Usage](#usage)
+- [Challenges and Solutions](#challenges-and-solutions)
+- [Future Enhancements](#future-enhancements)
+- [Contributors](#contributors)
+- [License](#license)
+
+## Technologies Used
+- JavaScript
+- Python
+- Flask
+- SQLAlchemy
+- AWS S3
+- PostgreSQL
+- Redux
+- React
+
+## Features
+- CRUD (create, read, update, delete) stories
+- CRUD comments on stories
+- CRUD likes on stories and comments
+- Follow and unfollow other users
+- Personalized story feeds based on follows and selected tags
+- User-friendly image upload using AWS S3
+- Secure user authentication and authorization
+
+## Usage
+1. Clone the repository: `git clone https://github.com/yourusername/well-done.git`
+2. Install dependencies for the frontend and backend: `npm install` in both `frontend` and `backend` directories.
+3. Set up your environment variables for AWS S3 credentials and database connection.
+4. Start the backend server: `npm start` in the `backend` directory.
+5. Start the frontend development server: `npm start` in the `frontend` directory.
+6. Access the application in your web browser at `http://localhost:3000`.
+
+## Challenges and Solutions
+### Asynchronous Data Handling
+Handling asynchronous data fetching and updating the application state was a challenge. We used Redux combined with Redux Thunk to manage the global state and asynchronous actions. This allowed us to efficiently update the state after data was retrieved from the API.
+
+### User Feed Personalization
+Creating personalized story feeds based on user follows and selected tags required thoughtful design. We implemented a system to track user follows and preferences, allowing us to dynamically generate user-specific feeds.
+
+### Secure Image Upload with AWS S3
+Integrating AWS S3 for secure and efficient image upload added complexity. We ensured secure image handling by properly configuring AWS credentials and utilizing pre-signed URLs for image uploads.
+
+### User Authentication and Authorization
+Implementing secure user authentication and authorization was a critical aspect. We used Flask-Login for backend session management and Redux for frontend user sessions, adding layers of security like hashed passwords and input validation.
+
+### Data Persistence
+Maintaining data persistence across user sessions was crucial. We employed techniques like state management to store user settings, improving user experience by minimizing unnecessary data fetches.
+
+## Code Snippets
+
+### Story Page Component
+
+#### Clap Section with Conditional Rendering
+
+This section allows users to interact with the story's claps. It renders different buttons based on whether the current user is the author of the story or not. Users are also allowed to clap more than once on a story.
+
+```
+<div className="clap-container">
+  {/* Unclap button */}
+  {user?.id !== story?.authorInfo?.id && (
+    <button className="unclap-button" onClick={handleUnclapClick}>
+      -
+    </button>
+  )}
+  <div className="clap-content">
+    <img src={claps} alt="claps" className="claps-icon" />
+    <div className="claps-count">{story.claps}</div>
+  </div>
+  {/* Clap button */}
+  {user?.id !== story?.authorInfo?.id && (
+    <button className="clap-button" onClick={handleClapClick}>
+      +
+    </button>
+  )}
+</div>
+```
+
+#### Author follow and unfollow
+
+This section displays the author's information and provides functionality to follow or unfollow them. The feed of the current user will be tailored based on who they follow. We can also see approximately how much time it takes to read an article based on what the author's estimation.
+
+```
+<div className="author-section flex">
+  <img
+    src={story?.authorInfo?.profileImage}
+    alt="author profile icon"
+    className="author-image"
+    onClick={() => navToFeed(`${story?.authorInfo?.firstName} ${story?.authorInfo?.lastName}`, 'authors')}
+  />
+  <div className="author-information memo-text">
+    <div className='author-name-and-follow'>
+      <div onClick={() => navToFeed(`${story?.authorInfo?.firstName} ${story?.authorInfo?.lastName}`, 'authors')}>
+        {story?.authorInfo?.firstName} {story?.authorInfo?.lastName}
+      </div>
+
+      {user && user?.id !== story?.authorInfo?.id && (
+        <button
+          className="follow-unfollow-button"
+          onClick={handleFollow}
+        >
+          {following ? ' · Unfollow' : ' · Follow'}
+        </button>
+      )}
+    </div>
+    <div>
+      <div className="story-author">
+        <p className="time">
+          {story.timeToRead} min read · {date}
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+```
+
+#### Story Content Rendering (Text and Images):
+
+This section renders the story's content, both text and images, using the sorted content array. We're using parsing so that the boldened and italicized characters render properly.
+
+```
+<div className="story-content">
+  {sortedContent &&
+    sortedContent.map((item, index) => (
+      <div key={index}>
+        {item.text && (
+          <div className={`memo-text`}>{parse(item.text)}</div>
+        )}
+        {item.image && (
+          <img
+            src={item.image}
+            alt={item?.altTag}
+            className={`story-image`}
+          />
+        )}
+      </div>
+    ))}
+</div>
+```
+
+## Future Enhancements
+- Enhanced user profiles with more personalized details
+- Interactive notifications for likes, comments, and follows
+- Option for public and private stories
+- Integration with external APIs for rich media content
+
+## Contributors
+- [Donovan Crader](https://github.com/dcraderdev)
+- [Isaiah Sinnathamby](https://github.com/isaiahxs)
+
+## License
+This project is licensed under the [MIT License](LICENSE).
+
+---
+**Disclaimer:** This project is inspired by Medium and is not affiliated with Medium or any related entities.
+
+## Additional Installation & Deployment Methods
 
 ## Getting started
 1. Clone this repository (only this branch)
